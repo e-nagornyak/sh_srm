@@ -1,17 +1,19 @@
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { DefaultHeader } from "@/components/layouts/default-header"
-import { ThemeProvider } from "@/components/shared/providers"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 import { TailwindIndicator } from "@/components/shared/tailwind-indicator"
 
 import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
+import { SessionProvider } from "next-auth/react"
 import { NextIntlClientProvider } from "next-intl"
 
 import { fontMono, fontSans } from "@/lib/fonts"
 import { Toaster } from "@/components/ui/toaster"
+import { AuthProvider } from "@/components/providers/auth-provider"
 
 export const metadata: Metadata = {
   // metadataBase: new URL(siteConfig.url),
@@ -68,20 +70,22 @@ export default async function RootLayout({
           fontMono.variable
         )}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="relative flex min-h-screen flex-col">
-              <DefaultHeader />
-              <main className="flex-1">{children}</main>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <AuthProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="relative flex min-h-screen flex-col">
+                <DefaultHeader />
+                <main className="flex-1">{children}</main>
+              </div>
+              <TailwindIndicator />
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
