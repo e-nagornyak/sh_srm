@@ -1,0 +1,7 @@
+{
+  "name": "Test",
+  "short_name": "Test",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
