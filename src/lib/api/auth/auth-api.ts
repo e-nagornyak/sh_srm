@@ -3,32 +3,32 @@ import {
   type AuthTokenResponse,
   type RefreshTokenResponse,
 } from "@/lib/api/auth/auth-types"
-import { request } from "@/lib/api/request"
+import { requestClient } from "@/lib/api/request-client"
 import type { User } from "@/lib/api/user/auth-types"
 
 const BASE_URL = "/api/shuser/auth"
 
 export const authAPI = {
   async login(credentials: AuthTokenRequest): Promise<AuthTokenResponse> {
-    return request<AuthTokenResponse>({
+    return requestClient<AuthTokenResponse>({
       method: "POST",
-      endpoint: `${BASE_URL}/token`,
+      endpoint: `${BASE_URL}/token/`,
       body: credentials,
     })
   },
 
   async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
-    return request<RefreshTokenResponse>({
+    return requestClient<RefreshTokenResponse>({
       method: "POST",
-      endpoint: `${BASE_URL}/token/refresh`,
+      endpoint: `${BASE_URL}/token/refresh/`,
       body: { refresh: refreshToken },
     })
   },
 
   async getTokenForUser(data: User): Promise<string> {
-    return request<string>({
+    return requestClient<string>({
       method: "POST",
-      endpoint: "/api/shuser/users/get_token",
+      endpoint: "/api/shuser/users/get_token/",
       body: data,
     })
   },

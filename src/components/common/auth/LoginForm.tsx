@@ -1,6 +1,10 @@
 import React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
 
+import { routePaths } from "@/config/routes"
+import { loginFormSchema, type loginFormData } from "@/lib/validations/auth"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -11,36 +15,37 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { PasswordInput } from "@/components/ui/password-input"
 
 interface LoginFormProps {
-  onSubmit: SubmitHandler<any>
+  onSubmit: SubmitHandler<loginFormData>
 }
 
 export const LoginForm = ({ onSubmit }: LoginFormProps) => {
-  const form = useForm<any>({
-    // resolver: zodResolver(dataFormSchema),
+  const form = useForm<loginFormData>({
+    resolver: zodResolver(loginFormSchema),
   })
 
   const {
-    getValues,
     formState: { isDirty },
   } = form
 
-  const onSubmitHandler = (data: any) => {
+  const onSubmitHandler = (data: loginFormData) => {
     onSubmit(data)
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmitHandler)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmitHandler)} className="space-y-6">
         <FormField
+          defaultValue=""
           control={form.control}
-          name="product_name"
+          name="username"
           render={({ field: { value, ...field } }) => (
             <FormItem>
-              <FormLabel>Product Name</FormLabel>
+              <FormLabel>Login</FormLabel>
               <FormControl>
-                <Input placeholder="Product Name" {...field} />
+                <Input placeholder="Login" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -48,21 +53,27 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
         />
 
         <FormField
+          defaultValue=""
           control={form.control}
-          name="customer_name"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Customer Name</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Customer Name" />
+                <PasswordInput {...field} placeholder="Password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <Button disabled={!isDirty} type="submit">
-          Apply Filter
+        <Link
+          className="mx-auto block w-fit text-blue-600 hover:underline"
+          href={routePaths.auth.register}
+        >
+          Not registered yet?
+        </Link>
+        <Button className="w-full" size="lg" disabled={!isDirty} type="submit">
+          Sign Up
         </Button>
       </form>
     </Form>

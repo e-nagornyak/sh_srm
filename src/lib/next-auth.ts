@@ -1,7 +1,8 @@
-import NextAuth, { type NextAuthOptions } from "next-auth"
+import NextAuth, { type NextAuthOptions, type User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import { routePaths } from "@/config/routes"
+import { authAPI } from "@/lib/api/auth/auth-api"
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
@@ -12,24 +13,9 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       type: "credentials",
-      id: "tokenProvider",
-      name: "Credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "your_email@your_email_provider.com",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Your very strong password",
-        },
-        recaptcha: {
-          label: "Google Recaptcha",
-          type: "Token",
-          placeholder: "Token",
-        },
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         // You need to provide your own logic here that takes the credentials
@@ -38,16 +24,20 @@ export const authOptions: NextAuthOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch("/your/endpoint", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
+        console.log("credentials", credentials)
+
+        const res = await authAPI.login({
+          username: credentials?.username as string,
+          password: credentials?.password as string,
         })
-        const user = await res.json()
 
         // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user
+        if (res) {
+          return {
+            id: "id",
+            ...credentials,
+            ...res,
+          } as User
         }
         // Return null if user data could not be retrieved
         return null
@@ -56,22 +46,32 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token, user }) {
+      console.log("session", session)
+      console.log("token", token)
+      console.log("user", user)
       // Send properties to the client, like an access_token from a provider.
       // session.accessToken = token.accessToken
       return session
     },
     async jwt({ token, account }) {
+      console.log("token", token)
+      console.log("account", account)
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.accessToken = account.access_token
       }
+
       return token
     },
     async signIn({ user, account }) {
-      return true
+      console.log("user", user)
+      console.log("account", account)
+      return !!user
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl
+      console.log("url", url)
+      console.log("baseUrl", baseUrl)
+      return url
     },
   },
 }

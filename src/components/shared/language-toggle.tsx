@@ -42,7 +42,7 @@ export function LanguageToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {localesMap?.map(({ key, name, flag }) => (
-          <DropdownMenuItem onClick={() => onSelectChange(key)}>
+          <DropdownMenuItem key={key} onClick={() => onSelectChange(key)}>
             {flag && <DashIcon className="mr-2 size-4" />}
             <span>{name}</span>
           </DropdownMenuItem>

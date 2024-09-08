@@ -1,14 +1,9 @@
 import { cookies } from "next/headers"
 import { env } from "@/env"
 
-type RequestOptions = {
-  method: string
-  endpoint: string
-  body?: object
-  options?: RequestInit
-}
+import { type RequestOptions } from "./types"
 
-export async function request<T>({
+export async function requestServer<T>({
   method,
   endpoint,
   body,

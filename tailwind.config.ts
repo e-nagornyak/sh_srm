@@ -73,5 +73,17 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ matchUtilities, theme }: any) {
+      matchUtilities(
+        {
+          "flexible-text": (value: string) => ({
+            fontSize: `clamp(${value}/1.4,5vw,${value})`,
+          }),
+        },
+        { values: theme("width", {}) }
+      )
+    },
+  ],
 } satisfies Config

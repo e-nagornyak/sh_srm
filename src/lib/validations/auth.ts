@@ -2,16 +2,29 @@
 
 import * as z from "zod"
 
-export type DataFormData = z.infer<typeof dataFormSchema>
+const email = z.string().trim().email()
+const recaptcha = z.string().min(1)
 
-export const dataFormSchema = z.object({
-  start_date: z.date().nullable().optional(),
-  end_date: z.date().nullable().optional(),
-  product_name: z.string().optional(),
-  customer_name: z.string().optional(),
-  email: z.string().email().optional().or(z.literal("")),
-  phone: z.string().optional(),
-  user_login: z.string().optional(),
-  min_quantity: z.number().int().min(0).optional(),
-  min_order_count: z.number().int().min(0).optional(),
+const password = z.string().trim().min(3).max(32)
+const username = z.string().trim().min(3)
+
+type loginFormData = z.infer<typeof loginFormSchema>
+
+const loginFormSchema = z.object({
+  username,
+  password,
 })
+
+type registerFormData = z.infer<typeof registerFormSchema>
+
+const registerFormSchema = z.object({
+  username,
+  password,
+})
+
+export {
+  type registerFormData,
+  type loginFormData,
+  loginFormSchema,
+  registerFormSchema,
+}

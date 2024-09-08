@@ -8,10 +8,12 @@ import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
+import { getServerSession } from "next-auth"
 import { SessionProvider } from "next-auth/react"
 import { NextIntlClientProvider } from "next-intl"
 
 import { fontMono, fontSans } from "@/lib/fonts"
+import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/components/providers/auth-provider"
 
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
 
 async function getMessages(locale: string) {
   try {
-    return (await import(`../../locales/${locale}.json`)).default
+    return (await import(`../../locales/${locale}.json`))?.default
   } catch (error) {
     notFound()
   }
@@ -59,6 +61,7 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const locale = params?.locale || "en"
   const messages = await getMessages(locale)
+  const session = await getServerSession(authOptions)
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -70,7 +73,7 @@ export default async function RootLayout({
           fontMono.variable
         )}
       >
-        <AuthProvider>
+        <AuthProvider session={session}>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ThemeProvider
               attribute="class"
