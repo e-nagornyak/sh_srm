@@ -5,7 +5,11 @@ import * as React from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Shell } from "@/components/shared/shell"
 
-export default async function IndexPage() {
+interface PageProps {
+  params: { locale: string }
+}
+
+export default async function HomePage({ params: { locale } }: PageProps) {
   return (
     <Shell className="gap-2">
       <React.Suspense

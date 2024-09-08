@@ -3,7 +3,7 @@ import { env } from "@/env"
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Test-table",
+  name: "Site Name",
   description: "descriptiong",
   url:
     env.NODE_ENV === "development"
