@@ -1,5 +1,5 @@
-interface PageProps {}
+import { LoginController } from "@/components/controllers/auth/login-controller"
 
-export function Page(props: PageProps) {
-  return <div className={""}>Login</div>
+export default function Page() {
+  return <LoginController />
 }

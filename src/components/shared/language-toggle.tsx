@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   listOfLocales,
   localesMap,
@@ -21,12 +21,13 @@ import {
 export function LanguageToggle() {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
+  const path = usePathname()
   const locale = useLocale() as ListOfLocalesKeys
   const currentLocale = listOfLocales?.[locale]
 
   const onSelectChange = (locale: string) => {
     startTransition(() => {
-      router.replace(`/${locale}`)
+      router.replace(`/${locale}${path}`, { scroll: false })
     })
   }
 

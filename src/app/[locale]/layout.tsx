@@ -80,7 +80,7 @@ export default async function RootLayout({
             >
               <div className="relative flex min-h-screen flex-col">
                 <DefaultHeader />
-                <main className="flex-1">{children}</main>
+                <main className="flex flex-1 flex-col">{children}</main>
               </div>
               <TailwindIndicator />
             </ThemeProvider>
