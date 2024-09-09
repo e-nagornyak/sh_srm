@@ -23,7 +23,6 @@ export async function requestClient<T>({
     ...options,
     method,
     headers: {
-      Timezone: Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone,
       ...headers,
     },
     body: body ? JSON.stringify(body) : undefined,

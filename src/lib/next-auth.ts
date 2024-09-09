@@ -1,3 +1,4 @@
+import { cookies } from "next/headers"
 import NextAuth, { type NextAuthOptions, type User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -30,7 +31,7 @@ export const authOptions: NextAuthOptions = {
           username: credentials?.username as string,
           password: credentials?.password as string,
         })
-
+        console.log("auth response", res)
         // If no error and we have user data, return it
         if (res) {
           return {
@@ -46,31 +47,38 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log("session", session)
-      console.log("token", token)
-      console.log("user", user)
+      console.log("session session", session)
+      console.log("session token", token)
+      console.log("session user", user)
       // Send properties to the client, like an access_token from a provider.
       // session.accessToken = token.accessToken
       return session
     },
-    async jwt({ token, account }) {
-      console.log("token", token)
-      console.log("account", account)
+    async jwt({ token, account, user, session }) {
+      console.log("jwt token", token)
+      console.log("jwt account", account)
+      console.log("jwt user", user)
+      console.log("jwt session", session)
       // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token
+      if (user) {
+        // @ts-ignore
+        console.log("blauser")
+        token.accessToken = user?.access
       }
 
       return token
     },
     async signIn({ user, account }) {
-      console.log("user", user)
-      console.log("account", account)
+      //@ts-ignore
+      cookies().set("accessToken", user?.access)
+
+      console.log("signIn user", user)
+      console.log("signIn account", account)
       return !!user
     },
     async redirect({ url, baseUrl }) {
-      console.log("url", url)
-      console.log("baseUrl", baseUrl)
+      console.log("redirect url", url)
+      console.log("redirect baseUrl", baseUrl)
       return url
     },
   },
