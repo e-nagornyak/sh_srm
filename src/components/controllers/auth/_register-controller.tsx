@@ -4,9 +4,9 @@ import { userAPI } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
 import { type registerFormData } from "@/lib/validations/auth"
 import { Title } from "@/components/ui/Title"
-import { RegisterForm } from "@/components/common/auth/RegisterForm"
+import { _RegisterForm } from "@/components/common/auth/_RegisterForm"
 
-export function RegisterController() {
+export function _registerController() {
   const onSubmit = async (data: registerFormData) => {
     try {
       const response = userAPI.createUser(data)
@@ -21,7 +21,7 @@ export function RegisterController() {
   return (
     <div className="space-y-8">
       <Title size="md">Sign up to the seller's panel</Title>
-      <RegisterForm onSubmit={onSubmit} />
+      <_RegisterForm onSubmit={onSubmit} />
     </div>
   )
 }

@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { SectionIcon } from "@radix-ui/react-icons"
 
+import { routePaths } from "@/config/routes"
 import { siteConfig } from "@/config/site"
 import { AuthButton } from "@/components/common/nav/AuthButton"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { ModeToggle } from "@/components/shared/mode-toggle"
+
+const list = [{ title: "Users", href: routePaths.user.list }]
 
 export function DefaultHeader() {
   return (
@@ -16,10 +19,17 @@ export function DefaultHeader() {
             {siteConfig.name}
           </span>
         </Link>
-        <nav className="flex flex-1 items-center gap-2 md:justify-end">
-          <LanguageToggle />
-          <AuthButton />
-          <ModeToggle />
+        <nav className="flex flex-1 items-center gap-10 md:justify-end">
+          {list?.map(({ title, href }) => (
+            <Link key={title} className="hover:underline" href={href}>
+              {title}
+            </Link>
+          ))}
+          <div className="flex items-center gap-2">
+            <LanguageToggle />
+            <AuthButton />
+            <ModeToggle />
+          </div>
         </nav>
       </div>
     </header>

@@ -24,7 +24,7 @@ interface RegisterFormProps {
   onSubmit: SubmitHandler<registerFormData>
 }
 
-export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
+export const _RegisterForm = ({ onSubmit }: RegisterFormProps) => {
   const form = useForm<registerFormData>({
     resolver: zodResolver(registerFormSchema),
   })

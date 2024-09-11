@@ -9,7 +9,6 @@ import "@/styles/globals.css"
 import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
 import { getServerSession } from "next-auth"
-import { SessionProvider } from "next-auth/react"
 import { NextIntlClientProvider } from "next-intl"
 
 import { fontMono, fontSans } from "@/lib/fonts"

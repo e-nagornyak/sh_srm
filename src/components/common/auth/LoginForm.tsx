@@ -1,9 +1,7 @@
 import React from "react"
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
 
-import { routePaths } from "@/config/routes"
 import { loginFormSchema, type loginFormData } from "@/lib/validations/auth"
 import { Button } from "@/components/ui/button"
 import {
@@ -66,12 +64,6 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        <Link
-          className="mx-auto block w-fit text-blue-600 hover:underline"
-          href={routePaths.auth.register}
-        >
-          Not registered yet?
-        </Link>
         <Button className="w-full" size="lg" disabled={!isDirty} type="submit">
           Sign Up
         </Button>
