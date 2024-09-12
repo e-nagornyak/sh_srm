@@ -19,12 +19,12 @@ export const Title = ({ children, size = "sm", className }: TitleProps) => {
   } as const
 
   const mapClassNameBySize = {
-    xs: "flexible-text-[16px]",
-    sm: "flexible-text-[22px]",
-    md: "flexible-text-[26px]",
-    lg: "flexible-text-[32px]",
-    xl: "flexible-text-[40px]",
-    "2xl": "flexible-text-[48px]",
+    xs: "flexible-text-[16px] text-black dark:text-white",
+    sm: "flexible-text-[22px] text-black dark:text-white",
+    md: "flexible-text-[26px] text-black dark:text-white",
+    lg: "flexible-text-[32px] text-black dark:text-white",
+    xl: "flexible-text-[40px] text-black dark:text-white",
+    "2xl": "flexible-text-[48px] text-black dark:text-white",
   } as const
 
   return React.createElement(

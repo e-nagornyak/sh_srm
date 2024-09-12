@@ -81,11 +81,11 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <div className="relative flex min-h-screen flex-col">
-                <DefaultHeader />
-                <main className="flex flex-1 flex-col">{children}</main>
-                <DefaultFooter />
-              </div>
+              <DefaultHeader />
+              <main className="flex min-h-screen flex-1 flex-col">
+                {children}
+              </main>
+              <DefaultFooter />
               <TailwindIndicator />
             </ThemeProvider>
           </NextIntlClientProvider>
