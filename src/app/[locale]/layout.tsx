@@ -14,6 +14,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
+import { DefaultFooter } from "@/components/layouts/default-footer"
 import { AuthProvider } from "@/components/providers/auth-provider"
 
 export const metadata: Metadata = {
@@ -83,6 +84,7 @@ export default async function RootLayout({
               <div className="relative flex min-h-screen flex-col">
                 <DefaultHeader />
                 <main className="flex flex-1 flex-col">{children}</main>
+                <DefaultFooter />
               </div>
               <TailwindIndicator />
             </ThemeProvider>
