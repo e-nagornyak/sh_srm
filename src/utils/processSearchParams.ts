@@ -1,8 +1,8 @@
 import { format } from "date-fns"
 
-import { type OrderSchema } from "@/components/controllers/users/validations"
+import { type AllUsersSearchParamsSchema } from "@/components/controllers/users/all-users-table/helpers/all-users-table-search-params"
 
-export const processSearchParams = (input: OrderSchema) => {
+export const processSearchParams = (input: AllUsersSearchParamsSchema) => {
   const { start_date, end_date, ...rest } = input
 
   return {

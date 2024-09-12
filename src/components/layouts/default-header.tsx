@@ -1,8 +1,8 @@
-import Link from "next/link"
 import { SectionIcon } from "@radix-ui/react-icons"
 
 import { routePaths } from "@/config/routes"
 import { siteConfig } from "@/config/site"
+import { Link } from "@/components/ui/link"
 import { AuthButton } from "@/components/common/nav/AuthButton"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { ModeToggle } from "@/components/shared/mode-toggle"
@@ -19,7 +19,7 @@ export function DefaultHeader() {
             {siteConfig.name}
           </span>
         </Link>
-        <nav className="flex flex-1 items-center gap-10 md:justify-end">
+        <nav className="flex flex-1 items-center justify-end gap-10">
           {list?.map(({ title, href }) => (
             <Link key={title} className="hover:underline" href={href}>
               {title}

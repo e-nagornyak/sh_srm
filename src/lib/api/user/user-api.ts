@@ -1,75 +1,69 @@
-import { requestClient } from "../request-client"
+import { createApi, type ApiSide } from "@/lib/api/request"
 import {
   type UpdateOrCreateUserRequest,
   type User,
   type UserLogResponse,
-} from "./auth-types"
+} from "@/lib/api/user/auth-types"
 
-const BASE_URL = "/api/shuser/users"
+import { createEndpoint } from "../helpers"
 
-export const userAPI = {
-  async getUsers(): Promise<User[]> {
-    return requestClient<User[]>({
-      method: "GET",
-      endpoint: `${BASE_URL}/`,
-    })
+const apiPaths = {
+  users: {
+    base: "/api/shuser/users/",
+    list: "/api/shuser/users/list_users/",
+    logAction: "/api/shuser/users/log_action/",
+    byId: (id: number) => ({
+      get: `/api/shuser/users/${id}/`,
+      update: `/api/shuser/users/${id}/`,
+      delete: `/api/shuser/users/${id}/`,
+      changeRole: `/api/shuser/users/${id}/change_role/`,
+      getLogs: `/api/shuser/users/${id}/logs/`,
+    }),
   },
+}
 
-  async getUserById(id: number): Promise<User> {
-    return requestClient<User>({
-      method: "GET",
-      endpoint: `${BASE_URL}/${id}/`,
-    })
-  },
+export const getUserApi = (side: ApiSide) => {
+  const api = createApi(side)
 
-  async createUser(data: UpdateOrCreateUserRequest): Promise<User> {
-    return requestClient<User>({
-      method: "POST",
-      endpoint: `${BASE_URL}/`,
-      body: data,
-    })
-  },
+  return {
+    // List operations
+    getUsers: api.createMethod<User[]>(() =>
+      createEndpoint(apiPaths.users.base, "GET")
+    ),
 
-  async updateUser(id: number, data: UpdateOrCreateUserRequest): Promise<User> {
-    return requestClient<User>({
-      method: "PUT",
-      endpoint: `${BASE_URL}/${id}/`,
-      body: data,
-    })
-  },
+    listUsers: api.createMethod<User[]>(() =>
+      createEndpoint(apiPaths.users.list, "GET")
+    ),
 
-  async deleteUser(id: number): Promise<void> {
-    return requestClient<void>({
-      method: "DELETE",
-      endpoint: `${BASE_URL}/${id}/`,
-    })
-  },
+    // Single user operations
+    getUserById: api.createMethod<User, [number]>((id) =>
+      createEndpoint(apiPaths.users.byId(id).get, "GET")
+    ),
 
-  async changeUserRole(id: number): Promise<User> {
-    return requestClient<User>({
-      method: "PATCH",
-      endpoint: `${BASE_URL}/${id}/change_role/`,
-    })
-  },
+    createUser: api.createMethod<User, [UpdateOrCreateUserRequest]>((data) =>
+      createEndpoint(apiPaths.users.base, "POST", data)
+    ),
 
-  async getUserLogs(id: number): Promise<UserLogResponse> {
-    return requestClient<UserLogResponse>({
-      method: "GET",
-      endpoint: `${BASE_URL}/${id}/logs/`,
-    })
-  },
+    updateUser: api.createMethod<User, [number, UpdateOrCreateUserRequest]>(
+      (id, data) => createEndpoint(apiPaths.users.byId(id).update, "PUT", data)
+    ),
 
-  async logUserAction(): Promise<string> {
-    return requestClient<string>({
-      method: "POST",
-      endpoint: `${BASE_URL}/log_action/`,
-    })
-  },
+    deleteUser: api.createMethod<void, [number]>((id) =>
+      createEndpoint(apiPaths.users.byId(id).delete, "DELETE")
+    ),
 
-  async listUsers() {
-    return requestClient({
-      method: "GET",
-      endpoint: `${BASE_URL}/list_users/`,
-    })
-  },
+    // User role and logs
+    changeUserRole: api.createMethod<User, [number]>((id) =>
+      createEndpoint(apiPaths.users.byId(id).changeRole, "PATCH")
+    ),
+
+    getUserLogs: api.createMethod<UserLogResponse, [number]>((id) =>
+      createEndpoint(apiPaths.users.byId(id).getLogs, "GET")
+    ),
+
+    // Action logging
+    logUserAction: api.createMethod<string>(() =>
+      createEndpoint(apiPaths.users.logAction, "POST")
+    ),
+  }
 }

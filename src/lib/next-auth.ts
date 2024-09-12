@@ -3,14 +3,25 @@ import NextAuth, { type NextAuthOptions, type User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import { routePaths } from "@/config/routes"
-import { authAPI } from "@/lib/api/auth/auth-api"
+import { getAuthApi } from "@/lib/api/auth/auth-api"
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: {
     signIn: routePaths.auth.login,
+    error: routePaths.auth.login,
   },
   // Configure one or more authentication providers
+  // jwt: {
+  //   async encode({ token }): Promise<string> {
+  //     // return a custom encoded JWT string
+  //     return ""
+  //   },
+  //   async decode({ token }): Promise<any> {
+  //     // return a `JWT` object, or `null` if decoding failed
+  //     return token
+  //   },
+  // },
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -18,25 +29,24 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
         // that is false/null if the credentials are invalid.
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        console.log("credentials", credentials)
 
-        const res = await authAPI.login({
+        const res = await getAuthApi("server").login({
           username: credentials?.username as string,
           password: credentials?.password as string,
         })
-        console.log("auth response", res)
         // If no error and we have user data, return it
         if (res) {
           return {
-            id: "id",
-            ...credentials,
+            id: 1,
+            username: credentials?.username,
+            role: "Admin",
             ...res,
           } as User
         }
@@ -46,39 +56,22 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      console.log("session session", session)
-      console.log("session token", token)
-      console.log("session user", user)
-      // Send properties to the client, like an access_token from a provider.
-      // session.accessToken = token.accessToken
+    async session({ session }) {
       return session
     },
-    async jwt({ token, account, user, session }) {
-      console.log("jwt token", token)
-      console.log("jwt account", account)
-      console.log("jwt user", user)
-      console.log("jwt session", session)
+    async jwt({ token, user }) {
       // Persist the OAuth access_token to the token right after signin
       if (user) {
-        // @ts-ignore
-        console.log("blauser")
         token.accessToken = user?.access
       }
 
       return token
     },
-    async signIn({ user, account }) {
-      //@ts-ignore
+    async signIn({ user }) {
       cookies().set("accessToken", user?.access)
-
-      console.log("signIn user", user)
-      console.log("signIn account", account)
       return !!user
     },
-    async redirect({ url, baseUrl }) {
-      console.log("redirect url", url)
-      console.log("redirect baseUrl", baseUrl)
+    async redirect({ url }) {
       return url
     },
   },

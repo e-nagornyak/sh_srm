@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react"
 
 import { showErrorToast } from "@/lib/handle-error"
 import type { loginFormData } from "@/lib/validations/auth"
-import { Title } from "@/components/ui/Title"
+import { Title } from "@/components/ui/title"
 import { LoginForm } from "@/components/common/auth/LoginForm"
 
 export function LoginController() {

@@ -9,7 +9,6 @@ import {
 import type { Table } from "@tanstack/react-table"
 
 import { type DataTableFilterOption } from "@/types/table"
-import { dataTableConfig, type DataTableConfig } from "@/config/data-table"
 import { useDebounce } from "@/hooks/use-debounce"
 import { Button } from "@/components/ui/button"
 import {
@@ -34,6 +33,10 @@ import {
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { DataTableFacetedFilter } from "@/components/common/data-table/data-table-faceted-filter"
+import {
+  dataTableConfig,
+  type DataTableConfig,
+} from "@/components/controllers/users/all-users-table/helpers/all-users-table-config"
 
 interface DataTableMultiFilterProps<TData> {
   table: Table<TData>

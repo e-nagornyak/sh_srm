@@ -5,6 +5,9 @@ export const routePaths = {
   },
   user: {
     list: "/users",
+    add: "/user/add",
+    edit: (id: number) => `/user/${id}/edit`,
+    delete: (id: number) => `/user/${id}/delete`,
   },
   home: "/",
 }

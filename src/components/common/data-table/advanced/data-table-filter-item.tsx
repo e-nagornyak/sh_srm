@@ -4,7 +4,6 @@ import { TrashIcon } from "@radix-ui/react-icons"
 import type { Table } from "@tanstack/react-table"
 
 import { type DataTableFilterOption } from "@/types/table"
-import { dataTableConfig } from "@/config/data-table"
 import { cn } from "@/lib/utils"
 import { useDebounce } from "@/hooks/use-debounce"
 import { Button } from "@/components/ui/button"
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { dataTableConfig } from "@/components/controllers/users/all-users-table/helpers/all-users-table-config"
 
 import { DataTableAdvancedFacetedFilter } from "./data-table-advanced-faceted-filter"
 

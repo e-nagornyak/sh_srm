@@ -1,6 +1,7 @@
 "use client"
 
 import { ExitIcon, PersonIcon } from "@radix-ui/react-icons"
+import Cookies from "js-cookie"
 import { signOut, useSession } from "next-auth/react"
 
 import { routePaths } from "@/config/routes"
@@ -17,9 +18,14 @@ export function AuthButton(props: AuthButtonProps) {
     lazyPush(routePaths.auth.login)
   }
 
+  const onSignOutHandler = async () => {
+    await signOut({ redirect: true, callbackUrl: "/" })
+    Cookies.remove("accessToken")
+  }
+
   return session.data ? (
     <Button
-      onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+      onClick={onSignOutHandler}
       disabled={isPending}
       className="gap-2"
       type="button"

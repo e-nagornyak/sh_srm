@@ -1,3 +1,5 @@
+export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
+
 export interface RequestData {
   method: string
   endpoint: string
