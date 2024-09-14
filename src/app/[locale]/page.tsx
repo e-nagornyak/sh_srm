@@ -13,10 +13,12 @@ interface PageProps {
 
 export default async function Page({ params: { locale } }: PageProps) {
   return (
-    <Shell className="gap-2">
-      <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
-        <HomePage />
-      </React.Suspense>
-    </Shell>
+    <div className="bg-gradient-to-b from-background via-blue-100 via-30% to-transparent">
+      <Shell className="gap-2">
+        <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
+          <HomePage />
+        </React.Suspense>
+      </Shell>
+    </div>
   )
 }

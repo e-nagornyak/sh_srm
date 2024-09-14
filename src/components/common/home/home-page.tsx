@@ -1,7 +1,9 @@
 import { SearchIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { routePaths } from "@/config/routes"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Link } from "@/components/ui/link"
 import { Title } from "@/components/ui/title"
 import { NewsTicker } from "@/components/shared/ticker"
 
@@ -16,7 +18,12 @@ export function HomePage() {
           <Title className="mb-6 text-xl">
             For startups, growing, developing and large businesses.
           </Title>
-          <Button size="lg">Try it for free</Button>
+          <Link
+            className={buttonVariants({ size: "lg" })}
+            href={routePaths.auth.login}
+          >
+            Try it for free
+          </Link>
         </div>
         <div className="hidden lg:block lg:w-1/2">
           <div className="rounded-lg bg-white p-4 shadow-xl">
