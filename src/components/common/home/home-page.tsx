@@ -8,11 +8,6 @@ import { NewsTicker } from "@/components/shared/ticker"
 export function HomePage() {
   return (
     <div className="relative min-h-screen max-w-full text-white">
-      <span
-        className={
-          "z-100 animate-blob absolute -left-1/4 size-[40vw] rounded-r-full bg-blue-100 opacity-70 mix-blend-multiply blur-xl"
-        }
-      />
       <div className="mt-5 flex flex-col-reverse justify-between gap-10 lg:flex-row xl:mt-20">
         <div className="lg:w-1/3">
           <Title size="2xl" className="mb-4 text-4xl font-bold lg:text-5xl">

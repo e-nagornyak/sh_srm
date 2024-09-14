@@ -1,27 +1,39 @@
 "use client"
 
+import { useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { ExitIcon, PersonIcon } from "@radix-ui/react-icons"
 import Cookies from "js-cookie"
+import { Loader } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
 
 import { routePaths } from "@/config/routes"
-import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { Button } from "@/components/ui/button"
 
-interface AuthButtonProps {}
+export function AuthButton() {
+  const [isPending, startTransition] = useTransition()
 
-export function AuthButton(props: AuthButtonProps) {
   const session = useSession()
-  const { lazyPush, isPending } = useLazyRouter()
+  const { push } = useRouter()
 
   const onClickHandler = () => {
-    lazyPush(routePaths.auth.login)
+    startTransition(() => push(routePaths.auth.login))
   }
 
   const onSignOutHandler = async () => {
-    await signOut({ redirect: true, callbackUrl: "/" })
-    Cookies.remove("accessToken")
+    startTransition(async () => {
+      await signOut({ redirect: true, callbackUrl: "/" })
+      Cookies.remove("accessToken")
+    })
   }
+
+  const icon = isPending ? (
+    <Loader className="size-5 animate-spin" />
+  ) : session.data ? (
+    <ExitIcon className="size-5" />
+  ) : (
+    <PersonIcon className="size-5" />
+  )
 
   return session.data ? (
     <Button
@@ -30,7 +42,7 @@ export function AuthButton(props: AuthButtonProps) {
       className="gap-2"
       type="button"
     >
-      <ExitIcon className="size-5" />
+      {icon}
       Log out
     </Button>
   ) : (
@@ -40,7 +52,7 @@ export function AuthButton(props: AuthButtonProps) {
       className="gap-2"
       type="button"
     >
-      <PersonIcon className="size-5" />
+      {icon}
       Sign In
     </Button>
   )

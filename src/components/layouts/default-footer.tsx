@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { LanguageToggle } from "@/components/shared/language-toggle"
+import { ModeToggle } from "@/components/shared/mode-toggle"
 
 const footerSections = [
   {
@@ -111,11 +112,12 @@ export function DefaultFooter() {
               <a href="#" aria-label="LinkedIn">
                 <Linkedin className="size-5" />
               </a>
-              <a href="#" aria-lang="YouTube">
+              <a href="#" aria-label="YouTube">
                 <Youtube className="size-5" />
               </a>
             </div>
             <LanguageToggle />
+            <ModeToggle />
           </div>
         </div>
       </div>

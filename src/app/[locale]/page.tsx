@@ -5,7 +5,7 @@ import * as React from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Shell } from "@/components/shared/shell"
 
-import { HomePage } from "./HomePage"
+import { HomePage } from "../../components/common/home/home-page"
 
 interface PageProps {
   params: { locale: string }

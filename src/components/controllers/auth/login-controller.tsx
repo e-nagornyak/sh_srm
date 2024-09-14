@@ -1,17 +1,29 @@
 "use client"
 
+import { useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 
+import { routePaths } from "@/config/routes"
 import { showErrorToast } from "@/lib/handle-error"
 import type { loginFormData } from "@/lib/validations/auth"
-import { Title } from "@/components/ui/title"
 import { LoginForm } from "@/components/common/auth/LoginForm"
+import { FormWrapper } from "@/components/shared/FormWrapper"
 
 export function LoginController() {
+  const [isPending, startTransition] = useTransition()
+  const { push } = useRouter()
+
   const onSubmit = async (data: loginFormData) => {
     try {
-      console.log(data)
-      await signIn("credentials", { ...data })
+      startTransition(async () => {
+        const res = await signIn("credentials", { ...data, redirect: false })
+        if (res?.error) {
+          throw new Error(res?.error)
+        }
+      })
+
+      startTransition(() => push(routePaths.home))
     } catch (e) {
       console.log(e)
       showErrorToast(e)
@@ -19,9 +31,8 @@ export function LoginController() {
   }
 
   return (
-    <div className="space-y-8">
-      <Title size="md">Sign in to the seller's panel</Title>
-      <LoginForm onSubmit={onSubmit} />
-    </div>
+    <FormWrapper title="Sign in to the seller's panel">
+      <LoginForm isPending={isPending} onSubmit={onSubmit} />
+    </FormWrapper>
   )
 }

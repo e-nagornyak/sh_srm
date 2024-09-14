@@ -17,9 +17,10 @@ import { PasswordInput } from "@/components/ui/password-input"
 
 interface LoginFormProps {
   onSubmit: SubmitHandler<loginFormData>
+  isPending?: boolean
 }
 
-export const LoginForm = ({ onSubmit }: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, isPending }: LoginFormProps) => {
   const form = useForm<loginFormData>({
     resolver: zodResolver(loginFormSchema),
   })
@@ -28,8 +29,8 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
     formState: { isDirty },
   } = form
 
-  const onSubmitHandler = (data: loginFormData) => {
-    onSubmit(data)
+  const onSubmitHandler = async (data: loginFormData) => {
+    await onSubmit(data)
   }
 
   return (
@@ -64,7 +65,12 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        <Button className="w-full" size="lg" disabled={!isDirty} type="submit">
+        <Button
+          className="w-full"
+          size="lg"
+          disabled={!isDirty || isPending}
+          type="submit"
+        >
           Sign Up
         </Button>
       </form>

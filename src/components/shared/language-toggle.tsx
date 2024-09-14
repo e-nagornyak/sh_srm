@@ -43,7 +43,7 @@ export function LanguageToggle() {
       <DropdownMenuContent align="end">
         {localesMap?.map(({ key, name, flag }) => (
           <DropdownMenuItem
-            className={"gap-2"}
+            className={"cursor-pointer gap-2"}
             key={key}
             onClick={() => onSelectChange(key)}
           >

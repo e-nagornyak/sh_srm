@@ -1,29 +1,16 @@
-import { routePaths } from "@/config/routes"
-import { siteConfig } from "@/config/site"
-import { Link } from "@/components/ui/link"
-import { Title } from "@/components/ui/title"
 import { AuthButton } from "@/components/common/nav/AuthButton"
+import { NavList } from "@/components/common/nav/NavList"
 import { LanguageToggle } from "@/components/shared/language-toggle"
+import { Logo } from "@/components/shared/Logo"
 import { ModeToggle } from "@/components/shared/mode-toggle"
-
-const list = [{ title: "Users", href: routePaths.user.list }]
 
 export function DefaultHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full rounded-b-md border-b border-border/40 px-12 shadow-md backdrop-blur supports-[backdrop-filter]:bg-blue-300 dark:border-white dark:supports-[backdrop-filter]:bg-black">
+    <header className="sticky top-0 z-50 w-full rounded-b-md border-b border-border/40 bg-gradient-to-t from-blue-300 to-blue-400 px-12 shadow-md dark:border-white dark:bg-black dark:from-black dark:to-black">
       <div className="flex items-center justify-between">
-        <Link className="pr-14" href={routePaths.home}>
-          <Title size="xl" className="font-bold">
-            {siteConfig.name}
-          </Title>
-        </Link>
-
+        <Logo className="pr-14" />
         <nav className="flex size-full items-center justify-between gap-3">
-          {list?.map(({ title, href }) => (
-            <Link key={title} className="hover:underline" href={href}>
-              {title}
-            </Link>
-          ))}
+          <NavList />
           <div className="flex items-center justify-between gap-3">
             <LanguageToggle />
             <AuthButton />

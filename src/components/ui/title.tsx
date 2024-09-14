@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from "react"
 import clsx from "clsx"
 
-type TitleSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
+export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 
 interface TitleProps extends PropsWithChildren {
   size?: TitleSize
