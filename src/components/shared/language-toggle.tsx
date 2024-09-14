@@ -34,7 +34,7 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button disabled={isPending} variant="ghost">
+        <Button className="gap-2" disabled={isPending} variant="ghost">
           <span className="sr-only">Toggle language</span>
           {currentLocale?.flag}
           {currentLocale?.name}
@@ -42,8 +42,12 @@ export function LanguageToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {localesMap?.map(({ key, name, flag }) => (
-          <DropdownMenuItem key={key} onClick={() => onSelectChange(key)}>
-            {flag && <DashIcon className="mr-2 size-4" />}
+          <DropdownMenuItem
+            className={"gap-2"}
+            key={key}
+            onClick={() => onSelectChange(key)}
+          >
+            {flag || <DashIcon className="mr-2 size-4" />}
             <span>{name}</span>
           </DropdownMenuItem>
         ))}

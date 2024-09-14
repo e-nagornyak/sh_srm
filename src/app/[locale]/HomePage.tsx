@@ -5,12 +5,16 @@ import { Input } from "@/components/ui/input"
 import { Title } from "@/components/ui/title"
 import { NewsTicker } from "@/components/shared/ticker"
 
-export function Landing() {
+export function HomePage() {
   return (
-    <div className="min-h-screen from-blue-400 to-blue-600 text-white">
-      <div className="container mx-auto flex flex-col items-center px-4 py-12 lg:flex-row">
-        {/* Left side content */}
-        <div className="mb-8 lg:mb-0 lg:w-1/2">
+    <div className="relative min-h-screen max-w-full text-white">
+      <span
+        className={
+          "z-100 animate-blob absolute -left-1/4 size-[40vw] rounded-r-full bg-blue-100 opacity-70 mix-blend-multiply blur-xl"
+        }
+      />
+      <div className="mt-5 flex flex-col-reverse justify-between gap-10 lg:flex-row xl:mt-20">
+        <div className="lg:w-1/3">
           <Title size="2xl" className="mb-4 text-4xl font-bold lg:text-5xl">
             Best tool to manage e-commerce in one place
           </Title>
@@ -19,10 +23,8 @@ export function Landing() {
           </Title>
           <Button size="lg">Try it for free</Button>
         </div>
-
-        {/* Right side mockup */}
-        <div className="lg:w-1/2">
-          <div className="rotate-3 rounded-lg bg-white p-4 shadow-xl">
+        <div className="hidden lg:block lg:w-1/2">
+          <div className="rounded-lg bg-white p-4 shadow-xl">
             <div className="mb-4 flex items-center">
               <Input className="mr-2 grow text-black" placeholder="Search..." />
               <Button variant="outline" size="icon">
@@ -61,12 +63,13 @@ export function Landing() {
           </div>
         </div>
       </div>
-
-      {/* Integration section */}
-      <div className="container mx-auto px-4 py-12 text-center">
-        <p className="mb-8 text-xl">Choose from over 1000 integrations:</p>
+      <div className="mt-20">
+        <Title>
+          Choose from over{" "}
+          <strong className="text-primary">1000 integrations:</strong>
+        </Title>
         <NewsTicker
-          itemClassName="rounded-md bg-black/20 dark:bg-white/20 p-5 ml-6"
+          itemClassName="rounded-md bg-blue-400 dark:bg-white/20 p-5 ml-6 uppercase"
           items={[
             "EVRi",
             "amazon",

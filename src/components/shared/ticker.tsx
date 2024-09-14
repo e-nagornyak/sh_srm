@@ -9,9 +9,9 @@ interface NewsTickerProps {
 
 export function NewsTicker({ items, itemClassName }: NewsTickerProps) {
   const list = (
-    <ul className="animate-infinite-scroll flex items-center justify-center whitespace-nowrap py-5">
+    <ul className="flex items-center justify-center whitespace-nowrap py-5">
       {items?.map((text, index) => (
-        <li key={index} className={cn("ml-2.5", itemClassName)}>
+        <li key={index} className={cn("ml-4", itemClassName)}>
           {text}
         </li>
       ))}
@@ -20,8 +20,8 @@ export function NewsTicker({ items, itemClassName }: NewsTickerProps) {
 
   return (
     <div className="relative flex overflow-x-hidden">
-      <div className="animate-marquee whitespace-nowrap py-12">{list}</div>
-      <div className="animate-marquee2 absolute top-0 whitespace-nowrap py-12">
+      <div className="animate-marquee whitespace-nowrap">{list}</div>
+      <div className="absolute top-0 animate-marquee2 whitespace-nowrap">
         {list}
       </div>
     </div>

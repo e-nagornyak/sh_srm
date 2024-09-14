@@ -61,7 +61,7 @@ const footerSections = [
 
 export function DefaultFooter() {
   return (
-    <footer className="border-t border-border/40 px-4 py-8 md:px-8">
+    <footer className="border-t border-border px-4 py-8 dark:border-white md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {footerSections.map((section, index) => (
