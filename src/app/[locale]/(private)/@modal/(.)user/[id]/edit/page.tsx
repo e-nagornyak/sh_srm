@@ -1,5 +1,29 @@
-interface PageProps {}
+import { redirect } from "next/navigation"
+import { toast } from "sonner"
 
-export default function Page(props: PageProps) {
-  return <div className={""}>Intercepted Edit user</div>
+import { routePaths } from "@/config/routes"
+import { getUserApi } from "@/lib/api/user/user-api"
+import { type User } from "@/lib/api/user/user-types"
+import { UserEditController } from "@/components/controllers/users/user/user-edit-controller"
+import { InterceptedModal } from "@/components/shared/interceptedModal"
+
+interface PageProps {
+  params: {
+    id: string
+  }
+}
+
+export default async function Page({ params: { id } }: PageProps) {
+  const user = await getUserApi("server").getUserById(Number(id))
+
+  if (!user) {
+    toast.info("No user found")
+    redirect(routePaths?.user.list)
+  }
+
+  return (
+    <InterceptedModal>
+      <UserEditController user={user as User} />
+    </InterceptedModal>
+  )
 }

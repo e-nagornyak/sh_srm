@@ -3,7 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
 
 import { RoleArray } from "@/lib/api/user/helpers"
-import { userFormSchema, type UserFormData } from "@/lib/validations/user"
+import {
+  createUserFormSchema,
+  type CreateUserFormData,
+} from "@/lib/validations/user"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -24,9 +27,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-interface LoginFormProps {
-  onSubmit: SubmitHandler<UserFormData>
-  defaultValues?: UserFormData
+interface Props {
+  onSubmit: SubmitHandler<CreateUserFormData>
+  defaultValues?: CreateUserFormData
   isPending?: boolean
   buttonText?: string
 }
@@ -36,9 +39,9 @@ export const UserForm = ({
   isPending,
   defaultValues,
   buttonText = "Submit",
-}: LoginFormProps) => {
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userFormSchema),
+}: Props) => {
+  const form = useForm<CreateUserFormData>({
+    resolver: zodResolver(createUserFormSchema),
     defaultValues,
   })
 
@@ -46,7 +49,7 @@ export const UserForm = ({
     formState: { isDirty, isSubmitting },
   } = form
 
-  const onSubmitHandler = async (data: UserFormData) => {
+  const onSubmitHandler = async (data: CreateUserFormData) => {
     await onSubmit(data)
   }
 

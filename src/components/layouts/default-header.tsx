@@ -6,7 +6,7 @@ import { ModeToggle } from "@/components/shared/mode-toggle"
 
 export function DefaultHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full rounded-b-md border-b border-border bg-background/95 px-12 shadow-md backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-white">
+    <header className="sticky top-0 z-50 w-full rounded-b-md border-b border-border bg-background/95 px-2 shadow-md backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-white md:px-12">
       <div className="flex items-center justify-between">
         <Logo className="pr-14" />
         <nav className="flex size-full items-center justify-between gap-3">

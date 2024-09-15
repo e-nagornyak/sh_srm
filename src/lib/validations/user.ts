@@ -4,13 +4,24 @@ import * as z from "zod"
 
 import { password, role, username } from "./shared"
 
-type UserFormData = z.infer<typeof userFormSchema>
+type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
-const userFormSchema = z.object({
+const createUserFormSchema = z.object({
   username,
   password,
-  // email,
   role,
 })
 
-export { type UserFormData, userFormSchema }
+type EditUserFormData = z.infer<typeof editUserFormSchema>
+
+const editUserFormSchema = z.object({
+  username,
+  role,
+})
+
+export {
+  type CreateUserFormData,
+  type EditUserFormData,
+  createUserFormSchema,
+  editUserFormSchema,
+}

@@ -9,7 +9,7 @@ import { NewsTicker } from "@/components/shared/ticker"
 
 export function HomePage() {
   return (
-    <div className="relative min-h-screen max-w-full text-white">
+    <div className="relative min-h-screen max-w-full overflow-x-hidden text-white">
       <div className="mt-5 flex flex-col-reverse justify-between gap-10 lg:flex-row xl:mt-20">
         <div className="lg:w-1/3">
           <Title size="2xl" className="mb-4 text-4xl font-bold lg:text-5xl">

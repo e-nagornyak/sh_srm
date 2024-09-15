@@ -1,5 +1,12 @@
+import { UserDeleteController } from "@/components/controllers/users/user/user-delete-controller"
+import { InterceptedModal } from "@/components/shared/interceptedModal"
+
 interface PageProps {}
 
 export default function Page(props: PageProps) {
-  return <div className={""}>Intercepted delete user</div>
+  return (
+    <InterceptedModal>
+      <UserDeleteController />
+    </InterceptedModal>
+  )
 }

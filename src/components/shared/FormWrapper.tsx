@@ -7,17 +7,20 @@ import { Logo } from "@/components/shared/Logo"
 interface FormWrapperProps extends PropsWithChildren {
   title?: string
   wrapperClassName?: string
+  withAnimationIn?: boolean
 }
 
 export function FormWrapper({
   wrapperClassName,
   title,
+  withAnimationIn = false,
   children,
 }: FormWrapperProps) {
   return (
     <div
       className={cn(
-        "h-fit w-full max-w-lg rounded-lg border border-border bg-white p-6 shadow-md duration-500 animate-in slide-in-from-top dark:bg-black",
+        "h-fit w-full max-w-lg rounded-lg border border-border bg-white p-6 shadow-md dark:bg-black",
+        { "duration-500 animate-in slide-in-from-top": withAnimationIn },
         wrapperClassName
       )}
     >

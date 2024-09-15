@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { routePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
-import type { UserFormData } from "@/lib/validations/user"
+import type { CreateUserFormData } from "@/lib/validations/user"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { UserForm } from "@/components/common/users/user/UserForm"
 import { FormWrapper } from "@/components/shared/FormWrapper"
@@ -13,7 +13,7 @@ import { FormWrapper } from "@/components/shared/FormWrapper"
 export function UserAddController() {
   const { lazyPush, isPending } = useLazyRouter()
 
-  const addUserHandler = async (data: UserFormData) => {
+  const addUserHandler = async (data: CreateUserFormData) => {
     try {
       await getUserApi("client").createUser(data)
       lazyPush(routePaths.user.list)

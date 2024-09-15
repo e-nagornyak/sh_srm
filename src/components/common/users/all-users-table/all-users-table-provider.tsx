@@ -4,6 +4,7 @@ import * as React from "react"
 
 import { routePaths } from "@/config/routes"
 import { Link } from "@/components/ui/link"
+import { Title } from "@/components/ui/title"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import {
   Tooltip,
@@ -48,6 +49,7 @@ export function AllUsersTableProvider({ children }: TableProviderProps) {
       }}
     >
       <div className="w-full overflow-x-auto">
+        <Title size="lg">List of all users</Title>
         {/*<ToggleGroup*/}
         {/*  type="multiple"*/}
         {/*  variant="outline"*/}

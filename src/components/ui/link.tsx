@@ -17,7 +17,11 @@ const Link = React.forwardRef<
 >(({ buttonStyles, className, ...rest }, ref) => (
   <NextLink
     ref={ref}
-    className={cn(buttonStyles && buttonVariants(buttonStyles), className)}
+    className={cn(
+      "cursor-pointer",
+      buttonStyles && buttonVariants(buttonStyles),
+      className
+    )}
     {...rest}
   />
 ))

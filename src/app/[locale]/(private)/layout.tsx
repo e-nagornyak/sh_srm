@@ -10,7 +10,7 @@ interface LayoutProps extends PropsWithChildren {
 
 export default async function Layout({ modal, children }: LayoutProps) {
   const session = await getServerSession()
-
+  console.log("session", session)
   if (!session?.user) {
     redirect(routePaths.auth.login)
   }

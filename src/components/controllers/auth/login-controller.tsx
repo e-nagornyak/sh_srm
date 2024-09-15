@@ -31,7 +31,7 @@ export function LoginController() {
   }
 
   return (
-    <FormWrapper title="Sign in to the seller's panel">
+    <FormWrapper withAnimationIn title="Sign in to the seller's panel">
       <LoginForm isPending={isPending} onSubmit={onSubmit} />
     </FormWrapper>
   )
