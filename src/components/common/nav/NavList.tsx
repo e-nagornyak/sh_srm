@@ -59,7 +59,7 @@ export function NavList() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={"text-black"}>
+          <NavigationMenuTrigger className={"text-black dark:text-white"}>
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent>
