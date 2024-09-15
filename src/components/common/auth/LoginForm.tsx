@@ -40,7 +40,7 @@ export const LoginForm = ({ onSubmit, isPending }: LoginFormProps) => {
           defaultValue=""
           control={form.control}
           name="username"
-          render={({ field: { value, ...field } }) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Login</FormLabel>
               <FormControl>
@@ -59,7 +59,7 @@ export const LoginForm = ({ onSubmit, isPending }: LoginFormProps) => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <PasswordInput {...field} placeholder="Password" />
+                <PasswordInput placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

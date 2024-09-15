@@ -4,7 +4,7 @@ import React from "react"
 
 import { type SearchParams } from "@/types/table"
 import { DataTableSkeleton } from "@/components/common/data-table/data-table-skeleton"
-import { AllUsersTableProvider } from "@/components/common/users/all-users-table-provider"
+import { AllUsersTableProvider } from "@/components/common/users/all-users-table/all-users-table-provider"
 import { AllUsersTableController } from "@/components/controllers/users/all-users-table/all-users-table-controller"
 import { getUsers } from "@/components/controllers/users/all-users-table/helpers/all-users-table-queries"
 import { allUsersSearchParamsSchema } from "@/components/controllers/users/all-users-table/helpers/all-users-table-search-params"

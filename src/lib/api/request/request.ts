@@ -1,6 +1,6 @@
 import { env } from "@/env"
 
-import { type HTTPMethod } from "@/lib/api/types"
+import { type FieldErrors, type HTTPMethod } from "./types"
 
 interface RequestOptions<TBody = unknown> {
   method: HTTPMethod
@@ -9,9 +9,9 @@ interface RequestOptions<TBody = unknown> {
   options?: RequestInit
 }
 
-type ApiMethod<TResponse, TParams extends unknown[] = []> = (
+type ApiMethod<TResponse, TError = unknown, TParams extends unknown[] = []> = (
   ...args: TParams
-) => Promise<TResponse>
+) => Promise<TResponse | TError>
 
 export type ApiSide = "client" | "server"
 
@@ -32,12 +32,12 @@ class Api {
     }
   }
 
-  private async request<TResponse, TBody = unknown>({
+  private async request<TResponse, TError = FieldErrors, TBody = unknown>({
     method,
     endpoint,
     body,
     options,
-  }: RequestOptions<TBody>): Promise<TResponse> {
+  }: RequestOptions<TBody>): Promise<TResponse | TError> {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     }
@@ -58,16 +58,27 @@ class Api {
     })
 
     if (!response.ok) {
+      const errors = await response.json()
+
+      if (errors) {
+        throw errors as TError
+      }
+
       throw new Error(`Failed to ${method} ${endpoint}`)
     }
 
-    return (await response.json()) as Promise<TResponse>
+    return (await response.json()) as TResponse
   }
 
-  public createMethod<TResponse, TParams extends unknown[] = []>(
+  public createMethod<
+    TResponse,
+    TParams extends unknown[] = [],
+    TError = FieldErrors,
+  >(
     methodCreator: (...args: TParams) => RequestOptions
-  ): ApiMethod<TResponse, TParams> {
-    return (...args: TParams) => this.request<TResponse>(methodCreator(...args))
+  ): ApiMethod<TResponse, TError, TParams> {
+    return (...args: TParams) =>
+      this.request<TResponse, TError>(methodCreator(...args))
   }
 }
 

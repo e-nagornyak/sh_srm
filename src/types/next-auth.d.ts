@@ -1,4 +1,4 @@
-import { type RoleEnum } from "@/lib/api/user/auth-types"
+import { type RoleEnum } from "@/lib/api/user/user-types"
 
 declare module "next-auth" {
   /**

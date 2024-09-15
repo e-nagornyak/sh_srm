@@ -3,9 +3,10 @@ import {
   type AuthTokenResponse,
   type RefreshTokenResponse,
 } from "@/lib/api/auth/auth-types"
-import { createEndpoint } from "@/lib/api/helpers"
-import { createApi, type ApiSide } from "@/lib/api/request"
-import { type User } from "@/lib/api/user/auth-types"
+import { type User } from "@/lib/api/user/user-types"
+
+import { createEndpoint } from "../request/helpers"
+import { createApi, type ApiSide } from "../request/request"
 
 const apiPaths = {
   auth: {

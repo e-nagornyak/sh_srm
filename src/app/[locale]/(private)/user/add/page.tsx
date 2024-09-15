@@ -1,5 +1,5 @@
-interface PageProps {}
+import { UserAddController } from "@/components/controllers/users/user/user-add-controller"
 
-export default function Page(props: PageProps) {
-  return <div className={""}>Add page</div>
+export default function Page() {
+  return <UserAddController />
 }

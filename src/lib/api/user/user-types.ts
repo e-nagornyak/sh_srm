@@ -1,7 +1,7 @@
 // Enum for user roles
 enum RoleEnum {
-  Admin = "Admin",
-  Manager = "Manager",
+  Admin = "admin",
+  Manager = "manager",
 }
 
 // User type for user details
@@ -25,4 +25,9 @@ interface UserLogResponse {
   action_text: string
 }
 
-export type { RoleEnum, UpdateOrCreateUserRequest, User, UserLogResponse }
+export {
+  RoleEnum,
+  type UpdateOrCreateUserRequest,
+  type User,
+  type UserLogResponse,
+}

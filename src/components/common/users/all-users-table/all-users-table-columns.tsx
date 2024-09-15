@@ -10,7 +10,7 @@ import {
 import { type ColumnDef } from "@tanstack/react-table"
 
 import { routePaths } from "@/config/routes"
-import { type User } from "@/lib/api/user/auth-types"
+import { type User } from "@/lib/api/user/user-types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"

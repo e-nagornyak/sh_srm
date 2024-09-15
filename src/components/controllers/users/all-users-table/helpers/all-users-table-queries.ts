@@ -2,8 +2,8 @@ import "server-only"
 
 import { unstable_noStore as noStore } from "next/cache"
 
-import { type User } from "@/lib/api/user/auth-types"
 import { getUserApi } from "@/lib/api/user/user-api"
+import { type User } from "@/lib/api/user/user-types"
 
 import { type AllUsersSearchParamsSchema } from "./all-users-table-search-params"
 

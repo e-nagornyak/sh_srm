@@ -17,7 +17,7 @@ export function FormWrapper({
   return (
     <div
       className={cn(
-        "w-full max-w-lg rounded-lg border border-border bg-white p-6 shadow-md duration-500 animate-in slide-in-from-top dark:bg-black",
+        "h-fit w-full max-w-lg rounded-lg border border-border bg-white p-6 shadow-md duration-500 animate-in slide-in-from-top dark:bg-black",
         wrapperClassName
       )}
     >

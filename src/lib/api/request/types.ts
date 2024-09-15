@@ -9,3 +9,7 @@ export interface RequestData {
 export interface RequestOptions extends RequestData {
   options?: RequestInit
 }
+
+export interface FieldErrors {
+  [key: string]: string[]
+}

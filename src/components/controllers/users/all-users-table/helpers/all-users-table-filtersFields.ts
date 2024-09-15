@@ -1,5 +1,5 @@
 import { type DataTableFilterField } from "@/types/table"
-import { type User } from "@/lib/api/user/auth-types"
+import { type User } from "@/lib/api/user/user-types"
 
 export const filterFields: DataTableFilterField<User>[] = [
   // {
