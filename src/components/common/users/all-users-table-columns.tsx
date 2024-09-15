@@ -95,13 +95,19 @@ export function getColumns(): ColumnDef<User>[] {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-max">
               <DropdownMenuItem asChild>
-                <Link href={routePaths.user.edit(userId)}>
+                <Link
+                  className="cursor-pointer"
+                  href={routePaths.user.edit(userId)}
+                >
                   <Pencil1Icon className="mr-2 size-5" />
                   Edit
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={routePaths.user.delete(userId)}>
+                <Link
+                  className="cursor-pointer"
+                  href={routePaths.user.delete(userId)}
+                >
                   <TrashIcon className="mr-2 size-5" />
                   Delete
                 </Link>

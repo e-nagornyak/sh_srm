@@ -93,9 +93,7 @@ export function DefaultFooter() {
         </Accordion>
 
         <div className="mt-12 flex flex-col items-center justify-between border-t border-gray-200 pt-8 md:flex-row">
-          <p className="mb-4 text-sm md:mb-0">
-            &copy; 2024 CMS.com, Integration of e-commerce systems
-          </p>
+          <p className="mb-4 text-sm md:mb-0">&copy; 2024 </p>
           <nav className="mb-4 flex space-x-4 md:mb-0">
             <a href="#" className="text-sm hover:underline">
               Terms of Use

@@ -13,7 +13,7 @@ interface PageProps {
 
 export default async function Page({ params: { locale } }: PageProps) {
   return (
-    <div className="bg-gradient-to-b from-background via-blue-100 via-30% to-transparent">
+    <div className="bg-gradient-to-b from-background via-gray-200 via-40% to-transparent dark:via-gray-700">
       <Shell className="gap-2">
         <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
           <HomePage />

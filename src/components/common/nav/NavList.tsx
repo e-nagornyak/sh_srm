@@ -59,10 +59,12 @@ export function NavList() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={"text-black"}>
+            Getting started
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
+              <li className="row-span-3 border-r border-border">
                 <NavigationMenuItem className="flex size-full select-none flex-col justify-end rounded-md p-6 outline-none focus:shadow-md">
                   <Logo />
                   <Title size="xs" className="mb-2 mt-4 font-medium">

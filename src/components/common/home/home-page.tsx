@@ -71,7 +71,7 @@ export function HomePage() {
           <strong className="text-primary">1000 integrations:</strong>
         </Title>
         <NewsTicker
-          itemClassName="rounded-md bg-blue-400 dark:bg-white/20 p-5 ml-6 uppercase"
+          itemClassName="rounded-md bg-primary/50 dark:bg-white/20 p-5 ml-6 uppercase"
           items={[
             "EVRi",
             "amazon",
