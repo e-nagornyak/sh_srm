@@ -23,9 +23,11 @@ export async function getUsers(
 
     const users = await getUserApi("server").getUsers()
 
+    const results = Array.isArray(users) ? users : []
+
     return {
       current_page: 1,
-      results: users || [],
+      results: results,
       total_pages: 0,
     }
   } catch (err) {

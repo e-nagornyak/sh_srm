@@ -56,6 +56,7 @@ class Api {
       },
       body: body ? JSON.stringify(body) : undefined,
     })
+    console.log("response", response)
 
     if (!response.ok) {
       const errors = await response.json()
@@ -65,6 +66,10 @@ class Api {
       }
 
       throw new Error(`Failed to ${method} ${endpoint}`)
+    }
+
+    if (response?.status === 204) {
+      return { success: true } as TResponse
     }
 
     return (await response.json()) as TResponse

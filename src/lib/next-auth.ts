@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 
 import { routePaths } from "@/config/routes"
 import { getAuthApi } from "@/lib/api/auth/auth-api"
+import { RoleEnum } from "@/lib/api/user/user-types"
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
@@ -42,13 +43,15 @@ export const authOptions: NextAuthOptions = {
             username: credentials?.username as string,
             password: credentials?.password as string,
           })
+
           // If no error and we have user data, return it
-          if (res) {
+          if (res && res?.access && res?.refresh) {
             return {
               id: 1,
               username: credentials?.username,
-              role: "Admin",
-              ...res,
+              role: RoleEnum.Admin,
+              access: res?.access,
+              refresh: res?.refresh,
             } as User
           } else {
             // If the user is not found, you can throw an error

@@ -15,19 +15,18 @@ export function LoginController() {
   const { push } = useRouter()
 
   const onSubmit = async (data: loginFormData) => {
-    try {
-      startTransition(async () => {
+    startTransition(async () => {
+      try {
         const res = await signIn("credentials", { ...data, redirect: false })
         if (res?.error) {
           throw new Error(res?.error)
         }
-      })
-
-      startTransition(() => push(routePaths.home))
-    } catch (e) {
-      console.log(e)
-      showErrorToast(e)
-    }
+        push(routePaths.home)
+      } catch (e) {
+        console.log(e)
+        showErrorToast(e)
+      }
+    })
   }
 
   return (

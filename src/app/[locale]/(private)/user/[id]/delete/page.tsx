@@ -1,5 +1,22 @@
-interface PageProps {}
+import { redirect } from "next/navigation"
 
-export default function Page(props: PageProps) {
-  return <div className={""}>Delete page</div>
+import { routePaths } from "@/config/routes"
+import { getUserApi } from "@/lib/api/user/user-api"
+import { type User } from "@/lib/api/user/user-types"
+import { UserDeleteController } from "@/components/controllers/users/user/user-delete-controller"
+
+interface PageProps {
+  params: {
+    id: string
+  }
+}
+
+export default async function Page({ params: { id } }: PageProps) {
+  const user = await getUserApi("server").getUserById(Number(id))
+
+  if (!user) {
+    redirect(routePaths?.user.list)
+  }
+
+  return <UserDeleteController user={user as User} />
 }

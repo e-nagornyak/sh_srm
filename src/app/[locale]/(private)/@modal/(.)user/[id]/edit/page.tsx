@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation"
-import { toast } from "sonner"
 
 import { routePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
@@ -17,7 +16,6 @@ export default async function Page({ params: { id } }: PageProps) {
   const user = await getUserApi("server").getUserById(Number(id))
 
   if (!user) {
-    toast.info("No user found")
     redirect(routePaths?.user.list)
   }
 
