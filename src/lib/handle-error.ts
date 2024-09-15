@@ -1,4 +1,5 @@
 import { isRedirectError } from "next/dist/client/components/redirect"
+import { hasAnyPropertyValue } from "@/utils/has-any-property-value"
 import { toast } from "sonner"
 import { z } from "zod"
 
@@ -14,6 +15,9 @@ export function getErrorMessage(err: unknown) {
     return err.message
   } else if (isRedirectError(err)) {
     throw err
+  } else if (err instanceof Object && hasAnyPropertyValue(err)) {
+    const firstError = Object?.values(err)?.[0]?.[0] as string
+    return firstError || unknownError
   } else {
     return unknownError
   }

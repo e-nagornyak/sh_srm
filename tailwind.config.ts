@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      zIndex: {
+        100: "100",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -66,12 +69,51 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        marquee2: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+        blob: {
+          "0%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+          "33%": {
+            transform: "translate(30px, -50px) scale(1.5)",
+          },
+          "66%": {
+            transform: "translate(-20px, 20px) scale(0.6)",
+          },
+          "100%": {
+            transform: "tranlate(0px, 0px) scale(1)",
+          },
+        },
       },
       animation: {
+        blob: "blob 7s infinite",
+        marquee: "marquee 25s linear infinite",
+        marquee2: "marquee2 25s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ matchUtilities, theme }: any) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      matchUtilities(
+        {
+          "flexible-text": (value: string) => ({
+            fontSize: `clamp(${value}/1.4,5vw,${value})`,
+          }),
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        { values: theme("width", {}) }
+      )
+    },
+  ],
 } satisfies Config

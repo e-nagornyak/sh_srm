@@ -1,5 +1,7 @@
 import { type ReactNode } from "react"
 
+import { Flags } from "@/components/shared/Flags"
+
 const LocalesEnum = {
   en: "en",
 } as const
@@ -9,7 +11,7 @@ export const listOfLocales: {
 } = {
   en: {
     key: "en",
-    flag: <div></div>,
+    flag: <Flags.USA />,
     name: "English (US)",
   },
 }

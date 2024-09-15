@@ -1,17 +1,21 @@
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { DefaultHeader } from "@/components/layouts/default-header"
-import { ThemeProvider } from "@/components/shared/providers"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 import { TailwindIndicator } from "@/components/shared/tailwind-indicator"
 
 import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
+import { getServerSession } from "next-auth"
 import { NextIntlClientProvider } from "next-intl"
 
 import { fontMono, fontSans } from "@/lib/fonts"
+import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
+import { DefaultFooter } from "@/components/layouts/default-footer"
+import { AuthProvider } from "@/components/providers/auth-provider"
 
 export const metadata: Metadata = {
   // metadataBase: new URL(siteConfig.url),
@@ -33,7 +37,7 @@ export const metadata: Metadata = {
 
 async function getMessages(locale: string) {
   try {
-    return (await import(`../../locales/${locale}.json`)).default
+    return (await import(`../../locales/${locale}.json`))?.default
   } catch (error) {
     notFound()
   }
@@ -57,6 +61,7 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const locale = params?.locale || "en"
   const messages = await getMessages(locale)
+  const session = await getServerSession(authOptions)
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -68,20 +73,23 @@ export default async function RootLayout({
           fontMono.variable
         )}
       >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="relative flex min-h-screen flex-col">
+        <AuthProvider session={session}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               <DefaultHeader />
-              <main className="flex-1">{children}</main>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
-        </NextIntlClientProvider>
+              <main className="flex min-h-screen flex-1 flex-col">
+                {children}
+              </main>
+              <DefaultFooter />
+              <TailwindIndicator />
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
