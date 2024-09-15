@@ -7,7 +7,7 @@ import { getUserApi } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
 import type { CreateUserFormData } from "@/lib/validations/user"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
-import { UserForm } from "@/components/common/users/user/UserForm"
+import { CreateUserForm } from "@/components/common/users/user/CreateUserForm"
 import { FormWrapper } from "@/components/shared/FormWrapper"
 
 interface UserDeleteControllerProps {}
@@ -27,7 +27,7 @@ export function UserDeleteController(props: UserDeleteControllerProps) {
 
   return (
     <FormWrapper title="Add the new user">
-      <UserForm isPending={isPending} onSubmit={addUserHandler} />
+      <CreateUserForm isPending={isPending} onSubmit={addUserHandler} />
     </FormWrapper>
   )
 }

@@ -8,7 +8,8 @@ import { type User } from "@/lib/api/user/user-types"
 import { showErrorToast } from "@/lib/handle-error"
 import type { EditUserFormData } from "@/lib/validations/user"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
-import { UserForm } from "@/components/common/users/user/UserForm"
+import { CreateUserForm } from "@/components/common/users/user/CreateUserForm"
+import { EditUserForm } from "@/components/common/users/user/EditUserForm"
 import { FormWrapper } from "@/components/shared/FormWrapper"
 
 interface UserEditControllerProps {
@@ -18,11 +19,19 @@ interface UserEditControllerProps {
 export function UserEditController({ user }: UserEditControllerProps) {
   const { lazyPush, isPending } = useLazyRouter()
 
-  const addUserHandler = async (data: EditUserFormData) => {
+  const addUserHandler = async ({
+    username,
+    password,
+    role,
+  }: EditUserFormData) => {
     try {
-      await getUserApi("client").createUser(data)
+      await getUserApi("client").updateUser(user?.id, {
+        role,
+        username,
+        password: "password",
+      })
       lazyPush(routePaths.user.list)
-      toast.info("User has been added")
+      toast.info("User has been updated")
     } catch (e) {
       showErrorToast(e)
     }
@@ -30,7 +39,7 @@ export function UserEditController({ user }: UserEditControllerProps) {
 
   return (
     <FormWrapper title={`Edit the ${user?.username || "user"}`}>
-      <UserForm
+      <EditUserForm
         defaultValues={{
           username: user?.username,
           password: "",

@@ -34,7 +34,7 @@ interface Props {
   buttonText?: string
 }
 
-export const UserForm = ({
+export const CreateUserForm = ({
   onSubmit,
   isPending,
   defaultValues,

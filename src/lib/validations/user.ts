@@ -17,6 +17,7 @@ type EditUserFormData = z.infer<typeof editUserFormSchema>
 const editUserFormSchema = z.object({
   username,
   role,
+  password: z.union([z.literal(""), password]),
 })
 
 export {
