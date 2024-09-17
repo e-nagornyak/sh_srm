@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { LanguageToggle } from "@/components/shared/language-toggle"
-import { ModeToggle } from "@/components/shared/mode-toggle"
+import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 
 const footerSections = [
   {
@@ -108,7 +108,7 @@ export function DefaultPublicFooter() {
               </a>
             </div>
             <LanguageToggle />
-            <ModeToggle />
+            <ModeSmallToggle />
           </div>
         </div>
       </div>

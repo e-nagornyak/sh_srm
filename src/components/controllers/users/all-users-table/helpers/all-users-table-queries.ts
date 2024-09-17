@@ -23,8 +23,8 @@ export async function getUsers(
 
     const users = await getUserApi("server").getUsers()
 
-    const results = Array.isArray(users) ? users : []
-
+    // @ts-ignore
+    const results = Array.isArray(users?.results) ? users?.results : []
     return {
       current_page: 1,
       results: results,

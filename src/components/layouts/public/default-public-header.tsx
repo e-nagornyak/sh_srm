@@ -2,7 +2,7 @@ import { AuthButton } from "@/components/common/nav/AuthButton"
 import { NavList } from "@/components/common/nav/NavList"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { Logo } from "@/components/shared/Logo"
-import { ModeToggle } from "@/components/shared/mode-toggle"
+import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 
 export function DefaultPublicHeader() {
   return (
@@ -14,7 +14,7 @@ export function DefaultPublicHeader() {
           <div className="flex items-center justify-between gap-3">
             <LanguageToggle />
             <AuthButton />
-            <ModeToggle />
+            <ModeSmallToggle />
           </div>
         </nav>
       </div>

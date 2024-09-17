@@ -16,6 +16,7 @@ import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
 import { DefaultPublicFooter } from "@/components/layouts/public/default-public-footer"
 import { AuthProvider } from "@/components/providers/auth-provider"
+import AppStoreProvider from "@/components/providers/store-provider"
 
 export const metadata: Metadata = {
   // metadataBase: new URL(siteConfig.url),
@@ -81,7 +82,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              {children}
+              <AppStoreProvider>{children}</AppStoreProvider>
               <TailwindIndicator />
             </ThemeProvider>
           </NextIntlClientProvider>
