@@ -23,7 +23,7 @@ export function AllUsersTableToolbarActions({
         aria-label="Toggle columns"
         buttonStyles={{ size: "sm", variant: "outline" }}
         className="h-8"
-        href={routePaths.user.add}
+        href={routePaths.private.user.add}
       >
         <PlusIcon className="mr-2 size-4" />
         Add user

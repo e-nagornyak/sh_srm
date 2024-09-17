@@ -16,7 +16,7 @@ export function UserAddController() {
   const addUserHandler = async (data: CreateUserFormData) => {
     try {
       await getUserApi("client").createUser(data)
-      lazyPush(routePaths.user.list)
+      lazyPush(routePaths.private.user.list)
       toast.info("User has been added")
     } catch (e) {
       showErrorToast(e)

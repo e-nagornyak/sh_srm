@@ -22,7 +22,7 @@ export default function Error({
   return (
     <FormWrapper title="No user found">
       <Link
-        href={routePaths.user.list}
+        href={routePaths.private.user.list}
         className="w-full"
         buttonStyles={{ size: "lg" }}
       >

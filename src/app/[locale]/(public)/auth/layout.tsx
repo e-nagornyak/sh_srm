@@ -8,11 +8,13 @@ export default async function Layout({ children }: PropsWithChildren) {
   const session = await getServerSession()
 
   if (session?.user) {
-    redirect(routePaths.home)
+    redirect(routePaths.public.home)
   }
 
   return (
-    <div className={"flex flex-col items-center justify-center pt-14"}>
+    <div
+      className={"flex size-full flex-col items-center justify-center pt-14"}
+    >
       {children}
     </div>
   )

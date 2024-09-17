@@ -21,7 +21,7 @@ export function UserDeleteController({ user }: UserDeleteControllerProps) {
   const addUserHandler = async () => {
     try {
       await getUserApi("client").deleteUser(user?.id)
-      lazyPush(routePaths.user.list)
+      lazyPush(routePaths.private.user.list)
       toast.info("User has been deleted")
     } catch (e) {
       showErrorToast(e)

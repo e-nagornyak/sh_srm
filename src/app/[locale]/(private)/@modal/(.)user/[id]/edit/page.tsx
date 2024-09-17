@@ -16,7 +16,7 @@ export default async function Page({ params: { id } }: PageProps) {
   const user = await getUserApi("server").getUserById(Number(id))
 
   if (!user) {
-    redirect(routePaths?.user.list)
+    redirect(routePaths?.private.user.list)
   }
 
   return (

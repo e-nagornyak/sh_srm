@@ -3,9 +3,8 @@
 import * as React from "react"
 
 import { Skeleton } from "@/components/ui/skeleton"
+import { HomePage } from "@/components/common/home/home-page"
 import { Shell } from "@/components/shared/shell"
-
-import { HomePage } from "../../components/common/home/home-page"
 
 interface PageProps {
   params: { locale: string }

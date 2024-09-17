@@ -21,7 +21,7 @@ export function LoginController() {
         if (res?.error) {
           throw new Error(res?.error)
         }
-        push(routePaths.home)
+        push(routePaths.public.home)
       } catch (e) {
         console.log(e)
         showErrorToast(e)

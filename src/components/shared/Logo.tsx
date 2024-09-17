@@ -1,16 +1,21 @@
 import { routePaths } from "@/config/routes"
 import { siteConfig } from "@/config/site"
 import { Link } from "@/components/ui/link"
-import { Title, type TitleSize } from "@/components/ui/title"
+import { Title, type TitleProps } from "@/components/ui/title"
 
 interface LogoProps {
-  size?: TitleSize
+  href?: string
+  size?: TitleProps["size"]
   className?: string
 }
 
-export function Logo({ size = "xl", className }: LogoProps) {
+export function Logo({
+  size = "xl",
+  href = routePaths.public.home,
+  className,
+}: LogoProps) {
   return (
-    <Link className={className} href={routePaths.home}>
+    <Link className={className} href={href}>
       <Title size={size} className="font-bold">
         {siteConfig.name}
       </Title>

@@ -65,15 +65,20 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session }) {
+    async session({ session, token }) {
+      if (token?.user) {
+        // @ts-ignore
+        session.user = token?.user
+      }
+
       return session
     },
     async jwt({ token, user }) {
       // Persist the OAuth access_token to the token right after signin
       if (user) {
         token.accessToken = user?.access
+        token.user = user
       }
-
       return token
     },
     async signIn({ user }) {

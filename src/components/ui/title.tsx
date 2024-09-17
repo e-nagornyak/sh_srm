@@ -31,7 +31,7 @@ const titleVariants = cva("text-black dark:text-white", {
   },
 })
 
-interface TitleProps
+export interface TitleProps
   extends PropsWithChildren,
     VariantProps<typeof titleVariants> {
   className?: string

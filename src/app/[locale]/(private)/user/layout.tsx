@@ -7,7 +7,10 @@ import { Link } from "@/components/ui/link"
 export default async function Layout({ children }: PropsWithChildren) {
   return (
     <section className="flex flex-1 justify-center p-14">
-      <Link buttonStyles={{ variant: "link" }} href={routePaths.user.list}>
+      <Link
+        buttonStyles={{ variant: "link" }}
+        href={routePaths.private.user.list}
+      >
         <ChevronLeft />
         Back
       </Link>

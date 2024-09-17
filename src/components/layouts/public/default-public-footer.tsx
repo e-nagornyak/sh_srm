@@ -6,13 +6,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { ModeToggle } from "@/components/shared/mode-toggle"
 
@@ -60,7 +53,7 @@ const footerSections = [
   },
 ]
 
-export function DefaultFooter() {
+export function DefaultPublicFooter() {
   return (
     <footer className="border-t border-border px-4 py-8 dark:border-white md:px-8">
       <div className="mx-auto max-w-7xl">

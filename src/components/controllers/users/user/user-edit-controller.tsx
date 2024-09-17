@@ -29,7 +29,7 @@ export function UserEditController({ user }: UserEditControllerProps) {
         username,
         password: "password",
       })
-      lazyPush(routePaths.user.list)
+      lazyPush(routePaths.private.user.list)
       toast.info("User has been updated")
     } catch (e) {
       showErrorToast(e)

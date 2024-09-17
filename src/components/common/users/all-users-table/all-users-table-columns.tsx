@@ -97,7 +97,7 @@ export function getColumns(): ColumnDef<User>[] {
               <DropdownMenuItem asChild>
                 <Link
                   className="cursor-pointer"
-                  href={routePaths.user.edit(userId)}
+                  href={routePaths.private.user.edit(userId)}
                 >
                   <Pencil1Icon className="mr-2 size-5" />
                   Edit
@@ -106,7 +106,7 @@ export function getColumns(): ColumnDef<User>[] {
               <DropdownMenuItem asChild>
                 <Link
                   className="cursor-pointer"
-                  href={routePaths.user.delete(userId)}
+                  href={routePaths.private.user.delete(userId)}
                 >
                   <TrashIcon className="mr-2 size-5" />
                   Delete
