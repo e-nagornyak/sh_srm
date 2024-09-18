@@ -63,7 +63,7 @@ export default async function RootLayout({
   const locale = params?.locale || "en"
   const messages = await getMessages(locale)
   const session = await getServerSession(authOptions)
-  console.log("main session", session)
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head />

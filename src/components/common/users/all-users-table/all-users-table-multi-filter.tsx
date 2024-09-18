@@ -36,7 +36,7 @@ import { DataTableFacetedFilter } from "@/components/common/data-table/data-tabl
 import {
   dataTableConfig,
   type DataTableConfig,
-} from "@/components/controllers/users/all-users-table/helpers/all-users-table-config"
+} from "@/components/controllers/users/users-table/helpers/users-table-config"
 
 interface DataTableMultiFilterProps<TData> {
   table: Table<TData>
@@ -48,7 +48,7 @@ interface DataTableMultiFilterProps<TData> {
   defaultOpen: boolean
 }
 
-export function DataTableMultiFilter<TData>({
+export function AllUsersTableMultiFilter<TData>({
   table,
   allOptions,
   options,

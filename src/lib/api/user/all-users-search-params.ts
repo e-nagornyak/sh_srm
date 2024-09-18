@@ -5,6 +5,4 @@ export const allUsersSearchParamsSchema = z.object({
   limit: z.union([z.string(), z.null()]).optional(),
 })
 
-export type AllUsersSearchParamsSchema = z.infer<
-  typeof allUsersSearchParamsSchema
->
+export type UsersSearchParamsSchema = z.infer<typeof allUsersSearchParamsSchema>

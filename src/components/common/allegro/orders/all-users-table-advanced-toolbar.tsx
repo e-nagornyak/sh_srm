@@ -11,11 +11,10 @@ import {
 } from "@/types/table"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { AllegroOrdersDataTableFilterItem } from "@/components/common/allegro/orders/allegro-orders-data-table-filter-item"
+import { AllegroOrdersDataTableMultiFilter } from "@/components/common/allegro/orders/allegro-orders-data-table-multi-filter"
 import { DataTableFilterCombobox } from "@/components/common/data-table/advanced/data-table-filter-combobox"
 import { DataTableViewOptions } from "@/components/common/data-table/data-table-view-options"
-import { AllUsersTableFilterItem } from "@/components/common/users/all-users-table/all-users-table-filter-item"
-
-import { AllegroOrdersDataTableMultiFilter } from "../../allegro/orders/allegro-orders-data-table-multi-filter"
 
 interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -23,7 +22,7 @@ interface DataTableAdvancedToolbarProps<TData>
   filterFields?: DataTableFilterField<TData>[]
 }
 
-export function DataTableAdvancedToolbar<TData>({
+export function AllegroOrdersTableAdvancedToolbar<TData>({
   table,
   filterFields = [],
   children,
@@ -119,7 +118,7 @@ export function DataTableAdvancedToolbar<TData>({
         {selectedOptions
           .filter((option) => !option.isMulti)
           .map((selectedOption) => (
-            <AllUsersTableFilterItem
+            <AllegroOrdersDataTableFilterItem
               key={String(selectedOption.value)}
               table={table}
               selectedOption={selectedOption}

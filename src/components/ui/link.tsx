@@ -2,23 +2,31 @@
 
 import * as React from "react"
 import NextLink from "next/link"
-import type { VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
-interface LinkProps {
+const linkVariants = cva("cursor-pointer", {
+  variants: {
+    variant: {
+      highlight: "text-highlight hover:underline dark:text-highlight",
+    },
+  },
+})
+
+interface LinkProps extends VariantProps<typeof linkVariants> {
   buttonStyles?: Partial<VariantProps<typeof buttonVariants>>
 }
 
 const Link = React.forwardRef<
   React.ElementRef<typeof NextLink>,
   React.ComponentPropsWithoutRef<typeof NextLink> & LinkProps
->(({ buttonStyles, className, ...rest }, ref) => (
+>(({ buttonStyles, className, variant, ...rest }, ref) => (
   <NextLink
     ref={ref}
     className={cn(
-      "cursor-pointer",
+      linkVariants({ variant }),
       buttonStyles && buttonVariants(buttonStyles),
       className
     )}

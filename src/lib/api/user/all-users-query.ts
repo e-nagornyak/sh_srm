@@ -2,20 +2,19 @@ import "server-only"
 
 import { unstable_noStore as noStore } from "next/cache"
 
+import { type UsersSearchParamsSchema } from "@/lib/api/user/all-users-search-params"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { type User } from "@/lib/api/user/user-types"
 
-import { type AllUsersSearchParamsSchema } from "./all-users-table-search-params"
-
-interface QueriesResponse {
+interface QueryResponse {
   total_pages: number
   current_page: number
   results: User[]
 }
 
-export async function getUsers(
-  input: AllUsersSearchParamsSchema
-): Promise<QueriesResponse> {
+export async function getAllUsers(
+  input: UsersSearchParamsSchema
+): Promise<QueryResponse> {
   noStore()
 
   try {

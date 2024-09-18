@@ -21,9 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { dataTableConfig } from "@/components/controllers/users/all-users-table/helpers/all-users-table-config"
+import { dataTableConfig } from "@/components/controllers/allegro/allegro-orders-table/helpers/allegro-orders-table-config"
 
-import { DataTableAdvancedFacetedFilter } from "./data-table-advanced-faceted-filter"
+import { DataTableAdvancedFacetedFilter } from "../../data-table/advanced/data-table-advanced-faceted-filter"
 
 interface DataTableFilterItemProps<TData> {
   table: Table<TData>
@@ -35,7 +35,7 @@ interface DataTableFilterItemProps<TData> {
   defaultOpen: boolean
 }
 
-export function DataTableFilterItem<TData>({
+export function AllegroOrdersDataTableFilterItem<TData>({
   table,
   selectedOption,
   selectedOptions,

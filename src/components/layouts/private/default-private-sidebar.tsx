@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useRef } from "react"
+import { usePathname } from "next/navigation"
 import { useAppStore } from "@/store/app"
 
 import { routePaths } from "@/config/routes"
@@ -17,6 +18,7 @@ import { Text } from "@/components/ui/text"
 import { Logo } from "@/components/shared/Logo"
 
 export function DefaultPrivateSidebar() {
+  const path = usePathname()
   const openSidebar = useAppStore((store) => store?.openSidebar)
 
   return (
@@ -32,7 +34,7 @@ export function DefaultPrivateSidebar() {
         className={"mb-4 pb-2"}
       />
       <Accordion
-        className="flex w-full flex-col gap-2"
+        className={cn("flex w-full flex-col gap-2", { "gap-4": !openSidebar })}
         type="single"
         collapsible
       >
@@ -51,12 +53,14 @@ export function DefaultPrivateSidebar() {
 interface SidebarItemProps {
   item: SidebarMainItem
   openSidebar: boolean
+  isActive?: boolean
 }
 
-const SidebarItem = ({ item, openSidebar }: SidebarItemProps) => {
+const SidebarItem = ({ item, openSidebar, isActive }: SidebarItemProps) => {
   const linkStyles = cn(
     "flex items-center gap-2 rounded-xl transition-colors duration-500 hover:bg-gray-100 hover:no-underline dark:hover:bg-white/30",
-    openSidebar ? " px-4 py-2" : "justify-center"
+    openSidebar ? " px-4 py-2" : "justify-center [&_svg]:size-6",
+    { "[&_svg]:text-highlight": isActive }
   )
 
   if (!openSidebar) {
