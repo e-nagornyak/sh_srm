@@ -8,7 +8,6 @@ import { AllegroOrdersSearchParamsSchema } from "@/lib/api/allegro/orders/allegr
 import { AllegroOrdersTableProvider } from "@/components/common/allegro/orders/allegro-orders-table-provider"
 import { DataTableSkeleton } from "@/components/common/data-table/data-table-skeleton"
 import { AllegroOrdersTableController } from "@/components/controllers/allegro/allegro-orders-table/allegro-orders-table-controller"
-import { Shell } from "@/components/shared/shell"
 
 interface ListPageProps {
   searchParams: SearchParams
@@ -20,7 +19,7 @@ export default async function ListPage({ searchParams }: ListPageProps) {
   const allegroOrdersPromise = getAllegroOrders(search)
 
   return (
-    <section className="grid items-center p-4">
+    <section className="grid items-center px-1 py-4">
       <AllegroOrdersTableProvider>
         <React.Suspense
           fallback={

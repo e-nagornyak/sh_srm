@@ -16,6 +16,8 @@ interface OrderProduct {
   price: string // $decimal, pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
   tax_rate: string // $decimal, pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
   order: number // integer
+  images: string // string, readOnly
+  stock_quantity: string // string, readOnly
 }
 
 interface OrderProductRequest {

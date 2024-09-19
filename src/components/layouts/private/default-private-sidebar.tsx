@@ -25,12 +25,12 @@ export function DefaultPrivateSidebar() {
     <div
       className={cn(
         "group/sidebar flex flex-col overflow-hidden border-r border-border shadow-md duration-500 dark:border-white",
-        openSidebar ? "w-72 p-6 pt-0" : "w-16 p-2"
+        openSidebar ? "w-72 p-6 pt-0" : "w-12 p-2"
       )}
     >
       <Logo
         href={routePaths.private.dashboard}
-        size={openSidebar ? "xl" : "md"}
+        size={openSidebar ? "xl" : "sm"}
         className={"mb-4 pb-2"}
       />
       <Accordion
@@ -58,7 +58,7 @@ interface SidebarItemProps {
 
 const SidebarItem = ({ item, openSidebar, isActive }: SidebarItemProps) => {
   const linkStyles = cn(
-    "flex items-center gap-2 rounded-xl transition-colors duration-500 hover:bg-gray-100 hover:no-underline dark:hover:bg-white/30",
+    "flex items-center gap-2 rounded-xl transition-colors duration-500 hover:bg-gray-100 hover:no-underline dark:hover:bg-white/30 [&_svg]:shrink-0",
     openSidebar ? " px-4 py-2" : "justify-center [&_svg]:size-6",
     { "[&_svg]:text-highlight": isActive }
   )
@@ -86,7 +86,7 @@ const SidebarItem = ({ item, openSidebar, isActive }: SidebarItemProps) => {
             className={cn(linkStyles, "w-fit")}
             href={subItem?.href as string}
           >
-            <Text>{subItem?.title}</Text>
+            <Text className="truncate">{subItem?.title}</Text>
           </Link>
         ))}
       </AccordionContent>

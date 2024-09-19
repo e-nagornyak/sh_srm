@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import type { Table } from "@tanstack/react-table"
+import { Flag, Mail, Trash } from "lucide-react"
 
 import { type DataTableFilterField } from "@/types/table"
 import { cn } from "@/lib/utils"

@@ -41,7 +41,7 @@ export function AllegroOrdersTableController({
     // enableAdvancedFilter: featureFlags.includes("advancedFilter"),
     initialState: {
       // sorting: [{ id: "createdAt", desc: true }],
-      columnPinning: { right: ["actions"], left: ["select"] },
+      columnPinning: { right: ["actions", "updated_at"], left: ["select"] },
     },
     // For remembering the previous row selection on page change
     // getRowId: (originalRow, index) => `${originalRow.id}-${index}`,
