@@ -125,7 +125,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         )
         return (
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {products?.map(({ id }) => (
                 <div key={`${id}-img`} className="h-8 w-12 bg-gray-200" />
               ))}
@@ -184,18 +184,17 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
 
         return (
           <div className="flex flex-col gap-2">
-            <div className="float-right flex gap-0.5">
-              {Array.from({ length: 4 })?.map((_, i) => (
-                <div key={i} className="size-4 rounded-sm bg-gray-300" />
-              ))}
-            </div>
             <Text
               className="w-fit rounded-md bg-emerald-700 px-1 py-0.5"
               size="xxs"
             >
               Status
             </Text>
-
+            <div className="float-right flex gap-0.5">
+              {Array.from({ length: 4 })?.map((_, i) => (
+                <div key={i} className="size-4 rounded-sm bg-gray-300" />
+              ))}
+            </div>
             <Link
               className={textVariants({
                 size: "xxs",

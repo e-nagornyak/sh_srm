@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { DefaultPublicHeader } from "@/components/layouts/public/default-public-header"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { TailwindIndicator } from "@/components/shared/tailwind-indicator"
 

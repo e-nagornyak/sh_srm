@@ -17,9 +17,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Text } from "@/components/ui/text"
 import { Title } from "@/components/ui/title"
+import { AllegroOrdersTableGroups } from "@/components/common/allegro/orders/allegro-orders-table-groups"
 import { type DataTableConfig } from "@/components/controllers/allegro/allegro-orders-table/helpers/allegro-orders-table-config"
 
 type FeatureFlagValue = DataTableConfig["featureFlags"][number]["value"]
@@ -54,125 +56,16 @@ export function AllegroOrdersTableProvider({ children }: TableProviderProps) {
         setFeatureFlags,
       }}
     >
-      <div className="flex gap-3">
-        <div className="h-fit rounded-lg bg-white/10 p-2">
-          <div className="min-h-52 w-full">
-            <Button size="sm" className="mb-3 w-full gap-4 rounded-2xl">
-              <CirclePlus />
-              Add order
-            </Button>
-            <Button className="w-full justify-start gap-2" variant="ghost">
-              <WalletCards size="15" />
-              All
-            </Button>
-            <Accordion type="multiple" className="">
-              <AccordionItem value={`section-1`}>
-                <AccordionTrigger
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                    className: "justify-start",
-                  })}
-                >
-                  IN PROGRESS (67)
-                </AccordionTrigger>
-                <AccordionContent className="space-y-2 px-4">
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 w-5 bg-blue-600 text-xs">64</span>
-                    <Text size="xs">New orders</Text>
-                  </button>
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 w-5 bg-yellow-600 p-0.5 text-xs">
-                      3
-                    </span>
-                    <Text size="xs">Personal receipt</Text>
-                  </button>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value={`section-2`}>
-                <AccordionTrigger
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                    className: "justify-start",
-                  })}
-                >
-                  PROCESSED (9999+)
-                </AccordionTrigger>
-                <AccordionContent className="space-y-2 px-4">
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 w-5 bg-blue-600 text-xs">47</span>
-                    <Text size="xs">To be sent</Text>
-                  </button>
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 min-w-5 bg-green-600 p-0.5 text-xs">
-                      832
-                    </span>
-                    <Text size="xs">Sent</Text>
-                  </button>
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 min-w-5 bg-gray-600 p-0.5 text-xs">
-                      26784
-                    </span>
-                    <Text size="xs">Realized</Text>
-                  </button>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value={`section-3`}>
-                <AccordionTrigger
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                    className: "justify-start",
-                  })}
-                >
-                  RETURN (2661)
-                </AccordionTrigger>
-                <AccordionContent className="space-y-2 px-4">
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 min-w-5 bg-red-600 p-0.5 text-xs">
-                      676
-                    </span>
-                    <Text size="xs">Cancelled</Text>
-                  </button>
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 min-w-5 bg-purple-600 p-0.5 text-xs">
-                      18
-                    </span>
-                    <Text size="xs">Returned</Text>
-                  </button>
-                  <button className="flex items-center gap-2">
-                    <span className="h-4 min-w-5 bg-emerald-600 p-0.5 text-xs">
-                      26784
-                    </span>
-                    <Text size="xs">Funds returned</Text>
-                  </button>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Separator />
-            <Button className="w-full justify-start gap-2" variant="ghost">
-              <List size="15" />
-              Archive
-            </Button>
-            <Button className="w-full justify-start gap-2" variant="ghost">
-              <Trash size="15" />
-              Bin
-            </Button>
-            <Separator />
-            <Button className="w-full justify-between" variant="ghost">
-              <div className="flex items-center gap-2">
-                <Plus size="15" />
-                Add status
-              </div>
-              <RefreshCcw size="15" />
-            </Button>
-          </div>
-        </div>
-        <div className="w-full overflow-x-auto rounded-lg">
-          <Title className="bg-white/20 p-2 leading-none" size="lg">
-            List of all orders
-          </Title>
+      <div className="flex gap-2">
+        <AllegroOrdersTableGroups />
+        <div className="w-full space-y-2 overflow-x-auto rounded-lg">
+          <Card className="w-full">
+            <CardContent>
+              <Title className="leading-none" size="lg">
+                All orders
+              </Title>
+            </CardContent>
+          </Card>
           {/*<ToggleGroup*/}
           {/*  type="multiple"*/}
           {/*  variant="outline"*/}

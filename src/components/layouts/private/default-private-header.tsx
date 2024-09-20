@@ -26,7 +26,7 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
   const user = session?.user
 
   return (
-    <header className="w-full border-b border-border bg-background/95 p-4 px-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-white">
+    <header className="w-full border-b border-border bg-card p-4 px-6 shadow-sm">
       <div className="flex items-center justify-between">
         <nav className="flex size-full items-center justify-between gap-3">
           <SidebarToggle />

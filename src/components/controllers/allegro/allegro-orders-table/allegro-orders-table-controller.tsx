@@ -6,6 +6,8 @@ import * as React from "react"
 import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-query"
 import { type AllegroOrdersSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { useDataTable } from "@/hooks/use-data-table"
+import { Card, CardContent } from "@/components/ui/card"
+import { Title } from "@/components/ui/title"
 import { AllegroOrdersTableAdvancedToolbar } from "@/components/common/allegro/orders/all-users-table-advanced-toolbar"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
 import { useAllegroOrdersTable } from "@/components/common/allegro/orders/allegro-orders-table-provider"
@@ -50,24 +52,28 @@ export function AllegroOrdersTableController({
 
   return (
     <DataTable table={table}>
-      {featureFlags?.includes("advancedFilter") ? (
-        <AllegroOrdersTableAdvancedToolbar
-          table={table}
-          filterFields={filterFields}
-        >
-          <AllegroOrdersTableToolbarActions
-            disabled={!results?.length}
-            table={table}
-          />
-        </AllegroOrdersTableAdvancedToolbar>
-      ) : (
-        <DataTableToolbar table={table} filterFields={filterFields}>
-          <AllegroOrdersTableToolbarActions
-            disabled={!results?.length}
-            table={table}
-          />
-        </DataTableToolbar>
-      )}
+      <Card className="w-full">
+        <CardContent>
+          {featureFlags?.includes("advancedFilter") ? (
+            <AllegroOrdersTableAdvancedToolbar
+              table={table}
+              filterFields={filterFields}
+            >
+              <AllegroOrdersTableToolbarActions
+                disabled={!results?.length}
+                table={table}
+              />
+            </AllegroOrdersTableAdvancedToolbar>
+          ) : (
+            <DataTableToolbar table={table} filterFields={filterFields}>
+              <AllegroOrdersTableToolbarActions
+                disabled={!results?.length}
+                table={table}
+              />
+            </DataTableToolbar>
+          )}
+        </CardContent>
+      </Card>
     </DataTable>
   )
 }

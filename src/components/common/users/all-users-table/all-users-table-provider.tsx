@@ -2,19 +2,8 @@
 
 import * as React from "react"
 
-import { routePaths } from "@/config/routes"
-import { Link } from "@/components/ui/link"
 import { Title } from "@/components/ui/title"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import {
-  dataTableConfig,
-  type DataTableConfig,
-} from "@/components/controllers/users/all-users-table/helpers/all-users-table-config"
+import { type DataTableConfig } from "@/components/controllers/users/users-table/helpers/users-table-config"
 
 type FeatureFlagValue = DataTableConfig["featureFlags"][number]["value"]
 
