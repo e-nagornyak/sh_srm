@@ -39,19 +39,22 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
                 <Text>{user?.username}</Text>
                 <ChevronDown className="size-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="flex min-w-56 flex-col items-start justify-between">
-                <DropdownMenuItem>
+              <DropdownMenuContent className="flex min-w-56 flex-col items-start justify-between p-4">
+                <DropdownMenuItem className="w-full">
+                  <Link href={"#"}>My account</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="w-full">
                   <Link href={routePaths.private.user.list}>
                     List of employees
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="h-px w-full bg-gray-200 dark:bg-white" />
-                <DropdownMenuItem>
+                <DropdownMenuSeparator className="mx-auto my-2 w-[95%]" />
+                <DropdownMenuItem className="flex w-full justify-center">
                   <LanguageToggle />
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="h-px w-full bg-gray-200 dark:bg-white" />
-                <DropdownMenuItem className="mx-auto">
-                  <AuthButton />
+                <DropdownMenuSeparator className="mx-auto my-2 w-[95%]" />
+                <DropdownMenuItem className="flex w-full justify-center">
+                  <AuthButton className="w-full gap-2" />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -8,9 +8,9 @@ import { Loader } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
 
 import { routePaths } from "@/config/routes"
-import { Button } from "@/components/ui/button"
+import { Button, type ButtonProps } from "@/components/ui/button"
 
-export function AuthButton() {
+export function AuthButton(props: ButtonProps) {
   const [isPending, startTransition] = useTransition()
 
   const session = useSession()
@@ -41,6 +41,7 @@ export function AuthButton() {
       disabled={isPending}
       className="gap-2"
       type="button"
+      {...props}
     >
       {icon}
       Log out
@@ -51,6 +52,7 @@ export function AuthButton() {
       disabled={isPending}
       className="gap-2"
       type="button"
+      {...props}
     >
       {icon}
       Sign In
