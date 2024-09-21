@@ -11,8 +11,10 @@ const linkVariants = cva("cursor-pointer", {
   variants: {
     variant: {
       default: "text-highlight hover:underline dark:text-highlight",
+      ghost: "",
     },
   },
+  defaultVariants: { variant: "default" },
 })
 
 interface LinkProps extends VariantProps<typeof linkVariants> {

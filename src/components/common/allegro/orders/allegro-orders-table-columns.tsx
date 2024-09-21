@@ -63,10 +63,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
               <Star size="14" />
             </button>
             <Text></Text>
-            <Link
-              variant="highlight"
-              href={routePaths.private.orders.order(id).view}
-            >
+            <Link href={routePaths.private.orders.order(id).view}>
               {id?.toString()?.padStart(4, "0")}
             </Link>
           </div>
@@ -135,11 +132,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
               {products?.map(({ id, offer_id, quantity, name }) => (
                 <Text key={`${id}-text`} size="xs">
                   {quantity}x {name}{" "}
-                  <Link
-                    variant="highlight"
-                    className="flexible-text-[11px]"
-                    href="#"
-                  >
+                  <Link className="flexible-text-[11px]" href="#">
                     ({offer_id})
                   </Link>
                 </Text>
@@ -197,12 +190,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
               ))}
             </div>
             <Link
+              href="#"
               className={textVariants({
                 size: "xxs",
                 className: "!text-highlight",
               })}
-              variant="highlight"
-              href="#"
             >
               {delivery?.method}
             </Link>
@@ -219,7 +211,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         <DataTableColumnHeader column={column} title="Order Date" />
       ),
       cell: ({ row }) => {
-        const date = new Date() // або будь-яка інша дата
+        const date = new Date()
         const formattedDate = format(date, "dd.MM.yyyy HH:mm")
 
         return (

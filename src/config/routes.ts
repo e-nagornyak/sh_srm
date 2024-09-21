@@ -15,6 +15,10 @@ export const routePaths = {
     },
     products: {
       base: "/products",
+      product: (id: number) => ({
+        add: "/products/product/add",
+        view: `/products/product/${id}`,
+      }),
     },
     user: {
       list: "/users",

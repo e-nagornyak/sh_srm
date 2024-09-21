@@ -13,7 +13,7 @@ interface OrderViewControllerProps {
 
 export function OrderViewController({ order }: OrderViewControllerProps) {
   return (
-    <div className={"flex w-full flex-col gap-2"}>
+    <div className={"flex w-full flex-col gap-3"}>
       <OrderViewBayer order={order} />
       <OrderViewProducts order={order} />
       <OrderViewOrder />

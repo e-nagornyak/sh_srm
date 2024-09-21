@@ -44,6 +44,7 @@ export const SidebarOpenedItem = ({ item, currentPath }: SidebarItemProps) => {
               <Link
                 key={subitem?.title}
                 className="justify-start gap-2"
+                variant="ghost"
                 buttonStyles={{
                   variant: currentPath?.includes(subitem?.href)
                     ? "accent"
@@ -62,6 +63,7 @@ export const SidebarOpenedItem = ({ item, currentPath }: SidebarItemProps) => {
   ) : (
     <Link
       className="justify-start gap-2"
+      variant="ghost"
       buttonStyles={{
         variant: currentPath?.includes(item?.href) ? "accent" : "ghost",
       }}

@@ -42,6 +42,7 @@ export const SidebarClosedItem = ({ item, currentPath }: SidebarItemProps) => {
             subitem?.href && (
               <Link
                 key={subitem?.title}
+                variant="ghost"
                 buttonStyles={{
                   variant: currentPath?.includes(subitem?.href)
                     ? "accent"
@@ -60,6 +61,7 @@ export const SidebarClosedItem = ({ item, currentPath }: SidebarItemProps) => {
       <Tooltip delayDuration={300}>
         <TooltipTrigger asChild>
           <Link
+            variant="ghost"
             className="[&_svg]:shrink-0"
             buttonStyles={{
               variant: currentPath?.includes(item?.href) ? "accent" : "ghost",

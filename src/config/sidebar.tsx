@@ -37,7 +37,7 @@ export const sidebarConfig: {
       activePath: routePaths.private.orders.base,
       items: [
         {
-          title: "List of orders",
+          title: "Order list",
           href: routePaths.private.orders.list,
         },
       ],
@@ -48,7 +48,7 @@ export const sidebarConfig: {
       activePath: routePaths.private.products.base,
       items: [
         {
-          title: "List of products",
+          title: "Product list",
           href: "#",
         },
       ],

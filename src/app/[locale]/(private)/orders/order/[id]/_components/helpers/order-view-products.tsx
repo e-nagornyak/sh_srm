@@ -1,17 +1,24 @@
-import { format } from "date-fns"
-import { Camera, MoreVertical } from "lucide-react"
+import * as React from "react"
+import {
+  ChevronDown,
+  LayoutList,
+  MoreVertical,
+  Pen,
+  Plus,
+  Trash,
+  Wrench,
+} from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { OrderViewProductsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products-table"
 
 interface OrderViewProductsProps {
   order: Order
@@ -19,57 +26,76 @@ interface OrderViewProductsProps {
 
 export function OrderViewProducts({ order }: OrderViewProductsProps) {
   const products = order?.products
+
   return (
-    <Card>
-      <CardContent className="overflow-auto">
-        <Table className="min-w-[800px]">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[50px]">
-                <Camera className="mx-auto" />
-              </TableHead>
-              <TableHead className="w-[100px]">PROD. ID</TableHead>
-              <TableHead className="w-[300px]">PRODUCT NAME</TableHead>
-              <TableHead className="text-right">QUANTITY</TableHead>
-              <TableHead className="text-right">PRICE</TableHead>
-              <TableHead className="text-right">TAX</TableHead>
-              <TableHead className="text-right">WEIGHT</TableHead>
-              <TableHead className="text-right">DATE</TableHead>
-              <TableHead className="w-[100px] text-right">ACTIONS</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id} className="border-b border-gray-700">
-                <TableCell>
-                  <div className="size-[40px] rounded bg-gray-300"></div>
-                </TableCell>
-                <TableCell className="font-medium">{product.id}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell className="text-right">{product.quantity}</TableCell>
-                <TableCell className="text-right">
-                  {product?.price} {order?.currency}
-                </TableCell>
-                <TableCell className="text-right">
-                  {product.tax_rate}%
-                </TableCell>
-                <TableCell className="text-right">
-                  {/*{product.weight.toFixed(3)}*/}
-                </TableCell>
-                <TableCell className="text-right">
-                  {format(new Date(), "dd.MM.yyyy HH:mm")}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="size-4" />
-                    <span className="sr-only">Open menu</span>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <>
+      <Card>
+        <CardContent className="overflow-auto">
+          <OrderViewProductsTable order={order} />
+        </CardContent>
+      </Card>
+      <div className="flex w-full items-center justify-between">
+        <div>
+          <Button size="sm" className="gap-2 rounded-2xl rounded-r-none">
+            <Plus size="15" />
+            Add products to order...
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="sm" className="rounded-none rounded-r-2xl">
+                <ChevronDown size="15" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="flex flex-col items-stretch">
+              <DropdownMenuItem asChild>
+                <Button
+                  size="sm"
+                  className="justify-start gap-2"
+                  variant="ghost"
+                >
+                  Add products from the storage...
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Button
+                  size="sm"
+                  className="justify-start gap-2"
+                  variant="ghost"
+                >
+                  Add product manually...
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm" className="gap-2 rounded-2xl">
+              <Wrench size="15" />
+              Operations on products
+              <ChevronDown size="15" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="flex flex-col items-stretch">
+            <DropdownMenuItem asChild>
+              <Button size="sm" className="justify-start gap-2" variant="ghost">
+                Edit
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Button size="sm" className="justify-start gap-2" variant="ghost">
+                Delete
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Button size="sm" className="justify-start gap-2" variant="ghost">
+                Stock levels history
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </>
   )
 }
