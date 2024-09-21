@@ -16,6 +16,7 @@ interface ItemWithHref extends ItemBase {
 
 interface ItemWithItems extends ItemBase {
   href?: never // href cannot be if there are items
+  activePath: string
   items: Omit<SidebarMainItem, "icon">[]
 }
 
@@ -33,6 +34,7 @@ export const sidebarConfig: {
     {
       title: "Orders",
       icon: <ShoppingCart size="18" />,
+      activePath: routePaths.private.order.base,
       items: [
         {
           title: "List of orders",
@@ -43,6 +45,7 @@ export const sidebarConfig: {
     {
       title: "Products",
       icon: <LibraryBig size="18" />,
+      activePath: routePaths.private.product.base,
       items: [
         {
           title: "List of products",

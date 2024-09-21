@@ -6,7 +6,11 @@ export const routePaths = {
   private: {
     dashboard: "/dashboard",
     order: {
-      list: "/orders",
+      base: "/orders",
+      list: `/orders/list`,
+    },
+    product: {
+      base: "/products",
     },
     user: {
       list: "/users",

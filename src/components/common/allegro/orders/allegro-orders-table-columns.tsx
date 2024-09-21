@@ -119,10 +119,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       ),
       cell: ({ row }) => {
         const products = row?.original?.products
-        console.log(
-          "images",
-          products?.map((p) => p?.images)
-        )
+
         return (
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
