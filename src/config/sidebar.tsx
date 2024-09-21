@@ -34,18 +34,18 @@ export const sidebarConfig: {
     {
       title: "Orders",
       icon: <ShoppingCart size="18" />,
-      activePath: routePaths.private.order.base,
+      activePath: routePaths.private.orders.base,
       items: [
         {
           title: "List of orders",
-          href: routePaths.private.order.list,
+          href: routePaths.private.orders.list,
         },
       ],
     },
     {
       title: "Products",
       icon: <LibraryBig size="18" />,
-      activePath: routePaths.private.product.base,
+      activePath: routePaths.private.products.base,
       items: [
         {
           title: "List of products",

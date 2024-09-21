@@ -79,7 +79,9 @@ const groups = [
 
 interface AllegroOrdersTableGroupsProps {}
 
-export function AllegroOrdersTableGroups(props: AllegroOrdersTableGroupsProps) {
+export function AllegroOrdersGroupsController(
+  props: AllegroOrdersTableGroupsProps
+) {
   return (
     <Card className="size-fit">
       <CardContent className="min-h-52 w-full p-2">

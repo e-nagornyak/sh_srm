@@ -5,11 +5,15 @@ export const routePaths = {
   },
   private: {
     dashboard: "/dashboard",
-    order: {
+    orders: {
       base: "/orders",
       list: `/orders/list`,
+      order: (id: number) => ({
+        add: "/orders/order/add",
+        view: `/orders/order/${id}`,
+      }),
     },
-    product: {
+    products: {
       base: "/products",
     },
     user: {

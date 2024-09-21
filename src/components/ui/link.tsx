@@ -10,7 +10,7 @@ import { buttonVariants } from "@/components/ui/button"
 const linkVariants = cva("cursor-pointer", {
   variants: {
     variant: {
-      highlight: "text-highlight hover:underline dark:text-highlight",
+      default: "text-highlight hover:underline dark:text-highlight",
     },
   },
 })

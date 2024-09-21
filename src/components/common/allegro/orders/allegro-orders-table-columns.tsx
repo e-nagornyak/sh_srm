@@ -5,6 +5,7 @@ import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { Star } from "lucide-react"
 
+import { routePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Link } from "@/components/ui/link"
@@ -62,7 +63,10 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
               <Star size="14" />
             </button>
             <Text></Text>
-            <Link variant="highlight" href="#">
+            <Link
+              variant="highlight"
+              href={routePaths.private.orders.order(id).view}
+            >
               {id?.toString()?.padStart(4, "0")}
             </Link>
           </div>
