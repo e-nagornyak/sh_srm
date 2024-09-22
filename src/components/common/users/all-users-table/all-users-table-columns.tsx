@@ -96,6 +96,7 @@ export function getColumns(): ColumnDef<User>[] {
             <DropdownMenuContent align="end" className="w-max">
               <DropdownMenuItem asChild>
                 <Link
+                  variant="ghost"
                   className="cursor-pointer"
                   href={routePaths.private.user.edit(userId)}
                 >
@@ -105,6 +106,7 @@ export function getColumns(): ColumnDef<User>[] {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  variant="ghost"
                   className="cursor-pointer"
                   href={routePaths.private.user.delete(userId)}
                 >

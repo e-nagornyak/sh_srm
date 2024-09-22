@@ -15,7 +15,7 @@ export function Logo({
   className,
 }: LogoProps) {
   return (
-    <Link className={className} href={href}>
+    <Link className={className} variant="ghost" href={href}>
       <Title size={size} className="font-bold">
         {siteConfig.name}
       </Title>

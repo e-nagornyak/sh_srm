@@ -20,6 +20,7 @@ export function AllUsersTableToolbarActions({
   return (
     <div className="flex w-full items-center gap-2">
       <Link
+        variant="ghost"
         aria-label="Toggle columns"
         buttonStyles={{}}
         href={routePaths.private.user.add}

@@ -1,6 +1,5 @@
 import * as React from "react"
-import { useAppStore } from "@/store/app"
-import { ChevronDown, PanelRightOpen } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import { type Session } from "next-auth"
 
 import { routePaths } from "@/config/routes"
@@ -41,10 +40,12 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="flex min-w-56 flex-col items-start justify-between p-4">
                 <DropdownMenuItem className="w-full">
-                  <Link href={"#"}>My account</Link>
+                  <Link variant="ghost" href={"#"}>
+                    My account
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-full">
-                  <Link href={routePaths.private.user.list}>
+                  <Link variant="ghost" href={routePaths.private.user.list}>
                     List of employees
                   </Link>
                 </DropdownMenuItem>

@@ -1,13 +1,5 @@
 import * as React from "react"
-import {
-  ChevronDown,
-  LayoutList,
-  MoreVertical,
-  Pen,
-  Plus,
-  Trash,
-  Wrench,
-} from "lucide-react"
+import { ChevronDown, Plus, Wrench } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
@@ -26,8 +18,6 @@ interface OrderViewProductsProps {
 }
 
 export function OrderViewProducts({ order }: OrderViewProductsProps) {
-  const products = order?.products
-
   return (
     <>
       <Card>

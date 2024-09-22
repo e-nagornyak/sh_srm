@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import dynamic from "next/dynamic"
 import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { Star } from "lucide-react"
@@ -8,6 +9,12 @@ import { Star } from "lucide-react"
 import { routePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { Img } from "@/components/ui/img"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
@@ -133,18 +140,52 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       ),
       cell: ({ row }) => {
         const products = row?.original?.products
-        const images = products?.flatMap((p) => p?.images)
-
+        const images = products
+          ?.map(
+            (p) =>
+              p?.images?.length && {
+                // TODO fix it
+                src: Array.isArray(p?.images) ? p?.images?.[0] : p?.images,
+                quantity: p?.quantity,
+              }
+          )
+          .filter(Boolean)
         return (
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              {images?.map((src, i) => (
-                <img
-                  key={`${i}-img`}
-                  src={src}
-                  alt={""}
-                  className="h-8 w-12 bg-gray-200"
-                />
+              {images?.map(({ src, quantity }, i) => (
+                // <div key={`${i}-img`} className="h-8 w-12 bg-gray-200" />
+                <HoverCard key={`${i}-img`} closeDelay={100} openDelay={100}>
+                  <HoverCardTrigger className="relative h-10 w-16 bg-gray-200">
+                    <Img
+                      fill
+                      key={`${i}-img`}
+                      className="object-contain"
+                      src={src}
+                      alt=""
+                    />
+                    <Text
+                      size="sm"
+                      className="absolute bottom-0 right-0 flex items-center justify-center bg-gray-500 px-1.5"
+                    >
+                      {quantity}
+                    </Text>
+                  </HoverCardTrigger>
+                  <HoverCardContent
+                    className="relative aspect-square w-44"
+                    avoidCollisions
+                    side="top"
+                  >
+                    <Img
+                      fill
+                      key={`${i}-img`}
+                      className="z-10 object-contain"
+                      src={src}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </HoverCardContent>
+                </HoverCard>
               ))}
             </div>
             <div>

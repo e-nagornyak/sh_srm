@@ -25,12 +25,12 @@ export function ButtonWithDropdown({
   buttonContent,
 }: ButtonWithDropdownProps) {
   return (
-    <div>
+    <div className="flex items-center">
       <Button
         size="sm"
         {...buttonProps}
         className={cn(
-          "gap-2 rounded-2xl rounded-r-none",
+          "gap-2 rounded-r-none border-r border-border",
           buttonProps?.className
         )}
       >
@@ -41,10 +41,7 @@ export function ButtonWithDropdown({
           <Button
             size="sm"
             {...triggerProps}
-            className={cn(
-              "rounded-none rounded-r-2xl",
-              triggerProps?.className
-            )}
+            className={cn("rounded-none rounded-r-md", triggerProps?.className)}
           >
             <ChevronDown size="15" />
           </Button>
