@@ -53,6 +53,7 @@ class Api {
       method,
       headers: {
         ...headers,
+        ...options?.headers,
       },
       body: body ? JSON.stringify(body) : undefined,
     })
@@ -79,10 +80,19 @@ class Api {
     TParams extends unknown[] = [],
     TError = FieldErrors,
   >(
-    methodCreator: (...args: TParams) => RequestOptions
+    methodCreator: (...args: TParams) => RequestOptions,
+    options?: RequestInit
   ): ApiMethod<TResponse, TError, TParams> {
-    return (...args: TParams) =>
-      this.request<TResponse, TError>(methodCreator(...args))
+    return (...args: TParams) => {
+      const requestOptions = methodCreator(...args)
+      return this.request<TResponse, TError>({
+        ...requestOptions,
+        options: {
+          ...requestOptions.options,
+          ...options,
+        },
+      })
+    }
   }
 }
 

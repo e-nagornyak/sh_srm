@@ -5,7 +5,6 @@ import {
   type AllegroIntegration,
   type AllegroIntegrationRequest,
 } from "@/lib/api/allegro/integration/allegro-integration-types"
-import { type AllegroOrdersSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 
 export const getAllegroOrdersApi = (side: ApiSide) => {
@@ -38,7 +37,10 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
         total_pages: number
       },
       [string]
-    >((params) => createEndpoint(allegroApiPaths.orders.list(params), "GET")),
+    >((params) => createEndpoint(allegroApiPaths.orders.list(params), "GET"), {
+      cache: "force-cache",
+      next: { revalidate: 60 },
+    }),
 
     getAllegroOrderById: api.createMethod<Order, [number]>((id) =>
       createEndpoint(allegroApiPaths.orders.byId(id).get, "GET")
