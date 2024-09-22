@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
-import { Flags } from "@/components/shared/Flags"
+import { Flags } from "@/components/shared/flags"
 
 export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
   return [

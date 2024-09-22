@@ -5,7 +5,7 @@ import { useEffect } from "react"
 
 import { routePaths } from "@/config/routes"
 import { Link } from "@/components/ui/link"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 export default function Error({
   error,

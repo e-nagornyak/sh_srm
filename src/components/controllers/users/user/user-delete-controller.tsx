@@ -9,7 +9,7 @@ import { showErrorToast } from "@/lib/handle-error"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { Button } from "@/components/ui/button"
 import { Title } from "@/components/ui/title"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 interface UserDeleteControllerProps {
   user: User

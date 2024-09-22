@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { OrderViewProductsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products-table"
 
 interface OrderViewProductsProps {
@@ -35,18 +36,15 @@ export function OrderViewProducts({ order }: OrderViewProductsProps) {
         </CardContent>
       </Card>
       <div className="flex w-full items-center justify-between">
-        <div>
-          <Button size="sm" className="gap-2 rounded-2xl rounded-r-none">
-            <Plus size="15" />
-            Add products to order...
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="sm" className="rounded-none rounded-r-2xl">
-                <ChevronDown size="15" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="flex flex-col items-stretch">
+        <ButtonWithDropdown
+          buttonContent={
+            <>
+              <Plus size="15" />
+              Add products to order...
+            </>
+          }
+          dropdownContent={
+            <>
               <DropdownMenuItem asChild>
                 <Button
                   size="sm"
@@ -65,9 +63,9 @@ export function OrderViewProducts({ order }: OrderViewProductsProps) {
                   Add product manually...
                 </Button>
               </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            </>
+          }
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

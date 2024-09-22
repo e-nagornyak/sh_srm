@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 import { Accordion } from "@/components/ui/accordion"
 import { SidebarClosedItem } from "@/components/common/sidebar/sidebar-closed-item"
 import { SidebarOpenedItem } from "@/components/common/sidebar/sidebar-opened-item"
-import { Logo } from "@/components/shared/Logo"
+import { Logo } from "@/components/shared/logo"
 
 export function DefaultPrivateSidebar() {
   const path = usePathname()

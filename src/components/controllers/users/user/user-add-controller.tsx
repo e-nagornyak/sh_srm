@@ -8,7 +8,7 @@ import { showErrorToast } from "@/lib/handle-error"
 import type { CreateUserFormData } from "@/lib/validations/user"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { CreateUserForm } from "@/components/common/users/user/CreateUserForm"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 export function UserAddController() {
   const { lazyPush, isPending } = useLazyRouter()

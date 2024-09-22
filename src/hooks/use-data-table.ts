@@ -191,7 +191,6 @@ export function useDataTable<TData>({
         page: pageIndex + 1,
         limit: pageSize,
       })}`
-
       method === "push"
         ? router.push(url, { scroll })
         : router.replace(url, { scroll })

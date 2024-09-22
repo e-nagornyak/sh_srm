@@ -1,7 +1,7 @@
 import { AuthButton } from "@/components/common/nav/AuthButton"
 import { NavList } from "@/components/common/nav/NavList"
 import { LanguageToggle } from "@/components/shared/language-toggle"
-import { Logo } from "@/components/shared/Logo"
+import { Logo } from "@/components/shared/logo"
 import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 
 export function DefaultPublicHeader() {

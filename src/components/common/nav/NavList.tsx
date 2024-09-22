@@ -14,7 +14,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { Title } from "@/components/ui/title"
-import { Logo } from "@/components/shared/Logo"
+import { Logo } from "@/components/shared/logo"
 
 const components: { title: string; href: string; description: string }[] = [
   {

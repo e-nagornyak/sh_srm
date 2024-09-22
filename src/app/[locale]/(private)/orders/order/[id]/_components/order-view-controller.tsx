@@ -16,7 +16,7 @@ export function OrderViewController({ order }: OrderViewControllerProps) {
     <div className={"flex w-full flex-col gap-3"}>
       <OrderViewBayer order={order} />
       <OrderViewProducts order={order} />
-      <OrderViewOrder />
+      <OrderViewOrder order={order} />
       <OrderViewDelivery />
       <OrderViewShipments />
       <OrderViewMessages />
