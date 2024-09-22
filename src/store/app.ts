@@ -1,3 +1,5 @@
+"use client"
+
 import { createContext, useContext } from "react"
 import { create } from "zustand"
 import { useStore, type StoreApi } from "zustand/index"
