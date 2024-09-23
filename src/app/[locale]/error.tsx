@@ -2,6 +2,7 @@
 
 // Error boundaries must be Client Components
 import { useEffect } from "react"
+import { signOut } from "next-auth/react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -16,7 +17,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error)
+    console.error("error", error)
   }, [error])
 
   return (
@@ -27,7 +28,10 @@ export default function Error({
           <Button
             onClick={
               // Attempt to recover by trying to re-render the segment
-              () => reset()
+              async () => {
+                await signOut()
+                reset()
+              }
             }
           >
             Try again
