@@ -62,7 +62,7 @@ export const SidebarOpenedItem = ({ item, currentPath }: SidebarItemProps) => {
     </AccordionItem>
   ) : (
     <Link
-      className="justify-start gap-2"
+      className="justify-start gap-2 [&_svg]:shrink-0"
       variant="ghost"
       buttonStyles={{
         variant: currentPath?.includes(item?.href) ? "accent" : "ghost",

@@ -1,5 +1,4 @@
 import * as React from "react"
-import { QuestionMarkIcon } from "@radix-ui/react-icons"
 import {
   AlignJustify,
   ChevronDown,
@@ -40,7 +39,7 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
               Status:
             </div>
           </TableCell>
-          <TableCell>?</TableCell>
+          <TableCell>TODO ADD SEARCH HERE</TableCell>
         </TableRow>
         {/**/}
         <TableRow className="border-0">
