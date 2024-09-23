@@ -1,3 +1,8 @@
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+
+import { routePaths } from "@/config/routes"
+import { authOptions } from "@/lib/next-auth"
 import { DefaultPublicFooter } from "@/components/layouts/public/default-public-footer"
 import { DefaultPublicHeader } from "@/components/layouts/public/default-public-header"
 

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { type User } from "next-auth"
 
 import { routePaths } from "@/config/routes"
 import { cn } from "@/lib/utils"
@@ -54,7 +55,11 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
-export function NavList() {
+interface NavListProps {
+  user?: User
+}
+
+export function NavList({ user }: NavListProps) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -76,10 +81,14 @@ export function NavList() {
                   </p>
                 </NavigationMenuItem>
               </li>
-              {/*<ListItem href={routePaths.user.list} title="List of users">*/}
-              {/*  Here you can view the list of all users, edit, delete or add a*/}
-              {/*  new one.*/}
-              {/*</ListItem>*/}
+              {user && (
+                <ListItem
+                  href={routePaths.private.dashboard}
+                  title="Private Dashboard"
+                >
+                  Here you can view the list of all orders, users.
+                </ListItem>
+              )}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -103,6 +112,7 @@ const ListItem = React.forwardRef<
     <li>
       <NavigationMenuLink asChild>
         <Link
+          variant="ghost"
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
