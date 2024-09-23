@@ -29,6 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { HoverImage } from "@/components/shared/hover-image"
 
 interface OrderViewProductsTableProps {
   order: Order
@@ -57,8 +58,8 @@ export function OrderViewProductsTable({ order }: OrderViewProductsTableProps) {
       <TableBody>
         {products.map((product) => (
           <TableRow key={product?.id} className="border-b border-gray-700">
-            <TableCell className="w-16">
-              <div className="mx-auto size-[40px] rounded bg-gray-300"></div>
+            <TableCell>
+              <HoverImage src={product?.images} />
             </TableCell>
             <TableCell className="font-medium">
               <Link

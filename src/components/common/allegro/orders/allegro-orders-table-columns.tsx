@@ -19,6 +19,7 @@ import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
 import { Flags } from "@/components/shared/flags"
+import { HoverImage } from "@/components/shared/hover-image"
 
 export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
   return [
@@ -149,43 +150,13 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
                 quantity: p?.quantity,
               }
           )
-          .filter(Boolean)
+          .filter(Boolean) as any[]
+
         return (
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
               {images?.map(({ src, quantity }, i) => (
-                // <div key={`${i}-img`} className="h-8 w-12 bg-gray-200" />
-                <HoverCard key={`${i}-img`} closeDelay={100} openDelay={100}>
-                  <HoverCardTrigger className="relative h-10 w-16 bg-gray-200">
-                    <Img
-                      fill
-                      key={`${i}-img`}
-                      className="object-contain"
-                      src={src}
-                      alt=""
-                    />
-                    <Text
-                      size="sm"
-                      className="absolute bottom-0 right-0 flex items-center justify-center bg-gray-500 px-1.5"
-                    >
-                      {quantity}
-                    </Text>
-                  </HoverCardTrigger>
-                  <HoverCardContent
-                    className="relative aspect-square w-44"
-                    avoidCollisions
-                    side="top"
-                  >
-                    <Img
-                      fill
-                      key={`${i}-img`}
-                      className="z-10 object-contain"
-                      src={src}
-                      alt=""
-                      loading="lazy"
-                    />
-                  </HoverCardContent>
-                </HoverCard>
+                <HoverImage key={`${src}${i}`} src={src} quantity={quantity} />
               ))}
             </div>
             <div>

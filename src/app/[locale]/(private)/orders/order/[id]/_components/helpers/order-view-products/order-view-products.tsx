@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
-import { OrderViewProductsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products-table"
+import { OrderViewProductsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-view-products-table"
 
 interface OrderViewProductsProps {
   order: Order

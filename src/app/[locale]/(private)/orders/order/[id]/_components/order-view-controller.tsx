@@ -3,8 +3,8 @@ import { OrderViewAdditionalInformation } from "@/app/[locale]/(private)/orders/
 import { OrderViewBayer } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-bayer"
 import { OrderViewDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-delivery"
 import { OrderViewMessages } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-messages"
-import { OrderViewOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order"
-import { OrderViewProducts } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products"
+import { OrderViewOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order"
+import { OrderViewProducts } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-view-products"
 import { OrderViewShipments } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments"
 
 interface OrderViewControllerProps {
