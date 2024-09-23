@@ -21,6 +21,7 @@ export function HomePage() {
             For startups, growing, developing and large businesses.
           </Title>
           <Link
+            variant="ghost"
             className={buttonVariants({ size: "lg" })}
             href={routePaths.auth.login}
           >
