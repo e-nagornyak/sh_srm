@@ -9,7 +9,7 @@ import { showErrorToast } from "@/lib/handle-error"
 import type { EditUserFormData } from "@/lib/validations/user"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { EditUserForm } from "@/components/common/users/user/EditUserForm"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 interface UserEditControllerProps {
   user: User
@@ -29,7 +29,7 @@ export function UserEditController({ user }: UserEditControllerProps) {
         username,
         password: "password",
       })
-      lazyPush(routePaths.user.list)
+      lazyPush(routePaths.private.user.list)
       toast.info("User has been updated")
     } catch (e) {
       showErrorToast(e)

@@ -3,6 +3,10 @@
 // Error boundaries must be Client Components
 import { useEffect } from "react"
 
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Title } from "@/components/ui/title"
+
 export default function Error({
   error,
   reset,
@@ -16,16 +20,20 @@ export default function Error({
   }, [error])
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
+    <div className="flex h-screen w-screen items-center justify-center">
+      <Card className="">
+        <CardContent className="flex flex-col gap-4">
+          <Title size="lg">Something went wrong!</Title>
+          <Button
+            onClick={
+              // Attempt to recover by trying to re-render the segment
+              () => reset()
+            }
+          >
+            Try again
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   )
 }

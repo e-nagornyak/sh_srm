@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import { Flags } from "@/components/shared/Flags"
+import { Flags } from "@/components/shared/flags"
 
 const LocalesEnum = {
   en: "en",

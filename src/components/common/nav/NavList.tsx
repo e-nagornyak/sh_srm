@@ -14,7 +14,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { Title } from "@/components/ui/title"
-import { Logo } from "@/components/shared/Logo"
+import { Logo } from "@/components/shared/logo"
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -76,10 +76,10 @@ export function NavList() {
                   </p>
                 </NavigationMenuItem>
               </li>
-              <ListItem href={routePaths.user.list} title="List of users">
-                Here you can view the list of all users, edit, delete or add a
-                new one.
-              </ListItem>
+              {/*<ListItem href={routePaths.user.list} title="List of users">*/}
+              {/*  Here you can view the list of all users, edit, delete or add a*/}
+              {/*  new one.*/}
+              {/*</ListItem>*/}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

@@ -3,11 +3,11 @@
 import React from "react"
 
 import { type SearchParams } from "@/types/table"
+import { getAllUsers } from "@/lib/api/user/all-users-query"
+import { allUsersSearchParamsSchema } from "@/lib/api/user/all-users-search-params"
 import { DataTableSkeleton } from "@/components/common/data-table/data-table-skeleton"
 import { AllUsersTableProvider } from "@/components/common/users/all-users-table/all-users-table-provider"
-import { AllUsersTableController } from "@/components/controllers/users/all-users-table/all-users-table-controller"
-import { getUsers } from "@/components/controllers/users/all-users-table/helpers/all-users-table-queries"
-import { allUsersSearchParamsSchema } from "@/components/controllers/users/all-users-table/helpers/all-users-table-search-params"
+import { UsersTableController } from "@/components/controllers/users/users-table/users-table-controller"
 import { Shell } from "@/components/shared/shell"
 
 interface ListPageProps {
@@ -17,7 +17,7 @@ interface ListPageProps {
 export default async function ListPage({ searchParams }: ListPageProps) {
   const search = allUsersSearchParamsSchema.parse(searchParams)
 
-  const usersPromise = getUsers(search)
+  const usersPromise = getAllUsers(search)
 
   return (
     <Shell className="gap-2">
@@ -33,7 +33,7 @@ export default async function ListPage({ searchParams }: ListPageProps) {
             />
           }
         >
-          <AllUsersTableController
+          <UsersTableController
             searchParams={search}
             usersPromise={usersPromise}
           />

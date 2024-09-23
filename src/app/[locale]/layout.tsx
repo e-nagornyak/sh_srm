@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { DefaultHeader } from "@/components/layouts/default-header"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { TailwindIndicator } from "@/components/shared/tailwind-indicator"
 
@@ -14,8 +13,9 @@ import { NextIntlClientProvider } from "next-intl"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
-import { DefaultFooter } from "@/components/layouts/default-footer"
+import { DefaultPublicFooter } from "@/components/layouts/public/default-public-footer"
 import { AuthProvider } from "@/components/providers/auth-provider"
+import AppStoreProvider from "@/components/providers/store-provider"
 
 export const metadata: Metadata = {
   // metadataBase: new URL(siteConfig.url),
@@ -81,11 +81,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <DefaultHeader />
-              <main className="flex min-h-screen flex-1 flex-col">
-                {children}
-              </main>
-              <DefaultFooter />
+              <AppStoreProvider>{children}</AppStoreProvider>
               <TailwindIndicator />
             </ThemeProvider>
           </NextIntlClientProvider>

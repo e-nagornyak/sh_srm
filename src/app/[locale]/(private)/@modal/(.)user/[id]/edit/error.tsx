@@ -5,7 +5,7 @@ import { useEffect } from "react"
 
 import { routePaths } from "@/config/routes"
 import { Link } from "@/components/ui/link"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 export default function Error({
   error,
@@ -22,7 +22,7 @@ export default function Error({
   return (
     <FormWrapper title="No user found">
       <Link
-        href={routePaths.user.list}
+        href={routePaths.private.user.list}
         className="w-full"
         buttonStyles={{ size: "lg" }}
       >

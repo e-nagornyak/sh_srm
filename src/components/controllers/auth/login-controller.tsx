@@ -8,7 +8,7 @@ import { routePaths } from "@/config/routes"
 import { showErrorToast } from "@/lib/handle-error"
 import type { loginFormData } from "@/lib/validations/auth"
 import { LoginForm } from "@/components/common/auth/LoginForm"
-import { FormWrapper } from "@/components/shared/FormWrapper"
+import { FormWrapper } from "@/components/shared/form-wrapper"
 
 export function LoginController() {
   const [isPending, startTransition] = useTransition()
@@ -21,7 +21,7 @@ export function LoginController() {
         if (res?.error) {
           throw new Error(res?.error)
         }
-        push(routePaths.home)
+        push(routePaths.private.dashboard)
       } catch (e) {
         console.log(e)
         showErrorToast(e)

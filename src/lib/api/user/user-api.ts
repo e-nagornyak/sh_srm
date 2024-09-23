@@ -1,11 +1,10 @@
+import { createEndpoint } from "@/lib/api/@request/helpers"
+import { createApi, type ApiSide } from "@/lib/api/@request/request"
 import {
   type UpdateOrCreateUserRequest,
   type User,
   type UserLogResponse,
 } from "@/lib/api/user/user-types"
-
-import { createEndpoint } from "../request/helpers"
-import { createApi, type ApiSide } from "../request/request"
 
 const apiPaths = {
   users: {

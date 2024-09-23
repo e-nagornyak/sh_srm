@@ -1,14 +1,48 @@
 import React, { type PropsWithChildren } from "react"
-import clsx from "clsx"
+import { cva, type VariantProps } from "class-variance-authority"
 
-export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
+import { cn } from "@/lib/utils"
 
-interface TitleProps extends PropsWithChildren {
-  size?: TitleSize
+const titleVariants = cva("text-black dark:text-white", {
+  variants: {
+    size: {
+      xs: "flexible-text-[16px]",
+      sm: "flexible-text-[22px]",
+      md: "flexible-text-[26px]",
+      lg: "flexible-text-[32px]",
+      xl: "flexible-text-[40px]",
+      "2xl": "flexible-text-[48px]",
+    },
+    weight: {
+      thin: "font-thin", // font-weight: 100
+      extralight: "font-extralight", // font-weight: 200
+      light: "font-light", // font-weight: 300
+      normal: "font-normal", // font-weight: 400
+      medium: "font-medium", // font-weight: 500
+      semibold: "font-semibold", // font-weight: 600
+      bold: "font-bold", // font-weight: 700
+      extrabold: "font-extrabold", // font-weight: 800
+      black: "font-black", // font-weight: 900
+    },
+  },
+  defaultVariants: {
+    size: "sm",
+    weight: "normal",
+  },
+})
+
+export interface TitleProps
+  extends PropsWithChildren,
+    VariantProps<typeof titleVariants> {
   className?: string
 }
 
-export const Title = ({ children, size = "sm", className }: TitleProps) => {
+export const Title = ({
+  children,
+  size = "sm",
+  weight,
+  className,
+}: TitleProps) => {
   const mapTagBySize = {
     xs: "h5",
     sm: "h4",
@@ -18,18 +52,9 @@ export const Title = ({ children, size = "sm", className }: TitleProps) => {
     "2xl": "h1",
   } as const
 
-  const mapClassNameBySize = {
-    xs: "flexible-text-[16px] text-black dark:text-white",
-    sm: "flexible-text-[22px] text-black dark:text-white",
-    md: "flexible-text-[26px] text-black dark:text-white",
-    lg: "flexible-text-[32px] text-black dark:text-white",
-    xl: "flexible-text-[40px] text-black dark:text-white",
-    "2xl": "flexible-text-[48px] text-black dark:text-white",
-  } as const
-
   return React.createElement(
-    mapTagBySize[size],
-    { className: clsx(mapClassNameBySize[size], className) },
+    mapTagBySize[size || "sm"],
+    { className: cn(titleVariants({ size, weight }), className) },
     children
   )
 }
