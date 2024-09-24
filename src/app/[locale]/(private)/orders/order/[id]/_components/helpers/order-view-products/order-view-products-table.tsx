@@ -1,19 +1,10 @@
 import * as React from "react"
 import { format } from "date-fns"
-import {
-  Camera,
-  LayoutList,
-  MoreVertical,
-  Pen,
-  Plus,
-  Trash,
-  Wrench,
-} from "lucide-react"
+import { Camera, LayoutList, MoreVertical, Pen, Trash } from "lucide-react"
 
 import { routePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { HoverImage } from "@/components/shared/hover-image"
 
 interface OrderViewProductsTableProps {
@@ -43,7 +40,16 @@ export function OrderViewProductsTable({ order }: OrderViewProductsTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-16">
-            <Camera className="mx-auto" />
+            <TooltipProvider delayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Camera className="mx-auto" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  You can turn off product thumbnails
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </TableHead>
           <TableHead>PROD. ID</TableHead>
           <TableHead>PRODUCT NAME</TableHead>
@@ -76,7 +82,7 @@ export function OrderViewProductsTable({ order }: OrderViewProductsTableProps) {
               {product?.price} {order?.currency}
             </TableCell>
             <TableCell>{product?.tax_rate}%</TableCell>
-            <TableCell>{/*{product.weight.toFixed(3)}*/}</TableCell>
+            <TableCell>0</TableCell>
             <TableCell>{format(new Date(), "dd.MM.yyyy HH:mm")}</TableCell>
             <TableCell>
               <DropdownMenu>

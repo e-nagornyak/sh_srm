@@ -1,7 +1,11 @@
-import React from "react"
-import { ArrowDown, ChevronDown, Star } from "lucide-react"
+"use client"
 
+import React from "react"
+import { ChevronDown, Star } from "lucide-react"
+
+import { routePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -17,9 +21,15 @@ interface OrderViewBayerInformationProps {
   order: Order
 }
 
-export function OrderViewBayer({ order }: OrderViewBayerInformationProps) {
+export function OrderViewBayerController({
+  order,
+}: OrderViewBayerInformationProps) {
+  const { isPending, lazyPush } = useLazyRouter()
+
   const bayer = order?.buyer
   const bayerFullName = `${bayer?.first_name || ""} ${bayer?.last_name || ""}`
+
+  const handleReturnToList = () => lazyPush(routePaths.private.orders.list)
 
   return (
     <Card>
@@ -51,7 +61,13 @@ export function OrderViewBayer({ order }: OrderViewBayerInformationProps) {
         <Title size="sm">Order {order?.id}</Title>
         <Separator orientation="vertical" />
         <Title size="sm">{bayerFullName}</Title>
-        <Button className="ml-auto mr-0">Return to the orders list</Button>
+        <Button
+          disabled={isPending}
+          onClick={handleReturnToList}
+          className="ml-auto mr-0"
+        >
+          Return to the orders list
+        </Button>
       </CardContent>
     </Card>
   )

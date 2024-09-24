@@ -1,10 +1,10 @@
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { OrderViewAdditionalInformation } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-additional-information"
-import { OrderViewBayer } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-bayer"
+import { OrderViewBayerController } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-bayer-controller"
 import { OrderViewDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-delivery"
 import { OrderViewExchangeOfMessages } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-exchange-of-messages"
 import { OrderViewInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-invoice"
-import { OrderViewOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order"
+import { OrderViewOrderController } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-controller"
 import { OrderViewPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-pickup"
 import { OrderViewProducts } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-view-products"
 import { OrderViewResponso } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-responso"
@@ -17,9 +17,9 @@ interface OrderViewControllerProps {
 export function OrderViewLayout({ order }: OrderViewControllerProps) {
   return (
     <div className={"flex w-full flex-col gap-3"}>
-      <OrderViewBayer order={order} />
+      <OrderViewBayerController order={order} />
       <OrderViewProducts order={order} />
-      <OrderViewOrder order={order} />
+      <OrderViewOrderController order={order} />
       <div className="grid grid-cols-3 gap-3">
         <OrderViewDelivery order={order} />
         <OrderViewInvoice order={order} />
