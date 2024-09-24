@@ -24,7 +24,7 @@ export function OrderViewLayout({ order }: OrderViewControllerProps) {
         <OrderViewInvoice order={order} />
         <OrderViewPickup order={order} />
       </div>
-      <OrderViewShipments />
+      <OrderViewShipments order={order} />
       <OrderViewMessages />
       <OrderViewAdditionalInformation />
     </div>
