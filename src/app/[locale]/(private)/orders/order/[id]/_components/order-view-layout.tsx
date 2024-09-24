@@ -7,7 +7,7 @@ import { OrderViewMessages } from "@/app/[locale]/(private)/orders/order/[id]/_c
 import { OrderViewOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order"
 import { OrderViewPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-pickup"
 import { OrderViewProducts } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-view-products"
-import { OrderViewShipments } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments"
+import { OrderViewShipments } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-view-shipments"
 
 interface OrderViewControllerProps {
   order: Order

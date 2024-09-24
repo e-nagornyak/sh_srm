@@ -19,7 +19,7 @@ export function DefaultPrivateSidebar() {
   return (
     <div
       className={cn(
-        "flex shrink-0 flex-col overflow-hidden border-r border-black border-border bg-sidebar p-2 text-sidebar-foreground shadow-md duration-500",
+        "sticky top-0 flex h-screen shrink-0 flex-col overflow-hidden border-r border-black border-border bg-sidebar p-2 text-sidebar-foreground shadow-md duration-500",
         openSidebar ? "w-52 pt-0" : "w-14"
       )}
     >
