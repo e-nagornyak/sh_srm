@@ -25,7 +25,7 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
   const user = session?.user
 
   return (
-    <header className="sticky top-0 z-100 w-full border-b border-border bg-card p-4 px-6 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-card p-4 px-6 shadow-sm">
       <div className="flex items-center justify-between">
         <nav className="flex size-full items-center justify-between gap-3">
           <SidebarToggle />
