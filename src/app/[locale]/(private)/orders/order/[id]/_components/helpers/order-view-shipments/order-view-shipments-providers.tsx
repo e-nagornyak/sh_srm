@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
@@ -30,7 +31,13 @@ export function OrderViewShipmentsProviders(
         {providers?.map((provider) => (
           <Button
             onClick={() => setActiveProvider(provider)}
-            className="border-highlight text-highlight hover:bg-highlight/70"
+            className={cn(
+              "border-highlight text-highlight hover:bg-highlight/70",
+              {
+                "bg-highlight text-white dark:text-black":
+                  activeProvider?.key === provider?.key,
+              }
+            )}
             variant="outline"
             size="sm"
           >
