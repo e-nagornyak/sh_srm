@@ -2,11 +2,12 @@ import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { OrderViewAdditionalInformation } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-additional-information"
 import { OrderViewBayer } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-bayer"
 import { OrderViewDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-delivery"
+import { OrderViewExchangeOfMessages } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-exchange-of-messages"
 import { OrderViewInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-invoice"
-import { OrderViewMessages } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-messages"
 import { OrderViewOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order"
 import { OrderViewPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-pickup"
 import { OrderViewProducts } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-view-products"
+import { OrderViewResponso } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-responso"
 import { OrderViewShipments } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-view-shipments"
 
 interface OrderViewControllerProps {
@@ -25,8 +26,13 @@ export function OrderViewLayout({ order }: OrderViewControllerProps) {
         <OrderViewPickup order={order} />
       </div>
       <OrderViewShipments order={order} />
-      <OrderViewMessages />
-      <OrderViewAdditionalInformation />
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
+          <OrderViewResponso />
+          <OrderViewExchangeOfMessages />
+        </div>
+        <OrderViewAdditionalInformation />
+      </div>
     </div>
   )
 }
