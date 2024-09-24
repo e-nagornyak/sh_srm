@@ -27,7 +27,9 @@ export function OrderViewOrderHeaderActions(
 ) {
   return (
     <>
-      <Title size="xs">Order information</Title>
+      <Title weight="semibold" size="xs">
+        Order information
+      </Title>
       <div className="flex space-x-2">
         <DropdownMenu>
           <DropdownMenuTrigger className="group" asChild>

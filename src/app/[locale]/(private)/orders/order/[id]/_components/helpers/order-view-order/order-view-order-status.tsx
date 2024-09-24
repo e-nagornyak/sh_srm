@@ -23,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
 interface OrderViewOrderStatusProps {
   order: Order
@@ -65,18 +66,14 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button size="sm">Pro forma</Button>
-              <TooltipProvider delayDuration={100}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button size="sm">
-                      <Printer size="15" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Print - send directly to the printer
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <ComponentWithTooltip
+                trigger={
+                  <Button size="sm">
+                    <Printer size="15" />
+                  </Button>
+                }
+                text="Print - send directly to the printer"
+              />
             </div>
           </TableCell>
         </TableRow>
