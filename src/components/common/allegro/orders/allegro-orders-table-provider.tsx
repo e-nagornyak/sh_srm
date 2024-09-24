@@ -1,27 +1,9 @@
 "use client"
 
 import * as React from "react"
-import {
-  CirclePlus,
-  List,
-  Plus,
-  RefreshCcw,
-  Trash,
-  WalletCards,
-} from "lucide-react"
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Text } from "@/components/ui/text"
 import { Title } from "@/components/ui/title"
-import { AllegroOrdersGroupsController } from "@/components/controllers/allegro/allegro-orders-groups/allegro-orders-groups-controller"
 import { type DataTableConfig } from "@/components/controllers/allegro/allegro-orders-table/helpers/allegro-orders-table-config"
 
 type FeatureFlagValue = DataTableConfig["featureFlags"][number]["value"]

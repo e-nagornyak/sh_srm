@@ -8,11 +8,11 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface OrderViewDeliveryProps {
+interface OrderViewInvoiceProps {
   order: Order
 }
 
-export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
+export function OrderViewInvoice({ order }: OrderViewInvoiceProps) {
   const delivery = order?.delivery
   const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
 
@@ -21,7 +21,7 @@ export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
       <CardContent>
         <div className="flex items-center justify-between px-2 pb-3">
           <Title weight="semibold" size="xs">
-            Delivery address
+            Invoice data
           </Title>
           <div className="space-x-2">
             <ComponentWithTooltip
@@ -30,7 +30,7 @@ export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
                   <Copy size="15" />
                 </Button>
               }
-              text="Copy address to the invoice data"
+              text="Copy address to the delivery address"
             />
             <ComponentWithTooltip
               trigger={

@@ -10,7 +10,7 @@ interface OrderViewOrderProps {
   order: Order
 }
 
-export function OrderViewOrder({ order }: OrderViewOrderProps) {
+export function OrderViewOrderController({ order }: OrderViewOrderProps) {
   return (
     <Card>
       <CardHeader className="w-full flex-row items-center justify-between">
