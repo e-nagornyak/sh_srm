@@ -1,4 +1,6 @@
-import * as React from "react"
+"use client"
+
+import { useState } from "react"
 import {
   AlignJustify,
   ChevronDown,
@@ -30,6 +32,10 @@ interface OrderViewOrderStatusProps {
 }
 
 export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
+  const [isEditMode, setIsEditMode] = useState(false)
+
+  const changeEditMode = () => setIsEditMode(!isEditMode)
+
   return (
     <Table>
       <TableBody>
