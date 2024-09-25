@@ -28,6 +28,12 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "size-9",
       },
+      color: {
+        blue: "border-blue-500 text-blue-500 hover:bg-blue-500",
+        green: "border-green-500 text-green-500 hover:bg-green-500",
+        red: "border-rose-500 text-rose-500 hover:bg-rose-500",
+        gray: "border-gray-500 text-gray-500 hover:bg-gray-500",
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -37,17 +43,17 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, color, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, color, className }))}
         ref={ref}
         {...props}
       />

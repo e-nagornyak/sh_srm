@@ -20,7 +20,7 @@ export function ComponentWithTooltip({
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-        <TooltipContent>{text}</TooltipContent>
+        <TooltipContent className="max-w-64">{text}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )

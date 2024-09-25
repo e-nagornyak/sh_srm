@@ -1,6 +1,7 @@
 import * as React from "react"
 import {
   Backpack,
+  Camera,
   ChevronDown,
   CornerDownLeft,
   Files,
@@ -66,7 +67,7 @@ export function OrderViewOrderHeaderActions(
                   className="justify-start gap-2"
                   variant="ghost"
                 >
-                  Add products from the storage...
+                  Pick products
                 </Button>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -75,7 +76,8 @@ export function OrderViewOrderHeaderActions(
                   className="justify-start gap-2"
                   variant="ghost"
                 >
-                  Add product manually...
+                  <Camera size="15" />
+                  Take a photo
                 </Button>
               </DropdownMenuItem>
             </>

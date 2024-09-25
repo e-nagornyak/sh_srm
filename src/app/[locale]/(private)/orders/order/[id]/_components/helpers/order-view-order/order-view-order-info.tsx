@@ -1,9 +1,12 @@
-import * as React from "react"
-import { Pen, Phone, RefreshCcw } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { Phone } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { OrderViewOrderPaidRow } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-paid-row"
+import { OrderViewOrderPaidRowEdit } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-paid-row-edit"
 
 interface OrderViewOrderBasicInformationProps {
   order: Order
@@ -12,34 +15,24 @@ interface OrderViewOrderBasicInformationProps {
 export function OrderViewOrderInfo({
   order,
 }: OrderViewOrderBasicInformationProps) {
+  const [isEditPaymentMode, setIsEditPaymentMode] = useState(false)
+
+  const changePaymentMode = () => setIsEditPaymentMode(!isEditPaymentMode)
+
   return (
     <Table>
       <TableBody>
-        <TableRow className="border-b border-gray-700">
-          <TableCell className="w-52">
-            <div className="flex items-center justify-between">
-              Paid:
-              <span className="rounded-md bg-green-600 p-0.5">
-                {order?.payment?.paid_amount} {order?.payment?.currency}
-              </span>
-            </div>
-          </TableCell>
-          <TableCell>
-            <div className="flex items-center gap-1">
-              <span>
-                of {order?.total_to_pay} {order?.currency}
-              </span>
-              <Button size="icon" variant="ghost">
-                <RefreshCcw size="15" />
-              </Button>
-            </div>
-          </TableCell>
-          <TableCell className="w-28">
-            <Button size="xs">
-              <Pen size="15" /> Edit payment
-            </Button>
-          </TableCell>
-        </TableRow>
+        {isEditPaymentMode ? (
+          <OrderViewOrderPaidRowEdit
+            order={order}
+            changePaymentMode={changePaymentMode}
+          />
+        ) : (
+          <OrderViewOrderPaidRow
+            changePaymentMode={changePaymentMode}
+            order={order}
+          />
+        )}
         {/**/}
         <TableRow className="border-0">
           <TableCell className="pb-0 text-start">Client (login):</TableCell>
