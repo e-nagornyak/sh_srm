@@ -30,6 +30,7 @@ export function OrderViewShipmentsProviders(
       <div className={"flex flex-wrap gap-2 pt-2"}>
         {providers?.map((provider) => (
           <Button
+            key={provider?.key}
             onClick={() => setActiveProvider(provider)}
             className={cn(
               "border-highlight text-highlight hover:bg-highlight/70",

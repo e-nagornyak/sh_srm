@@ -8,12 +8,12 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 
 interface PaidRowProps {
   order: Order
-  changePaymentMode: () => void
+  changeEditMode: () => void
 }
 
-export const OrderViewOrderPaidRowEdit = ({
+export const OrderViewOrderInfoPaidRowEdit = ({
   order,
-  changePaymentMode,
+  changeEditMode,
 }: PaidRowProps) => {
   return (
     <TableRow className="border-b border-gray-700">
@@ -31,11 +31,7 @@ export const OrderViewOrderPaidRowEdit = ({
           <div className="flex items-center gap-2">
             <ComponentWithTooltip
               trigger={
-                <Button
-                  onClick={changePaymentMode}
-                  color="blue"
-                  variant="outline"
-                >
+                <Button onClick={changeEditMode} color="blue" variant="outline">
                   <Check size="15" />
                 </Button>
               }
@@ -44,7 +40,7 @@ export const OrderViewOrderPaidRowEdit = ({
             <ComponentWithTooltip
               trigger={
                 <Button
-                  onClick={changePaymentMode}
+                  onClick={changeEditMode}
                   color="green"
                   variant="outline"
                 >
@@ -55,11 +51,7 @@ export const OrderViewOrderPaidRowEdit = ({
             />
             <ComponentWithTooltip
               trigger={
-                <Button
-                  onClick={changePaymentMode}
-                  color="red"
-                  variant="outline"
-                >
+                <Button onClick={changeEditMode} color="red" variant="outline">
                   0.00
                 </Button>
               }
@@ -67,11 +59,7 @@ export const OrderViewOrderPaidRowEdit = ({
             />
             <ComponentWithTooltip
               trigger={
-                <Button
-                  onClick={changePaymentMode}
-                  color="gray"
-                  variant="outline"
-                >
+                <Button onClick={changeEditMode} color="gray" variant="outline">
                   <X size="15" />
                 </Button>
               }

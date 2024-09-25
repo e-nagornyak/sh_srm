@@ -8,19 +8,19 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 
 interface PaidRowProps {
   order: Order
-  changePaymentMode: () => void
+  changeEditMode: () => void
 }
 
-export const OrderViewOrderPaidRow = ({
+export const OrderViewOrderInfoPaidRow = ({
   order,
-  changePaymentMode,
+  changeEditMode,
 }: PaidRowProps) => {
   return (
     <TableRow className="border-b border-gray-700">
       <TableCell className="w-52">
         <div className="flex items-center justify-between">
           Paid:
-          <Chip onClick={changePaymentMode}>
+          <Chip onClick={changeEditMode}>
             {order?.payment?.paid_amount} {order?.payment?.currency}
           </Chip>
         </div>
@@ -41,7 +41,7 @@ export const OrderViewOrderPaidRow = ({
         </div>
       </TableCell>
       <TableCell className="w-28">
-        <Button onClick={changePaymentMode} size="xs">
+        <Button onClick={changeEditMode} size="xs">
           <Pen size="15" /> Edit payment
         </Button>
       </TableCell>
