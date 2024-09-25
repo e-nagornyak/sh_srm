@@ -16,6 +16,12 @@ export default {
       zIndex: {
         100: "100",
       },
+      width: {
+        "half-screen": "50vw",
+      },
+      height: {
+        "half-screen": "50vh",
+      },
       colors: {
         highlight: {
           DEFAULT: "#3b82f6",

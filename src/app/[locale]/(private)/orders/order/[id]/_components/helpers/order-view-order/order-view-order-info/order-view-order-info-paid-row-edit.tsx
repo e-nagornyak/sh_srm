@@ -20,7 +20,11 @@ export const OrderViewOrderInfoPaidRowEdit = ({
       <TableCell className="w-52">
         <div className="flex items-center justify-between">
           Paid:
-          <Input className="w-24" />
+          <Input
+            value={order?.total_to_pay || 0}
+            type="number"
+            className="w-20"
+          />
         </div>
       </TableCell>
       <TableCell>
@@ -44,7 +48,7 @@ export const OrderViewOrderInfoPaidRowEdit = ({
                   color="green"
                   variant="outline"
                 >
-                  107.80
+                  {order?.total_to_pay}
                 </Button>
               }
               text="Set as paid"

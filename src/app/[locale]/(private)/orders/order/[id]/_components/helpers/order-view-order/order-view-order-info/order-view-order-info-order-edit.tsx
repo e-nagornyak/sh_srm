@@ -31,19 +31,22 @@ export function OrderViewOrderInfoOrderEdit({
       <TableRow className="border-0">
         <TableCell>Client (login):</TableCell>
         <TableCell colSpan={2}>
-          <Input size="xs" />
+          <Input defaultValue={order?.buyer?.login} size="xs" />
         </TableCell>
       </TableRow>
       <TableRow className="border-0">
         <TableCell>E-mail:</TableCell>
         <TableCell colSpan={2}>
-          <Input size="xs" />
+          <Input defaultValue={order?.buyer?.email} size="xs" />
         </TableCell>
       </TableRow>
       <TableRow className="border-0">
         <TableCell>Phone number:</TableCell>
         <TableCell colSpan={2}>
-          <Input size="xs" />
+          <Input
+            defaultValue={order?.buyer?.phone_number?.toString()}
+            size="xs"
+          />
         </TableCell>
       </TableRow>
       <TableRow className="border-b border-gray-700">
@@ -69,7 +72,7 @@ export function OrderViewOrderInfoOrderEdit({
         </TableCell>
         <TableCell colSpan={2}>
           <div className="flex gap-3">
-            <Input size="xs" />
+            <Input defaultValue={order?.delivery?.method} size="xs" />
             <div className="flex items-center space-x-2">
               <Checkbox id="cash_on_delivery" />
               <Label htmlFor="cash_on_delivery">Cash on delivery</Label>
@@ -80,13 +83,13 @@ export function OrderViewOrderInfoOrderEdit({
       <TableRow className="border-0">
         <TableCell>Shipping price:</TableCell>
         <TableCell colSpan={2}>
-          <Input size="xs" />
+          <Input defaultValue={order?.delivery?.cost} size="xs" />
         </TableCell>
       </TableRow>
       <TableRow className="border-b border-gray-700">
         <TableCell>Payment method:</TableCell>
         <TableCell colSpan={2}>
-          <Input size="xs" />
+          <Input defaultValue={order?.payment?.provider} size="xs" />
         </TableCell>
       </TableRow>
       {/**/}
