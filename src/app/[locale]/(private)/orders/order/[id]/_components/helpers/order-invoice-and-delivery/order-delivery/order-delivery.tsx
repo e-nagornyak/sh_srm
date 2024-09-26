@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
+import { type InvoiceAndDeliveryFieldType } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/invoice-and-delivery-controller"
 
 import { OrderDeliveryText } from "./order-delivery-text"
 
