@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, useState } from "react"
+import { Suspense, useState, type Dispatch, type SetStateAction } from "react"
 
 import { type Nullable } from "@/types/global"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
@@ -12,10 +12,12 @@ interface InvoiceAndDeliveryControllerProps {
   order: Order
 }
 
+export type InvoiceAndDeliveryFieldType = "delivery" | "invoice" | "pickup"
+
 export function InvoiceAndDeliveryController({
   order,
 }: InvoiceAndDeliveryControllerProps) {
-  const [deliveryEditingFieldName, setEditingFieldName] =
+  const [deliveryEditingFieldName, setDeliveryFieldName] =
     useState<Nullable<string>>(null)
   const [invoiceEditingFieldName, setInvoiceEditingFieldName] =
     useState<Nullable<string>>(null)
@@ -23,7 +25,7 @@ export function InvoiceAndDeliveryController({
     useState<Nullable<string>>(null)
 
   const changeDeliveryEditingFieldName = (fieldName?: string) => {
-    setEditingFieldName(fieldName || "")
+    setDeliveryFieldName(fieldName || "")
   }
 
   const changeInvoiceEditingFieldName = (fieldName?: string) => {
@@ -37,27 +39,21 @@ export function InvoiceAndDeliveryController({
   const onClickCopyAddress = () => {}
   const onClickCopyInvoice = () => {}
 
-  const onCancel = () => {
-    const isActiveForm = (name: Nullable<string>) => typeof name === "string"
-
-    if (isActiveForm(deliveryEditingFieldName)) {
-      setEditingFieldName(null)
-      return
+  const onCancel = (formName: InvoiceAndDeliveryFieldType) => {
+    const variants: {
+      [key in InvoiceAndDeliveryFieldType]: Dispatch<
+        SetStateAction<Nullable<string>>
+      >
+    } = {
+      delivery: setDeliveryFieldName,
+      invoice: setInvoiceEditingFieldName,
+      pickup: setPickupEditingFieldName,
     }
-
-    if (isActiveForm(invoiceEditingFieldName)) {
-      setInvoiceEditingFieldName(null)
-      return
-    }
-
-    if (isActiveForm(pickupEditingFieldName)) {
-      setPickupEditingFieldName(null)
-      return
-    }
+    variants?.[formName]?.(null)
   }
 
   const onSave = () => {
-    setEditingFieldName(null)
+    setDeliveryFieldName(null)
   }
 
   return (
@@ -66,7 +62,7 @@ export function InvoiceAndDeliveryController({
         order={order}
         onClickCopyAddress={onClickCopyAddress}
         editingFieldName={deliveryEditingFieldName}
-        onCancel={onCancel}
+        onCancel={() => onCancel("delivery")}
         onSave={onSave}
         changeEditingFieldName={changeDeliveryEditingFieldName}
       />
@@ -74,14 +70,14 @@ export function InvoiceAndDeliveryController({
         order={order}
         onClickCopyInvoice={onClickCopyInvoice}
         editingFieldName={invoiceEditingFieldName}
-        onCancel={onCancel}
+        onCancel={() => onCancel("invoice")}
         onSave={onSave}
         changeEditingFieldName={changeInvoiceEditingFieldName}
       />
       <OrderPickup
         order={order}
         editingFieldName={pickupEditingFieldName}
-        onCancel={onCancel}
+        onCancel={() => onCancel("pickup")}
         onSave={onSave}
         changeEditingFieldName={changePickupEditingFieldName}
       />
