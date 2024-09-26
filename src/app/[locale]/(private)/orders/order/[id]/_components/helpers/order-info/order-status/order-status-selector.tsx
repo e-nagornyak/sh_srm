@@ -1,7 +1,10 @@
 import { useState } from "react"
+import {
+  orderStatuses,
+  type OrderStatusItem,
+} from "@/constants/order/order-statuses"
 import { ChevronDown } from "lucide-react"
 
-import { orderStatuses, type OrderStatusItem } from "@/config/order-statuses"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -19,11 +22,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"
 
-interface OrderViewOrderStatusSelectorProps {}
+interface Props {}
 
-export function OrderViewOrderStatusSelector(
-  props: OrderViewOrderStatusSelectorProps
-) {
+export function OrderStatusSelector(props: Props) {
   const [open, setOpen] = useState(false)
 
   const [status, setStatus] = useState<OrderStatusItem | null>(null)

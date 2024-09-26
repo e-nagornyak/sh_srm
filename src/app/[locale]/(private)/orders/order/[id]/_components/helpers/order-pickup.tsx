@@ -11,7 +11,7 @@ interface OrderViewPickupProps {
   order: Order
 }
 
-export function OrderViewPickup({ order }: OrderViewPickupProps) {
+export function OrderPickup({ order }: OrderViewPickupProps) {
   return (
     <Card>
       <CardContent>

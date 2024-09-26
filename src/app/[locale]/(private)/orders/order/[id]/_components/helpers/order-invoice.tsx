@@ -12,7 +12,7 @@ interface OrderViewInvoiceProps {
   order: Order
 }
 
-export function OrderViewInvoice({ order }: OrderViewInvoiceProps) {
+export function OrderInvoice({ order }: OrderViewInvoiceProps) {
   const delivery = order?.delivery
   const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
 

@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
+import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface OrderViewDeliveryProps {
+interface Props {
   order: Order
+  changeEditingFieldName: (fieldName?: string) => void
 }
 
-export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
+export function OrderDelivery({ order, changeEditingFieldName }: Props) {
   const delivery = order?.delivery
   const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
 
@@ -48,16 +50,26 @@ export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
               <TableCell className="py-0 text-start">
                 Name and surname:
               </TableCell>
-              <TableCell className="py-0 text-start">{bayerFullName}</TableCell>
+              <TableCell className="py-0 text-start">
+                <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+                  {bayerFullName}
+                </ComponentWithEditButton>
+              </TableCell>
             </TableRow>
             <TableRow className="border-0">
               <TableCell className="py-0 text-start">Company:</TableCell>
-              <TableCell className="py-0 text-start">...</TableCell>
+              <TableCell className="py-0 text-start">
+                <ComponentWithEditButton
+                  onEditClick={changeEditingFieldName}
+                ></ComponentWithEditButton>
+              </TableCell>
             </TableRow>
             <TableRow className="border-0">
               <TableCell className="py-0 text-start">Address:</TableCell>
               <TableCell className="py-0 text-start">
-                {delivery?.address?.street || "..."}
+                <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+                  {delivery?.address?.street}
+                </ComponentWithEditButton>
               </TableCell>
             </TableRow>
             <TableRow className="border-0">
@@ -65,20 +77,30 @@ export function OrderViewDelivery({ order }: OrderViewDeliveryProps) {
                 Postal code and city:
               </TableCell>
               <TableCell className="py-0 text-start">
-                {delivery?.address?.zip_code || "..."}
+                <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+                  {delivery?.address?.zip_code}
+                </ComponentWithEditButton>
               </TableCell>
               <TableCell className="py-0 text-start">
-                {delivery?.address?.city || "..."}
+                <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+                  {delivery?.address?.city}
+                </ComponentWithEditButton>
               </TableCell>
             </TableRow>
             <TableRow className="border-0">
               <TableCell className="py-0 text-start">State:</TableCell>
-              <TableCell className="py-0 text-start">...</TableCell>
+              <TableCell className="py-0 text-start">
+                <ComponentWithEditButton
+                  onEditClick={changeEditingFieldName}
+                ></ComponentWithEditButton>
+              </TableCell>
             </TableRow>
             <TableRow className="border-0">
               <TableCell className="py-0 text-start">Country:</TableCell>
               <TableCell className="py-0 text-start">
-                {delivery?.address?.country_code || "..."}
+                <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+                  {delivery?.address?.country_code}
+                </ComponentWithEditButton>
               </TableCell>
             </TableRow>
           </TableBody>

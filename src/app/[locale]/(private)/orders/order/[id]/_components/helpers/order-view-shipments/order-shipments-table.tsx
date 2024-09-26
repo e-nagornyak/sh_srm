@@ -3,7 +3,6 @@ import { MoreVertical, Printer, Save, SquareCheck, X } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,14 +18,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface OrderViewShipmentsTableProps {
+interface Props {
   order: Order
 }
 
-export function OrderViewShipmentsTable(props: OrderViewShipmentsTableProps) {
+export function OrderShipmentsTable(props: Props) {
   return (
     <Table>
       <TableHeader>

@@ -5,15 +5,12 @@ import { TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface OrderViewOrderInfoOrderProps {
+interface Props {
   order: Order
   changeEditingFieldName: (fieldName?: string) => void
 }
 
-export function OrderViewOrderInfoOrder({
-  order,
-  changeEditingFieldName,
-}: OrderViewOrderInfoOrderProps) {
+export function OrderBaseInfo({ order, changeEditingFieldName }: Props) {
   return (
     <>
       <TableRow className="border-0">

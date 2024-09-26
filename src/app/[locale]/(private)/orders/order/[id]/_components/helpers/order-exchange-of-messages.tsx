@@ -8,7 +8,7 @@ import { Title } from "@/components/ui/title"
 
 interface OrderViewMessagesProps {}
 
-export function OrderViewExchangeOfMessages(props: OrderViewMessagesProps) {
+export function OrderExchangeOfMessages(props: OrderViewMessagesProps) {
   return (
     <Card>
       <CardContent className="space-y-6">

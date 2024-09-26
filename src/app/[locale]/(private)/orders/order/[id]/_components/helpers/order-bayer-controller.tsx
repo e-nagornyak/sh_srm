@@ -21,7 +21,7 @@ interface OrderViewBayerInformationProps {
   order: Order
 }
 
-export function OrderViewBayerController({
+export function OrderBayerController({
   order,
 }: OrderViewBayerInformationProps) {
   const { isPending, lazyPush } = useLazyRouter()

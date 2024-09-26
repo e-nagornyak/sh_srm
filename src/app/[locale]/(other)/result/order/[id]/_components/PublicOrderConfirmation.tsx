@@ -19,8 +19,8 @@ export function OrderConfirmation() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
-      <div className="mb-6 flex items-center justify-between">
+    <>
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">MCP Siarhei Sheibak</h1>
         <Button onClick={handlePrint} className="flex items-center">
           <PrinterIcon className="mr-2" size={18} />
@@ -28,7 +28,7 @@ export function OrderConfirmation() {
         </Button>
       </div>
 
-      <Card className="mb-6">
+      <Card className="">
         <CardHeader>
           <CardTitle>Order Summary #69991796</CardTitle>
         </CardHeader>
@@ -100,7 +100,7 @@ export function OrderConfirmation() {
         </Card>
       </div>
 
-      <Card className="mt-6">
+      <Card className="">
         <CardHeader>
           <CardTitle>Delivery Map</CardTitle>
         </CardHeader>
@@ -111,6 +111,6 @@ export function OrderConfirmation() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </>
   )
 }

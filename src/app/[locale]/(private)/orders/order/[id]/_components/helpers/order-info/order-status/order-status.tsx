@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { orderPersonalEvents } from "@/constants/order/order-personal-events"
 import {
   AlignJustify,
   Check,
@@ -11,7 +11,6 @@ import {
   Truck,
 } from "lucide-react"
 
-import { orderPersonalEvents } from "@/config/order-personal-events"
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
@@ -31,13 +30,13 @@ import {
 } from "@/components/ui/tooltip"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
-import { OrderViewOrderStatusSelector } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-status/order-view-order-status-selector"
+import { OrderStatusSelector } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-info/order-status/order-status-selector"
 
-interface OrderViewOrderStatusProps {
+interface Props {
   order: Order
 }
 
-export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
+export function OrderStatus({ order }: Props) {
   return (
     <Table>
       <TableBody>
@@ -50,7 +49,7 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
           </TableCell>
           <TableCell>
             <div className="flex gap-2">
-              <OrderViewOrderStatusSelector />
+              <OrderStatusSelector />
               <ButtonWithDropdown
                 buttonContent={"Change"}
                 dropdownContent={

@@ -1,27 +1,28 @@
 "use client"
 
 import { useState } from "react"
+import {
+  orderShipmentProvidersMap,
+  type OrderShipmentProvider,
+} from "@/constants/order/order-shipments-providers"
 import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
-import { providersMap, type ShipmentProvider } from "./shipments-providers"
+interface Props {}
 
-interface OrderViewShipmentsProvidersProps {}
-
-export function OrderViewShipmentsProviders(
-  props: OrderViewShipmentsProvidersProps
-) {
-  const [activeProvider, setActiveProvider] = useState<null | ShipmentProvider>(
-    null
-  )
+export function OrderShipmentsProviders(props: Props) {
+  const [activeProvider, setActiveProvider] =
+    useState<null | OrderShipmentProvider>(null)
   const [showAll, setShowAll] = useState<boolean>(false)
 
   const showCount = 5
 
-  const providers = showAll ? providersMap : providersMap?.slice(0, showCount)
+  const providers = showAll
+    ? orderShipmentProvidersMap
+    : orderShipmentProvidersMap?.slice(0, showCount)
 
   const handleShowMoreToggle = () => setShowAll(!showAll)
 
@@ -45,7 +46,7 @@ export function OrderViewShipmentsProviders(
             {provider?.displayName}
           </Button>
         ))}
-        {providersMap?.length > 5 && (
+        {orderShipmentProvidersMap?.length > 5 && (
           <Button
             onClick={handleShowMoreToggle}
             className={"gap-2 border"}

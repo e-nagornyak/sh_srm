@@ -19,6 +19,7 @@ const config = {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/no-unsafe-return": "warn",
+    "@typescript-eslint/no-unsafe-call": "warn",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "warn",
     "@typescript-eslint/consistent-type-definitions": "off",

@@ -6,14 +6,12 @@ import dynamic from "next/dynamic"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
-import { OrderViewOrderInfoOrder } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-info/order-view-order-info-order"
-import { OrderViewOrderInfoPaidRow } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-info/order-view-order-info-paid-row"
+
+import { OrderBaseInfo } from "./order-base-info"
+import { OrderPaidRow } from "./order-paid-row"
 
 const OrderViewOrderInfoOrderEdit = dynamic(
-  () =>
-    import("./order-view-order-info-order-edit").then(
-      (mod) => mod.OrderViewOrderInfoOrderEdit
-    ),
+  () => import("./order-base-info-edit").then((mod) => mod.OrderBaseInfoEdit),
   {
     loading: () => (
       <TableRow>
@@ -25,10 +23,7 @@ const OrderViewOrderInfoOrderEdit = dynamic(
   }
 )
 const OrderViewOrderInfoPaidRowEdit = dynamic(
-  () =>
-    import("./order-view-order-info-paid-row-edit").then(
-      (mod) => mod.OrderViewOrderInfoPaidRowEdit
-    ),
+  () => import("./order-paid-row-edit").then((mod) => mod.OrderPaidRowEdit),
   {
     loading: () => (
       <TableRow>
@@ -40,13 +35,11 @@ const OrderViewOrderInfoPaidRowEdit = dynamic(
   }
 )
 
-interface OrderViewOrderBasicInformationProps {
+interface Props {
   order: Order
 }
 
-export function OrderViewOrderInfo({
-  order,
-}: OrderViewOrderBasicInformationProps) {
+export function OrderData({ order }: Props) {
   const [isEditPaymentMode, setIsEditPaymentMode] = useState(false)
   const [editingFieldName, setEditingFieldName] = useState<string | null>(null)
 
@@ -75,10 +68,7 @@ export function OrderViewOrderInfo({
             changeEditMode={changePaymentMode}
           />
         ) : (
-          <OrderViewOrderInfoPaidRow
-            changeEditMode={changePaymentMode}
-            order={order}
-          />
+          <OrderPaidRow changeEditMode={changePaymentMode} order={order} />
         )}
         {typeof editingFieldName === "string" ? (
           <OrderViewOrderInfoOrderEdit
@@ -87,7 +77,7 @@ export function OrderViewOrderInfo({
             onSave={onSave}
           />
         ) : (
-          <OrderViewOrderInfoOrder
+          <OrderBaseInfo
             order={order}
             changeEditingFieldName={changeEditingFieldName}
           />

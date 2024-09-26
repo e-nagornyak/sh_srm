@@ -9,7 +9,7 @@ import { Text } from "@/components/ui/text"
 
 interface OrderViewResponsoProps {}
 
-export function OrderViewResponso(props: OrderViewResponsoProps) {
+export function OrderResponso(props: OrderViewResponsoProps) {
   return (
     <Card>
       <CardContent>

@@ -6,15 +6,12 @@ import { Chip } from "@/components/ui/chip"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface PaidRowProps {
+interface Props {
   order: Order
   changeEditMode: () => void
 }
 
-export const OrderViewOrderInfoPaidRow = ({
-  order,
-  changeEditMode,
-}: PaidRowProps) => {
+export const OrderPaidRow = ({ order, changeEditMode }: Props) => {
   return (
     <TableRow className="border-b border-gray-700">
       <TableCell className="w-52">

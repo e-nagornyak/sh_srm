@@ -12,7 +12,7 @@ import { Title } from "@/components/ui/title"
 
 interface OrderViewAdditionalInformationProps {}
 
-export function OrderViewAdditionalInformation(
+export function OrderAdditionalInformation(
   props: OrderViewAdditionalInformationProps
 ) {
   const items = [
