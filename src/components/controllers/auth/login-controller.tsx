@@ -4,7 +4,7 @@ import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { showErrorToast } from "@/lib/handle-error"
 import type { loginFormData } from "@/lib/validations/auth"
 import { LoginForm } from "@/components/common/auth/LoginForm"
@@ -21,7 +21,7 @@ export function LoginController() {
         if (res?.error) {
           throw new Error(res?.error)
         }
-        push(routePaths.private.dashboard)
+        push(RoutePaths.private.dashboard)
       } catch (e) {
         console.log(e)
         showErrorToast(e)

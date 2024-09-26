@@ -1,4 +1,5 @@
 import { type ReactNode } from "react"
+import { type Side } from "@floating-ui/utils"
 
 import {
   Tooltip,
@@ -10,17 +11,21 @@ import {
 interface ButtonWithTooltipProps {
   trigger: ReactNode
   text: ReactNode
+  side?: Side
 }
 
 export function ComponentWithTooltip({
   trigger,
   text,
+  side,
 }: ButtonWithTooltipProps) {
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-        <TooltipContent className="max-w-64">{text}</TooltipContent>
+        <TooltipContent side={side} className="max-w-64">
+          {text}
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )

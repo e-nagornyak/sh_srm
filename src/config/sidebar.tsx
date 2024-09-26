@@ -1,7 +1,7 @@
 import React, { type ReactNode } from "react"
 import { LibraryBig, PanelsTopLeft, ShoppingCart } from "lucide-react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 
 interface ItemBase {
   icon: ReactNode
@@ -29,23 +29,23 @@ export const sidebarConfig: {
     {
       title: "Home page",
       icon: <PanelsTopLeft size="18" />,
-      href: routePaths.private.dashboard,
+      href: RoutePaths.private.dashboard,
     },
     {
       title: "Orders",
       icon: <ShoppingCart size="18" />,
-      activePath: routePaths.private.orders.base,
+      activePath: RoutePaths.private.orders.base,
       items: [
         {
           title: "Order list",
-          href: routePaths.private.orders.list,
+          href: RoutePaths.private.orders.list,
         },
       ],
     },
     {
       title: "Products",
       icon: <LibraryBig size="18" />,
-      activePath: routePaths.private.products.base,
+      activePath: RoutePaths.private.products.base,
       items: [
         {
           title: "Product list",

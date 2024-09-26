@@ -138,9 +138,12 @@ const GroupItem = ({ items, title }: GroupItemProps) => {
       <AccordionContent className="space-y-2 px-4">
         {items?.map(({ name, count, colorClass }) => (
           <button key={name} className="flex items-center gap-2">
-            <span className={`min-w-5 rounded-sm p-0.5 text-xs ${colorClass}`}>
+            <span
+              className={`min-w-5 rounded-sm p-0.5 text-xs text-white ${colorClass}`}
+            >
               {count}
             </span>
+
             <Text size="xs">{name}</Text>
           </button>
         ))}

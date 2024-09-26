@@ -1,4 +1,4 @@
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { siteConfig } from "@/config/site"
 import { Link } from "@/components/ui/link"
 import { Title, type TitleProps } from "@/components/ui/title"
@@ -11,7 +11,7 @@ interface LogoProps {
 
 export function Logo({
   size = "xl",
-  href = routePaths.public.home,
+  href = RoutePaths.public.home,
   className,
 }: LogoProps) {
   return (

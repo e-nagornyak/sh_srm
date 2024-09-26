@@ -37,13 +37,13 @@ export function ComponentWithEditButton({
     <button
       onClick={handleEditClick}
       className={cn(
-        "group flex cursor-pointer items-center gap-2 underline-offset-2 hover:text-highlight hover:underline",
+        "group relative flex cursor-pointer items-center gap-2 underline-offset-2 hover:text-highlight hover:underline",
         className
       )}
       {...props}
     >
       {children || "..."}
-      <div className="hidden group-hover:inline-flex">
+      <div className="absolute -right-5 hidden bg-background group-hover:inline-flex">
         <Pen size="15" />
       </div>
     </button>

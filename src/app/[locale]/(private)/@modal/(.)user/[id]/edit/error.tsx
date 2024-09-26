@@ -3,7 +3,7 @@
 // Error boundaries must be Client Components
 import { useEffect } from "react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { Link } from "@/components/ui/link"
 import { FormWrapper } from "@/components/shared/form-wrapper"
 
@@ -22,7 +22,7 @@ export default function Error({
   return (
     <FormWrapper title="No user found">
       <Link
-        href={routePaths.private.user.list}
+        href={RoutePaths.private.user.list}
         className="w-full"
         buttonStyles={{ size: "lg" }}
       >

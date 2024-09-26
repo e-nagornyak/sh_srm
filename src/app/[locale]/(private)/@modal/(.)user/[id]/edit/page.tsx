@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { type User } from "@/lib/api/user/user-types"
 import { UserEditController } from "@/components/controllers/users/user/user-edit-controller"
@@ -16,7 +16,7 @@ export default async function Page({ params: { id } }: PageProps) {
   const user = await getUserApi("server").getUserById(Number(id))
 
   if (!user) {
-    redirect(routePaths?.private.user.list)
+    redirect(RoutePaths?.private.user.list)
   }
 
   return (

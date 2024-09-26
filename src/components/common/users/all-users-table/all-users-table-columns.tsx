@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/react-icons"
 import { type ColumnDef } from "@tanstack/react-table"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { type User } from "@/lib/api/user/user-types"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -98,7 +98,7 @@ export function getColumns(): ColumnDef<User>[] {
                 <Link
                   variant="ghost"
                   className="cursor-pointer"
-                  href={routePaths.private.user.edit(userId)}
+                  href={RoutePaths.private.user.edit(userId)}
                 >
                   <Pencil1Icon className="mr-2 size-5" />
                   Edit
@@ -108,7 +108,7 @@ export function getColumns(): ColumnDef<User>[] {
                 <Link
                   variant="ghost"
                   className="cursor-pointer"
-                  href={routePaths.private.user.delete(userId)}
+                  href={RoutePaths.private.user.delete(userId)}
                 >
                   <TrashIcon className="mr-2 size-5" />
                   Delete

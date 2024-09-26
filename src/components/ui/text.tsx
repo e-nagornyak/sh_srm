@@ -36,6 +36,7 @@ export const textVariants = cva("", {
     },
     color: {
       default: "text-black dark:text-white",
+      reverse: "text-white dark:text-black",
       highlight: "text-highlight",
     },
   },

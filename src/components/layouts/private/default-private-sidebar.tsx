@@ -4,7 +4,7 @@ import React from "react"
 import { usePathname } from "next/navigation"
 import { useAppStore } from "@/store/app"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { sidebarConfig } from "@/config/sidebar"
 import { cn } from "@/lib/utils"
 import { Accordion } from "@/components/ui/accordion"
@@ -24,7 +24,7 @@ export function DefaultPrivateSidebar() {
       )}
     >
       <Logo
-        href={routePaths.private.dashboard}
+        href={RoutePaths.private.dashboard}
         size={openSidebar ? "xl" : "sm"}
         className={cn("mb-4 pb-2", { "text-center": !openSidebar })}
       />

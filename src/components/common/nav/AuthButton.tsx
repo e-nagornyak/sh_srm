@@ -7,7 +7,7 @@ import Cookies from "js-cookie"
 import { Loader } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { Button, type ButtonProps } from "@/components/ui/button"
 
 export function AuthButton(props: ButtonProps) {
@@ -17,7 +17,7 @@ export function AuthButton(props: ButtonProps) {
   const { push } = useRouter()
 
   const onClickHandler = () => {
-    startTransition(() => push(routePaths.auth.login))
+    startTransition(() => push(RoutePaths.auth.login))
   }
 
   const onSignOutHandler = async () => {

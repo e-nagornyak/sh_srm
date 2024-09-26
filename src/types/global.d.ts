@@ -1,5 +1,7 @@
 import type en from "../locales/en.json"
 
+type Nullable<T> = T | null
+
 type Messages = typeof en
 
 declare global {

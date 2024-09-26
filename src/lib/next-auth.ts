@@ -2,15 +2,15 @@ import { cookies } from "next/headers"
 import NextAuth, { type NextAuthOptions, type User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { getAuthApi } from "@/lib/api/auth/auth-api"
 import { RoleEnum } from "@/lib/api/user/user-types"
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
   pages: {
-    signIn: routePaths.auth.login,
-    error: routePaths.auth.login,
+    signIn: RoutePaths.auth.login,
+    error: RoutePaths.auth.login,
   },
   // Configure one or more authentication providers
   // jwt: {

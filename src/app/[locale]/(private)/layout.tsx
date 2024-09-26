@@ -2,7 +2,7 @@ import React, { type PropsWithChildren, type ReactNode } from "react"
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { authOptions } from "@/lib/next-auth"
 import { DefaultPrivateHeader } from "@/components/layouts/private/default-private-header"
 import { DefaultPrivateSidebar } from "@/components/layouts/private/default-private-sidebar"
@@ -15,7 +15,7 @@ export default async function Layout({ modal, children }: LayoutProps) {
   const session = await getServerSession(authOptions)
 
   if (!session?.user) {
-    redirect(routePaths.auth.login)
+    redirect(RoutePaths.auth.login)
   }
 
   return (

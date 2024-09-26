@@ -2,7 +2,7 @@
 
 import { toast } from "sonner"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
 import type { CreateUserFormData } from "@/lib/validations/user"
@@ -16,7 +16,7 @@ export function UserAddController() {
   const addUserHandler = async (data: CreateUserFormData) => {
     try {
       await getUserApi("client").createUser(data)
-      lazyPush(routePaths.private.user.list)
+      lazyPush(RoutePaths.private.user.list)
       toast.info("User has been added")
     } catch (e) {
       showErrorToast(e)
