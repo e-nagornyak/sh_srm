@@ -4,7 +4,7 @@ import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { OrderViewOrderHeaderActions } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-header-actions"
 import { OrderViewOrderInfo } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-info/order-view-order-info"
-import { OrderViewOrderStatus } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-status"
+import { OrderViewOrderStatus } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-status/order-view-order-status"
 
 interface OrderViewOrderProps {
   order: Order

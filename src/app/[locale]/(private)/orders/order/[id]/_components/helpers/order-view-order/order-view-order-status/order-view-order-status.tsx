@@ -3,18 +3,38 @@
 import { useState } from "react"
 import {
   AlignJustify,
+  Calculator,
+  Calendar,
+  Check,
   ChevronDown,
   CircleHelp,
+  CreditCard,
   Flag,
   Printer,
+  Settings,
+  Smile,
+  User,
 } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command"
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Link } from "@/components/ui/link"
@@ -25,7 +45,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
+import { OrderViewOrderStatusSelector } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-order/order-view-order-status/order-view-order-status-selector"
 
 interface OrderViewOrderStatusProps {
   order: Order
@@ -46,7 +68,27 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
               Status:
             </div>
           </TableCell>
-          <TableCell>TODO ADD SEARCH HERE</TableCell>
+          <TableCell>
+            <div className="flex gap-2">
+              <OrderViewOrderStatusSelector />
+              <ButtonWithDropdown
+                buttonContent={"Change"}
+                dropdownContent={
+                  <ComponentWithTooltip
+                    side="left"
+                    trigger={
+                      <Button variant="ghost" size="sm" className="text-start">
+                        Change without triggering
+                        <br />
+                        automatic actions
+                      </Button>
+                    }
+                    text="Move without running any defined automatic actions (such as sending an e-mail)."
+                  />
+                }
+              />
+            </div>
+          </TableCell>
         </TableRow>
         {/**/}
         <TableRow className="border-0">
@@ -85,15 +127,24 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="pb-0 text-start">Order date:</TableCell>
-          <TableCell className="pb-0 text-start">1</TableCell>
+          <TableCell className="pb-0 text-start">
+            {new Date()?.toDateString()}
+          </TableCell>
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Date in status:</TableCell>
-          <TableCell className="py-0 text-start">1</TableCell>
+          <TableCell className="py-0 text-start">
+            {new Date()?.toDateString()}
+          </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
           <TableCell className="pt-0 text-start">Stock levels:</TableCell>
-          <TableCell className="pt-0 text-start">1</TableCell>
+          <TableCell className="pt-0 text-start">
+            <button className="flex items-center gap-1">
+              <Check size="20" className="text-green-600" />
+              Completed (deducted)
+            </button>
+          </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
           <TableCell className="text-start">
