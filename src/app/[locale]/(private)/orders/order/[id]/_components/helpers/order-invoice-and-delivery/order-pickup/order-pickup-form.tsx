@@ -1,15 +1,7 @@
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { TableCell, TableRow } from "@/components/ui/table"
-import { CountrySelect } from "@/components/shared/country-select"
 
 interface OrderDeliveryFormProps {
   order: Order
@@ -17,7 +9,7 @@ interface OrderDeliveryFormProps {
   onSave: () => void
 }
 
-export function OrderDeliveryForm({
+export function OrderPickupForm({
   order,
   onCancel,
   onSave,
@@ -25,13 +17,13 @@ export function OrderDeliveryForm({
   return (
     <>
       <TableRow className="border-0">
-        <TableCell>Name and surname:</TableCell>
+        <TableCell>Point name:</TableCell>
         <TableCell colSpan={2}>
           <Input size="xs" />
         </TableCell>
       </TableRow>
       <TableRow className="border-0">
-        <TableCell>Company:</TableCell>
+        <TableCell>ID:</TableCell>
         <TableCell colSpan={2}>
           <Input size="xs" />
         </TableCell>
@@ -54,19 +46,6 @@ export function OrderDeliveryForm({
           <Input size="xs" />
         </TableCell>
       </TableRow>
-      <TableRow className="border-0">
-        <TableCell>State:</TableCell>
-        <TableCell colSpan={2}>
-          <Input size="xs" />
-        </TableCell>
-      </TableRow>
-      <TableRow className="border-0">
-        <TableCell>Country:</TableCell>
-        <TableCell colSpan={2}>
-          <CountrySelect />
-        </TableCell>
-      </TableRow>
-
       <TableRow className="border-0">
         <TableCell colSpan={3}>
           <div className="flex items-center gap-3">

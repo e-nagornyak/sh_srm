@@ -1,20 +1,50 @@
 import * as React from "react"
+import dynamic from "next/dynamic"
 import { Copy, Pen } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
+import { OrderInvoiceText } from "./order-invoice-text"
+
+const OrderInvoiceForm = dynamic(
+  () => import("./order-invoice-form").then((mod) => mod.OrderInvoiceForm),
+  {
+    loading: () => (
+      <TableRow>
+        <TableCell colSpan={3}>
+          <Skeleton className="h-half-screen w-full" />
+        </TableCell>
+      </TableRow>
+    ),
+  }
+)
+
 interface OrderViewInvoiceProps {
   order: Order
+  editingFieldName: string | null
+  changeEditingFieldName: (fieldName?: string) => void
+  onClickCopyInvoice: () => void
+  onCancel: () => void
+  onSave: () => void
 }
 
-export function OrderInvoice({ order }: OrderViewInvoiceProps) {
-  const delivery = order?.delivery
-  const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
+export function OrderInvoice({
+  order,
+  editingFieldName,
+  onClickCopyInvoice,
+  changeEditingFieldName,
+  onSave,
+  onCancel,
+}: OrderViewInvoiceProps) {
+  const handleOpenEditMode = () => {
+    changeEditingFieldName("")
+  }
 
   return (
     <Card>
@@ -26,7 +56,7 @@ export function OrderInvoice({ order }: OrderViewInvoiceProps) {
           <div className="space-x-2">
             <ComponentWithTooltip
               trigger={
-                <Button size="xs">
+                <Button onClick={onClickCopyInvoice} size="xs">
                   <Copy size="15" />
                 </Button>
               }
@@ -34,7 +64,7 @@ export function OrderInvoice({ order }: OrderViewInvoiceProps) {
             />
             <ComponentWithTooltip
               trigger={
-                <Button size="xs">
+                <Button onClick={handleOpenEditMode} size="xs">
                   <Pen size="15" />
                 </Button>
               }
@@ -44,43 +74,18 @@ export function OrderInvoice({ order }: OrderViewInvoiceProps) {
         </div>
         <Table>
           <TableBody>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">
-                Name and surname:
-              </TableCell>
-              <TableCell className="py-0 text-start">{bayerFullName}</TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">Company:</TableCell>
-              <TableCell className="py-0 text-start">...</TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">Address:</TableCell>
-              <TableCell className="py-0 text-start">
-                {delivery?.address?.street || "..."}
-              </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">
-                Postal code and city:
-              </TableCell>
-              <TableCell className="py-0 text-start">
-                {delivery?.address?.zip_code || "..."}
-              </TableCell>
-              <TableCell className="py-0 text-start">
-                {delivery?.address?.city || "..."}
-              </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">State:</TableCell>
-              <TableCell className="py-0 text-start">...</TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="py-0 text-start">Country:</TableCell>
-              <TableCell className="py-0 text-start">
-                {delivery?.address?.country_code || "..."}
-              </TableCell>
-            </TableRow>
+            {typeof editingFieldName === "string" ? (
+              <OrderInvoiceForm
+                order={order}
+                onCancel={onCancel}
+                onSave={onSave}
+              />
+            ) : (
+              <OrderInvoiceText
+                changeEditingFieldName={changeEditingFieldName}
+                order={order}
+              />
+            )}
           </TableBody>
         </Table>
       </CardContent>

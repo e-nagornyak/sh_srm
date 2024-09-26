@@ -1,34 +1,45 @@
-"use client"
-
+import * as React from "react"
+import dynamic from "next/dynamic"
 import { Copy, Pen } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Table, TableBody } from "@/components/ui/table"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
-import { OrderDeliveryForm } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-delivery/order-delivery-form"
 
-import { OrderDeliveryText } from "./order-delivery-text"
+import { OrderPickupText } from "./order-pickup-text"
 
-interface OrderDeliveryProps {
+const OrderInvoiceForm = dynamic(
+  () => import("./order-pickup-form").then((mod) => mod.OrderPickupForm),
+  {
+    loading: () => (
+      <TableRow>
+        <TableCell colSpan={3}>
+          <Skeleton className="h-72 w-full" />
+        </TableCell>
+      </TableRow>
+    ),
+  }
+)
+
+interface OrderViewInvoiceProps {
   order: Order
   editingFieldName: string | null
   changeEditingFieldName: (fieldName?: string) => void
-  onClickCopyAddress: () => void
   onCancel: () => void
   onSave: () => void
 }
 
-export function OrderDelivery({
+export function OrderPickup({
   order,
   editingFieldName,
-  onClickCopyAddress,
   changeEditingFieldName,
   onSave,
   onCancel,
-}: OrderDeliveryProps) {
+}: OrderViewInvoiceProps) {
   const handleOpenEditMode = () => {
     changeEditingFieldName("")
   }
@@ -38,37 +49,28 @@ export function OrderDelivery({
       <CardContent>
         <div className="flex items-center justify-between px-2 pb-3">
           <Title weight="semibold" size="xs">
-            Delivery address
+            Pickup at point
           </Title>
-          <div className="space-x-2">
-            <ComponentWithTooltip
-              trigger={
-                <Button onClick={onClickCopyAddress} size="xs">
-                  <Copy size="15" />
-                </Button>
-              }
-              text="Copy address to the invoice data"
-            />
-            <ComponentWithTooltip
-              trigger={
-                <Button onClick={handleOpenEditMode} size="xs">
-                  <Pen size="15" />
-                </Button>
-              }
-              text="Edit"
-            />
-          </div>
+
+          <ComponentWithTooltip
+            trigger={
+              <Button onClick={handleOpenEditMode} size="xs">
+                <Pen size="15" />
+              </Button>
+            }
+            text="Edit"
+          />
         </div>
         <Table>
           <TableBody>
             {typeof editingFieldName === "string" ? (
-              <OrderDeliveryForm
+              <OrderInvoiceForm
                 order={order}
                 onCancel={onCancel}
                 onSave={onSave}
               />
             ) : (
-              <OrderDeliveryText
+              <OrderPickupText
                 changeEditingFieldName={changeEditingFieldName}
                 order={order}
               />

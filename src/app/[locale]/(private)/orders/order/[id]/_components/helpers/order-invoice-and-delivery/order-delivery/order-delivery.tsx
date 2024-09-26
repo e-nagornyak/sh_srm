@@ -19,7 +19,7 @@ const OrderDeliveryForm = dynamic(
     loading: () => (
       <TableRow>
         <TableCell colSpan={3}>
-          <Skeleton className="h-half-screen w-full" />,
+          <Skeleton className="h-half-screen w-full" />
         </TableCell>
       </TableRow>
     ),

@@ -1,16 +1,16 @@
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { TableCell, TableRow } from "@/components/ui/table"
+import { TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 
-interface OrderDeliveryTextProps {
+interface OrderInvoiceTextProps {
   order: Order
   changeEditingFieldName: (fieldName?: string) => void
 }
 
-export function OrderDeliveryText({
+export function OrderInvoiceText({
   order,
   changeEditingFieldName,
-}: OrderDeliveryTextProps) {
+}: OrderInvoiceTextProps) {
   const delivery = order?.delivery
   const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
 
