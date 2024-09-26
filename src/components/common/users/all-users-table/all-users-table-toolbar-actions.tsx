@@ -4,7 +4,7 @@ import * as React from "react"
 import { PlusIcon } from "@radix-ui/react-icons"
 import { type Table } from "@tanstack/react-table"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { type User } from "@/lib/api/user/user-types"
 import { Link } from "@/components/ui/link"
 
@@ -23,7 +23,7 @@ export function AllUsersTableToolbarActions({
         variant="ghost"
         aria-label="Toggle columns"
         buttonStyles={{}}
-        href={routePaths.private.user.add}
+        href={RoutePaths.private.user.add}
       >
         <PlusIcon className="mr-2 size-4" />
         Add user

@@ -1,33 +1,52 @@
-export const routePaths = {
-  auth: {
-    login: "/auth/login",
-    register: "/auth/register",
-  },
-  private: {
+import { env } from "@/env"
+
+class RoutePaths {
+  private static readonly baseAuth: string = "/auth"
+  private static readonly baseOrders: string = "/orders"
+  private static readonly baseProducts: string = "/products"
+  private static readonly baseUser: string = "/user"
+  private static readonly baseResult: string = "/result"
+
+  public static readonly auth = {
+    login: `${RoutePaths.baseAuth}/login`,
+    register: `${RoutePaths.baseAuth}/register`,
+  }
+
+  public static readonly private = {
     dashboard: "/dashboard",
     orders: {
-      base: "/orders",
-      list: `/orders/list`,
+      base: RoutePaths.baseOrders,
+      list: `${RoutePaths.baseOrders}/list`,
       order: (id: number) => ({
-        add: "/orders/order/add",
-        view: `/orders/order/${id}`,
+        add: `${RoutePaths.baseOrders}/order/add`,
+        view: `${RoutePaths.baseOrders}/order/${id}`,
       }),
     },
     products: {
-      base: "/products",
+      base: RoutePaths.baseProducts,
       product: (id: number) => ({
-        add: "/products/product/add",
-        view: `/products/product/${id}`,
+        add: `${RoutePaths.baseProducts}/product/add`,
+        view: `${RoutePaths.baseProducts}/product/${id}`,
       }),
     },
     user: {
-      list: "/users",
-      add: "/user/add",
-      edit: (id: number) => `/user/${id}/edit`,
-      delete: (id: number) => `/user/${id}/delete`,
+      list: `${RoutePaths.baseUser}s`,
+      add: `${RoutePaths.baseUser}/add`,
+      edit: (id: number) => `${RoutePaths.baseUser}/${id}/edit`,
+      delete: (id: number) => `${RoutePaths.baseUser}/${id}/delete`,
     },
-  },
-  public: {
+  }
+
+  public static readonly public = {
     home: "/",
-  },
+    result: {
+      order: (id: number) => `${RoutePaths.baseResult}/order/${id}`,
+    },
+  }
+
+  public static getFullPath(path: string): string {
+    return `${env.NEXT_PUBLIC_FRONTEND_URL}${path}`
+  }
 }
+
+export { RoutePaths }

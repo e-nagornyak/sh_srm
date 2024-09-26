@@ -3,7 +3,7 @@
 import React from "react"
 import { ChevronDown, Star } from "lucide-react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { Button } from "@/components/ui/button"
@@ -29,7 +29,7 @@ export function OrderViewBayerController({
   const bayer = order?.buyer
   const bayerFullName = `${bayer?.first_name || ""} ${bayer?.last_name || ""}`
 
-  const handleReturnToList = () => lazyPush(routePaths.private.orders.list)
+  const handleReturnToList = () => lazyPush(RoutePaths.private.orders.list)
 
   return (
     <Card>

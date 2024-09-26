@@ -2,13 +2,13 @@ import { type PropsWithChildren } from "react"
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 
 export default async function Layout({ children }: PropsWithChildren) {
   const session = await getServerSession()
 
   if (session?.user) {
-    redirect(routePaths.public.home)
+    redirect(RoutePaths.public.home)
   }
 
   return (

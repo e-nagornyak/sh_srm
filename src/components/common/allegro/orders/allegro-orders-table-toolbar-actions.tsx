@@ -4,7 +4,7 @@ import * as React from "react"
 import { PlusIcon } from "@radix-ui/react-icons"
 import { type Table } from "@tanstack/react-table"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Link } from "@/components/ui/link"
 

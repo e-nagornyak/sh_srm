@@ -3,38 +3,22 @@
 import { useState } from "react"
 import {
   AlignJustify,
-  Calculator,
-  Calendar,
   Check,
   ChevronDown,
   CircleHelp,
-  CreditCard,
   Flag,
   Printer,
-  Settings,
-  Smile,
-  User,
+  Truck,
 } from "lucide-react"
 
+import { orderPersonalEvents } from "@/config/order-personal-events"
+import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Link } from "@/components/ui/link"
@@ -54,10 +38,6 @@ interface OrderViewOrderStatusProps {
 }
 
 export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
-  const [isEditMode, setIsEditMode] = useState(false)
-
-  const changeEditMode = () => setIsEditMode(!isEditMode)
-
   return (
     <Table>
       <TableBody>
@@ -109,8 +89,21 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>1</DropdownMenuItem>
-                  <DropdownMenuItem>2</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Button size="xs" variant="ghost">
+                      Invoice - default
+                    </Button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Button size="xs" variant="ghost">
+                      Invoice - VAT OSS
+                    </Button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Button size="xs" variant="ghost">
+                      Invoice - WTD
+                    </Button>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button size="sm">Pro forma</Button>
@@ -159,9 +152,15 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
                   <ChevronDown size="15" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>1</DropdownMenuItem>
-                <DropdownMenuItem>2</DropdownMenuItem>
+              <DropdownMenuContent className="max-h-96 overflow-y-auto">
+                {orderPersonalEvents?.map((item) => (
+                  <DropdownMenuItem key={item?.key}>
+                    <Button size="xs" variant="ghost" className="gap-3">
+                      <Truck size="18" className={item?.color} />
+                      {item?.displayName}
+                    </Button>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </TableCell>
@@ -192,8 +191,16 @@ export function OrderViewOrderStatus({ order }: OrderViewOrderStatusProps) {
                 </Tooltip>
               </TooltipProvider>
             </div>
-            <Link href="#">
-              https://orders-e.baselinker.com/69555940/adskqpi8fw/
+            <Link
+              prefetch={false}
+              target="_blank"
+              href={RoutePaths.getFullPath(
+                RoutePaths.public.result.order(order?.id)
+              )}
+            >
+              {RoutePaths.getFullPath(
+                RoutePaths.public.result.order(order?.id)
+              )}
             </Link>
           </TableCell>
         </TableRow>

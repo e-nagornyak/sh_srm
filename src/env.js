@@ -21,6 +21,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_BACKEND_URL: z.string().url(),
+    NEXT_PUBLIC_FRONTEND_URL: z.string().url(),
   },
 
   /**
@@ -29,15 +30,11 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env["NEXTAUTH_SECRET"],
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
-  /**
-   * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
-   * useful for Docker builds.
-   */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   /**
    * Makes it so that empty strings are treated as undefined.
    * `SOME_VAR: z.string()` and `SOME_VAR=''` will throw an error.

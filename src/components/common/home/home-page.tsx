@@ -1,6 +1,6 @@
 import { SearchIcon } from "lucide-react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Link } from "@/components/ui/link"
@@ -23,7 +23,7 @@ export function HomePage() {
           <Link
             variant="ghost"
             className={buttonVariants({ size: "lg" })}
-            href={routePaths.auth.login}
+            href={RoutePaths.auth.login}
           >
             Try it for free
           </Link>

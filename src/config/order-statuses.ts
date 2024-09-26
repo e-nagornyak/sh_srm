@@ -1,15 +1,15 @@
-interface StatusItem {
+interface OrderStatusItem {
   color: string
   key: string
   displayName: string
 }
 
-interface StatusGroup {
+interface OrderStatusGroup {
   group: string
-  items: StatusItem[]
+  items: OrderStatusItem[]
 }
 
-const orderStatuses: StatusGroup[] = [
+const orderStatuses: OrderStatusGroup[] = [
   {
     group: "No Group",
     items: [
@@ -80,4 +80,4 @@ const orderStatuses: StatusGroup[] = [
   },
 ]
 
-export { orderStatuses, type StatusItem }
+export { orderStatuses, type OrderStatusItem }

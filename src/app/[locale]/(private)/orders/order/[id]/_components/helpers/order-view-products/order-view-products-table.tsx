@@ -2,7 +2,7 @@ import * as React from "react"
 import { format } from "date-fns"
 import { Camera, LayoutList, MoreVertical, Pen, Trash } from "lucide-react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import {
@@ -69,7 +69,7 @@ export function OrderViewProductsTable({ order }: OrderViewProductsTableProps) {
             </TableCell>
             <TableCell className="font-medium">
               <Link
-                href={routePaths.private.products.product(product?.id).view}
+                href={RoutePaths.private.products.product(product?.id).view}
               >
                 {product?.id}
               </Link>

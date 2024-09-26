@@ -2,7 +2,7 @@
 
 import { toast } from "sonner"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { type User } from "@/lib/api/user/user-types"
 import { showErrorToast } from "@/lib/handle-error"
@@ -29,7 +29,7 @@ export function UserEditController({ user }: UserEditControllerProps) {
         username,
         password: "password",
       })
-      lazyPush(routePaths.private.user.list)
+      lazyPush(RoutePaths.private.user.list)
       toast.info("User has been updated")
     } catch (e) {
       showErrorToast(e)

@@ -2,7 +2,7 @@ import * as React from "react"
 import { ChevronDown } from "lucide-react"
 import { type Session } from "next-auth"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,7 +45,7 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="w-full">
-                  <Link variant="ghost" href={routePaths.private.user.list}>
+                  <Link variant="ghost" href={RoutePaths.private.user.list}>
                     List of employees
                   </Link>
                 </DropdownMenuItem>

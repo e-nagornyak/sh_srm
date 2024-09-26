@@ -3,7 +3,7 @@
 import * as React from "react"
 import { type User } from "next-auth"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { cn } from "@/lib/utils"
 import { Link } from "@/components/ui/link"
 import {
@@ -83,7 +83,7 @@ export function NavList({ user }: NavListProps) {
               </li>
               {user && (
                 <ListItem
-                  href={routePaths.private.dashboard}
+                  href={RoutePaths.private.dashboard}
                   title="Private Dashboard"
                 >
                   Here you can view the list of all orders, users.

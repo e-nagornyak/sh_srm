@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from "react"
 import { ChevronLeft } from "lucide-react"
 
-import { routePaths } from "@/config/routes"
+import { RoutePaths } from "@/config/routes"
 import { Link } from "@/components/ui/link"
 
 export default async function Layout({ children }: PropsWithChildren) {
@@ -9,7 +9,7 @@ export default async function Layout({ children }: PropsWithChildren) {
     <section className="flex flex-1 justify-center p-14">
       <Link
         buttonStyles={{ variant: "link" }}
-        href={routePaths.private.user.list}
+        href={RoutePaths.private.user.list}
       >
         <ChevronLeft />
         Back
