@@ -3,7 +3,6 @@ import { ChevronDown, Plus, Wrench } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
-import { OrderProductsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-products/order-products-table"
 
 interface Props {
   order: Order

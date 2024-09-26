@@ -43,7 +43,7 @@ export function ComponentWithEditButton({
       {...props}
     >
       {children || "..."}
-      <div className="absolute -right-6 hidden bg-background group-hover:inline-flex">
+      <div className="absolute -right-5 hidden bg-background group-hover:inline-flex">
         <Pen size="15" />
       </div>
     </button>

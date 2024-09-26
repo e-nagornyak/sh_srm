@@ -21,7 +21,7 @@ interface Props {
   onSave: () => void
 }
 
-export function OrderBaseInfoEdit({ order, onCancel, onSave }: Props) {
+export function OrderBaseInfoForm({ order, onCancel, onSave }: Props) {
   return (
     <>
       <TableRow className="border-0">

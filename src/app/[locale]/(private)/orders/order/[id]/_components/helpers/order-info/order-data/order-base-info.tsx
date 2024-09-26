@@ -32,7 +32,7 @@ export function OrderBaseInfo({ order, changeEditingFieldName }: Props) {
       <TableRow className="border-0">
         <TableCell className="py-0 text-start">Phone number:</TableCell>
         <TableCell className="py-0 text-start">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {order?.buyer?.phone_number}
             </ComponentWithEditButton>

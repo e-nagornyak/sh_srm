@@ -11,7 +11,7 @@ import { OrderBaseInfo } from "./order-base-info"
 import { OrderPaidRow } from "./order-paid-row"
 
 const OrderViewOrderInfoOrderEdit = dynamic(
-  () => import("./order-base-info-edit").then((mod) => mod.OrderBaseInfoEdit),
+  () => import("./order-base-info-form").then((mod) => mod.OrderBaseInfoForm),
   {
     loading: () => (
       <TableRow>
