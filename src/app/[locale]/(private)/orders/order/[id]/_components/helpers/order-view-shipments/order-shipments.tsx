@@ -6,11 +6,11 @@ import { Title } from "@/components/ui/title"
 import { OrderShipmentsProviders } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-shipments-providers"
 import { OrderShipmentsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-shipments-table"
 
-interface Props {
+interface OrderShipmentsProps {
   order: Order
 }
 
-export function OrderShipments({ order }: Props) {
+export function OrderShipments({ order }: OrderShipmentsProps) {
   return (
     <Card>
       <CardContent>

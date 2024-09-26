@@ -28,11 +28,11 @@ import {
 } from "@/components/ui/tooltip"
 import { HoverImage } from "@/components/shared/hover-image"
 
-interface Props {
+interface OrderProductsTableProps {
   order: Order
 }
 
-export function OrderProductsTable({ order }: Props) {
+export function OrderProductsTable({ order }: OrderProductsTableProps) {
   const products = order?.products
 
   return (

@@ -7,11 +7,11 @@ import { OrderData } from "./order-data/order-data"
 import { OrderHeaderActions } from "./order-header-actions"
 import { OrderStatus } from "./order-status/order-status"
 
-interface Props {
+interface OrderInfoControllerProps {
   order: Order
 }
 
-export function OrderInfoController({ order }: Props) {
+export function OrderInfoController({ order }: OrderInfoControllerProps) {
   return (
     <Card>
       <CardHeader className="w-full flex-row items-center justify-between">

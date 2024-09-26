@@ -3,15 +3,17 @@
 import { useState } from "react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { OrderInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice"
 import { OrderDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-delivery/order-delivery"
+import { OrderInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-ivoice/order-invoice"
 import { OrderPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-pickup"
 
-interface Props {
+interface InvoiceAndDeliveryControllerProps {
   order: Order
 }
 
-export function InvoiceAndDeliveryController({ order }: Props) {
+export function InvoiceAndDeliveryController({
+  order,
+}: InvoiceAndDeliveryControllerProps) {
   const [deliveryEditingFieldName, setEditingFieldName] = useState<
     string | null
   >(null)

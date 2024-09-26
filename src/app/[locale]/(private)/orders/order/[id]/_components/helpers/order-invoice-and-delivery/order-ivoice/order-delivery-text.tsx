@@ -1,5 +1,3 @@
-import * as React from "react"
-
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"

@@ -20,11 +20,11 @@ import {
 } from "@/components/ui/table"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
-interface Props {
+interface OrderShipmentsTableProps {
   order: Order
 }
 
-export function OrderShipmentsTable(props: Props) {
+export function OrderShipmentsTable(props: OrderShipmentsTableProps) {
   return (
     <Table>
       <TableHeader>

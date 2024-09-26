@@ -21,9 +21,9 @@ import {
 import { Title } from "@/components/ui/title"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 
-interface Props {}
+interface OrderHeaderActionsProps {}
 
-export function OrderHeaderActions(props: Props) {
+export function OrderHeaderActions(props: OrderHeaderActionsProps) {
   return (
     <>
       <Title weight="semibold" size="xs">

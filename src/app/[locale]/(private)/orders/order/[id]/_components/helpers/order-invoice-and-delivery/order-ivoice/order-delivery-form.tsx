@@ -1,6 +1,13 @@
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { CountrySelect } from "@/components/shared/country-select"
 

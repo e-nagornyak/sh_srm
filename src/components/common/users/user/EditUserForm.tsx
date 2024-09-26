@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-interface Props {
+interface EditUserFormProps {
   onSubmit: SubmitHandler<EditUserFormData>
   defaultValues?: EditUserFormData
   isPending?: boolean
@@ -39,7 +39,7 @@ export const EditUserForm = ({
   isPending,
   defaultValues,
   buttonText = "Submit",
-}: Props) => {
+}: EditUserFormProps) => {
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(editUserFormSchema),
     defaultValues,

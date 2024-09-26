@@ -15,13 +15,17 @@ import {
 import { TableCell, TableRow } from "@/components/ui/table"
 import { Textarea } from "@/components/ui/textarea"
 
-interface Props {
+interface OrderBaseInfoFormProps {
   order: Order
   onCancel: () => void
   onSave: () => void
 }
 
-export function OrderBaseInfoForm({ order, onCancel, onSave }: Props) {
+export function OrderBaseInfoForm({
+  order,
+  onCancel,
+  onSave,
+}: OrderBaseInfoFormProps) {
   return (
     <>
       <TableRow className="border-0">

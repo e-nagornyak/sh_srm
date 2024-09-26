@@ -1,30 +1,16 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import { Copy, Pen } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { Table, TableBody } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
+import { OrderDeliveryForm } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-delivery/order-delivery-form"
 
 import { OrderDeliveryText } from "./order-delivery-text"
-
-const OrderDeliveryForm = dynamic(
-  () => import("./order-delivery-form").then((mod) => mod.OrderDeliveryForm),
-  {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-half-screen w-full" />,
-        </TableCell>
-      </TableRow>
-    ),
-  }
-)
 
 interface OrderDeliveryProps {
   order: Order

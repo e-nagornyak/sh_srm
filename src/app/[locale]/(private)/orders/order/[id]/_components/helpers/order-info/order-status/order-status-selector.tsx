@@ -22,9 +22,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"
 
-interface Props {}
+interface OrderStatusSelectorProps {}
 
-export function OrderStatusSelector(props: Props) {
+export function OrderStatusSelector(props: OrderStatusSelectorProps) {
   const [open, setOpen] = useState(false)
 
   const [status, setStatus] = useState<OrderStatusItem | null>(null)

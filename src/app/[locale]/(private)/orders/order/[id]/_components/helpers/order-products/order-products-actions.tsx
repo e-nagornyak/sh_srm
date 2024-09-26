@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 
-interface Props {
+interface OrderProductsActionsProps {
   order: Order
 }
 
-export function OrderProductsActions({ order }: Props) {
+export function OrderProductsActions({ order }: OrderProductsActionsProps) {
   return (
     <div className="flex w-full items-center justify-between">
       <ButtonWithDropdown

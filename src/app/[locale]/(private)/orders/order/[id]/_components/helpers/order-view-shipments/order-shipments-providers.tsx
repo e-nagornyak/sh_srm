@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
-interface Props {}
+interface OrderShipmentsProvidersProps {}
 
-export function OrderShipmentsProviders(props: Props) {
+export function OrderShipmentsProviders(props: OrderShipmentsProvidersProps) {
   const [activeProvider, setActiveProvider] =
     useState<null | OrderShipmentProvider>(null)
   const [showAll, setShowAll] = useState<boolean>(false)

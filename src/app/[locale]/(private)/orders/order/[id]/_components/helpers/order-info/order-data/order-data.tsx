@@ -35,11 +35,11 @@ const OrderViewOrderInfoPaidRowEdit = dynamic(
   }
 )
 
-interface Props {
+interface OrderDataPropsrops {
   order: Order
 }
 
-export function OrderData({ order }: Props) {
+export function OrderData({ order }: OrderDataPropsrops) {
   const [isEditPaymentMode, setIsEditPaymentMode] = useState(false)
   const [editingFieldName, setEditingFieldName] = useState<string | null>(null)
 

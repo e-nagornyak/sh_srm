@@ -32,11 +32,11 @@ import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 import { OrderStatusSelector } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-info/order-status/order-status-selector"
 
-interface Props {
+interface OrderStatusProps {
   order: Order
 }
 
-export function OrderStatus({ order }: Props) {
+export function OrderStatus({ order }: OrderStatusProps) {
   return (
     <Table>
       <TableBody>
