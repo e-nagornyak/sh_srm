@@ -56,7 +56,12 @@ export function OrderDeliveryForm({
       <TableRow className="border-0">
         <TableCell>Country:</TableCell>
         <TableCell colSpan={2}>
-          <CountrySelect />
+          <CountrySelect
+            onSelectCounty={(code) => {
+              console.log("code", code)
+            }}
+            defaultCountCode={order?.delivery?.address?.country_code}
+          />
         </TableCell>
       </TableRow>
 
