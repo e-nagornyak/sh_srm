@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import {
   orderStatuses,
   type OrderStatusItem,
@@ -60,8 +60,8 @@ export function OrderStatusSelector(props: OrderStatusSelectorProps) {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             {orderStatuses.map((group) => (
-              <>
-                <CommandGroup heading={group?.group} key={group?.group}>
+              <Fragment key={group?.group}>
+                <CommandGroup heading={group?.group}>
                   {group?.items?.map((item) => (
                     <CommandItem
                       onSelect={handleSelectStatus(item)}
@@ -76,7 +76,7 @@ export function OrderStatusSelector(props: OrderStatusSelectorProps) {
                   ))}
                 </CommandGroup>
                 <CommandSeparator />
-              </>
+              </Fragment>
             ))}
           </CommandList>
         </Command>

@@ -2,12 +2,13 @@
 
 import dynamic from "next/dynamic"
 import { Copy, Pen } from "lucide-react"
+import { type SubmitHandler } from "react-hook-form"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
@@ -16,13 +17,7 @@ import { OrderDeliveryText } from "./order-delivery-text"
 const OrderDeliveryForm = dynamic(
   () => import("./order-delivery-form").then((mod) => mod.OrderDeliveryForm),
   {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-half-screen w-full" />
-        </TableCell>
-      </TableRow>
-    ),
+    loading: () => <Skeleton className="h-half-screen w-full" />,
   }
 )
 
@@ -32,7 +27,7 @@ interface OrderDeliveryProps {
   changeEditingFieldName: (fieldName?: string) => void
   onClickCopyAddress: () => void
   onCancel: () => void
-  onSave: () => void
+  onSave: SubmitHandler<OrderDeliveryFormData>
 }
 
 export function OrderDelivery({
@@ -43,6 +38,10 @@ export function OrderDelivery({
   onSave,
   onCancel,
 }: OrderDeliveryProps) {
+  const delivery = order?.delivery
+  const buyer = order?.buyer
+  const address = delivery?.address
+
   const handleOpenEditMode = () => {
     changeEditingFieldName("")
   }
@@ -73,22 +72,26 @@ export function OrderDelivery({
             />
           </div>
         </div>
-        <Table>
-          <TableBody>
-            {typeof editingFieldName === "string" ? (
-              <OrderDeliveryForm
-                order={order}
-                onCancel={onCancel}
-                onSave={onSave}
-              />
-            ) : (
-              <OrderDeliveryText
-                changeEditingFieldName={changeEditingFieldName}
-                order={order}
-              />
-            )}
-          </TableBody>
-        </Table>
+        {typeof editingFieldName === "string" ? (
+          <OrderDeliveryForm
+            defaultValues={{
+              firstAndLastName: `${address?.last_name || ""} ${address?.last_name || ""}`,
+              company_name: buyer?.company_name || "",
+              address: address?.street,
+              zip_code: address?.zip_code,
+              city: address?.city,
+              state: "",
+              country_code: address?.country_code,
+            }}
+            onCancel={onCancel}
+            onSave={onSave}
+          />
+        ) : (
+          <OrderDeliveryText
+            changeEditingFieldName={changeEditingFieldName}
+            order={order}
+          />
+        )}
       </CardContent>
     </Card>
   )

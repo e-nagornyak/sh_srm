@@ -1,12 +1,13 @@
 import * as React from "react"
 import dynamic from "next/dynamic"
 import { Copy, Pen } from "lucide-react"
+import { type SubmitHandler } from "react-hook-form"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type OrderInvoiceFormData } from "@/lib/validations/order/order-invoice"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
@@ -15,13 +16,7 @@ import { OrderInvoiceText } from "./order-invoice-text"
 const OrderInvoiceForm = dynamic(
   () => import("./order-invoice-form").then((mod) => mod.OrderInvoiceForm),
   {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-half-screen w-full" />
-        </TableCell>
-      </TableRow>
-    ),
+    loading: () => <Skeleton className="h-half-screen w-full" />,
   }
 )
 
@@ -31,7 +26,7 @@ interface OrderViewInvoiceProps {
   changeEditingFieldName: (fieldName?: string) => void
   onClickCopyInvoice: () => void
   onCancel: () => void
-  onSave: () => void
+  onSave: SubmitHandler<OrderInvoiceFormData>
 }
 
 export function OrderInvoice({
@@ -42,6 +37,10 @@ export function OrderInvoice({
   onSave,
   onCancel,
 }: OrderViewInvoiceProps) {
+  const delivery = order?.delivery
+  const buyer = order?.buyer
+  const address = delivery?.address
+
   const handleOpenEditMode = () => {
     changeEditingFieldName("")
   }
@@ -72,22 +71,28 @@ export function OrderInvoice({
             />
           </div>
         </div>
-        <Table>
-          <TableBody>
-            {typeof editingFieldName === "string" ? (
-              <OrderInvoiceForm
-                order={order}
-                onCancel={onCancel}
-                onSave={onSave}
-              />
-            ) : (
-              <OrderInvoiceText
-                changeEditingFieldName={changeEditingFieldName}
-                order={order}
-              />
-            )}
-          </TableBody>
-        </Table>
+
+        {typeof editingFieldName === "string" ? (
+          <OrderInvoiceForm
+            defaultValues={{
+              firstAndLastName: `${address?.last_name || ""} ${address?.last_name || ""}`,
+              company_name: buyer?.company_name || "",
+              address: address?.street,
+              zip_code: address?.zip_code,
+              city: address?.city,
+              state: "",
+              country_code: address?.country_code,
+              tax_id: "",
+            }}
+            onCancel={onCancel}
+            onSave={onSave}
+          />
+        ) : (
+          <OrderInvoiceText
+            changeEditingFieldName={changeEditingFieldName}
+            order={order}
+          />
+        )}
       </CardContent>
     </Card>
   )

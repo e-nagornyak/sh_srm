@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useMemo } from "react"
+import { memo, useMemo, type ComponentProps } from "react"
 import { countryList, type CountryType } from "@/constants/shared/countries"
 
 import {
@@ -11,22 +11,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-interface CountrySelectProps {
-  defaultCountCode?: string
-  onSelectCounty?: (countryCode: string) => void
-}
+interface CountrySelectProps extends ComponentProps<typeof Select> {}
 
-export const CountrySelect = memo(function CountrySelect({
-  defaultCountCode,
-  onSelectCounty,
-}: CountrySelectProps) {
+export const CountrySelect = memo(function CountrySelect(
+  props: CountrySelectProps
+) {
   const memoizedCountries = useMemo(
     (): CountryType[] => Object.values(countryList),
     []
   )
 
   return (
-    <Select onValueChange={onSelectCounty} defaultValue={defaultCountCode}>
+    <Select {...props}>
       <SelectTrigger size="xs">
         <SelectValue />
       </SelectTrigger>
