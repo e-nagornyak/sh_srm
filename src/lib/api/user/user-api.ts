@@ -1,5 +1,7 @@
 import { createEndpoint } from "@/lib/api/@request/helpers"
 import { createApi, type ApiSide } from "@/lib/api/@request/request"
+import type { BaseQueryResponse } from "@/lib/api/@request/types"
+import type { Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import {
   type UpdateOrCreateUserRequest,
   type User,
@@ -26,8 +28,9 @@ export const getUserApi = (side: ApiSide) => {
 
   return {
     // List operations
-    getUsers: api.createMethod<User[]>(() =>
-      createEndpoint(apiPaths.users.base, "GET")
+    getUsers: api.createMethod<BaseQueryResponse<User[]>, [string]>(
+      () => createEndpoint(apiPaths.users.base, "GET"),
+      { cache: "force-cache" }
     ),
 
     listUsers: api.createMethod<User[]>(() =>

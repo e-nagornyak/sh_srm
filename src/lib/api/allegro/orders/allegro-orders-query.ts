@@ -22,15 +22,15 @@ export async function getAllegroOrders(
   try {
     const queryParams = new URLSearchParams(input as string).toString()
 
-    const res =
+    const response =
       await getAllegroOrdersApi("server").listAllegroOrders(queryParams)
 
     return {
-      count: res?.count || 1,
-      total_pages: res?.total_pages || 1,
-      current_page: res?.current_page || 1,
-      limit: res?.limit || 1,
-      results: res?.results || [],
+      count: response?.count || 1,
+      total_pages: response?.total_pages || 1,
+      current_page: response?.current_page || 1,
+      limit: response?.limit || 1,
+      results: response?.results || [],
     } as QueryResponse
   } catch (err) {
     console.error("Error fetching users:", err)

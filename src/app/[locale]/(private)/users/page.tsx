@@ -33,10 +33,7 @@ export default async function ListPage({ searchParams }: ListPageProps) {
             />
           }
         >
-          <UsersTableController
-            searchParams={search}
-            usersPromise={usersPromise}
-          />
+          <UsersTableController usersPromise={usersPromise} />
         </React.Suspense>
       </AllUsersTableProvider>
     </Shell>

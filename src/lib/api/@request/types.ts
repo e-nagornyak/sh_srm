@@ -13,3 +13,11 @@ export interface RequestOptions extends RequestData {
 export interface FieldErrors {
   [key: string]: string[]
 }
+
+export interface BaseQueryResponse<T> {
+  count: number
+  total_pages: number
+  current_page: number
+  limit: number
+  results: T
+}
