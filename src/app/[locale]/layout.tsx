@@ -13,7 +13,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
-import { DefaultPublicFooter } from "@/components/layouts/public/default-public-footer"
+import { DefaultPublicFooter } from "@/components/layouts/public/default/default-public-footer"
 import { AuthProvider } from "@/components/providers/auth-provider"
 import AppStoreProvider from "@/components/providers/store-provider"
 

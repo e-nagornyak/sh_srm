@@ -3,8 +3,8 @@ import * as React from "react"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Card, CardContent } from "@/components/ui/card"
 import { Title } from "@/components/ui/title"
-import { OrderShipmentsProviders } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-shipments-providers"
-import { OrderShipmentsTable } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-view-shipments/order-shipments-table"
+import { OrderShipmentsProviders } from "@/components/common/allegro/order/order-view-shipments/order-shipments-providers"
+import { OrderShipmentsTable } from "@/components/common/allegro/order/order-view-shipments/order-shipments-table"
 
 interface OrderShipmentsProps {
   order: Order

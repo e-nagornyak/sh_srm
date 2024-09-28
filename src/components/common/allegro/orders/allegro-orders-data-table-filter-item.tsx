@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { dataTableConfig } from "@/components/controllers/allegro/allegro-orders-table/helpers/allegro-orders-table-config"
+import { dataTableConfig } from "@/components/controllers/allegro/orders-table/helpers/allegro-orders-table-config"
 
 import { DataTableAdvancedFacetedFilter } from "../../data-table/advanced/data-table-advanced-faceted-filter"
 

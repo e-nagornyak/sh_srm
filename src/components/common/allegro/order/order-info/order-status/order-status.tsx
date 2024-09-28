@@ -28,9 +28,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { OrderStatusSelector } from "@/components/common/allegro/order/order-info/order-status/order-status-selector"
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
-import { OrderStatusSelector } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-info/order-status/order-status-selector"
 
 interface OrderStatusProps {
   order: Order

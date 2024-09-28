@@ -4,8 +4,8 @@ import { getServerSession } from "next-auth"
 
 import { RoutePaths } from "@/config/routes"
 import { authOptions } from "@/lib/next-auth"
-import { DefaultPrivateHeader } from "@/components/layouts/private/default-private-header"
-import { DefaultPrivateSidebar } from "@/components/layouts/private/default-private-sidebar"
+import { DefaultPrivateHeader } from "@/components/layouts/private/default/default-private-header"
+import { DefaultPrivateSidebar } from "@/components/layouts/private/default/default-private-sidebar"
 
 interface LayoutProps extends PropsWithChildren {
   modal: ReactNode

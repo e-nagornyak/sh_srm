@@ -7,12 +7,10 @@ import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-q
 import { type AllegroOrdersSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { useDataTable } from "@/hooks/use-data-table"
 import { Card, CardContent } from "@/components/ui/card"
-import { Title } from "@/components/ui/title"
 import { AllegroOrdersTableAdvancedToolbar } from "@/components/common/allegro/orders/all-users-table-advanced-toolbar"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
 import { useAllegroOrdersTable } from "@/components/common/allegro/orders/allegro-orders-table-provider"
 import { AllegroOrdersTableToolbarActions } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions"
-import { DataTableAdvancedToolbar } from "@/components/common/data-table/advanced/data-table-advanced-toolbar"
 import { DataTable } from "@/components/common/data-table/data-table"
 import { DataTableToolbar } from "@/components/common/data-table/data-table-toolbar"
 

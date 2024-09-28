@@ -2,10 +2,9 @@ import * as React from "react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-
-import { OrderData } from "./order-data/order-data"
-import { OrderHeaderActions } from "./order-header-actions"
-import { OrderStatus } from "./order-status/order-status"
+import { OrderData } from "@/components/common/allegro/order/order-info/order-data/order-data"
+import { OrderHeaderActions } from "@/components/common/allegro/order/order-info/order-header-actions"
+import { OrderStatus } from "@/components/common/allegro/order/order-info/order-status/order-status"
 
 interface OrderInfoControllerProps {
   order: Order

@@ -36,7 +36,7 @@ import { DataTableFacetedFilter } from "@/components/common/data-table/data-tabl
 import {
   dataTableConfig,
   type DataTableConfig,
-} from "@/components/controllers/allegro/allegro-orders-table/helpers/allegro-orders-table-config"
+} from "@/components/controllers/allegro/orders-table/helpers/allegro-orders-table-config"
 
 interface DataTableMultiFilterProps<TData> {
   table: Table<TData>

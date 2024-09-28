@@ -12,9 +12,9 @@ import { showErrorToast } from "@/lib/handle-error"
 import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
 import { type OrderInvoiceFormData } from "@/lib/validations/order/order-invoice"
 import { type OrderPickupFormData } from "@/lib/validations/order/order-pickup"
-import { OrderDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-delivery/order-delivery"
-import { OrderInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-ivoice/order-invoice"
-import { OrderPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-pickup/order-pickup"
+import { OrderDelivery } from "@/components/common/allegro/order/order-invoice-and-delivery/order-delivery/order-delivery"
+import { OrderInvoice } from "@/components/common/allegro/order/order-invoice-and-delivery/order-ivoice/order-invoice"
+import { OrderPickup } from "@/components/common/allegro/order/order-invoice-and-delivery/order-pickup/order-pickup"
 
 interface InvoiceAndDeliveryControllerProps {
   order: Order
