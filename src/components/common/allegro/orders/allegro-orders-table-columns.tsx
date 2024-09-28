@@ -1,20 +1,13 @@
 "use client"
 
 import * as React from "react"
-import dynamic from "next/dynamic"
 import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
-import { Star } from "lucide-react"
+import { BadgeCent, BadgePlus, Star } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { Img } from "@/components/ui/img"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
@@ -83,7 +76,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       enableHiding: true,
       enableResizing: true,
       accessorKey: "buyer",
-      size: 100,
+      size: 70,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Name Surname" />
       ),
@@ -178,7 +171,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       enableHiding: true,
       enableResizing: true,
       accessorKey: "total_to_pay",
-      size: 40,
+      size: 150,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Price" />
       ),
@@ -200,7 +193,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       enableSorting: false,
       enableHiding: false,
       accessorKey: "delivery",
-      size: 100,
+      size: 200,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Additional information" />
       ),
@@ -235,23 +228,48 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
     },
     {
       enableSorting: false,
-      enableHiding: true,
+      enableHiding: false,
+      enableResizing: false,
       accessorKey: "updated_at",
       size: 50,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Order Date" />
+        <DataTableColumnHeader
+          column={column}
+          title={<BadgePlus size="20" />}
+        />
       ),
       cell: ({ row }) => {
         const date = new Date()
-        const formattedDate = format(date, "dd.MM.yyyy HH:mm")
+        const formattedDate = format(date, "dd.MM.yyyy, HH:mm")
 
         return (
-          <div className="">
-            <Text size="xxs">{formattedDate}</Text>
-            <Text color="highlight" size="xxs">
-              {formattedDate}
-            </Text>
-          </div>
+          <Text weight="semibold" size="xs">
+            {formattedDate}
+          </Text>
+        )
+      },
+    },
+    {
+      enableSorting: false,
+      enableHiding: false,
+      enableResizing: false,
+      accessorKey: "payment",
+      size: 50,
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={<BadgeCent size="20" />}
+        />
+      ),
+      cell: ({ row }) => {
+        const date = row?.original?.payment?.finished_at
+
+        const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : ""
+
+        return (
+          <Text weight="semibold" size="xs">
+            {formattedDate}
+          </Text>
         )
       },
     },

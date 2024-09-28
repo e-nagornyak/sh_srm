@@ -17,9 +17,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 interface DataTableColumnHeaderProps<TData, TValue>
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   column: Column<TData, TValue>
-  title: string
+  title: React.ReactNode
 }
 
 export function DataTableColumnHeader<TData, TValue>({
@@ -47,7 +47,7 @@ export function DataTableColumnHeader<TData, TValue>({
             size="sm"
             className="-ml-3 h-8 data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            {typeof title == "string" ? <span>{title}</span> : title}
             {column.getCanSort() && column.getIsSorted() === "desc" ? (
               <ArrowDownIcon className="ml-2 size-4" aria-hidden="true" />
             ) : column.getIsSorted() === "asc" ? (
