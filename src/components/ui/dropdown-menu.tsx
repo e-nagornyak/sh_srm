@@ -7,7 +7,6 @@ import {
   ChevronRightIcon,
   DotFilledIcon,
 } from "@radix-ui/react-icons"
-import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
