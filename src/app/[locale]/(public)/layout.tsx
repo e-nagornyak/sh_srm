@@ -3,8 +3,8 @@ import { getServerSession } from "next-auth"
 
 import { RoutePaths } from "@/config/routes"
 import { authOptions } from "@/lib/next-auth"
-import { DefaultPublicFooter } from "@/components/layouts/public/default-public-footer"
-import { DefaultPublicHeader } from "@/components/layouts/public/default-public-header"
+import { DefaultPublicFooter } from "@/components/layouts/public/default/default-public-footer"
+import { DefaultPublicHeader } from "@/components/layouts/public/default/default-public-header"
 
 interface RootLayoutProps extends React.PropsWithChildren {
   params: { locale?: string }

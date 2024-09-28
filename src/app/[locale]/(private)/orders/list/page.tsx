@@ -5,9 +5,9 @@ import React from "react"
 import { type SearchParams } from "@/types/table"
 import { getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-query"
 import { AllegroOrdersSearchParamsSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
+import { AllegroOrdersTableController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-controller"
 import { AllegroOrdersTableProvider } from "@/components/common/allegro/orders/allegro-orders-table-provider"
 import { DataTableSkeleton } from "@/components/common/data-table/data-table-skeleton"
-import { AllegroOrdersTableController } from "@/components/controllers/allegro/allegro-orders-table/allegro-orders-table-controller"
 
 interface ListPageProps {
   searchParams: SearchParams
@@ -33,7 +33,6 @@ export default async function ListPage({ searchParams }: ListPageProps) {
           }
         >
           <AllegroOrdersTableController
-            searchParams={search}
             allegroOrdersPromise={allegroOrdersPromise}
           />
         </React.Suspense>

@@ -24,10 +24,27 @@ const titleVariants = cva("text-black dark:text-white", {
       extrabold: "font-extrabold", // font-weight: 800
       black: "font-black", // font-weight: 900
     },
+    leading: {
+      "3": "leading-3", // line-height: .75rem; /* 12px */
+      "4": "leading-4", // line-height: 1rem; /* 16px */
+      "5": "leading-5", // line-height: 1.25rem; /* 20px */
+      "6": "leading-6", // line-height: 1.5rem; /* 24px */
+      "7": "leading-7", // line-height: 1.75rem; /* 28px */
+      "8": "leading-8", // line-height: 2rem; /* 32px */
+      "9": "leading-9", // line-height: 2.25rem; /* 36px */
+      "10": "leading-10", // line-height: 2.5rem; /* 40px */
+      none: "leading-none", // line-height: 1;
+      tight: "leading-tight", // line-height: 1.25;
+      snug: "leading-snug", // line-height: 1.375;
+      normal: "leading-normal", // line-height: 1.5;
+      relaxed: "leading-relaxed", // line-height: 1.625;
+      loose: "leading-loose", // line-height: 2;
+    },
   },
   defaultVariants: {
     size: "sm",
     weight: "normal",
+    leading: "normal", // Додаємо дефолтний варіант для висоти рядка
   },
 })
 
@@ -40,6 +57,7 @@ export interface TitleProps
 export const Title = ({
   children,
   size = "sm",
+  leading,
   weight,
   className,
 }: TitleProps) => {
@@ -54,7 +72,7 @@ export const Title = ({
 
   return React.createElement(
     mapTagBySize[size || "sm"],
-    { className: cn(titleVariants({ size, weight }), className) },
+    { className: cn(titleVariants({ size, leading, weight }), className) },
     children
   )
 }

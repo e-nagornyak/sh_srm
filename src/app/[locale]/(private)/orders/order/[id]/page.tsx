@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import { RoutePaths } from "@/config/routes"
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { OrderViewLayout } from "@/app/[locale]/(private)/orders/order/[id]/_components/order-view-layout"
+import { OrderViewLayout } from "@/components/layouts/private/order/order-view-layout"
 
 interface PageProps {
   params: { id: string }

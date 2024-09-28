@@ -1,5 +1,6 @@
 import { createEndpoint } from "@/lib/api/@request/helpers"
 import { createApi, type ApiSide } from "@/lib/api/@request/request"
+import type { BaseQueryResponse } from "@/lib/api/@request/types"
 import { allegroApiPaths } from "@/lib/api/allegro/helpers"
 import {
   type AllegroIntegration,
@@ -28,19 +29,10 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
     ),
 
     // Allegro Orders operations
-    listAllegroOrders: api.createMethod<
-      {
-        count: number
-        results: Order[]
-        current_page: number
-        limit: number
-        total_pages: number
-      },
-      [string]
-    >((params) => createEndpoint(allegroApiPaths.orders.list(params), "GET"), {
-      cache: "force-cache",
-      // next: { revalidate: 60 },
-    }),
+    listAllegroOrders: api.createMethod<BaseQueryResponse<Order[]>, [string]>(
+      (params) => createEndpoint(allegroApiPaths.orders.list(params), "GET"),
+      { cache: "force-cache" }
+    ),
 
     getAllegroOrderById: api.createMethod<Order, [number]>((id) =>
       createEndpoint(allegroApiPaths.orders.byId(id).get, "GET")

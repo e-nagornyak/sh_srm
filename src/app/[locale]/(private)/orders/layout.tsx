@@ -1,7 +1,7 @@
 import * as React from "react"
 import { type PropsWithChildren } from "react"
 
-import { AllegroOrdersGroupsController } from "@/components/controllers/allegro/allegro-orders-groups/allegro-orders-groups-controller"
+import { AllegroOrdersGroupsController } from "@/components/@controllers/allegro/orders-groups/allegro-orders-groups-controller"
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
