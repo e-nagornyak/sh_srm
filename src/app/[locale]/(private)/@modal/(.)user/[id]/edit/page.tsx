@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 import { RoutePaths } from "@/config/routes"
 import { getUserApi } from "@/lib/api/user/user-api"
 import { type User } from "@/lib/api/user/user-types"
-import { UserEditController } from "@/components/controllers/users/user/user-edit-controller"
+import { UserEditController } from "@/components/@controllers/users/user/user-edit-controller"
 import { InterceptedModal } from "@/components/shared/interceptedModal"
 
 interface PageProps {

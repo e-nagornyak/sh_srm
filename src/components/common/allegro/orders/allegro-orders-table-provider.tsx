@@ -13,7 +13,7 @@ export function AllegroOrdersTableProvider({ children }: TableProviderProps) {
       <div className="w-full space-y-2 overflow-x-auto rounded-lg">
         <Card className="w-full">
           <CardContent>
-            <Title className="leading-none" size="lg">
+            <Title leading="none" weight="semibold" size="md">
               All orders
             </Title>
           </CardContent>

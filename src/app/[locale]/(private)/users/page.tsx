@@ -5,9 +5,9 @@ import React from "react"
 import { type SearchParams } from "@/types/table"
 import { getAllUsers } from "@/lib/api/user/all-users-query"
 import { allUsersSearchParamsSchema } from "@/lib/api/user/all-users-search-params"
+import { UsersTableController } from "@/components/@controllers/users/users-table/users-table-controller"
 import { DataTableSkeleton } from "@/components/common/data-table/data-table-skeleton"
 import { AllUsersTableProvider } from "@/components/common/users/all-users-table/all-users-table-provider"
-import { UsersTableController } from "@/components/controllers/users/users-table/users-table-controller"
 import { Shell } from "@/components/shared/shell"
 
 interface ListPageProps {
