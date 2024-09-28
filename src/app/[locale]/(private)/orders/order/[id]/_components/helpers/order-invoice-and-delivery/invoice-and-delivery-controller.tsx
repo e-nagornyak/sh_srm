@@ -11,6 +11,7 @@ import { getUserApi } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
 import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
 import { type OrderInvoiceFormData } from "@/lib/validations/order/order-invoice"
+import { type OrderPickupFormData } from "@/lib/validations/order/order-pickup"
 import { OrderDelivery } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-delivery/order-delivery"
 import { OrderInvoice } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-ivoice/order-invoice"
 import { OrderPickup } from "@/app/[locale]/(private)/orders/order/[id]/_components/helpers/order-invoice-and-delivery/order-pickup/order-pickup"
@@ -66,11 +67,11 @@ export function InvoiceAndDeliveryController({
   const onSaveDeliveryData = async (data: OrderDeliveryFormData) => {
     try {
       console.log(data)
+
       // await getAllegroOrdersApi("client").updateAllegroOrder(
       //   order?.id,
       //   updatedOrder
       // )
-
       onCloseForm("delivery")
       toast.info("Data has been updated")
     } catch (e) {
@@ -82,6 +83,16 @@ export function InvoiceAndDeliveryController({
     try {
       console.log(data)
       onCloseForm("invoice")
+      toast.info("Data has been updated")
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }
+
+  const onSavePickupData = async (data: OrderPickupFormData) => {
+    try {
+      console.log(data)
+      onCloseForm("pickup")
       toast.info("Data has been updated")
     } catch (e) {
       showErrorToast(e)
@@ -110,7 +121,7 @@ export function InvoiceAndDeliveryController({
         order={order}
         editingFieldName={pickupEditingFieldName}
         onCancel={() => onCloseForm("pickup")}
-        onSave={onSave}
+        onSave={onSavePickupData}
         changeEditingFieldName={changePickupEditingFieldName}
       />
     </section>

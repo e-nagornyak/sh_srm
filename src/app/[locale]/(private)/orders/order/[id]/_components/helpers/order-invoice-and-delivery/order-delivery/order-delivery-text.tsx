@@ -21,7 +21,7 @@ export function OrderDeliveryText({
       <TableBody>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Name and surname:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {bayerFullName}
             </ComponentWithEditButton>
@@ -29,7 +29,7 @@ export function OrderDeliveryText({
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Company:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {order?.buyer?.company_name}
             </ComponentWithEditButton>
@@ -37,7 +37,7 @@ export function OrderDeliveryText({
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Address:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {delivery?.address?.street}
             </ComponentWithEditButton>
@@ -60,7 +60,7 @@ export function OrderDeliveryText({
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">State:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton
               onEditClick={changeEditingFieldName}
             ></ComponentWithEditButton>
@@ -68,7 +68,7 @@ export function OrderDeliveryText({
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Country:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {delivery?.address?.country_code}
             </ComponentWithEditButton>

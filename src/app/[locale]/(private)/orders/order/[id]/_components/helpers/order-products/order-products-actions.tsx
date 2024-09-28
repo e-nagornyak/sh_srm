@@ -12,13 +12,16 @@ import {
 import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 
 interface OrderProductsActionsProps {
-  order: Order
+  onAddProductsToOrder: () => void
 }
 
-export function OrderProductsActions({ order }: OrderProductsActionsProps) {
+export function OrderProductsActions({
+  onAddProductsToOrder,
+}: OrderProductsActionsProps) {
   return (
     <div className="flex w-full items-center justify-between">
       <ButtonWithDropdown
+        buttonProps={{ onClick: onAddProductsToOrder }}
         buttonContent={
           <>
             <Plus size="15" />

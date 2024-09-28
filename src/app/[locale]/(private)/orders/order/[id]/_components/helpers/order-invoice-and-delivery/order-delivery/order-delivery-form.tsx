@@ -45,7 +45,7 @@ export function OrderDeliveryForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmitHandler)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmitHandler)}>
         <Table>
           <TableBody>
             <TableRow className="border-0">

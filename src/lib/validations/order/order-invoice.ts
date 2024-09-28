@@ -22,6 +22,7 @@ const orderInvoiceSchema = z.object({
   state: z.string().optional(),
   country_code: z.string().optional(),
   tax_id: z.string().optional(),
+  wants_invoice: z.boolean().optional(),
 })
 
 export { type OrderInvoiceFormData, orderInvoiceSchema }

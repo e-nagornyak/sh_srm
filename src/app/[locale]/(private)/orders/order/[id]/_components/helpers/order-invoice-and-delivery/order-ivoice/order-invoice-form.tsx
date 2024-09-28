@@ -48,19 +48,32 @@ export function OrderInvoiceForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmitHandler)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmitHandler)}>
         <Table>
           <TableBody>
             <TableRow className="border-0">
               <TableCell colSpan={3}>
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="customer_wants_invoice" />
-                  <Label htmlFor="customer_wants_invoice">
-                    Customer wants an invoice
-                  </Label>
-                </div>
+                <FormField
+                  control={form.control}
+                  name="wants_invoice"
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <FormItem className="flex items-center gap-2 space-y-0">
+                      <FormLabel asChild>
+                        <Label>Customer wants an invoice</Label>
+                      </FormLabel>
+                      <FormControl>
+                        <Checkbox
+                          checked={value}
+                          onCheckedChange={onChange}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </TableCell>
-            </TableRow>{" "}
+            </TableRow>
             <TableRow className="border-0">
               <TableCell>Name and surname:</TableCell>
               <TableCell colSpan={2}>

@@ -1,12 +1,13 @@
 import * as React from "react"
 import dynamic from "next/dynamic"
-import { Copy, Pen } from "lucide-react"
+import { Pen } from "lucide-react"
+import type { SubmitHandler } from "react-hook-form"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type OrderPickupFormData } from "@/lib/validations/order/order-pickup"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
@@ -15,13 +16,7 @@ import { OrderPickupText } from "./order-pickup-text"
 const OrderInvoiceForm = dynamic(
   () => import("./order-pickup-form").then((mod) => mod.OrderPickupForm),
   {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-72 w-full" />
-        </TableCell>
-      </TableRow>
-    ),
+    loading: () => <Skeleton className="h-72 w-full" />,
   }
 )
 
@@ -30,7 +25,7 @@ interface OrderViewInvoiceProps {
   editingFieldName: string | null
   changeEditingFieldName: (fieldName?: string) => void
   onCancel: () => void
-  onSave: () => void
+  onSave: SubmitHandler<OrderPickupFormData>
 }
 
 export function OrderPickup({
@@ -61,22 +56,25 @@ export function OrderPickup({
             text="Edit"
           />
         </div>
-        <Table>
-          <TableBody>
-            {typeof editingFieldName === "string" ? (
-              <OrderInvoiceForm
-                order={order}
-                onCancel={onCancel}
-                onSave={onSave}
-              />
-            ) : (
-              <OrderPickupText
-                changeEditingFieldName={changeEditingFieldName}
-                order={order}
-              />
-            )}
-          </TableBody>
-        </Table>
+
+        {typeof editingFieldName === "string" ? (
+          <OrderInvoiceForm
+            defaultValues={{
+              id: "",
+              point_name: "",
+              address: "",
+              zip_code: "",
+              city: "",
+            }}
+            onCancel={onCancel}
+            onSave={onSave}
+          />
+        ) : (
+          <OrderPickupText
+            changeEditingFieldName={changeEditingFieldName}
+            order={order}
+          />
+        )}
       </CardContent>
     </Card>
   )

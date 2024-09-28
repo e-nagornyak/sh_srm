@@ -1,5 +1,5 @@
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { TableCell, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 
 interface OrderInvoiceTextProps {
@@ -12,44 +12,48 @@ export function OrderPickupText({
   changeEditingFieldName,
 }: OrderInvoiceTextProps) {
   return (
-    <>
-      <TableRow className="border-0">
-        <TableCell className="py-0 text-start">Name:</TableCell>
-        <TableCell className="py-0 text-start">
-          <ComponentWithEditButton
-            onEditClick={changeEditingFieldName}
-          ></ComponentWithEditButton>
-        </TableCell>
-      </TableRow>
-      <TableRow className="border-0">
-        <TableCell className="py-0 text-start">ID:</TableCell>
-        <TableCell className="py-0 text-start">
-          <ComponentWithEditButton
-            onEditClick={changeEditingFieldName}
-          ></ComponentWithEditButton>
-        </TableCell>
-      </TableRow>
-      <TableRow className="border-0">
-        <TableCell className="py-0 text-start">Address:</TableCell>
-        <TableCell className="py-0 text-start">
-          <ComponentWithEditButton
-            onEditClick={changeEditingFieldName}
-          ></ComponentWithEditButton>
-        </TableCell>
-      </TableRow>
-      <TableRow className="border-0">
-        <TableCell className="py-0 text-start">Postal code and city:</TableCell>
-        <TableCell className="py-0 text-start">
-          <ComponentWithEditButton
-            onEditClick={changeEditingFieldName}
-          ></ComponentWithEditButton>
-        </TableCell>
-        <TableCell className="py-0 text-start">
-          <ComponentWithEditButton
-            onEditClick={changeEditingFieldName}
-          ></ComponentWithEditButton>
-        </TableCell>
-      </TableRow>
-    </>
+    <Table>
+      <TableBody>
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">Name:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
+            <ComponentWithEditButton
+              onEditClick={changeEditingFieldName}
+            ></ComponentWithEditButton>
+          </TableCell>
+        </TableRow>
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">ID:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
+            <ComponentWithEditButton
+              onEditClick={changeEditingFieldName}
+            ></ComponentWithEditButton>
+          </TableCell>
+        </TableRow>
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">Address:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
+            <ComponentWithEditButton
+              onEditClick={changeEditingFieldName}
+            ></ComponentWithEditButton>
+          </TableCell>
+        </TableRow>
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">
+            Postal code and city:
+          </TableCell>
+          <TableCell className="py-0 text-start">
+            <ComponentWithEditButton
+              onEditClick={changeEditingFieldName}
+            ></ComponentWithEditButton>
+          </TableCell>
+          <TableCell className="py-0 text-start">
+            <ComponentWithEditButton
+              onEditClick={changeEditingFieldName}
+            ></ComponentWithEditButton>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   )
 }
