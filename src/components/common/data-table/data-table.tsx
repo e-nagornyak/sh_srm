@@ -19,11 +19,15 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @type TanstackTable<TData>
    */
   table: TanstackTable<TData>
+  hiddenPagination?: boolean
+  footer?: React.ReactNode
 }
 
 export function DataTable<TData>({
   table,
+  hiddenPagination,
   children,
+  footer,
   className,
   ...props
 }: DataTableProps<TData>) {
@@ -94,7 +98,8 @@ export function DataTable<TData>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {!hiddenPagination && <DataTablePagination table={table} />}
+      {footer}
     </div>
   )
 }

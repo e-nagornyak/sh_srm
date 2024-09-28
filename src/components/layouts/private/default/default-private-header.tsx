@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Link } from "@/components/ui/link"
 import { Text } from "@/components/ui/text"
-import { AuthButton } from "@/components/common/nav/AuthButton"
+import { AuthButton } from "@/components/common/nav/auth-button"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 import { SidebarToggle } from "@/components/shared/sidebar-toggle"

@@ -7,14 +7,8 @@ import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-q
 import { type AllegroOrdersSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { useDataTable } from "@/hooks/use-data-table"
 import { Card, CardContent } from "@/components/ui/card"
-import { AllegroOrdersTableAdvancedToolbar } from "@/components/common/allegro/orders/all-users-table-advanced-toolbar"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
-import { useAllegroOrdersTable } from "@/components/common/allegro/orders/allegro-orders-table-provider"
-import { AllegroOrdersTableToolbarActions } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions"
 import { DataTable } from "@/components/common/data-table/data-table"
-import { DataTableToolbar } from "@/components/common/data-table/data-table-toolbar"
-
-import { filterFields } from "./helpers/allegro-orders-table-filtersFields"
 
 interface TableProps {
   allegroOrdersPromise: ReturnType<typeof getAllegroOrders>
@@ -25,7 +19,7 @@ export function AllegroOrdersTableController({
   allegroOrdersPromise,
   searchParams,
 }: TableProps) {
-  const { featureFlags } = useAllegroOrdersTable()
+  // const { featureFlags } = useAllegroOrdersTable()
 
   const { results, current_page, total_pages } = React.use(allegroOrdersPromise)
 
@@ -49,28 +43,17 @@ export function AllegroOrdersTableController({
   })
 
   return (
-    <DataTable table={table}>
+    <DataTable
+      hiddenPagination
+      footer={
+        <Card className="w-full">
+          <CardContent>bla</CardContent>
+        </Card>
+      }
+      table={table}
+    >
       <Card className="w-full">
-        <CardContent>
-          {featureFlags?.includes("advancedFilter") ? (
-            <AllegroOrdersTableAdvancedToolbar
-              table={table}
-              filterFields={filterFields}
-            >
-              <AllegroOrdersTableToolbarActions
-                disabled={!results?.length}
-                table={table}
-              />
-            </AllegroOrdersTableAdvancedToolbar>
-          ) : (
-            <DataTableToolbar table={table} filterFields={filterFields}>
-              <AllegroOrdersTableToolbarActions
-                disabled={!results?.length}
-                table={table}
-              />
-            </DataTableToolbar>
-          )}
-        </CardContent>
+        <CardContent>bla</CardContent>
       </Card>
     </DataTable>
   )

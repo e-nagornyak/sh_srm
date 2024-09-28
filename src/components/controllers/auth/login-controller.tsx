@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react"
 import { RoutePaths } from "@/config/routes"
 import { showErrorToast } from "@/lib/handle-error"
 import type { loginFormData } from "@/lib/validations/auth"
-import { LoginForm } from "@/components/common/auth/LoginForm"
+import { LoginForm } from "@/components/common/auth/login-form"
 import { FormWrapper } from "@/components/shared/form-wrapper"
 
 export function LoginController() {

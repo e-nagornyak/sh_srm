@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/next-auth"
-import { AuthButton } from "@/components/common/nav/AuthButton"
-import { NavList } from "@/components/common/nav/NavList"
+import { AuthButton } from "@/components/common/nav/auth-button"
+import { NavList } from "@/components/common/nav/nav=list"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { Logo } from "@/components/shared/logo"
 import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
