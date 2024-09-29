@@ -12,8 +12,8 @@ interface OrderShipmentsProps {
 
 export function OrderShipments({ order }: OrderShipmentsProps) {
   return (
-    <Card>
-      <CardContent>
+    <Card className="grid w-full items-center">
+      <CardContent className="w-full overflow-auto">
         <div className="mb-3 flex items-center gap-2">
           <div className="size-2 rounded-full bg-highlight" />
           <Title weight="semibold" size="xs">

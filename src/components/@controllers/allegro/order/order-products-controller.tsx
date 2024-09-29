@@ -16,8 +16,8 @@ export function OrderProductsController({
 }: OrderProductsControllerProps) {
   return (
     <>
-      <Card>
-        <CardContent className="overflow-auto">
+      <Card className="grid w-full items-center">
+        <CardContent className="w-full overflow-auto">
           <OrderProductsTable order={order} />
         </CardContent>
       </Card>

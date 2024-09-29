@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { ChevronDown, Star } from "lucide-react"
+import { ChevronDown, CircleChevronLeft, Star } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
@@ -33,7 +33,7 @@ export function OrderBayerController({
 
   return (
     <Card>
-      <CardContent className="flex h-14 items-center gap-4">
+      <CardContent className="flex flex-wrap items-center gap-2 md:gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="gap-2">
@@ -66,7 +66,8 @@ export function OrderBayerController({
           onClick={handleReturnToList}
           className="ml-auto mr-0"
         >
-          Return to the orders list
+          <CircleChevronLeft />
+          <span className="hidden sm:inline">Return to the orders list</span>
         </Button>
       </CardContent>
     </Card>

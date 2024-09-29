@@ -17,7 +17,7 @@ export const OrderPaidRow = ({ order, changeEditMode }: OrderPaidRowProps) => {
       <TableCell className="w-52">
         <div className="flex items-center justify-between">
           Paid:
-          <Chip onClick={changeEditMode}>
+          <Chip className="whitespace-nowrap" onClick={changeEditMode}>
             {order?.payment?.paid_amount} {order?.payment?.currency}
           </Chip>
         </div>
