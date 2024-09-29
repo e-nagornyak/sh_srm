@@ -1,4 +1,5 @@
 import * as React from "react"
+import { countryList, type CountryCodes } from "@/constants/shared/countries"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
@@ -14,7 +15,7 @@ export function OrderDeliveryText({
   changeEditingFieldName,
 }: OrderDeliveryTextProps) {
   const delivery = order?.delivery
-  const bayerFullName = `${delivery?.address?.last_name || ""} ${delivery?.address?.last_name || ""}`
+  const bayerFullName = `${delivery?.address?.first_name || ""} ${delivery?.address?.last_name || ""}`
 
   return (
     <Table>
@@ -53,7 +54,10 @@ export function OrderDeliveryText({
             </ComponentWithEditButton>
           </TableCell>
           <TableCell className="py-0 text-start">
-            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+            <ComponentWithEditButton
+              className="truncate"
+              onEditClick={changeEditingFieldName}
+            >
               {delivery?.address?.city}
             </ComponentWithEditButton>
           </TableCell>
@@ -70,7 +74,10 @@ export function OrderDeliveryText({
           <TableCell className="py-0 text-start">Country:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
-              {delivery?.address?.country_code}
+              {delivery?.address?.country_code
+                ? countryList?.[delivery?.address?.country_code as CountryCodes]
+                    ?.label
+                : delivery?.address?.country_code}
             </ComponentWithEditButton>
           </TableCell>
         </TableRow>

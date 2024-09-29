@@ -1,13 +1,11 @@
 "use client"
 
-import { Suspense, useState, type Dispatch, type SetStateAction } from "react"
+import { useState, type Dispatch, type SetStateAction } from "react"
 import { toast } from "sonner"
 
 import { type Nullable } from "@/types/global"
-import { RoutePaths } from "@/config/routes"
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
-import { getUserApi } from "@/lib/api/user/user-api"
 import { showErrorToast } from "@/lib/handle-error"
 import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
 import { type OrderInvoiceFormData } from "@/lib/validations/order/order-invoice"
@@ -17,14 +15,16 @@ import { OrderInvoice } from "@/components/common/allegro/order/order-invoice-an
 import { OrderPickup } from "@/components/common/allegro/order/order-invoice-and-delivery/order-pickup/order-pickup"
 
 interface InvoiceAndDeliveryControllerProps {
-  order: Order
+  initialOrder: Order
 }
 
 export type InvoiceAndDeliveryFieldType = "delivery" | "invoice" | "pickup"
 
 export function InvoiceAndDeliveryController({
-  order,
+  initialOrder,
 }: InvoiceAndDeliveryControllerProps) {
+  const [order, setOrder] = useState<Order>(initialOrder)
+
   const [deliveryEditingFieldName, setDeliveryFieldName] =
     useState<Nullable<string>>(null)
   const [invoiceEditingFieldName, setInvoiceEditingFieldName] =
@@ -60,19 +60,42 @@ export function InvoiceAndDeliveryController({
     variants?.[formName]?.(null)
   }
 
-  const onSave = () => {
-    setDeliveryFieldName(null)
-  }
-
-  const onSaveDeliveryData = async (data: OrderDeliveryFormData) => {
+  const onSaveDeliveryData = async ({
+    first_name,
+    last_name,
+    company_name,
+    zip_code,
+    country_code,
+    street,
+    city,
+    // state,
+  }: OrderDeliveryFormData) => {
     try {
-      console.log(data)
-
-      // await getAllegroOrdersApi("client").updateAllegroOrder(
-      //   order?.id,
-      //   updatedOrder
-      // )
+      const updatedOrder: Order = {
+        ...order,
+        buyer: {
+          ...order?.buyer,
+          company_name,
+        },
+        delivery: {
+          ...order?.delivery,
+          address: {
+            ...order?.delivery?.address,
+            zip_code,
+            country_code,
+            street,
+            city,
+            first_name,
+            last_name,
+          },
+        },
+      }
+      await getAllegroOrdersApi("client").updateAllegroOrder(
+        order?.id,
+        updatedOrder
+      )
       onCloseForm("delivery")
+      setOrder(updatedOrder)
       toast.info("Data has been updated")
     } catch (e) {
       showErrorToast(e)
@@ -81,8 +104,31 @@ export function InvoiceAndDeliveryController({
 
   const onSaveInvoiceData = async (data: OrderInvoiceFormData) => {
     try {
-      console.log(data)
+      // const updatedOrder: Order = {
+      //   ...order,
+      //   buyer: {
+      //     ...order?.buyer,
+      //     company_name,
+      //   },
+      //   delivery: {
+      //     ...order?.delivery,
+      //     address: {
+      //       ...order?.delivery?.address,
+      //       zip_code,
+      //       country_code,
+      //       street,
+      //       city,
+      //       first_name,
+      //       last_name,
+      //     },
+      //   },
+      // }
+      // await getAllegroOrdersApi("client").updateAllegroOrder(
+      //   order?.id,
+      //   updatedOrder
+      // )
       onCloseForm("invoice")
+      // setOrderState(updatedOrder)
       toast.info("Data has been updated")
     } catch (e) {
       showErrorToast(e)

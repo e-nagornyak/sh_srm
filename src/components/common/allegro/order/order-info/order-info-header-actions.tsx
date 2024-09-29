@@ -23,13 +23,13 @@ import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 
 interface OrderHeaderActionsProps {}
 
-export function OrderHeaderActions(props: OrderHeaderActionsProps) {
+export function OrderInfoHeaderActions(props: OrderHeaderActionsProps) {
   return (
     <>
       <Title weight="semibold" size="xs">
         Order information
       </Title>
-      <div className="flex flex-col items-end gap-2">
+      <div className="flex flex-col items-end gap-2 md:flex-row">
         <DropdownMenu>
           <DropdownMenuTrigger className="group" asChild>
             <Button className="gap-1" size="xs">
