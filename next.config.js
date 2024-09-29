@@ -1,4 +1,11 @@
+// import nextBundleAnalyzer from "@next/bundle-analyzer"
+// import withPlugins from "next-compose-plugins"
 import createNextIntlPlugin from "next-intl/plugin"
+
+// const withBundleAnalyzer = nextBundleAnalyzer({
+//   enabled: true,
+//   openAnalyzer: true,
+// })
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
@@ -33,5 +40,11 @@ const nextConfig = {
 }
 
 const withNextIntl = createNextIntlPlugin()
+
+// export default withPlugins([
+//   [withBundleAnalyzer],
+//   withNextIntl,
+//   // your other plugins here
+// ])
 
 export default withNextIntl(nextConfig)

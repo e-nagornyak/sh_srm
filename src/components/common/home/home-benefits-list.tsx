@@ -45,7 +45,7 @@ const list: CardData[] = [
 
 export const HomeBenefitsList = () => {
   return (
-    <div className="grid cursor-pointer grid-cols-1 gap-8 px-4 py-8 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid cursor-pointer grid-cols-1 gap-8 px-4 py-8 lg:grid-cols-2 xl:grid-cols-3">
       {list.map((card, index) => (
         <div
           key={index}

@@ -41,14 +41,14 @@ export function OrderStatus({ order }: OrderStatusProps) {
     <Table>
       <TableBody>
         <TableRow className="border-0">
-          <TableCell className="w-52">
+          <TableCell className="w-32 sm:w-52">
             <div className="flex items-center gap-0.5">
               <Flag size="15" />
               Status:
             </div>
           </TableCell>
-          <TableCell>
-            <div className="flex gap-2">
+          <TableCell colSpan={2}>
+            <div className="flex flex-col gap-2 sm:flex-row">
               <OrderStatusSelector />
               <ButtonWithDropdown
                 buttonContent={"Change"}
@@ -72,14 +72,14 @@ export function OrderStatus({ order }: OrderStatusProps) {
         {/**/}
         <TableRow className="border-0">
           <TableCell className="pb-0 text-start">Receipt:</TableCell>
-          <TableCell className="pb-0 text-start">
+          <TableCell colSpan={2} className="pb-0 text-start">
             <Button size="sm">Create receipt</Button>
           </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
           <TableCell className="text-start">Invoice:</TableCell>
-          <TableCell className="text-start">
-            <div className="flex items-center gap-2">
+          <TableCell colSpan={2} className="text-start">
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button size="sm">
@@ -118,20 +118,24 @@ export function OrderStatus({ order }: OrderStatusProps) {
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
-          <TableCell className="pb-0 text-start">Order date:</TableCell>
-          <TableCell className="pb-0 text-start">
+          <TableCell className="whitespace-nowrap pb-0 text-start">
+            Order date:
+          </TableCell>
+          <TableCell colSpan={2} className="pb-0 text-start">
             {new Date()?.toDateString()}
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
-          <TableCell className="py-0 text-start">Date in status:</TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell className="whitespace-nowrap py-0 text-start">
+            Date in status:
+          </TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
             {new Date()?.toDateString()}
           </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
           <TableCell className="pt-0 text-start">Stock levels:</TableCell>
-          <TableCell className="pt-0 text-start">
+          <TableCell colSpan={2} className="pt-0 text-start">
             <button className="flex items-center gap-1">
               <Check size="20" className="text-green-600" />
               Completed (deducted)
@@ -139,7 +143,7 @@ export function OrderStatus({ order }: OrderStatusProps) {
           </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
-          <TableCell className="text-start">
+          <TableCell colSpan={3} className="text-start">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="gap-2 pl-1">

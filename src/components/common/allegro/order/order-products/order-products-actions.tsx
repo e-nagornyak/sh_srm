@@ -19,9 +19,13 @@ export function OrderProductsActions({
   onAddProductsToOrder,
 }: OrderProductsActionsProps) {
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full flex-col items-center justify-between gap-2 sm:flex-row">
       <ButtonWithDropdown
-        buttonProps={{ onClick: onAddProductsToOrder }}
+        wrapperClassName="w-full"
+        buttonProps={{
+          className: "max-sm:w-full",
+          onClick: onAddProductsToOrder,
+        }}
         buttonContent={
           <>
             <Plus size="15" />
@@ -46,7 +50,7 @@ export function OrderProductsActions({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="sm" className="gap-2 rounded-2xl">
+          <Button size="sm" className="gap-2 max-sm:w-full">
             <Wrench size="15" />
             Operations on products
             <ChevronDown size="15" />

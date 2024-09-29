@@ -1,6 +1,6 @@
 import React, { type SVGProps } from "react"
 
-export const Flags = {
+export const LocaleFlags = {
   USA: ({ ...props }: SVGProps<SVGSVGElement>) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

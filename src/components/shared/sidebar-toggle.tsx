@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useAppStore } from "@/store/app"
-import { PanelLeftOpen, PanelRightOpen } from "lucide-react"
+import { PanelLeftOpen, PanelRightOpen, SquareMenu } from "lucide-react"
 
 import {
   Tooltip,
@@ -23,14 +23,15 @@ export function SidebarToggle() {
             onClick={() => toggleSidebar(!openSidebar)}
             className="transition-colors duration-300 hover:text-highlight"
           >
+            <SquareMenu className="md:hidden" string="30" />
             {openSidebar ? (
-              <PanelRightOpen size="30" />
+              <PanelRightOpen className="hidden md:block" size="30" />
             ) : (
-              <PanelLeftOpen size="30" />
+              <PanelLeftOpen className="hidden md:block" size="30" />
             )}
           </button>
         </TooltipTrigger>
-        <TooltipContent>
+        <TooltipContent className="max-md:hidden">
           {openSidebar ? "Hide menu" : "Show menu"}
         </TooltipContent>
       </Tooltip>

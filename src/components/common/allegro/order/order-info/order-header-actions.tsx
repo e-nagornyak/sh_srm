@@ -29,7 +29,7 @@ export function OrderHeaderActions(props: OrderHeaderActionsProps) {
       <Title weight="semibold" size="xs">
         Order information
       </Title>
-      <div className="flex space-x-2">
+      <div className="flex flex-col items-end gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger className="group" asChild>
             <Button className="gap-1" size="xs">

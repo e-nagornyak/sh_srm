@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 interface ButtonWithDropdownProps {
+  wrapperClassName?: string
+  //
   buttonContent: ReactNode
   dropdownContent: ReactNode
   //
@@ -19,13 +21,14 @@ interface ButtonWithDropdownProps {
 }
 
 export function ButtonWithDropdown({
+  wrapperClassName,
   buttonProps,
   triggerProps,
   dropdownContent,
   buttonContent,
 }: ButtonWithDropdownProps) {
   return (
-    <div className="flex items-center">
+    <div className={cn("flex items-center", wrapperClassName)}>
       <Button
         size="sm"
         {...buttonProps}
