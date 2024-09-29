@@ -4,16 +4,21 @@ import type { Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { TableCell, TableRow } from "@/components/ui/table"
+import type { ChangePaymentModeAction } from "@/components/@controllers/allegro/order/order-info-payment-controller"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
 interface OrderPaidRowEditProps {
+  paidAmount: string
   order: Order
-  changeEditMode: () => void
+  setPaidAmount: (value: string) => void
+  changePaymentStatus: (actionType: ChangePaymentModeAction) => void
 }
 
 export const OrderPaidRowEdit = ({
+  paidAmount,
   order,
-  changeEditMode,
+  changePaymentStatus,
+  setPaidAmount,
 }: OrderPaidRowEditProps) => {
   return (
     <TableRow className="border-b border-gray-700">
@@ -21,9 +26,13 @@ export const OrderPaidRowEdit = ({
         <div className="flex items-center justify-between">
           Paid:
           <Input
-            value={order?.total_to_pay || 0}
+            min={0}
+            max={order?.total_to_pay || undefined}
+            value={paidAmount}
+            onChange={(e) => setPaidAmount(e?.currentTarget?.value)}
             type="number"
-            className="w-20"
+            className="w-28"
+            step="0.10"
           />
         </div>
       </TableCell>
@@ -35,7 +44,11 @@ export const OrderPaidRowEdit = ({
           <div className="flex items-center gap-2">
             <ComponentWithTooltip
               trigger={
-                <Button onClick={changeEditMode} color="blue" variant="outline">
+                <Button
+                  onClick={() => changePaymentStatus("save")}
+                  color="blue"
+                  variant="outline"
+                >
                   <Check size="15" />
                 </Button>
               }
@@ -44,7 +57,7 @@ export const OrderPaidRowEdit = ({
             <ComponentWithTooltip
               trigger={
                 <Button
-                  onClick={changeEditMode}
+                  onClick={() => changePaymentStatus("paid")}
                   color="green"
                   variant="outline"
                 >
@@ -55,7 +68,11 @@ export const OrderPaidRowEdit = ({
             />
             <ComponentWithTooltip
               trigger={
-                <Button onClick={changeEditMode} color="red" variant="outline">
+                <Button
+                  onClick={() => changePaymentStatus("unpaid")}
+                  color="red"
+                  variant="outline"
+                >
                   0.00
                 </Button>
               }
@@ -63,7 +80,11 @@ export const OrderPaidRowEdit = ({
             />
             <ComponentWithTooltip
               trigger={
-                <Button onClick={changeEditMode} color="gray" variant="outline">
+                <Button
+                  onClick={() => changePaymentStatus("cancel")}
+                  color="gray"
+                  variant="outline"
+                >
                   <X size="15" />
                 </Button>
               }

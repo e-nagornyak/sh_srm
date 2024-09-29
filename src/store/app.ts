@@ -35,7 +35,7 @@ const createAppStore = (initState: AppStoreState) =>
     persist(
       (set) => ({
         ...initState,
-        openSidebar: getLocalStorageItems()?.openSidebar || true,
+        openSidebar: getLocalStorageItems()?.openSidebar || false,
         toggleSidebar: (value: boolean) => set(() => ({ openSidebar: value })),
       }),
       {

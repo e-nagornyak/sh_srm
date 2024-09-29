@@ -66,7 +66,7 @@ export function OrderBayerController({
           onClick={handleReturnToList}
           className="ml-auto mr-0"
         >
-          <CircleChevronLeft />
+          <CircleChevronLeft className="block sm:hidden" />
           <span className="hidden sm:inline">Return to the orders list</span>
         </Button>
       </CardContent>

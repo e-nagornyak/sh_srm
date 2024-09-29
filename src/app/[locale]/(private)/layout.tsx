@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren, type ReactNode } from "react"
+import React, { Suspense, type PropsWithChildren, type ReactNode } from "react"
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth"
 

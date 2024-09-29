@@ -1,88 +1,59 @@
-"use client"
-
-import { useState } from "react"
 import dynamic from "next/dynamic"
+import { type SubmitHandler } from "react-hook-form"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type OrderInfoFormData } from "@/lib/validations/order/order-info"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
-import { OrderBaseInfo } from "./order-base-info"
-import { OrderPaidRow } from "./order-paid-row"
+import { OrderInfoDataText } from "./order-info-data-text"
 
-const OrderViewOrderInfoOrderEdit = dynamic(
-  () => import("./order-base-info-form").then((mod) => mod.OrderBaseInfoForm),
+const OrderInfoDataForm = dynamic(
+  () => import("./order-info-data-form").then((mod) => mod.OrderInfoDataForm),
   {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-half-screen w-full" />
-        </TableCell>
-      </TableRow>
-    ),
-  }
-)
-const OrderViewOrderInfoPaidRowEdit = dynamic(
-  () => import("./order-paid-row-edit").then((mod) => mod.OrderPaidRowEdit),
-  {
-    loading: () => (
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Skeleton className="h-9 w-full" />
-        </TableCell>
-      </TableRow>
-    ),
+    loading: () => <Skeleton className="h-half-screen w-full" />,
   }
 )
 
-interface OrderDataPropsrops {
+interface OrderDataProps {
   order: Order
+  onCancel: () => void
+  editingFieldName: string | null
+  onSave: SubmitHandler<OrderInfoFormData>
+  changeEditingFieldName: (fieldName?: string) => void
 }
 
-export function OrderData({ order }: OrderDataPropsrops) {
-  const [isEditPaymentMode, setIsEditPaymentMode] = useState(false)
-  const [editingFieldName, setEditingFieldName] = useState<string | null>(null)
+export function OrderData({
+  order,
+  editingFieldName,
+  onCancel,
+  onSave,
+  changeEditingFieldName,
+}: OrderDataProps) {
+  const delivery = order?.delivery
+  const payment = order?.payment
 
-  const changePaymentMode = () => {
-    setIsEditPaymentMode(!isEditPaymentMode)
-  }
-
-  const changeEditingFieldName = (fieldName?: string) => {
-    setEditingFieldName(fieldName || "")
-  }
-
-  const onCancel = () => {
-    setEditingFieldName(null)
-  }
-
-  const onSave = () => {
-    setEditingFieldName(null)
-  }
-
-  return (
-    <Table>
-      <TableBody>
-        {isEditPaymentMode ? (
-          <OrderViewOrderInfoPaidRowEdit
-            order={order}
-            changeEditMode={changePaymentMode}
-          />
-        ) : (
-          <OrderPaidRow changeEditMode={changePaymentMode} order={order} />
-        )}
-        {typeof editingFieldName === "string" ? (
-          <OrderViewOrderInfoOrderEdit
-            order={order}
-            onCancel={onCancel}
-            onSave={onSave}
-          />
-        ) : (
-          <OrderBaseInfo
-            order={order}
-            changeEditingFieldName={changeEditingFieldName}
-          />
-        )}
-      </TableBody>
-    </Table>
+  return typeof editingFieldName === "string" ? (
+    <OrderInfoDataForm
+      defaultValues={{
+        ...order?.buyer,
+        phone_number: order?.buyer?.phone_number || "",
+        order_source: "",
+        method: delivery?.method,
+        cost: delivery?.cost,
+        provider: payment?.provider,
+        additional_field_1: "",
+        additional_field_2: "",
+        vies_vat_pl: "",
+        comments: "",
+        cash_on_delivery: false,
+      }}
+      onCancel={onCancel}
+      onSave={onSave}
+    />
+  ) : (
+    <OrderInfoDataText
+      order={order}
+      changeEditingFieldName={changeEditingFieldName}
+    />
   )
 }

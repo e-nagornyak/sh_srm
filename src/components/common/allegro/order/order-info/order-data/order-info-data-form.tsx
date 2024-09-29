@@ -2,11 +2,13 @@ import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type SubmitHandler } from "react-hook-form"
 
+import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import {
-  orderDeliverySchema,
-  type OrderDeliveryFormData,
-} from "@/lib/validations/order/order-delivery"
+  orderInfoSchema,
+  type OrderInfoFormData,
+} from "@/lib/validations/order/order-info"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -16,22 +18,32 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
-import { CountrySelect } from "@/components/shared/country-select"
+import { Textarea } from "@/components/ui/textarea"
 
-interface OrderDeliveryFormProps {
+interface OrderInfoDataFormProps {
+  onSave: SubmitHandler<OrderInfoFormData>
+  defaultValues: OrderInfoFormData
   onCancel: () => void
-  onSave: SubmitHandler<OrderDeliveryFormData>
-  defaultValues: OrderDeliveryFormData
 }
 
-export function OrderDeliveryForm({
+export function OrderInfoDataForm({
   onCancel,
   onSave,
   defaultValues,
-}: OrderDeliveryFormProps) {
-  const form = useForm<OrderDeliveryFormData>({
-    resolver: zodResolver(orderDeliverySchema),
+}: OrderInfoDataFormProps) {
+  const form = useForm<OrderInfoFormData>({
+    resolver: zodResolver(orderInfoSchema),
     defaultValues,
   })
 
@@ -39,7 +51,7 @@ export function OrderDeliveryForm({
     formState: { isDirty },
   } = form
 
-  const onSubmitHandler = async (data: OrderDeliveryFormData) => {
+  const onSubmitHandler = async (data: OrderInfoFormData) => {
     onSave(data)
   }
 
@@ -49,12 +61,12 @@ export function OrderDeliveryForm({
         <Table>
           <TableBody>
             <TableRow className="border-0">
-              <TableCell>Name:</TableCell>
+              <TableCell>Client (login):</TableCell>
               <TableCell colSpan={2}>
                 <FormField
                   defaultValue=""
                   control={form.control}
-                  name="first_name"
+                  name="login"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel />
@@ -68,12 +80,12 @@ export function OrderDeliveryForm({
               </TableCell>
             </TableRow>
             <TableRow className="border-0">
-              <TableCell>Surname:</TableCell>
+              <TableCell>E-mail:</TableCell>
               <TableCell colSpan={2}>
                 <FormField
                   defaultValue=""
                   control={form.control}
-                  name="last_name"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel />
@@ -87,12 +99,12 @@ export function OrderDeliveryForm({
               </TableCell>
             </TableRow>
             <TableRow className="border-0">
-              <TableCell>Company:</TableCell>
+              <TableCell>Phone number:</TableCell>
               <TableCell colSpan={2}>
                 <FormField
                   defaultValue=""
                   control={form.control}
-                  name="company_name"
+                  name="phone_number"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel />
@@ -105,18 +117,31 @@ export function OrderDeliveryForm({
                 />
               </TableCell>
             </TableRow>
-            <TableRow className="border-0">
-              <TableCell>Address:</TableCell>
+            <TableRow className="border-b border-gray-700">
+              <TableCell>Order source:</TableCell>
               <TableCell colSpan={2}>
                 <FormField
-                  defaultValue=""
+                  defaultValue="sheibar"
                   control={form.control}
-                  name="street"
-                  render={({ field }) => (
+                  name="order_source"
+                  render={({ field: { value, onChange, ...field } }) => (
                     <FormItem>
                       <FormLabel />
                       <FormControl>
-                        <Input size="xs" {...field} />
+                        <Select value={value} onValueChange={onChange}>
+                          <SelectTrigger
+                            className="h-8 w-full px-2 py-0.5 capitalize hover:bg-muted/50"
+                            {...field}
+                          >
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Allegro</SelectLabel>
+                              <SelectItem value="sheibar">sheibar</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -124,89 +149,171 @@ export function OrderDeliveryForm({
                 />
               </TableCell>
             </TableRow>
+            {/**/}
             <TableRow className="border-0">
-              <TableCell>Postal code:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="zip_code"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Input size="xs" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <TableCell className="content-start pb-0 text-start">
+                Shipping method:
               </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell>City:</TableCell>
               <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Input size="xs" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell>State:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="state"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Input size="xs" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
-              <TableCell>Country:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="country_code"
-                  render={({ field: { onChange, ...field } }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <CountrySelect onValueChange={onChange} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
+                <div className="flex gap-3">
+                  <FormField
+                    defaultValue=""
+                    control={form.control}
+                    name="method"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel />
+                        <FormControl>
+                          <Input size="xs" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cash_on_delivery"
+                    render={({ field: { value, onChange, ...field } }) => (
+                      <FormItem className="flex items-center gap-2 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={value}
+                            onCheckedChange={onChange}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormLabel asChild>
+                          <Label>Cash on delivery</Label>
+                        </FormLabel>
 
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </TableCell>
+            </TableRow>
+            <TableRow className="border-0">
+              <TableCell>Shipping price:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="cost"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Input size="xs" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow className="border-b border-gray-700">
+              <TableCell>Payment method:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="provider"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Input size="xs" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            {/**/}
+            <TableRow className="border-0">
+              <TableCell>Additional field 1:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="additional_field_1"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Input size="xs" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow className="border-0">
+              <TableCell>Additional field 2:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="additional_field_2"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Input size="xs" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow className="border-0">
+              <TableCell>VIES/VAT PL:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="vies_vat_pl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Input size="xs" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
+            <TableRow className="border-0">
+              <TableCell className="content-start">Comments:</TableCell>
+              <TableCell colSpan={2}>
+                <FormField
+                  defaultValue=""
+                  control={form.control}
+                  name="comments"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel />
+                      <FormControl>
+                        <Textarea className="resize-y" rows={5} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </TableCell>
+            </TableRow>
             <TableRow className="border-0">
               <TableCell colSpan={3}>
                 <div className="flex items-center gap-3">
                   <Button
-                    type="submit"
                     disabled={!isDirty}
+                    type="submit"
                     variant="outline"
                     color="green"
                   >

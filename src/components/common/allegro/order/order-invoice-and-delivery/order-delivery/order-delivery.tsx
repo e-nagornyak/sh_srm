@@ -75,13 +75,9 @@ export function OrderDelivery({
         {typeof editingFieldName === "string" ? (
           <OrderDeliveryForm
             defaultValues={{
-              firstAndLastName: `${address?.last_name || ""} ${address?.last_name || ""}`,
+              ...address,
               company_name: buyer?.company_name || "",
-              address: address?.street,
-              zip_code: address?.zip_code,
-              city: address?.city,
               state: "",
-              country_code: address?.country_code,
             }}
             onCancel={onCancel}
             onSave={onSave}
