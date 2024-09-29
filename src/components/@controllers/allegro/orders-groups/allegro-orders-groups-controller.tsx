@@ -83,7 +83,7 @@ export function AllegroOrdersGroupsController(
   props: AllegroOrdersTableGroupsProps
 ) {
   return (
-    <Card className="sticky top-[90px] size-fit">
+    <Card className="top-[90px] xl:sticky xl:size-fit">
       <CardContent className="min-h-52 w-full p-2">
         <Button size="sm" className="mb-3 w-full gap-4 rounded-2xl">
           <CirclePlus />

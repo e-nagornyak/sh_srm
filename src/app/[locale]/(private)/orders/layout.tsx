@@ -5,7 +5,7 @@ import { AllegroOrdersGroupsController } from "@/components/@controllers/allegro
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="flex gap-2 px-2 py-4">
+    <div className="flex flex-col gap-2 px-2 py-4 xl:flex-row">
       <AllegroOrdersGroupsController />
       {children}
     </div>

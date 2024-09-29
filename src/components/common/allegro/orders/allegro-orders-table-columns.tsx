@@ -74,7 +74,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
     },
     {
       enableSorting: false,
-      enableHiding: true,
+      enableHiding: false,
       enableResizing: true,
       accessorKey: "buyer",
       size: 70,
@@ -91,13 +91,13 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
 
         return (
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-1">
+            <div className="flex flex-wrap items-center gap-1">
               <FlagImage className="size-5" iso2={country_codeISO} />
               <Text className="capitalize" size="xs">
                 {fullName}
               </Text>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 max-xl:flex-wrap">
               {isAllegro ? (
                 <MarketplaceIcons.allegro />
               ) : (
@@ -114,7 +114,6 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
     {
       enableSorting: false,
       enableHiding: false,
-      enableResizing: true,
       accessorKey: "products",
       size: 600,
       header: ({ column }) => (
@@ -134,8 +133,8 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
           .filter(Boolean) as any[]
 
         return (
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="min-w-56 space-y-2">
+            <div className="hidden flex-wrap items-center gap-2 lg:flex">
               {images?.map(({ src, quantity }, i) => (
                 <HoverImage key={`${src}${i}`} src={src} quantity={quantity} />
               ))}
@@ -156,7 +155,8 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
     },
     {
       enableSorting: false,
-      enableHiding: true,
+      enableHiding: false,
+
       enableResizing: true,
       accessorKey: "total_to_pay",
       size: 150,
@@ -183,7 +183,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       accessorKey: "delivery",
       size: 200,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Additional information" />
+        <DataTableColumnHeader
+          className="whitespace-nowrap"
+          column={column}
+          title="Additional information"
+        />
       ),
       cell: ({ row }) => {
         const delivery = row?.original?.delivery

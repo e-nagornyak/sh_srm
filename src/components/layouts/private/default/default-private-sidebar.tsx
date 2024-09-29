@@ -7,6 +7,7 @@ import { useAppStore } from "@/store/app"
 import { RoutePaths } from "@/config/routes"
 import { sidebarConfig } from "@/config/sidebar"
 import { cn } from "@/lib/utils"
+import { useBreakpoint } from "@/hooks/breakpoint"
 import { Accordion } from "@/components/ui/accordion"
 import { SidebarClosedItem } from "@/components/common/sidebar/sidebar-closed-item"
 import { SidebarOpenedItem } from "@/components/common/sidebar/sidebar-opened-item"
@@ -15,7 +16,8 @@ import { Logo } from "@/components/shared/logo"
 export function DefaultPrivateSidebar() {
   const path = usePathname()
   const openSidebar = useAppStore((store) => store?.openSidebar)
-
+  const md = useBreakpoint("md")
+  console.log("md", md)
   return (
     <div
       className={cn(

@@ -8,10 +8,9 @@ export default {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: require("./src/config/screens.ts"),
     },
+    screens: require("./src/config/screens.ts"),
     extend: {
       zIndex: {
         100: "100",
