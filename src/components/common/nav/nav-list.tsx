@@ -30,14 +30,14 @@ export function NavList({ user }: NavListProps) {
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3 border-r border-border">
-                <NavigationMenuItem className="flex size-full select-none flex-col justify-end rounded-md p-6 outline-none focus:shadow-md">
+            <ul className="grid w-full gap-3 p-6 sm:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-3 border-border lg:border-r">
+                <NavigationMenuItem className="flex size-full select-none flex-col justify-end rounded-md p-3 outline-none focus:shadow-md lg:p-6">
                   <Logo />
                   <Title size="xs" className="mb-2 mt-4 font-medium">
                     Sh. shop Mobile parts and accessories
                   </Title>
-                  <p className="text-sm leading-tight text-muted-foreground">
+                  <p className="hidden text-sm leading-tight text-muted-foreground sm:inline">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Accusantium asperiores cumque dolor eius inventore tempore.
                   </p>
@@ -83,7 +83,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 hidden text-sm leading-snug text-muted-foreground sm:inline">
             {children}
           </p>
         </Link>

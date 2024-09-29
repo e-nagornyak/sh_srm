@@ -1,8 +1,12 @@
 import { type User } from "next-auth"
 
+import { RoutePaths } from "@/config/routes"
+import { NavigationMenuItem } from "@/components/ui/navigation-menu"
+import { Title } from "@/components/ui/title"
 import { AuthButton } from "@/components/common/nav/auth-button"
 import { NavList } from "@/components/common/nav/nav-list"
 import { LanguageToggle } from "@/components/shared/language-toggle"
+import { Logo } from "@/components/shared/logo"
 import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 
 interface DefaultPublicNavProps {
