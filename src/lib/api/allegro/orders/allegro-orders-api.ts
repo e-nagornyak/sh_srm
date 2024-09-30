@@ -30,8 +30,8 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
 
     // Allegro Orders operations
     listAllegroOrders: api.createMethod<BaseQueryResponse<Order[]>, [string]>(
-      (params) => createEndpoint(allegroApiPaths.orders.list(params), "GET"),
-      { cache: "force-cache" }
+      (params) => createEndpoint(allegroApiPaths.orders.list(params), "GET")
+      // { cache: "force-cache" }
     ),
 
     getAllegroOrderById: api.createMethod<Order, [number]>((id) =>
