@@ -49,9 +49,11 @@ export function OrderStatus({ order }: OrderStatusProps) {
           </TableCell>
           <TableCell colSpan={2}>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <OrderStatusSelector />
+              <OrderStatusSelector disabled />
               <ButtonWithDropdown
                 buttonContent={"Change"}
+                buttonProps={{ disabled: true }}
+                triggerProps={{ disabled: true }}
                 dropdownContent={
                   <ComponentWithTooltip
                     side="left"
@@ -73,7 +75,9 @@ export function OrderStatus({ order }: OrderStatusProps) {
         <TableRow className="border-0">
           <TableCell className="pb-0 text-start">Receipt:</TableCell>
           <TableCell colSpan={2} className="pb-0 text-start">
-            <Button size="sm">Create receipt</Button>
+            <Button disabled size="sm">
+              Create receipt
+            </Button>
           </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
@@ -82,7 +86,7 @@ export function OrderStatus({ order }: OrderStatusProps) {
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button size="sm">
+                  <Button disabled size="sm">
                     Issue an invoice
                     <ChevronDown size="15" />
                   </Button>
@@ -105,10 +109,12 @@ export function OrderStatus({ order }: OrderStatusProps) {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button size="sm">Pro forma</Button>
+              <Button disabled size="sm">
+                Pro forma
+              </Button>
               <ComponentWithTooltip
                 trigger={
-                  <Button size="sm">
+                  <Button disabled size="sm">
                     <Printer size="15" />
                   </Button>
                 }
@@ -146,7 +152,7 @@ export function OrderStatus({ order }: OrderStatusProps) {
           <TableCell colSpan={3} className="text-start">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="gap-2 pl-1">
+                <Button disabled className="gap-2 pl-1">
                   <AlignJustify
                     size="30"
                     className="rounded-full bg-highlight p-1 text-white"

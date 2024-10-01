@@ -56,7 +56,7 @@ export function OrderDelivery({
           <div className="space-x-2">
             <ComponentWithTooltip
               trigger={
-                <Button onClick={onClickCopyAddress} size="xs">
+                <Button disabled onClick={onClickCopyAddress} size="xs">
                   <Copy size="15" />
                 </Button>
               }

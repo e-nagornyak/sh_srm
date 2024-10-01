@@ -22,9 +22,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"
 
-interface OrderStatusSelectorProps {}
+interface OrderStatusSelectorProps {
+  disabled?: boolean
+}
 
-export function OrderStatusSelector(props: OrderStatusSelectorProps) {
+export function OrderStatusSelector({ disabled }: OrderStatusSelectorProps) {
   const [open, setOpen] = useState(false)
 
   const [status, setStatus] = useState<OrderStatusItem | null>(null)
@@ -40,7 +42,11 @@ export function OrderStatusSelector(props: OrderStatusSelectorProps) {
         className="[&[data-state=open]>svg]:rotate-180"
         asChild
       >
-        <Button size="sm" className="group w-44 justify-between uppercase">
+        <Button
+          disabled={disabled}
+          size="sm"
+          className="group w-44 justify-between uppercase"
+        >
           <div className="flex max-w-full items-center gap-2 overflow-hidden">
             {status && (
               <div

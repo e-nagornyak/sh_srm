@@ -23,7 +23,7 @@ export function OrderViewLayout({ order }: OrderViewControllerProps) {
       <OrderProductsController order={order} />
       <Card>
         <CardHeader className="w-full flex-row items-center justify-between">
-          <OrderInfoHeaderActionsController />
+          <OrderInfoHeaderActionsController order={order} />
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-x-6 gap-y-14 2xl:grid-cols-2">
           <div>

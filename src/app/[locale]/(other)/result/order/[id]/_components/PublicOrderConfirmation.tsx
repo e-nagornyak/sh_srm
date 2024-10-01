@@ -1,6 +1,6 @@
 "use client"
 
-import { CreditCardIcon, MapIcon, PrinterIcon, TruckIcon } from "lucide-react"
+import { CreditCardIcon, Download, TruckIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,8 +23,8 @@ export function OrderConfirmation() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">MCP Siarhei Sheibak</h1>
         <Button onClick={handlePrint} className="flex items-center">
-          <PrinterIcon className="mr-2" size={18} />
-          Print
+          <Download className="mr-2" size={18} />
+          Download Invoice
         </Button>
       </div>
 
@@ -99,18 +99,6 @@ export function OrderConfirmation() {
           </CardContent>
         </Card>
       </div>
-
-      <Card className="">
-        <CardHeader>
-          <CardTitle>Delivery Map</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex h-64 items-center justify-center bg-gray-200">
-            <MapIcon size={48} />
-            <span className="ml-2">Map unavailable</span>
-          </div>
-        </CardContent>
-      </Card>
     </>
   )
 }

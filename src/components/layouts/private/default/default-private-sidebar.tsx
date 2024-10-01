@@ -20,7 +20,7 @@ export function DefaultPrivateSidebar() {
     <div
       className={cn(
         "sticky top-0 z-50 h-screen shrink-0 overflow-hidden border-r border-border bg-sidebar p-2 duration-500",
-        openSidebar ? "w-52 pt-0" : "w-14"
+        openSidebar ? "w-52 pt-0" : "w-16"
       )}
     >
       <Sidebar open={openSidebar} currentRoutePath={path} />
