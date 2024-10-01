@@ -11,6 +11,9 @@ const allegroApiPaths = {
       get: `/api/allegro/orders/${id}/`, // GET by ID
       update: `/api/allegro/orders/${id}/`, // PUT by ID
     }),
+    factura: (order_id: string) => `/api/allegro/factura/?order_id=${order_id}`,
+    shippingLabel: (order_id: string) =>
+      `/api/allegro/shipping-label/?order_id=${order_id}`,
   },
 }
 

@@ -1,7 +1,10 @@
 "use client"
 
 import React from "react"
+import { MarketplaceIcons } from "@/constants/order/marketplaces"
+import { countryList, type CountryCodes } from "@/constants/shared/countries"
 import { ChevronDown, CircleChevronLeft, Star } from "lucide-react"
+import { FlagImage } from "react-international-phone"
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
@@ -27,7 +30,14 @@ export function OrderBayerController({
   const { isPending, lazyPush } = useLazyRouter()
 
   const bayer = order?.buyer
+  const delivery = order?.delivery
   const bayerFullName = `${bayer?.first_name || ""} ${bayer?.last_name || ""}`
+  const country_codeISO = bayer?.address.country_code?.toLowerCase()
+  const countryFullName = delivery?.address?.country_code
+    ? countryList?.[delivery?.address?.country_code as CountryCodes]?.label
+    : delivery?.address?.country_code
+
+  const isAllegro = order?.marketplace?.slice(0, 2)?.toLowerCase() === "al"
 
   const handleReturnToList = () => lazyPush(RoutePaths.private.orders.list)
 
@@ -36,7 +46,7 @@ export function OrderBayerController({
       <CardContent className="flex flex-wrap items-center gap-2 md:gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="gap-2">
+            <Button disabled className="gap-2">
               <Star />
               <ChevronDown />
             </Button>
@@ -59,8 +69,14 @@ export function OrderBayerController({
           </DropdownMenuContent>
         </DropdownMenu>
         <Title size="sm">Order {order?.id}</Title>
-        <Separator orientation="vertical" />
+
+        <Separator className="h-10" orientation="vertical" />
+        {isAllegro && <MarketplaceIcons.allegro width="70" />}
+        <Separator className="h-10" orientation="vertical" />
         <Title size="sm">{bayerFullName}</Title>
+        <Separator className="h-10" orientation="vertical" />
+        <FlagImage className="size-8" iso2={country_codeISO} />
+        <Title size="sm">{countryFullName}</Title>
         <Button
           disabled={isPending}
           onClick={handleReturnToList}

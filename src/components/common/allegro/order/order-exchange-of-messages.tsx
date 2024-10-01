@@ -18,7 +18,7 @@ export function OrderExchangeOfMessages(props: OrderViewMessagesProps) {
         <Text>
           No messages sent to the customer. No comments from the customer.
         </Text>
-        <Button>
+        <Button disabled>
           <Mail size="15" />
           Write a message
           <ChevronDown />

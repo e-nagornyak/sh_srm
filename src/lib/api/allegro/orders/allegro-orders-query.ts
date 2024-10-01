@@ -24,7 +24,7 @@ export async function getAllegroOrders(
 
     const response =
       await getAllegroOrdersApi("server").listAllegroOrders(queryParams)
-
+    console.log(response)
     return {
       count: response?.count || 1,
       total_pages: response?.total_pages || 1,

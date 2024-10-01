@@ -23,6 +23,7 @@ export function OrderProductsActions({
       <ButtonWithDropdown
         wrapperClassName="w-full"
         buttonProps={{
+          disabled: true,
           className: "max-sm:w-full",
           onClick: onAddProductsToOrder,
         }}
@@ -32,6 +33,9 @@ export function OrderProductsActions({
             Add products to order...
           </>
         }
+        triggerProps={{
+          disabled: true,
+        }}
         dropdownContent={
           <>
             <DropdownMenuItem asChild>
@@ -50,7 +54,7 @@ export function OrderProductsActions({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="sm" className="gap-2 max-sm:w-full">
+          <Button disabled size="sm" className="gap-2 max-sm:w-full">
             <Wrench size="15" />
             Operations on products
             <ChevronDown size="15" />

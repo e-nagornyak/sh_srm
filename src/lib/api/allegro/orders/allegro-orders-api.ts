@@ -42,5 +42,14 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
     updateAllegroOrder: api.createMethod<Order, [number, any]>((id, data) =>
       createEndpoint(allegroApiPaths.orders.byId(id).update, "PUT", data)
     ),
+
+    sendShippingLabel: api.createMethod<
+      { label_url: string; label_id: string },
+      [string]
+    >((id) => createEndpoint(allegroApiPaths.orders.shippingLabel(id), "POST")),
+
+    createFacture: api.createMethod<null, [string]>((id) =>
+      createEndpoint(allegroApiPaths.orders.factura(id), "POST")
+    ),
   }
 }

@@ -10,6 +10,7 @@ import { FlagImage } from "react-international-phone"
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Checkbox } from "@/components/ui/checkbox"
+import { CopyButton } from "@/components/ui/copy-button"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
@@ -105,7 +106,9 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
                   {marketplace}
                 </span>
               )}
-              <Text color="highlight">({login})</Text>
+              <CopyButton copyText={login}>
+                <Text color="highlight">({login})</Text>
+              </CopyButton>
             </div>
           </div>
         )
@@ -143,9 +146,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
               {products?.map(({ id, offer_id, quantity, name }) => (
                 <Text key={`${id}-text`} size="xs">
                   {quantity}x {name}{" "}
-                  <Link className="flexible-text-[11px]" href="#">
-                    ({offer_id})
-                  </Link>
+                  <CopyButton copyText={offer_id}>
+                    <Text color="highlight" size="xs">
+                      ({offer_id})
+                    </Text>
+                  </CopyButton>
                 </Text>
               ))}
             </div>
@@ -231,8 +236,9 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         />
       ),
       cell: ({ row }) => {
-        const date = new Date()
-        const formattedDate = format(date, "dd.MM.yyyy, HH:mm")
+        const date = row?.original?.updated_at
+
+        const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : "-"
 
         return (
           <Text weight="semibold" size="xs">
@@ -256,7 +262,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       cell: ({ row }) => {
         const date = row?.original?.payment?.finished_at
 
-        const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : ""
+        const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : "-"
 
         return (
           <Text weight="semibold" size="xs">
