@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { orderStatuses } from "@/constants/order/order-statuses"
+import { type Table } from "@tanstack/react-table"
 import {
   AlignJustify,
   ArrowDownAZ,
@@ -42,8 +43,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"
-
-interface TasksTableToolbarActionsProps {}
 
 const starsMenuItems = [
   { key: "white", color: "" },
@@ -136,7 +135,15 @@ const allegroOptions = [
   { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
 ]
 
-export function AllegroOrdersTableToolbarActions({}: TasksTableToolbarActionsProps) {
+interface TasksTableToolbarActionsProps<TData> {
+  table: Table<TData>
+  pageSizeOptions?: number[]
+}
+
+export function AllegroOrdersTableToolbarActions<TData>({
+  table,
+  pageSizeOptions,
+}: TasksTableToolbarActionsProps<TData>) {
   return (
     <Card className="w-full">
       <CardContent className="flex flex-wrap items-center justify-between gap-2">
@@ -470,13 +477,19 @@ export function AllegroOrdersTableToolbarActions({}: TasksTableToolbarActionsPro
         </div>
         <div className="flex items-center gap-2">
           <div className="flex">
-            <Text className="underline">1-20</Text>
-            <Text className="text-foreground">&nbsp;of 29812 items</Text>
+            <Text className="underline">
+              {table.getState().pagination.pageIndex + 1}
+            </Text>
+            <Text className="text-foreground">
+              &nbsp;of {table.getPageCount()} pages
+            </Text>
           </div>
           <div>
             <Button
               size="icon"
               variant="outline"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
               className="rounded-l-full rounded-r-none"
             >
               <ChevronLeft size="20" />
@@ -484,6 +497,8 @@ export function AllegroOrdersTableToolbarActions({}: TasksTableToolbarActionsPro
             <Button
               size="icon"
               variant="outline"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
               className="rounded-l-none rounded-r-full"
             >
               <ChevronRight size="20" />
