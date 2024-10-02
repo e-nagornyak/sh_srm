@@ -39,10 +39,10 @@ export function AllegroOrdersTableController({
   return (
     <DataTable
       hiddenPagination
-      footer={<AllegroOrdersTableToolbarActions />}
+      footer={<AllegroOrdersTableToolbarActions table={table} />}
       table={table}
     >
-      <AllegroOrdersTableToolbarActions />
+      <AllegroOrdersTableToolbarActions table={table} />
     </DataTable>
   )
 }
