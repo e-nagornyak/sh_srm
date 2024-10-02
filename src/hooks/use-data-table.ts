@@ -62,14 +62,6 @@ interface UseDataTableProps<TData>
   filterFields?: DataTableFilterField<TData>[]
 
   /**
-   * Enable notion like column filters.
-   * Advanced filters and column filters cannot be used at the same time.
-   * @default false
-   * @type boolean
-   */
-  enableAdvancedFilter?: boolean
-
-  /**
    * The method to use when updating the URL.
    * - "push" - Pushes a new entry onto the history stack.
    * - "replace" - Replaces the current entry on the history stack.
@@ -108,7 +100,6 @@ const searchParamsSchema = z.object({
 export function useDataTable<TData>({
   pageCount = -1,
   filterFields = [],
-  enableAdvancedFilter = false,
   method = "replace",
   scroll = false,
   startTransition,
@@ -224,9 +215,6 @@ export function useDataTable<TData>({
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
-    // Opt out when advanced filter is enabled, because it contains additional params
-    if (enableAdvancedFilter) return
-
     // Prevent resetting the page on initial render
     if (!mounted) {
       setMounted(true)
@@ -284,16 +272,7 @@ export function useDataTable<TData>({
       : onUrlChange()
 
     table.setPageIndex(0)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    JSON.stringify(debouncedSearchableColumnFilters),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    JSON.stringify(filterableColumnFilters),
-    method,
-    scroll,
-  ])
+  }, [method, scroll])
 
   const table = useReactTable({
     ...props,

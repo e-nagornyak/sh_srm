@@ -1,4 +1,4 @@
-import { type ReactNode } from "react"
+import { useState, type ReactNode } from "react"
 import { type Side } from "@floating-ui/utils"
 
 import {
@@ -20,7 +20,7 @@ export function ComponentWithTooltip({
   side,
 }: ButtonWithTooltipProps) {
   return (
-    <TooltipProvider delayDuration={100}>
+    <TooltipProvider disableHoverableContent delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>{trigger}</TooltipTrigger>
         <TooltipContent side={side} className="max-w-64">

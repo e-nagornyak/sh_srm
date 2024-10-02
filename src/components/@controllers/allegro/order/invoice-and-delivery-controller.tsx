@@ -137,7 +137,6 @@ export function InvoiceAndDeliveryController({
 
   const onSavePickupData = async (data: OrderPickupFormData) => {
     try {
-      console.log(data)
       onCloseForm("pickup")
       toast.info("Data has been updated")
     } catch (e) {

@@ -9,6 +9,8 @@ import {
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 
 export const getAllegroOrdersApi = (side: ApiSide) => {
+  const isDevMode = process.env.NODE_ENV === "development"
+
   const api = createApi(side)
 
   return {
@@ -30,8 +32,8 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
 
     // Allegro Orders operations
     listAllegroOrders: api.createMethod<BaseQueryResponse<Order[]>, [string]>(
-      (params) => createEndpoint(allegroApiPaths.orders.list(params), "GET")
-      // { cache: "force-cache" }
+      (params) => createEndpoint(allegroApiPaths.orders.list(params), "GET"),
+      { cache: isDevMode ? "force-cache" : "no-cache" }
     ),
 
     getAllegroOrderById: api.createMethod<Order, [number]>((id) =>

@@ -1,13 +1,18 @@
+"use client"
+
 import * as React from "react"
 import {
   CirclePlus,
   List,
+  Loader,
   Plus,
   RefreshCcw,
   Trash,
   WalletCards,
 } from "lucide-react"
 
+import { RoutePaths } from "@/config/routes"
+import { useLazyRouter } from "@/hooks/use-lazy-router"
 import {
   Accordion,
   AccordionContent,
@@ -82,6 +87,10 @@ interface AllegroOrdersTableGroupsProps {}
 export function AllegroOrdersGroupsController(
   props: AllegroOrdersTableGroupsProps
 ) {
+  const { isPending, lazyPush } = useLazyRouter()
+
+  const handleToAllOrdersList = () => lazyPush(RoutePaths.private.orders.list)
+
   return (
     <Card className="top-[90px] xl:sticky xl:size-fit">
       <CardContent className="min-h-52 w-full p-2">
@@ -89,24 +98,33 @@ export function AllegroOrdersGroupsController(
           <CirclePlus />
           Add order
         </Button>
-        <Button className="w-full justify-start gap-2" variant="ghost">
-          <WalletCards size="15" />
+        <Button
+          disabled={isPending}
+          onClick={handleToAllOrdersList}
+          className="w-full justify-start gap-2"
+          variant="ghost"
+        >
+          {isPending ? (
+            <Loader className="animate-spin" size="15" />
+          ) : (
+            <WalletCards size="15" />
+          )}
           All
         </Button>
-        <Accordion type="multiple" className="">
+        <Accordion disabled type="multiple" className="">
           {groups?.map((item) => <GroupItem key={item?.title} {...item} />)}
         </Accordion>
         <Separator />
-        <Button className="w-full justify-start gap-2" variant="ghost">
+        <Button disabled className="w-full justify-start gap-2" variant="ghost">
           <List size="15" />
           Archive
         </Button>
-        <Button className="w-full justify-start gap-2" variant="ghost">
+        <Button disabled className="w-full justify-start gap-2" variant="ghost">
           <Trash size="15" />
           Bin
         </Button>
         <Separator />
-        <Button className="w-full justify-between" variant="ghost">
+        <Button disabled className="w-full justify-between" variant="ghost">
           <div className="flex items-center gap-2">
             <Plus size="15" />
             Add status

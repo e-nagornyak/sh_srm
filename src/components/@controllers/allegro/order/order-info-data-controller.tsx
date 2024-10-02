@@ -21,7 +21,7 @@ export function OrderInfoDataController({
 
   const [editingFieldName, setEditingFieldName] =
     useState<Nullable<string>>(null)
-  console.log(initialOrder)
+
   const changeEditingFieldName = (fieldName?: string) => {
     setEditingFieldName(fieldName || "")
   }
@@ -37,8 +37,8 @@ export function OrderInfoDataController({
     provider,
     cost,
     method,
+    cash_on_delivery,
     // additional_field_2,
-    // cash_on_delivery,
     // order_source,
     // comments,
     // vies_vat_pl,
@@ -48,7 +48,11 @@ export function OrderInfoDataController({
       const updatedOrder: Order = {
         ...order,
         buyer: { ...order?.buyer, login, email, phone_number },
-        payment: { ...order?.payment, provider },
+        payment: {
+          ...order?.payment,
+          provider,
+          type: cash_on_delivery ? "CASH_ON_DELIVERY" : "",
+        },
         delivery: { ...order?.delivery, cost, method },
       }
       await getAllegroOrdersApi("client").updateAllegroOrder(
@@ -61,6 +65,16 @@ export function OrderInfoDataController({
     } catch (e) {
       showErrorToast(e)
     }
+  }
+
+  if (order?.payment?.provider === "unknown") {
+    setOrder({
+      ...initialOrder,
+      payment: {
+        ...initialOrder?.payment,
+        provider: order?.payment?.type || "",
+      },
+    })
   }
 
   return (

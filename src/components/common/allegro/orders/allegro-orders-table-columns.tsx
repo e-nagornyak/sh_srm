@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
+import { getOrderStatusIndicators } from "@/utils/get-order-status-indicators"
 import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { BadgeCent, BadgePlus, Star } from "lucide-react"
@@ -13,6 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { CopyButton } from "@/components/ui/copy-button"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
+import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
 import { HoverImage } from "@/components/shared/hover-image"
 
@@ -128,12 +130,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
           ?.map(
             (p) =>
               p?.images?.length && {
-                // TODO fix it
-                src: Array.isArray(p?.images) ? p?.images?.[0] : p?.images,
+                src: p?.images,
                 quantity: p?.quantity,
               }
           )
-          .filter(Boolean) as any[]
+          ?.filter(Boolean) as { src: string; quantity: number }[]
 
         return (
           <div className="min-w-56 space-y-2">
@@ -174,7 +175,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
 
         return (
           <div className="flex size-full flex-col items-start justify-start">
-            <Text size="xxs">
+            <Text size="lg">
               {totalPrice}&nbsp;{currency}
             </Text>
           </div>
@@ -195,21 +196,30 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         />
       ),
       cell: ({ row }) => {
-        const delivery = row?.original?.delivery
+        const order = row?.original
+        const delivery = order?.delivery
+        const status = order?.status
+        const items = getOrderStatusIndicators(order)
 
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex max-w-56 flex-col gap-2">
             <Text
-              className="w-fit rounded-md bg-emerald-700 px-1 py-0.5"
-              size="xxs"
+              weight="semibold"
+              className="block w-fit max-w-full truncate rounded-md bg-emerald-700 px-1 py-0.5"
+              size="xs"
             >
-              Status
+              {status}
             </Text>
-            <div className="float-right flex gap-0.5">
-              {Array.from({ length: 4 })?.map((_, i) => (
-                <div key={i} className="size-4 rounded-sm bg-gray-300" />
-              ))}
-            </div>
+            {items?.length && (
+              <div className="float-right flex flex-wrap items-center gap-0.5">
+                {items?.map((indicator) => (
+                  <OrderStatusIndicatorItem
+                    key={indicator?.key}
+                    indicator={indicator}
+                  />
+                ))}
+              </div>
+            )}
             <Link
               href="#"
               className={textVariants({

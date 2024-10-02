@@ -59,12 +59,24 @@ export type DeliveryAddressRequest = {
   country_code: string // minLength: 1, maxLength: 10
 }
 
+export type PickupPoint = {
+  id: number // integer, readOnly
+  pickup_id?: string | null // nullable, maxLength: 750
+  name?: string | null // nullable, maxLength: 750
+  description?: string | null // nullable, maxLength: 750
+  street?: string | null // nullable, maxLength: 750
+  city?: string | null // nullable, maxLength: 750
+  zip_code?: string | null // nullable, maxLength: 20
+  country_code?: string | null // nullable, maxLength: 10
+}
+
 export type Delivery = {
   id: number // integer, readOnly
   address: DeliveryAddress
   method: string // maxLength: 255
   cost: string // pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
   order: number // integer
+  pickup_point: PickupPoint
 }
 
 export type DeliveryRequest = {
@@ -108,6 +120,7 @@ export type Payment = {
   id: number // integer, readOnly
   payment_id: string // maxLength: 255
   provider: string // maxLength: 255
+  type?: string | null // maxLength: 750
   paid_amount?: string | null // $decimal, pattern: ^-?\d{0,8}(?:\.\d{0,2})?$, nullable
   currency?: string | null // maxLength: 10, nullable
   finished_at?: string | null // $date-time, nullable
@@ -142,3 +155,5 @@ export type TokenRefresh = {
 export type TokenRefreshRequest = {
   refresh: string // minLength: 1
 }
+
+// Other

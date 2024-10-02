@@ -8,6 +8,26 @@ import {
   type Payment,
 } from "@/types/all-types"
 
+interface Invoice {
+  id: number // integer, readOnly
+  required: boolean // boolean
+  tax_id?: string | null // nullable, maxLength: 20
+  address?: string | null // nullable, maxLength: 750
+  country_code?: string | null // nullable, maxLength: 10
+  zip_code?: string | null // nullable, maxLength: 10
+  name?: string | null // nullable, maxLength: 20
+  order: number // integer
+}
+
+interface Label {
+  id: number // integer, readOnly
+  label_url?: string | null // nullable, maxLength: 200
+  shipment_id?: string | null // nullable
+  faktura_url?: string | null // nullable, maxLength: 750
+  faktura_id?: string | null // nullable, maxLength: 200
+  order: number // integer
+}
+
 interface OrderProduct {
   id: number // integer, readOnly
   offer_id: string // maxLength: 255
@@ -36,6 +56,8 @@ interface Order {
   payment: Payment
   fulfillment: Fulfillment
   products: Array<OrderProduct>
+  labels: Label
+  invoice: Invoice
   order_id: string // maxLength: 255
   status?: string | null // maxLength: 255, nullable
   marketplace?: string | null // maxLength: 255, nullable
@@ -44,6 +66,7 @@ interface Order {
   total_to_pay?: string | null // $decimal, pattern: ^-?\d{0,8}(?:\.\d{0,2})?$, nullable
   currency?: string | null // maxLength: 10, nullable
   updated_at?: string | null // $date-time, nullable
+  created_at?: string | null // $date-time, nullable
   revision?: string | null // maxLength: 255, nullable
 }
 
@@ -69,4 +92,6 @@ export {
   type OrderProductRequest,
   type Order,
   type OrderRequest,
+  type Invoice,
+  type Label,
 }

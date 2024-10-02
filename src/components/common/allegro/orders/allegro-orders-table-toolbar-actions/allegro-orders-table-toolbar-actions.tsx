@@ -43,6 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"
+import { AllegroOrdersTableToolbarPagination } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pagination"
 
 const starsMenuItems = [
   { key: "white", color: "" },
@@ -475,36 +476,7 @@ export function AllegroOrdersTableToolbarActions<TData>({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex">
-            <Text className="underline">
-              {table.getState().pagination.pageIndex + 1}
-            </Text>
-            <Text className="text-foreground">
-              &nbsp;of {table.getPageCount()} pages
-            </Text>
-          </div>
-          <div>
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="rounded-l-full rounded-r-none"
-            >
-              <ChevronLeft size="20" />
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="rounded-l-none rounded-r-full"
-            >
-              <ChevronRight size="20" />
-            </Button>
-          </div>
-        </div>
+        <AllegroOrdersTableToolbarPagination table={table} />
       </CardContent>
     </Card>
   )
