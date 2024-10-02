@@ -56,8 +56,8 @@ interface Order {
   payment: Payment
   fulfillment: Fulfillment
   products: Array<OrderProduct>
-  labels: Array<Label>
-  invoice: Array<Invoice>
+  labels: Label
+  invoice: Invoice
   order_id: string // maxLength: 255
   status?: string | null // maxLength: 255, nullable
   marketplace?: string | null // maxLength: 255, nullable

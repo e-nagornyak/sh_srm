@@ -62,10 +62,12 @@ export function OrderProductsTable({ order }: OrderProductsTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {products.map((product) => (
+        {products?.map((product) => (
           <TableRow key={product?.id} className="border-b border-gray-700">
             <TableCell>
-              <HoverImage src={product?.images} />
+              <HoverImage
+                src={product?.images || "/images/default/default_image.svg"}
+              />
             </TableCell>
             <TableCell className="font-medium">
               <Link

@@ -15,7 +15,6 @@ import { CopyButton } from "@/components/ui/copy-button"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
 import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
-import { OrderStatusIndicators } from "@/components/common/allegro/order/order-status-indicators"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
 import { HoverImage } from "@/components/shared/hover-image"
 
@@ -131,12 +130,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
           ?.map(
             (p) =>
               p?.images?.length && {
-                // TODO fix it
-                src: Array.isArray(p?.images) ? p?.images?.[0] : p?.images,
+                src: p?.images,
                 quantity: p?.quantity,
               }
           )
-          .filter(Boolean) as any[]
+          ?.filter(Boolean) as { src: string; quantity: number }[]
 
         return (
           <div className="min-w-56 space-y-2">
