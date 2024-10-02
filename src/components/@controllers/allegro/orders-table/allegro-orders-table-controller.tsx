@@ -6,7 +6,7 @@ import * as React from "react"
 import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
-import { AllegroOrdersTableToolbarActions } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions"
+import { AllegroOrdersTableToolbarActions } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-actions"
 import { DataTable } from "@/components/common/data-table/data-table"
 
 interface TableProps {

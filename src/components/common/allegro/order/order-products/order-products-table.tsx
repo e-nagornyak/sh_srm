@@ -42,7 +42,7 @@ export function OrderProductsTable({ order }: OrderProductsTableProps) {
           <TableHead className="w-16">
             <TooltipProvider delayDuration={100}>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger className="w-full">
                   <Camera className="mx-auto" />
                 </TooltipTrigger>
                 <TooltipContent>
@@ -51,8 +51,8 @@ export function OrderProductsTable({ order }: OrderProductsTableProps) {
               </Tooltip>
             </TooltipProvider>
           </TableHead>
-          <TableHead>PROD. ID</TableHead>
-          <TableHead>PRODUCT NAME</TableHead>
+          <TableHead>ID</TableHead>
+          <TableHead>NAME</TableHead>
           <TableHead>QUANTITY</TableHead>
           <TableHead>PRICE</TableHead>
           <TableHead>TAX</TableHead>

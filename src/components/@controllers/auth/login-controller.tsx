@@ -23,7 +23,7 @@ export function LoginController() {
         }
         push(RoutePaths.private.dashboard)
       } catch (e) {
-        console.log(e)
+        console.error(e)
         showErrorToast(e)
       }
     })

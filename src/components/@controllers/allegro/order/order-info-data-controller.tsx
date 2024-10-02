@@ -21,7 +21,7 @@ export function OrderInfoDataController({
 
   const [editingFieldName, setEditingFieldName] =
     useState<Nullable<string>>(null)
-  console.log(initialOrder)
+
   const changeEditingFieldName = (fieldName?: string) => {
     setEditingFieldName(fieldName || "")
   }

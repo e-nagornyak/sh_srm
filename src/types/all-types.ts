@@ -142,3 +142,5 @@ export type TokenRefresh = {
 export type TokenRefreshRequest = {
   refresh: string // minLength: 1
 }
+
+// Other

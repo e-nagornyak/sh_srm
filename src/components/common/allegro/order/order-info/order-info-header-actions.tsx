@@ -1,19 +1,24 @@
 import * as React from "react"
-import { Printer, Tag } from "lucide-react"
+import { Loader, Printer, Tag } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
 interface OrderHeaderActionsProps {
-  onClickCreateInvoice: () => void
-  onClickShippingLabel: () => void
+  onClickCreateInvoice: () => Promise<void>
+  onClickShippingLabel: () => Promise<void>
+  loadingFields: string[]
 }
 
 export function OrderInfoHeaderActions({
   onClickCreateInvoice,
   onClickShippingLabel,
+  loadingFields,
 }: OrderHeaderActionsProps) {
+  const isInvoiceLoading = loadingFields?.includes("invoice")
+  const isShippingLoading = loadingFields?.includes("invoice")
+
   return (
     <>
       <Title weight="semibold" size="xs">
@@ -22,20 +27,36 @@ export function OrderInfoHeaderActions({
       <div className="flex flex-col items-end gap-2 md:flex-row">
         <ComponentWithTooltip
           trigger={
-            <Button onClick={onClickCreateInvoice} className="gap-1" size="sm">
-              <Printer size="15" />
+            <Button
+              disabled={isInvoiceLoading}
+              onClick={onClickCreateInvoice}
+              className="gap-1"
+              size="sm"
+            >
+              {isInvoiceLoading ? (
+                <Loader className="animate-spin" size="15" />
+              ) : (
+                <Printer size="15" />
+              )}
               Create invoice
-              {/*CREATE INVOICE POST /api/allegro/factura/ Генерация фактуры*/}
             </Button>
           }
           text="Этот метод генерирует фактуру."
         />
         <ComponentWithTooltip
           trigger={
-            <Button onClick={onClickShippingLabel} className="gap-1" size="sm">
-              <Tag size="15" />
+            <Button
+              disabled={isShippingLoading}
+              onClick={onClickShippingLabel}
+              className="gap-1"
+              size="sm"
+            >
+              {isShippingLoading ? (
+                <Loader className="animate-spin" size="15" />
+              ) : (
+                <Tag size="15" />
+              )}
               Shipping Label
-              {/*   POST /api/allegro/shipping-label/ Ге*/}
             </Button>
           }
           text="Этот метод генерирует и возвращает ссылку на файл PDF-этикетки для указанного заказа."
