@@ -42,15 +42,16 @@ export function OrderInvoiceText({
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
-          <TableCell className="py-0 text-start">
-            Postal code and city:
-          </TableCell>
-          <TableCell className="py-0 text-start">
+          <TableCell className="py-0 text-start">Postal code:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {delivery?.address?.zip_code}
             </ComponentWithEditButton>
           </TableCell>
-          <TableCell className="py-0 text-start">
+        </TableRow>
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">City:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {delivery?.address?.city}
             </ComponentWithEditButton>
@@ -59,9 +60,9 @@ export function OrderInvoiceText({
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">State:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
-            <ComponentWithEditButton
-              onEditClick={changeEditingFieldName}
-            ></ComponentWithEditButton>
+            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+              {delivery?.address?.street}
+            </ComponentWithEditButton>
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
