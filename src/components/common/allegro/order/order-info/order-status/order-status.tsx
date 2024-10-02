@@ -1,6 +1,7 @@
 "use client"
 
 import { orderPersonalEvents } from "@/constants/order/order-personal-events"
+import { format } from "date-fns"
 import {
   AlignJustify,
   Check,
@@ -128,7 +129,9 @@ export function OrderStatus({ order }: OrderStatusProps) {
             Order date:
           </TableCell>
           <TableCell colSpan={2} className="pb-0 text-start">
-            {new Date()?.toDateString()}
+            {order?.created_at
+              ? format(order?.created_at, "dd.MM.yyyy, HH:mm")
+              : "-"}
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
@@ -136,13 +139,15 @@ export function OrderStatus({ order }: OrderStatusProps) {
             Date in status:
           </TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
-            {new Date()?.toDateString()}
+            {order?.updated_at
+              ? format(order?.updated_at, "dd.MM.yyyy, HH:mm")
+              : "-"}
           </TableCell>
         </TableRow>
         <TableRow className="border-b border-gray-700">
           <TableCell className="pt-0 text-start">Stock levels:</TableCell>
           <TableCell colSpan={2} className="pt-0 text-start">
-            <button className="flex items-center gap-1">
+            <button disabled className="flex items-center gap-1">
               <Check size="20" className="text-green-600" />
               Completed (deducted)
             </button>

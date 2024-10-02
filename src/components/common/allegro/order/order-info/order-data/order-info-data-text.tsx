@@ -1,7 +1,9 @@
 import { Phone } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { CopyButton } from "@/components/ui/copy-button"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { Text } from "@/components/ui/text"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
@@ -23,6 +25,15 @@ export function OrderInfoDataText({
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
               {order?.buyer?.login}
             </ComponentWithEditButton>
+          </TableCell>
+        </TableRow>
+
+        <TableRow className="border-0">
+          <TableCell className="py-0 text-start">Order id:</TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
+            <CopyButton copyText={order?.order_id}>
+              <Text color="highlight">{order?.order_id}</Text>
+            </CopyButton>
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
@@ -112,17 +123,17 @@ export function OrderInfoDataText({
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">VIES/VAT PL:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
-            <ComponentWithEditButton
-              onEditClick={changeEditingFieldName}
-            ></ComponentWithEditButton>
+            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+              {order?.invoice?.tax_id}
+            </ComponentWithEditButton>
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Comments:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
-            <ComponentWithEditButton
-              onEditClick={changeEditingFieldName}
-            ></ComponentWithEditButton>
+            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+              {order?.note}
+            </ComponentWithEditButton>
           </TableCell>
         </TableRow>
       </TableBody>

@@ -1,3 +1,5 @@
+import { orderStatusIndicatorsMap } from "@/constants/order/order-status-indicators"
+
 import { OrderConfirmation } from "@/app/[locale]/(other)/result/order/[id]/_components/PublicOrderConfirmation"
 
 interface PageProps {}

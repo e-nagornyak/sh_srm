@@ -175,7 +175,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
 
         return (
           <div className="flex size-full flex-col items-start justify-start">
-            <Text size="xxs">
+            <Text size="lg">
               {totalPrice}&nbsp;{currency}
             </Text>
           </div>

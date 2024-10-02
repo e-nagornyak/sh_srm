@@ -66,6 +66,7 @@ interface Order {
   total_to_pay?: string | null // $decimal, pattern: ^-?\d{0,8}(?:\.\d{0,2})?$, nullable
   currency?: string | null // maxLength: 10, nullable
   updated_at?: string | null // $date-time, nullable
+  created_at?: string | null // $date-time, nullable
   revision?: string | null // maxLength: 255, nullable
 }
 
