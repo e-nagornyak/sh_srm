@@ -232,7 +232,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       enableSorting: false,
       enableHiding: false,
       enableResizing: false,
-      accessorKey: "updated_at",
+      accessorKey: "created_at",
       size: 50,
       header: ({ column }) => (
         <DataTableColumnHeader
@@ -241,7 +241,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         />
       ),
       cell: ({ row }) => {
-        const date = row?.original?.updated_at
+        const date = row?.original?.created_at
 
         const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : "-"
 
