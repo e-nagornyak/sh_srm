@@ -1,4 +1,8 @@
+"use client"
+
+import { useState } from "react"
 import { type OrderStatusIndicator } from "@/constants/order/order-status-indicators"
+import { Loader } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Text } from "@/components/ui/text"
@@ -11,13 +15,24 @@ import {
 
 interface OrderStatusIndicatorItemProps {
   indicator: OrderStatusIndicator
-  onClick?: () => void
 }
 
 export function OrderStatusIndicatorItem({
   indicator,
-  onClick,
 }: OrderStatusIndicatorItemProps) {
+  const [loading, setLoading] = useState(false)
+
+  const handleClick = async () => {
+    if (indicator?.onClick) {
+      const result = indicator.onClick()
+      if (result instanceof Promise) {
+        setLoading(true)
+        await result
+        setLoading(false)
+      }
+    }
+  }
+
   const Comp = (
     props: React.DetailedHTMLProps<
       React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -25,20 +40,21 @@ export function OrderStatusIndicatorItem({
     >
   ) => (
     <button
+      disabled={loading}
       className={cn(
         indicator?.colorClassName,
-        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none shadow-sm duration-300 hover:-translate-y-1 [&_svg]:size-4 [&_svg]:stroke-[3px]"
+        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none text-white shadow-sm duration-300 [&_svg]:size-4 [&_svg]:stroke-[3px]"
       )}
       {...props}
     >
-      {indicator?.icon()}
+      {loading ? <Loader className="animate-spin" /> : indicator?.icon()}
     </button>
   )
 
   return (
     <TooltipProvider delayDuration={300}>
       <Tooltip>
-        <TooltipTrigger onClick={onClick} asChild>
+        <TooltipTrigger onClick={handleClick} asChild>
           <Comp />
         </TooltipTrigger>
         <TooltipContent className="w-fit max-w-56 text-center">

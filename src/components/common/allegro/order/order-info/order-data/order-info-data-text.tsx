@@ -16,6 +16,7 @@ export function OrderInfoDataText({
   order,
   changeEditingFieldName,
 }: OrderBaseInfoProps) {
+  console.log(order)
   return (
     <Table>
       <TableBody>

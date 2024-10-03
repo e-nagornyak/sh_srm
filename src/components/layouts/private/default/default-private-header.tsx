@@ -25,14 +25,17 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
   const user = session?.user
 
   return (
-    <header className="sticky top-0 z-20 w-full border-b border-border bg-card p-4 px-6 shadow-sm">
+    <header
+      id="private_header"
+      className="sticky top-0 z-20 w-full border-b border-border bg-card p-4 px-6 shadow-sm"
+    >
       <div className="flex items-center justify-between">
         <nav className="flex size-full items-center justify-between gap-3">
           <SidebarToggle />
           <div className="flex items-center gap-4">
             <DropdownMenu>
               <DropdownMenuTrigger className="group flex items-center gap-2">
-                <span className="flex size-10 items-center justify-center rounded-full bg-highlight font-semibold uppercase flexible-text-5">
+                <span className="flex size-10 items-center justify-center rounded-full bg-highlight font-semibold uppercase text-white flexible-text-5">
                   {user?.username?.[0] || ""}
                 </span>
                 <Text>{user?.username}</Text>
