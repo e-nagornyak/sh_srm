@@ -1,23 +1,46 @@
 import * as React from "react"
-import { Loader, Printer, Tag } from "lucide-react"
+import {
+  ChevronDown,
+  Grid,
+  Loader,
+  Printer,
+  ReceiptText,
+  Tag,
+} from "lucide-react"
 
+import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Title } from "@/components/ui/title"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
 interface OrderHeaderActionsProps {
+  order: Order
   onClickCreateInvoice: () => Promise<void>
+  onClickDownloadInvoice: () => Promise<void>
   onClickShippingLabel: () => Promise<void>
+  onClickDownloadLabel: () => Promise<void>
   loadingFields: string[]
 }
 
 export function OrderInfoHeaderActions({
+  order,
   onClickCreateInvoice,
   onClickShippingLabel,
+  onClickDownloadLabel,
+  onClickDownloadInvoice,
   loadingFields,
 }: OrderHeaderActionsProps) {
   const isInvoiceLoading = loadingFields?.includes("invoice")
   const isShippingLoading = loadingFields?.includes("invoice")
+
+  const isAllowedAdditionalActions =
+    order?.labels?.label_url || order?.labels?.faktura_url
 
   return (
     <>
@@ -113,49 +136,78 @@ export function OrderInfoHeaderActions({
         {/*    </>*/}
         {/*  }*/}
         {/*/>*/}
-        {/*<DropdownMenu>*/}
-        {/*  <DropdownMenuTrigger className="group" asChild>*/}
-        {/*    <Button className="gap-1" size="xs">*/}
-        {/*      Actions*/}
-        {/*      <ChevronDown*/}
-        {/*        size="12"*/}
-        {/*        className="group-data-[state=open]:rotate-180"*/}
-        {/*      />*/}
-        {/*    </Button>*/}
-        {/*  </DropdownMenuTrigger>*/}
-        {/*  <DropdownMenuContent>*/}
-        {/*    <DropdownMenuItem>*/}
-        {/*      <Button className="gap-2" size="sm" variant="ghost">*/}
-        {/*        <Trash size="20" />*/}
-        {/*        Delete order*/}
-        {/*      </Button>*/}
-        {/*    </DropdownMenuItem>*/}
-        {/*    <DropdownMenuItem>*/}
-        {/*      <Button className="gap-2" size="sm" variant="ghost">*/}
-        {/*        <User size="20" />*/}
-        {/*        Create a new order for this customer*/}
-        {/*      </Button>*/}
-        {/*    </DropdownMenuItem>*/}
-        {/*    <DropdownMenuItem>*/}
-        {/*      <Button className="gap-2" size="sm" variant="ghost">*/}
-        {/*        <Files size="20" />*/}
-        {/*        Create a copy of the order*/}
-        {/*      </Button>*/}
-        {/*    </DropdownMenuItem>*/}
-        {/*    <DropdownMenuItem>*/}
-        {/*      <Button className="gap-2" size="sm" variant="ghost">*/}
-        {/*        <Scan size="20" />*/}
-        {/*        Divide order*/}
-        {/*      </Button>*/}
-        {/*    </DropdownMenuItem>*/}
-        {/*    <DropdownMenuItem>*/}
-        {/*      <Button className="gap-2" size="sm" variant="ghost">*/}
-        {/*        <CornerDownLeft size="20" />*/}
-        {/*        Create return*/}
-        {/*      </Button>*/}
-        {/*    </DropdownMenuItem>*/}
-        {/*  </DropdownMenuContent>*/}
-        {/*</DropdownMenu>*/}
+        {isAllowedAdditionalActions && (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="group" asChild>
+              <Button className="gap-1" size="sm">
+                <Grid size="15" />
+                Actions
+                <ChevronDown
+                  size="15"
+                  className="group-data-[state=open]:rotate-180"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="md:mr-4">
+              {order?.labels?.faktura_url && (
+                <DropdownMenuItem>
+                  <Button
+                    onClick={onClickDownloadInvoice}
+                    className="gap-2"
+                    size="sm"
+                    variant="ghost"
+                  >
+                    <ReceiptText size="20" />
+                    Download the invoice
+                  </Button>
+                </DropdownMenuItem>
+              )}
+              {order?.labels?.label_url && (
+                <DropdownMenuItem>
+                  <Button
+                    onClick={onClickDownloadLabel}
+                    className="gap-2"
+                    size="sm"
+                    variant="ghost"
+                  >
+                    <Tag size="20" />
+                    Download the label
+                  </Button>
+                </DropdownMenuItem>
+              )}
+              {/*<DropdownMenuItem>*/}
+              {/*  <Button className="gap-2" size="sm" variant="ghost">*/}
+              {/*    <Trash size="20" />*/}
+              {/*    Delete order*/}
+              {/*  </Button>*/}
+              {/*</DropdownMenuItem>*/}
+              {/*<DropdownMenuItem>*/}
+              {/*  <Button className="gap-2" size="sm" variant="ghost">*/}
+              {/*    <User size="20" />*/}
+              {/*    Create a new order for this customer*/}
+              {/*  </Button>*/}
+              {/*</DropdownMenuItem>*/}
+              {/*<DropdownMenuItem>*/}
+              {/*  <Button className="gap-2" size="sm" variant="ghost">*/}
+              {/*    <Files size="20" />*/}
+              {/*    Create a copy of the order*/}
+              {/*  </Button>*/}
+              {/*</DropdownMenuItem>*/}
+              {/*<DropdownMenuItem>*/}
+              {/*  <Button className="gap-2" size="sm" variant="ghost">*/}
+              {/*    <Scan size="20" />*/}
+              {/*    Divide order*/}
+              {/*  </Button>*/}
+              {/*</DropdownMenuItem>*/}
+              {/*<DropdownMenuItem>*/}
+              {/*  <Button className="gap-2" size="sm" variant="ghost">*/}
+              {/*    <CornerDownLeft size="20" />*/}
+              {/*    Create return*/}
+              {/*  </Button>*/}
+              {/*</DropdownMenuItem>*/}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </>
   )
