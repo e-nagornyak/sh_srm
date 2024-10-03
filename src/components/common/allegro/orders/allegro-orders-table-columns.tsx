@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
-import { getOrderStatusIndicators } from "@/utils/get-order-status-indicators"
+import { OrderStatusIndicatorsController } from "@/utils/order-status-indicators-controller"
 import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { BadgeCent, BadgePlus, Star } from "lucide-react"
@@ -200,7 +200,6 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         const order = row?.original
         const delivery = order?.delivery
         const status = order?.status
-        const items = getOrderStatusIndicators(order)
 
         return (
           <div className="flex max-w-56 flex-col gap-2">
@@ -215,16 +214,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
             >
               {status}
             </Text>
-            {items?.length && (
-              <div className="float-right flex flex-wrap items-center gap-0.5">
-                {items?.map((indicator) => (
-                  <OrderStatusIndicatorItem
-                    key={indicator?.key}
-                    indicator={indicator}
-                  />
-                ))}
-              </div>
-            )}
+            <OrderStatusIndicatorsController order={order} />
             <Link
               href="#"
               className={textVariants({

@@ -7,7 +7,6 @@ import {
   Truck,
 } from "lucide-react"
 
-// Значення статусу
 const EnumStatusIndicators = {
   notPaid: "notPaid",
   cashOnDelivery: "cashOnDelivery",
@@ -23,82 +22,93 @@ const EnumStatusIndicators = {
 
 type OrderStatusIndicatorsKeys = keyof typeof EnumStatusIndicators
 
-// Опис індикатора статусу
 interface OrderStatusIndicator {
   key: OrderStatusIndicatorsKeys
   colorClassName: string
   icon: () => ReactNode
   description?: string
+  onClick?: () => void | Promise<void>
 }
 
-// Карта статусів з відповідними кольорами та іконками
 const orderStatusIndicatorsMap: Record<
   OrderStatusIndicatorsKeys,
-  (helperText?: string) => OrderStatusIndicator
+  (args?: {
+    helperText?: string
+    onClick?: () => void | Promise<void>
+  }) => OrderStatusIndicator
 > = {
-  notPaid: () => ({
+  notPaid: (args) => ({
     key: "notPaid",
-    colorClassName: "bg-red-600", // Сірий значок
+    colorClassName: "bg-red-600",
     icon: () => <DollarSign />,
     description: "Order is not paid",
+    onClick: args?.onClick,
   }),
-  cashOnDelivery: () => ({
+  cashOnDelivery: (args) => ({
     key: "cashOnDelivery",
-    colorClassName: "bg-yellow-600", // Оранжевий значок
+    colorClassName: "bg-yellow-600",
     icon: () => <DollarSign />,
     description: "Cash on delivery",
+    onClick: args?.onClick,
   }),
-  paid: () => ({
+  paid: (args) => ({
     key: "paid",
-    colorClassName: "bg-green-600", // Зелений значок
+    colorClassName: "bg-green-600",
     icon: () => <DollarSign />,
     description: "Order is paid",
+    onClick: args?.onClick,
   }),
-  labelNotGenerated: () => ({
+  labelNotGenerated: (args) => ({
     key: "labelNotGenerated",
-    colorClassName: "bg-gray-600", // Сіра машинка
+    colorClassName: "bg-gray-600",
     icon: () => <Truck />,
     description: "Label not generated",
+    onClick: args?.onClick,
   }),
-  labelCreated: () => ({
+  labelCreated: (args) => ({
     key: "labelCreated",
-    colorClassName: "bg-yellow-600", // Жовта машинка
+    colorClassName: "bg-yellow-600",
     icon: () => <Truck />,
     description: "Label created",
+    onClick: args?.onClick,
   }),
-  invoiceRequested: () => ({
+  invoiceRequested: (args) => ({
     key: "invoiceRequested",
-    colorClassName: "bg-gray-600", // Сірий значок фактури
+    colorClassName: "bg-gray-600",
     icon: () => <FileCheck2 />,
     description: "Invoice requested",
+    onClick: args?.onClick,
   }),
-  noInvoiceRequested: () => ({
+  noInvoiceRequested: (args) => ({
     key: "noInvoiceRequested",
-    colorClassName: "bg-gray-600", // Сірий значок чека
+    colorClassName: "bg-gray-600",
     icon: () => <ReceiptText />,
     description: "No invoice requested",
+    onClick: args?.onClick,
   }),
-  invoiceCreated: () => ({
+  invoiceCreated: (args) => ({
     key: "invoiceCreated",
-    colorClassName: "bg-blue-600", // Синій значок фактури
+    colorClassName: "bg-blue-600",
     icon: () => <FileCheck2 />,
     description: "Invoice created",
+    onClick: args?.onClick,
   }),
-  withComment: () => ({
+  withComment: (args) => ({
     key: "withComment",
-    colorClassName: "bg-orange-600", // Синій значок фактури
+    colorClassName: "bg-orange-600",
     icon: () => <CircleHelp />,
-    description: "Invoice created",
+    description: args?.helperText,
+    onClick: args?.onClick,
   }),
-  receiptCreated: () => ({
+  receiptCreated: (args) => ({
     key: "receiptCreated",
-    colorClassName: "bg-blue-600", // Синій значок чека
+    colorClassName: "bg-blue-600",
     icon: () => <ReceiptText />,
     description: "Receipt created",
+    onClick: args?.onClick,
   }),
 }
 
-// Функція для отримання індикаторів замовлення за статусами
 const getOrderStatusIndicators = (statuses: OrderStatusIndicatorsKeys[]) =>
   Object.entries(orderStatusIndicatorsMap)
     .filter(([key]) => statuses.includes(key as OrderStatusIndicatorsKeys))

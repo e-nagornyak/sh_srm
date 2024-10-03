@@ -48,7 +48,7 @@ export function OrderInfoHeaderActionsController({
     try {
       setLoadingFields((prevState) => [...prevState, "invoice"])
       await getAllegroOrdersApi("client").createFacture(order?.order_id)
-      toast.info("Data has been updated")
+      toast.success("Invoice has been created")
     } catch (e) {
       showErrorToast(e)
     } finally {
