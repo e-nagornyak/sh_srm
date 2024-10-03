@@ -207,7 +207,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
             <Text
               weight="semibold"
               className={cn(
-                "block w-fit max-w-full truncate rounded-md bg-emerald-800 px-1 py-0.5",
+                "block w-fit max-w-full truncate rounded-md bg-emerald-800 px-1 py-0.5 text-white",
                 { "bg-red-600": status === "CANCELLED" },
                 { "bg-green-600": status === "FILLED_IN" }
               )}

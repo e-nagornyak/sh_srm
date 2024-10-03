@@ -1,5 +1,6 @@
 import { orderStatusIndicatorsMap } from "@/constants/order/order-status-indicators"
 
+import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
 import { OrderConfirmation } from "@/app/[locale]/(other)/result/order/[id]/_components/PublicOrderConfirmation"
 
 interface PageProps {}

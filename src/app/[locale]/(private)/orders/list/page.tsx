@@ -19,7 +19,7 @@ export default async function ListPage({ searchParams }: ListPageProps) {
   const allegroOrdersPromise = getAllegroOrders(search)
 
   return (
-    <section className="grid w-full items-center">
+    <section className="grid w-full items-center pb-14">
       <AllegroOrdersTableProvider>
         <React.Suspense fallback={<AllegroOrdersTableSkeleton shrinkZero />}>
           <AllegroOrdersTableController

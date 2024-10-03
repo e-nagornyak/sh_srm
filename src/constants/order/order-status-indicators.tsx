@@ -1,5 +1,11 @@
 import { type ReactNode } from "react"
-import { ClipboardList, DollarSign, ReceiptText, Truck } from "lucide-react"
+import {
+  CircleHelp,
+  DollarSign,
+  FileCheck2,
+  ReceiptText,
+  Truck,
+} from "lucide-react"
 
 // Значення статусу
 const EnumStatusIndicators = {
@@ -12,8 +18,7 @@ const EnumStatusIndicators = {
   noInvoiceRequested: "noInvoiceRequested",
   invoiceCreated: "invoiceCreated",
   receiptCreated: "receiptCreated",
-  invoiceRequestedForAbroad: "invoiceRequestedForAbroad",
-  invoiceCreatedForAbroad: "invoiceCreatedForAbroad",
+  withComment: "withComment",
 } as const
 
 type OrderStatusIndicatorsKeys = keyof typeof EnumStatusIndicators
@@ -39,7 +44,7 @@ const orderStatusIndicatorsMap: Record<
   }),
   cashOnDelivery: () => ({
     key: "cashOnDelivery",
-    colorClassName: "bg-orange-600", // Оранжевий значок
+    colorClassName: "bg-yellow-600", // Оранжевий значок
     icon: () => <DollarSign />,
     description: "Cash on delivery",
   }),
@@ -64,7 +69,7 @@ const orderStatusIndicatorsMap: Record<
   invoiceRequested: () => ({
     key: "invoiceRequested",
     colorClassName: "bg-gray-600", // Сірий значок фактури
-    icon: () => <ClipboardList />,
+    icon: () => <FileCheck2 />,
     description: "Invoice requested",
   }),
   noInvoiceRequested: () => ({
@@ -76,7 +81,13 @@ const orderStatusIndicatorsMap: Record<
   invoiceCreated: () => ({
     key: "invoiceCreated",
     colorClassName: "bg-blue-600", // Синій значок фактури
-    icon: () => <ClipboardList />,
+    icon: () => <FileCheck2 />,
+    description: "Invoice created",
+  }),
+  withComment: () => ({
+    key: "withComment",
+    colorClassName: "bg-orange-600", // Синій значок фактури
+    icon: () => <CircleHelp />,
     description: "Invoice created",
   }),
   receiptCreated: () => ({
@@ -84,18 +95,6 @@ const orderStatusIndicatorsMap: Record<
     colorClassName: "bg-blue-600", // Синій значок чека
     icon: () => <ReceiptText />,
     description: "Receipt created",
-  }),
-  invoiceRequestedForAbroad: () => ({
-    key: "invoiceRequestedForAbroad",
-    colorClassName: "bg-gray-600", // Сірий значок фактури для міжнародних відправок
-    icon: () => <ClipboardList />,
-    description: "Invoice requested for abroad shipping",
-  }),
-  invoiceCreatedForAbroad: () => ({
-    key: "invoiceCreatedForAbroad",
-    colorClassName: "bg-blue-600", // Синій значок фактури для міжнародних відправок
-    icon: () => <ClipboardList />,
-    description: "Invoice created for abroad shipping",
   }),
 }
 

@@ -27,7 +27,7 @@ export function OrderStatusIndicatorItem({
     <button
       className={cn(
         indicator?.colorClassName,
-        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none shadow-sm duration-300 hover:-translate-y-1 [&_svg]:size-4 [&_svg]:stroke-[3px]"
+        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none text-white shadow-sm duration-300 hover:-translate-y-1 [&_svg]:size-4 [&_svg]:stroke-[3px]"
       )}
       {...props}
     >

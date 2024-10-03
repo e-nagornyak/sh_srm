@@ -63,15 +63,6 @@ export function OrderDeliveryText({
             </ComponentWithEditButton>
           </TableCell>
         </TableRow>
-
-        <TableRow className="border-0">
-          <TableCell className="py-0 text-start">State:</TableCell>
-          <TableCell colSpan={2} className="py-0 text-start">
-            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
-              {delivery?.address?.street}
-            </ComponentWithEditButton>
-          </TableCell>
-        </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">Country:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
