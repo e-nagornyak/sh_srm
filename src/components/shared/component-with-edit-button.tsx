@@ -37,7 +37,7 @@ export function ComponentWithEditButton({
     <button
       onClick={handleEditClick}
       className={cn(
-        "group relative flex cursor-pointer items-center gap-2 underline-offset-2 hover:text-highlight hover:underline",
+        "group relative flex cursor-pointer items-center gap-2 text-start underline-offset-2 hover:text-highlight hover:underline",
         className
       )}
       {...props}

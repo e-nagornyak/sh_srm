@@ -1,24 +1,24 @@
 import { type ReactNode } from "react"
-import { ClipboardList, DollarSign, Receipt, Truck } from "lucide-react"
+import { ClipboardList, DollarSign, ReceiptText, Truck } from "lucide-react"
 
+// Значення статусу
 const EnumStatusIndicators = {
-  deliveryDownloaded: "deliveryDownloaded",
-  paymentSuccess: "paymentSuccess",
-  labelNotGenerated: "labelNotGenerated",
-  noDeliveryForm: "noDeliveryForm",
   notPaid: "notPaid",
-  deliveryDownloadedAgain: "deliveryDownloadedAgain",
-  paymentSuccessAgain: "paymentSuccessAgain",
-  deliveryInPost: "deliveryInPost",
-  receiptGenerated: "receiptGenerated",
-  deliveryDownloadedThirdTime: "deliveryDownloadedThirdTime",
-  paymentSuccessThirdTime: "paymentSuccessThirdTime",
-  deliveryInPostSecond: "deliveryInPostSecond",
+  cashOnDelivery: "cashOnDelivery",
+  paid: "paid",
+  labelNotGenerated: "labelNotGenerated",
+  labelCreated: "labelCreated",
   invoiceRequested: "invoiceRequested",
+  noInvoiceRequested: "noInvoiceRequested",
+  invoiceCreated: "invoiceCreated",
+  receiptCreated: "receiptCreated",
+  invoiceRequestedForAbroad: "invoiceRequestedForAbroad",
+  invoiceCreatedForAbroad: "invoiceCreatedForAbroad",
 } as const
 
 type OrderStatusIndicatorsKeys = keyof typeof EnumStatusIndicators
 
+// Опис індикатора статусу
 interface OrderStatusIndicator {
   key: OrderStatusIndicatorsKeys
   colorClassName: string
@@ -26,103 +26,83 @@ interface OrderStatusIndicator {
   description?: string
 }
 
-interface OrderStatusIndicator {
-  key: OrderStatusIndicatorsKeys
-  colorClassName: string
-  icon: () => ReactNode
-  description?: string
-}
-
+// Карта статусів з відповідними кольорами та іконками
 const orderStatusIndicatorsMap: Record<
   OrderStatusIndicatorsKeys,
   (helperText?: string) => OrderStatusIndicator
 > = {
-  deliveryDownloaded: () => ({
-    key: "deliveryDownloaded",
-    colorClassName: "bg-green-600",
-    icon: () => <span>T</span>,
-    description: "The delivery option form has been downloaded (Allegro/eBay)",
-  }),
-  paymentSuccess: () => ({
-    key: "paymentSuccess",
-    colorClassName: "bg-green-600",
+  notPaid: () => ({
+    key: "notPaid",
+    colorClassName: "bg-red-600", // Сірий значок
     icon: () => <DollarSign />,
-    description: "Payment has been successfully made",
+    description: "Order is not paid",
+  }),
+  cashOnDelivery: () => ({
+    key: "cashOnDelivery",
+    colorClassName: "bg-orange-600", // Оранжевий значок
+    icon: () => <DollarSign />,
+    description: "Cash on delivery",
+  }),
+  paid: () => ({
+    key: "paid",
+    colorClassName: "bg-green-600", // Зелений значок
+    icon: () => <DollarSign />,
+    description: "Order is paid",
   }),
   labelNotGenerated: () => ({
     key: "labelNotGenerated",
-    colorClassName: "bg-gray-600",
+    colorClassName: "bg-gray-600", // Сіра машинка
     icon: () => <Truck />,
-    description: "The shipping label was not generated",
+    description: "Label not generated",
   }),
-  noDeliveryForm: () => ({
-    key: "noDeliveryForm",
-    colorClassName: "bg-gray-600",
-    icon: () => <span>N</span>,
-    description: "No Allegro/eBay delivery form available",
-  }),
-  notPaid: () => ({
-    key: "notPaid",
-    colorClassName: "bg-red-600",
-    icon: () => <DollarSign />,
-    description: "The order has not been paid yet",
-  }),
-  deliveryDownloadedAgain: () => ({
-    key: "deliveryDownloadedAgain",
-    colorClassName: "label-success",
-    icon: () => <span>T</span>,
-    description: "The delivery option form has been downloaded (Allegro/eBay)",
-  }),
-  paymentSuccessAgain: () => ({
-    key: "paymentSuccessAgain",
-    colorClassName: "label-success",
-    icon: () => <DollarSign />,
-    description: "Payment has been successfully made",
-  }),
-  deliveryInPost: () => ({
-    key: "deliveryInPost",
-    colorClassName: "label-primary",
+  labelCreated: () => ({
+    key: "labelCreated",
+    colorClassName: "bg-yellow-600", // Жовта машинка
     icon: () => <Truck />,
-    description: "Delivery via InPost",
-  }),
-  receiptGenerated: () => ({
-    key: "receiptGenerated",
-    colorClassName: "label-primary",
-    icon: () => <Receipt />,
-    description: "Receipt has been generated",
-  }),
-  deliveryDownloadedThirdTime: () => ({
-    key: "deliveryDownloadedThirdTime",
-    colorClassName: "label-success",
-    icon: () => <span>T</span>,
-    description: "The delivery option form has been downloaded (Allegro/eBay)",
-  }),
-  paymentSuccessThirdTime: () => ({
-    key: "paymentSuccessThirdTime",
-    colorClassName: "label-success",
-    icon: () => <DollarSign />,
-    description: "Payment has been successfully made",
-  }),
-  deliveryInPostSecond: () => ({
-    key: "deliveryInPostSecond",
-    colorClassName: "label-primary",
-    icon: () => <Truck />,
-    description: `Delivery via InPost`,
+    description: "Label created",
   }),
   invoiceRequested: () => ({
     key: "invoiceRequested",
-    colorClassName: "label-warning",
+    colorClassName: "bg-gray-600", // Сірий значок фактури
     icon: () => <ClipboardList />,
-    description: "Customer wants an invoice, but it has not been created yet",
+    description: "Invoice requested",
+  }),
+  noInvoiceRequested: () => ({
+    key: "noInvoiceRequested",
+    colorClassName: "bg-gray-600", // Сірий значок чека
+    icon: () => <ReceiptText />,
+    description: "No invoice requested",
+  }),
+  invoiceCreated: () => ({
+    key: "invoiceCreated",
+    colorClassName: "bg-blue-600", // Синій значок фактури
+    icon: () => <ClipboardList />,
+    description: "Invoice created",
+  }),
+  receiptCreated: () => ({
+    key: "receiptCreated",
+    colorClassName: "bg-blue-600", // Синій значок чека
+    icon: () => <ReceiptText />,
+    description: "Receipt created",
+  }),
+  invoiceRequestedForAbroad: () => ({
+    key: "invoiceRequestedForAbroad",
+    colorClassName: "bg-gray-600", // Сірий значок фактури для міжнародних відправок
+    icon: () => <ClipboardList />,
+    description: "Invoice requested for abroad shipping",
+  }),
+  invoiceCreatedForAbroad: () => ({
+    key: "invoiceCreatedForAbroad",
+    colorClassName: "bg-blue-600", // Синій значок фактури для міжнародних відправок
+    icon: () => <ClipboardList />,
+    description: "Invoice created for abroad shipping",
   }),
 }
 
+// Функція для отримання індикаторів замовлення за статусами
 const getOrderStatusIndicators = (statuses: OrderStatusIndicatorsKeys[]) =>
   Object.entries(orderStatusIndicatorsMap)
-    .filter(([key]) => {
-      console.log("key", key)
-      return statuses.includes(key as OrderStatusIndicatorsKeys)
-    })
+    .filter(([key]) => statuses.includes(key as OrderStatusIndicatorsKeys))
     .map(([, value]) => value)
 
 export {

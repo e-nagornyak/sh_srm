@@ -10,6 +10,7 @@ import { FlagImage } from "react-international-phone"
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
 import { CopyButton } from "@/components/ui/copy-button"
 import { Link } from "@/components/ui/link"
@@ -205,7 +206,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
           <div className="flex max-w-56 flex-col gap-2">
             <Text
               weight="semibold"
-              className="block w-fit max-w-full truncate rounded-md bg-emerald-700 px-1 py-0.5"
+              className={cn(
+                "block w-fit max-w-full truncate rounded-md bg-emerald-800 px-1 py-0.5",
+                { "bg-red-600": status === "CANCELLED" },
+                { "bg-green-600": status === "FILLED_IN" }
+              )}
               size="xs"
             >
               {status}
