@@ -51,7 +51,8 @@ export function OrderStatusIndicatorsController({
         }),
 
     (order?.invoice?.required ||
-      order?.delivery?.address?.country_code !== countryList?.PL?.code) &&
+      (order?.delivery?.address?.country_code &&
+        order?.delivery?.address?.country_code !== countryList?.PL?.code)) &&
       orderStatusIndicatorsMap.invoiceRequested({
         onClick: onClickCreateInvoice,
       }),
