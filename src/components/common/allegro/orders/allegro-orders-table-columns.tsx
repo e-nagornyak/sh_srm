@@ -15,7 +15,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { CopyButton } from "@/components/ui/copy-button"
 import { Link } from "@/components/ui/link"
 import { Text, textVariants } from "@/components/ui/text"
-import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
 import { DataTableColumnHeader } from "@/components/common/data-table/data-table-column-header"
 import { HoverImage } from "@/components/shared/hover-image"
 
@@ -96,7 +95,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         return (
           <div className="flex flex-col gap-1">
             <div className="flex flex-wrap items-center gap-1">
-              <FlagImage className="size-5" iso2={country_codeISO} />
+              <FlagImage
+                className="size-5"
+                disableLazyLoading={false}
+                iso2={country_codeISO}
+              />
               <Text className="capitalize" size="xs">
                 {fullName}
               </Text>
