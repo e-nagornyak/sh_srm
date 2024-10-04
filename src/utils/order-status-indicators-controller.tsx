@@ -4,6 +4,7 @@ import {
   orderStatusIndicatorsMap,
   type OrderStatusIndicator,
 } from "@/constants/order/order-status-indicators"
+import { countryList } from "@/constants/shared/countries"
 import { toast } from "sonner"
 
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
@@ -49,7 +50,8 @@ export function OrderStatusIndicatorsController({
           onClick: onClickShippingLabel,
         }),
 
-    order?.invoice?.required &&
+    (order?.invoice?.required ||
+      order?.delivery?.address?.country_code !== countryList?.PL?.code) &&
       orderStatusIndicatorsMap.invoiceRequested({
         onClick: onClickCreateInvoice,
       }),
