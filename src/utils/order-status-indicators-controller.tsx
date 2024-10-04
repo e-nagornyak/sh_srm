@@ -50,9 +50,10 @@ export function OrderStatusIndicatorsController({
           onClick: onClickShippingLabel,
         }),
 
-    (order?.invoice?.required ||
-      (order?.delivery?.address?.country_code &&
-        order?.delivery?.address?.country_code !== countryList?.PL?.code)) &&
+    !order?.labels?.faktura_id &&
+      (order?.invoice?.required ||
+        (order?.delivery?.address?.country_code &&
+          order?.delivery?.address?.country_code !== countryList?.PL?.code)) &&
       orderStatusIndicatorsMap.invoiceRequested({
         onClick: onClickCreateInvoice,
       }),
