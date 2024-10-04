@@ -1,9 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { useTransition } from "react"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from "@radix-ui/react-icons"
 import type { Table } from "@tanstack/react-table"
-import { ChevronLeft, ChevronRight, Loader } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -24,8 +28,8 @@ export function AllegroOrdersTableToolbarPagination<TData>({
   table,
   pageSizeOptions = [3, 5, 10, 20, 30],
 }: AllegroOrdersTableToolbarPagination1Props<TData>) {
-  const [isPrevPending, startPrevTransition] = useTransition()
-  const [isNextPending, startNextTransition] = useTransition()
+  // const [isPrevPending, startPrevTransition] = useTransition()
+  // const [isNextPending, startNextTransition] = useTransition()
 
   return (
     <div className="flex items-center gap-2">
@@ -57,32 +61,44 @@ export function AllegroOrdersTableToolbarPagination<TData>({
           &nbsp;of {table.getPageCount()} pages
         </Text>
       </div>
-      <div>
+      <div className="flex items-center space-x-2">
         <Button
-          size="icon"
+          aria-label="Go to first page"
           variant="outline"
-          onClick={() => startPrevTransition(table.previousPage)}
-          disabled={!table.getCanPreviousPage() || isPrevPending}
-          className="rounded-l-full rounded-r-none"
+          size="icon"
+          className="hidden lg:flex"
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
         >
-          {isPrevPending ? (
-            <Loader size="20" className="animate-spin" />
-          ) : (
-            <ChevronLeft size="20" />
-          )}
+          <DoubleArrowLeftIcon className="size-4" aria-hidden="true" />
         </Button>
         <Button
-          size="icon"
+          aria-label="Go to previous page"
           variant="outline"
-          onClick={() => startNextTransition(table.nextPage)}
-          disabled={!table.getCanNextPage() || isNextPending}
-          className="rounded-l-none rounded-r-full"
+          size="icon"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
         >
-          {isNextPending ? (
-            <Loader size="20" className="animate-spin" />
-          ) : (
-            <ChevronRight size="20" />
-          )}
+          <ChevronLeftIcon className="size-4" aria-hidden="true" />
+        </Button>
+        <Button
+          aria-label="Go to next page"
+          variant="outline"
+          size="icon"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronRightIcon className="size-4" aria-hidden="true" />
+        </Button>
+        <Button
+          aria-label="Go to last page"
+          variant="outline"
+          size="icon"
+          className="hidden lg:flex"
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <DoubleArrowRightIcon className="size-4" aria-hidden="true" />
         </Button>
       </div>
     </div>
