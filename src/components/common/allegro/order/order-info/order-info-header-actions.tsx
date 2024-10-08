@@ -37,7 +37,7 @@ export function OrderInfoHeaderActions({
   loadingFields,
 }: OrderHeaderActionsProps) {
   const isInvoiceLoading = loadingFields?.includes("invoice")
-  const isShippingLoading = loadingFields?.includes("invoice")
+  const isShippingLoading = loadingFields?.includes("shipping")
 
   const isAllowedAdditionalActions =
     order?.labels?.label_url || order?.labels?.faktura_url

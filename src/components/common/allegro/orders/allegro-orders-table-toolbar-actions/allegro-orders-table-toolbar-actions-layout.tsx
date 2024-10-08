@@ -10,7 +10,7 @@ import { AllegroOrdersTableToolbarInvoicesController } from "@/components/common
 import { AllegroOrdersTableToolbarMail } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-mails"
 import { AllegroOrdersTableToolbarPagination } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pagination"
 import { AllegroOrdersTableToolbarPickpack } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pickpack"
-import { AllegroOrdersTableToolbarPrinters } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-printers"
+import { AllegroOrdersTableToolbarPrintersController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-printers-controller"
 import { AllegroOrdersTableToolbarSelect } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-select"
 import { AllegroOrdersTableToolbarSortBy } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by"
 import { AllegroOrdersTableToolbarSortByStatus } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by-status"
@@ -37,7 +37,7 @@ export function AllegroOrdersTableToolbarActionsLayout<TData>({
             <AllegroOrdersTableToolbarGroups table={table} />
             <AllegroOrdersTableToolbarMail table={table} />
             <AllegroOrdersTableToolbarInvoicesController table={table} />
-            <AllegroOrdersTableToolbarPrinters table={table} />
+            <AllegroOrdersTableToolbarPrintersController table={table} />
           </div>
           <AllegroOrdersTableToolbarDelivery table={table} />
           <AllegroOrdersTableToolbarPickpack table={table} />
