@@ -1,0 +1,121 @@
+"use client"
+
+import * as React from "react"
+import { wait } from "@/utils/wait"
+import { type Row, type Table } from "@tanstack/react-table"
+import { Printer } from "lucide-react"
+import { toast } from "sonner"
+
+import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
+import type { Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { showErrorToast } from "@/lib/handle-error"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+interface AllegroOrdersTableToolbarPrintersProps<TData> {
+  table: Table<TData>
+}
+
+export function AllegroOrdersTableToolbarPrintersController<TData>({
+  table,
+}: AllegroOrdersTableToolbarPrintersProps<TData>) {
+  const selectedRows = table?.getSelectedRowModel()?.rows || []
+  const totalSelectedRows = selectedRows.length
+  const [remainingCount, setRemainingCount] = React.useState(totalSelectedRows)
+
+  const createShippingLabel = async (row: Row<TData>) => {
+    try {
+      const order = row?.original as Order
+      await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
+      toast.info(`Label was sent to print for order ${order?.id}`, {
+        icon: <Printer size="15" />,
+      })
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }
+
+  const handleCreateInvoices = async () => {
+    if (!totalSelectedRows) return
+
+    try {
+      // Update the count at startup
+      setRemainingCount(totalSelectedRows)
+
+      for (const [index, row] of selectedRows.entries()) {
+        await createShippingLabel(row)
+        // Update the balance on completion of creation for each row
+        setRemainingCount((prevCount) => prevCount - 1)
+      }
+
+      toast.success("All labels were sent for printing")
+      table.toggleAllRowsSelected(false)
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger disabled={!totalSelectedRows} asChild>
+        <Button className="relative min-w-[3.1rem]" variant="outline">
+          {remainingCount ? (
+            <>
+              <span className="absolute right-1 top-1 flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-highlight/70 opacity-75"></span>
+                <span className="relative inline-flex size-2 rounded-full bg-highlight"></span>
+              </span>
+              {remainingCount}
+            </>
+          ) : (
+            <Printer size="15" />
+          )}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-fit p-4">
+        <DropdownMenuItem
+          onClick={handleCreateInvoices}
+          className="cursor-pointer"
+        >
+          Shipping Label {totalSelectedRows ? `(${totalSelectedRows})` : null}
+        </DropdownMenuItem>
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  AfterShip [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  BL - ZWROTY [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  BL - ZWROTY EWIDENCJA [HTML]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  BL - ZWROTY TRANSPORT [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  CSV - pozycje zamówienia kopia [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  CSV - zamówienia [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  FV imienne [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="flex cursor-pointer items-center justify-between">*/}
+        {/*  Protokół zwrotu [PDF]*/}
+        {/*  <Printer className="size-4 text-blue-500" />*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  Wadliwy/uszkodzony [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+        {/*<DropdownMenuItem className="cursor-pointer">*/}
+        {/*  Zwrócony na stan [CSV]*/}
+        {/*</DropdownMenuItem>*/}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
