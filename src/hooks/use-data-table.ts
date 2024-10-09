@@ -95,6 +95,7 @@ interface UseDataTableProps<TData>
 const searchParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().optional(),
+  status: z.coerce.string().optional(),
 })
 
 export function useDataTable<TData>({

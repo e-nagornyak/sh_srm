@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
+import { getOrderName } from "@/utils/get-order-name"
 import { OrderStatusIndicatorsController } from "@/utils/order-status-indicators-controller"
 import { type ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns"
@@ -85,12 +86,13 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         <DataTableColumnHeader column={column} title="Name Surname" />
       ),
       cell: ({ row }) => {
-        const buyer = row?.original?.buyer
-        const fullName = `${buyer?.first_name || ""} ${buyer?.last_name || ""}`
+        const order = row?.original
+        const buyer = order?.buyer
         const login = row?.original?.buyer?.login
         const marketplace = row?.original?.marketplace?.slice(0, 2)
         const isAllegro = marketplace?.toLowerCase() === "al"
         const country_codeISO = buyer?.address.country_code?.toLowerCase()
+        const name = getOrderName(order)
 
         return (
           <div className="flex flex-col gap-1">
@@ -101,7 +103,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
                 iso2={country_codeISO}
               />
               <Text className="capitalize" size="xs">
-                {fullName}
+                {name}
               </Text>
             </div>
             <div className="flex items-center gap-1 max-xl:flex-wrap">
