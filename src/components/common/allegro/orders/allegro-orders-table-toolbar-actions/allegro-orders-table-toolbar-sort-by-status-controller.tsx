@@ -7,6 +7,7 @@ import { type Table } from "@tanstack/react-table"
 import {
   AlignJustify,
   Camera,
+  Check,
   CheckCircle,
   ChevronDown,
   ClipboardCheck,
@@ -19,21 +20,26 @@ import {
   Search,
   ShoppingCart,
   Trash,
+  X,
   XCircle,
 } from "lucide-react"
 import { z } from "zod"
 
+import { AllegroOrdersSearchParamsSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { cn } from "@/lib/utils"
 import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Label } from "@/components/ui/label"
 
 // Масиви для пунктів меню
 const deliveryOptions = [
@@ -112,12 +118,6 @@ const statuses = [
   },
 ]
 
-const searchParamsSchema = z.object({
-  page: z.coerce.number().default(1),
-  limit: z.coerce.number().optional(),
-  status: z.coerce.string().optional(),
-})
-
 interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
   table: Table<TData>
 }
@@ -128,16 +128,28 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const search = searchParamsSchema.parse(Object.fromEntries(searchParams))
+  const search = AllegroOrdersSearchParamsSchema.parse(
+    Object.fromEntries(searchParams)
+  )
 
   const { createQueryString } = useQueryString(searchParams)
 
   const [status, setStatus] = useState<string | null>(search?.status || null)
+  const [unpaid, setUnpaid] = useState<string | null>(
+    search?.payment_finished || null
+  )
 
   const handleSetStatus = (selectedStatus: string) => {
     const newStatus = selectedStatus === status ? null : selectedStatus
     setStatus(newStatus)
     const url = `${pathname}?${createQueryString({ page: 1, status: newStatus })}`
+    router.push(url)
+  }
+
+  const handleSetUnpaidFilter = (checked: string) => {
+    const payment_finished = checked === unpaid ? null : checked
+    setUnpaid(payment_finished)
+    const url = `${pathname}?${createQueryString({ page: 1, payment_finished })}`
     router.push(url)
   }
 
@@ -172,7 +184,29 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
-
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Payment</DropdownMenuLabel>
+          <DropdownMenuItem
+            className={cn(
+              "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
+              { "bg-accent": unpaid === "false" }
+            )}
+            onClick={() => handleSetUnpaidFilter("false")}
+          >
+            <X className="size-4 text-red-600" />
+            Unpaid
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className={cn(
+              "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
+              { "bg-accent": unpaid === "true" }
+            )}
+            onClick={() => handleSetUnpaidFilter("true")}
+          >
+            <Check className="size-4 text-green-600" />
+            Paid
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
         {/*/!* Група з варіантами доставки *!/*/}
         {/*<DropdownMenuGroup>*/}
         {/*  {deliveryOptions.map((option, index) => (*/}
