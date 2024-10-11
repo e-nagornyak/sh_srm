@@ -49,7 +49,7 @@ export function AllegroOrdersTableToolbarSortBy<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger disabled className="group" asChild>
         <Button variant="outline">
-          <ArrowUpWideNarrow size="15" />
+          <ArrowUpWideNarrow size="17" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-fit p-4">

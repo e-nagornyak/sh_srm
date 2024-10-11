@@ -174,9 +174,9 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       <DropdownMenuTrigger className="group" asChild>
         <Button variant="outline" className="gap-2">
           {isPending ? (
-            <Loader size="15" className="animate-spin" />
+            <Loader size="17" className="animate-spin" />
           ) : (
-            <AlignJustify size="15" />
+            <AlignJustify size="17" />
           )}
           <ChevronDown
             size="13"

@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Text } from "@/components/ui/text"
 
 interface AllegroOrdersTableToolbarPrintersProps<TData> {
   table: Table<TData>
@@ -33,7 +34,7 @@ export function AllegroOrdersTableToolbarPrintersController<TData>({
       const order = row?.original as Order
       await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
       toast.info(`Label was sent to print for order ${order?.id}`, {
-        icon: <Printer size="15" />,
+        icon: <Printer size="17" />,
       })
     } catch (e) {
       showErrorToast(e)
@@ -63,17 +64,17 @@ export function AllegroOrdersTableToolbarPrintersController<TData>({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger disabled={!totalSelectedRows} asChild>
-        <Button className="relative min-w-[3.1rem]" variant="outline">
+        <Button className="relative min-w-[3.2rem]" variant="outline">
           {remainingCount ? (
             <>
               <span className="absolute right-1 top-1 flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-highlight/70 opacity-75"></span>
                 <span className="relative inline-flex size-2 rounded-full bg-highlight"></span>
               </span>
-              {remainingCount}
+              <Text size="base">{remainingCount}</Text>
             </>
           ) : (
-            <Printer size="15" />
+            <Printer size="17" />
           )}
         </Button>
       </DropdownMenuTrigger>

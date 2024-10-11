@@ -3,18 +3,7 @@
 import * as React from "react"
 import { orderStatuses } from "@/constants/order/order-statuses"
 import { type Table } from "@tanstack/react-table"
-import {
-  ArrowDownAZ,
-  ArrowUpAZ,
-  Camera,
-  CreditCard,
-  Divide,
-  DollarSign,
-  Flag,
-  Plus,
-  Search,
-  Trash,
-} from "lucide-react"
+import { Flag } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -37,7 +26,7 @@ export function AllegroOrdersTableToolbarGroups<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger disabled asChild>
         <Button variant="outline">
-          <Flag size="15" />
+          <Flag size="17" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
