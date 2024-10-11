@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { type Table } from "@tanstack/react-table"
+import { type ColumnFiltersState, type Table } from "@tanstack/react-table"
 import {
   AlignJustify,
   Camera,
@@ -23,23 +23,22 @@ import {
   X,
   XCircle,
 } from "lucide-react"
-import { z } from "zod"
 
 import { AllegroOrdersSearchParamsSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { cn } from "@/lib/utils"
+import { useDebounce } from "@/hooks/use-debounce"
+import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 
 // Масиви для пунктів меню
 const deliveryOptions = [
@@ -125,7 +124,7 @@ interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
 export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   table,
 }: AllegroOrdersTableToolbarSortByStatusProps<TData>) {
-  const router = useRouter()
+  const { isPending, lazyPush } = useLazyRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const search = AllegroOrdersSearchParamsSchema.parse(
@@ -134,30 +133,51 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
 
   const { createQueryString } = useQueryString(searchParams)
 
+  const [open, setOpen] = useState(false)
+
+  const [productName, setProductName] = useState<string | null>(
+    search?.product_name || null
+  )
   const [status, setStatus] = useState<string | null>(search?.status || null)
   const [unpaid, setUnpaid] = useState<string | null>(
     search?.payment_finished || null
   )
 
+  const debouncedProductName = useDebounce(productName, 700)
+
   const handleSetStatus = (selectedStatus: string) => {
     const newStatus = selectedStatus === status ? null : selectedStatus
     setStatus(newStatus)
     const url = `${pathname}?${createQueryString({ page: 1, status: newStatus })}`
-    router.push(url)
+    lazyPush(url)
   }
 
   const handleSetUnpaidFilter = (checked: string) => {
     const payment_finished = checked === unpaid ? null : checked
     setUnpaid(payment_finished)
     const url = `${pathname}?${createQueryString({ page: 1, payment_finished })}`
-    router.push(url)
+    lazyPush(url)
   }
 
+  const handleSetProductName = (product_name: string | null) => {
+    setProductName(product_name)
+    const url = `${pathname}?${createQueryString({ page: 1, product_name: product_name || null })}`
+    lazyPush(url)
+  }
+
+  useEffect(() => {
+    handleSetProductName(debouncedProductName)
+  }, [debouncedProductName])
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className="group" asChild>
         <Button variant="outline" className="gap-2">
-          <AlignJustify size="15" />
+          {isPending ? (
+            <Loader size="15" className="animate-spin" />
+          ) : (
+            <AlignJustify size="15" />
+          )}
           <ChevronDown
             size="13"
             className="group-data-[state=open]:rotate-180"
@@ -166,12 +186,33 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="max-h-96 w-fit overflow-y-auto p-4"
+        className="max-h-96 w-fit space-y-2 overflow-y-auto p-4 sm:min-w-96 md:max-h-[50vh]"
       >
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Product Name</DropdownMenuLabel>
+          <div className="flex items-center gap-2">
+            <Input
+              value={productName || ""}
+              onKeyDown={(e) => {
+                if (e?.key === "Enter") {
+                  setOpen(false)
+                }
+              }}
+              onChange={(e) => setProductName(e?.currentTarget?.value)}
+            />
+            <Button
+              onClick={() => handleSetProductName(null)}
+              variant="outline"
+            >
+              <X className="size-4" />
+            </Button>
+          </div>
+        </DropdownMenuGroup>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Status</DropdownMenuLabel>
           {statuses?.map((option, index) => (
             <DropdownMenuItem
+              textValue={""}
               key={index}
               className={cn(
                 "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
@@ -187,6 +228,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         <DropdownMenuGroup>
           <DropdownMenuLabel>Payment</DropdownMenuLabel>
           <DropdownMenuItem
+            textValue={""}
             className={cn(
               "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
               { "bg-accent": unpaid === "false" }
@@ -197,6 +239,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
             Unpaid
           </DropdownMenuItem>
           <DropdownMenuItem
+            textValue={""}
             className={cn(
               "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
               { "bg-accent": unpaid === "true" }
