@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { wait } from "@/utils/wait"
 import { type Row, type Table } from "@tanstack/react-table"
 import { StickyNote } from "lucide-react"
 import { toast } from "sonner"
@@ -15,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Text } from "@/components/ui/text"
 
 interface AllegroOrdersTableToolbarInvoicesProps<TData> {
   table: Table<TData>
@@ -60,17 +62,17 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger disabled={!totalSelectedRows} asChild>
-        <Button className="relative min-w-[3.1rem]" variant="outline">
+        <Button className="relative min-w-[3.2rem]" variant="outline">
           {remainingCount ? (
             <>
               <span className="absolute right-1 top-1 flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-highlight/70 opacity-75"></span>
                 <span className="relative inline-flex size-2 rounded-full bg-highlight"></span>
               </span>
-              {remainingCount}
+              <Text size="base">{remainingCount}</Text>
             </>
           ) : (
-            <StickyNote size="15" />
+            <StickyNote size="17" />
           )}
         </Button>
       </DropdownMenuTrigger>

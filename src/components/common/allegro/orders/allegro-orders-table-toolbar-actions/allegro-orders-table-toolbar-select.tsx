@@ -66,7 +66,7 @@ export function AllegroOrdersTableToolbarSelect<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger className="group" asChild>
         <Button variant="outline" className="gap-2">
-          <SquareCheck size="15" />
+          <SquareCheck size="17" />
           <ChevronDown
             size="13"
             className="group-data-[state=open]:rotate-180"

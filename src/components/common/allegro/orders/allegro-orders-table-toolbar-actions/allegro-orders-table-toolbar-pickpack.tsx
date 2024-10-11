@@ -32,7 +32,7 @@ export function AllegroOrdersTableToolbarPickpack<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger disabled className="group" asChild>
         <Button variant="outline" className="gap-2">
-          <BaggageClaim size="15" />
+          <BaggageClaim size="17" />
           <ChevronDown
             size="13"
             className="group-data-[state=open]:rotate-180"
@@ -43,11 +43,11 @@ export function AllegroOrdersTableToolbarPickpack<TData>({
         <DropdownMenuGroup>
           <DropdownMenuLabel>PICKPACK ASSISTANT</DropdownMenuLabel>
           <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-            <ClipboardList size="15" />
+            <ClipboardList size="17" />
             Pick products
           </DropdownMenuItem>
           <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-            <Box size="15" />
+            <Box size="17" />
             Pack
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -55,7 +55,7 @@ export function AllegroOrdersTableToolbarPickpack<TData>({
         <DropdownMenuGroup>
           <DropdownMenuLabel>MATCH AND SELECT ORDERS</DropdownMenuLabel>
           <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-            <ClipboardList size="15" />
+            <ClipboardList size="17" />
             For collecting
           </DropdownMenuItem>
           <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
@@ -67,7 +67,7 @@ export function AllegroOrdersTableToolbarPickpack<TData>({
         <DropdownMenuGroup>
           <DropdownMenuLabel>BARCODE SCANNER</DropdownMenuLabel>
           <DropdownMenuItem className="flex cursor-pointer items-center gap-2">
-            <ScanBarcode size="15" />
+            <ScanBarcode size="17" />
             Scanner settings
           </DropdownMenuItem>
         </DropdownMenuGroup>

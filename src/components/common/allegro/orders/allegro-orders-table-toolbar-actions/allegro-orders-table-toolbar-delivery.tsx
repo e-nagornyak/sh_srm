@@ -15,7 +15,7 @@ export function AllegroOrdersTableToolbarDelivery<TData>({
 }: TasksTableToolbarActionsDeliveryProps<TData>) {
   return (
     <Button disabled variant="outline">
-      <Truck size="15" />
+      <Truck size="17" />
     </Button>
   )
 }

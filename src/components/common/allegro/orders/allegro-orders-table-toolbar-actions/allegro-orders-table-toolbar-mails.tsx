@@ -2,18 +2,7 @@
 
 import * as React from "react"
 import { type Table } from "@tanstack/react-table"
-import {
-  ArrowDownAZ,
-  ArrowUpAZ,
-  Camera,
-  CreditCard,
-  Divide,
-  DollarSign,
-  Mail,
-  Plus,
-  Search,
-  Trash,
-} from "lucide-react"
+import { Mail } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -36,7 +25,7 @@ export function AllegroOrdersTableToolbarMail<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger disabled asChild>
         <Button variant="outline">
-          <Mail size="15" />
+          <Mail size="17" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-fit p-4">

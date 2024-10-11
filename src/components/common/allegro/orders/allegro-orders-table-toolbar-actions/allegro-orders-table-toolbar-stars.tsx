@@ -32,7 +32,7 @@ export function AllegroOrdersTableToolbarStars<TData>({
     <DropdownMenu>
       <DropdownMenuTrigger disabled className="group" asChild>
         <Button variant="outline" className="gap-2">
-          <Star size="15" />
+          <Star size="17" />
           <ChevronDown
             size="13"
             className="group-data-[state=open]:rotate-180"
