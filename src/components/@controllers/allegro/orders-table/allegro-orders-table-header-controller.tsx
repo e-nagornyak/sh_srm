@@ -49,7 +49,7 @@ export function AllegroOrdersTableHeaderController(
   const { createQueryString } = useQueryString(searchParams)
 
   const handleSubmitForm = (data: AllegroOrdersSchema) => {
-    const queryString = createQueryString(data)
+    const queryString = createQueryString({ ...data, page: 1 })
     const url = `${pathname}?${queryString}`
     lazyPush(url)
   }

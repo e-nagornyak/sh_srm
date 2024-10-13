@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import {
   getCoreRowModel,
@@ -126,6 +127,10 @@ export function useDataTable<TData>({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex, pageSize, method, scroll])
+
+  useEffect(() => {
+    setPagination({ pageIndex: page - 1, pageSize: limit })
+  }, [page, limit])
 
   const [mounted, setMounted] = React.useState(false)
 
