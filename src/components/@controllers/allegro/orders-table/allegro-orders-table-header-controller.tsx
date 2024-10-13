@@ -56,9 +56,6 @@ export function AllegroOrdersTableHeaderController(
 
   const handleReset = () => {
     lazyPush(`${pathname}?page=1&limit=10`)
-    setFilter({
-      ...filter,
-    })
   }
 
   useEffectAfterMount(() => {

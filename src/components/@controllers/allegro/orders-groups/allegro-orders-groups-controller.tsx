@@ -1,37 +1,24 @@
 "use client"
 
 import * as React from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import {
   orderFilterStatuses,
   type OrderStatusKeys,
 } from "@/constants/order/order-statuses-new"
 import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
-import {
-  CirclePlus,
-  List,
-  Loader,
-  Plus,
-  RefreshCcw,
-  Trash,
-  WalletCards,
-} from "lucide-react"
-import { useMemo } from "types-react"
+import { CirclePlus, Loader, WalletCards } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
-import { cn } from "@/lib/utils"
-import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { useLazyRouterWithTag } from "@/hooks/use-lazy-router-with-tag"
 import { useQueryString } from "@/hooks/use-query-string"
 import {
-  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 import { Text } from "@/components/ui/text"
 

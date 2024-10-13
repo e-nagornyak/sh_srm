@@ -69,6 +69,7 @@ export function AllegroOrdersTableHeaderFilterForm({
   } = form
 
   const resetHandler = () => {
+    onReset()
     reset({
       last_update_from: null,
       last_update_to: null,
@@ -82,7 +83,6 @@ export function AllegroOrdersTableHeaderFilterForm({
       product_name: null,
       status: null,
     })
-    onReset()
   }
 
   const onSubmitHandler = (data: AllegroOrdersSchema) => {
