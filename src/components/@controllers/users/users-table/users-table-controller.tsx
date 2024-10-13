@@ -1,10 +1,8 @@
 "use client"
-"use memo"
 
 import * as React from "react"
 
 import { type getAllUsers } from "@/lib/api/user/all-users-query"
-import { type UsersSearchParamsSchema } from "@/lib/api/user/all-users-search-params"
 import { useDataTable } from "@/hooks/use-data-table"
 import { DataTable } from "@/components/common/data-table/data-table"
 import { AllUsersTableToolbarActions } from "@/components/common/users/all-users-table/all-users-table-toolbar-actions"

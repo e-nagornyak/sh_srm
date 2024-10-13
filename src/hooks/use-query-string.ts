@@ -1,6 +1,6 @@
 import * as React from "react"
 
-type QueryParams = Record<string, string | number | null>
+type QueryParams = Record<string, string | number | null | boolean>
 
 export function useQueryString(searchParams: URLSearchParams) {
   const createQueryString = React.useCallback(

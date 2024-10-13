@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { useEffect, useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { type ColumnFiltersState, type Table } from "@tanstack/react-table"
+import { useState } from "react"
+import { usePathname, useSearchParams } from "next/navigation"
+import { type Table } from "@tanstack/react-table"
 import {
   AlignJustify,
   Camera,
@@ -17,6 +17,7 @@ import {
   Loader,
   Package,
   Plus,
+  RefreshCcw,
   Search,
   ShoppingCart,
   Trash,
@@ -24,9 +25,14 @@ import {
   XCircle,
 } from "lucide-react"
 
-import { AllegroOrdersSearchParamsSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
+import { type OrderStatusKeys } from "@/lib/api/allegro/orders/allegro-orders-enums"
+import {
+  AllegroOrdersSearchParamsSchema,
+  type AllegroOrdersSchema,
+} from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { cn } from "@/lib/utils"
 import { useDebounce } from "@/hooks/use-debounce"
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
@@ -78,42 +84,47 @@ const allegroOptions = [
   { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
 ]
 
-const statuses = [
+const statuses: {
+  key: OrderStatusKeys
+  color: string
+  label: string
+  icon: React.ReactNode
+}[] = [
   {
     key: "BOUGHT",
-    color: "bg-gray-500", // Сірий фон
+    color: "bg-gray-500",
     label: "Order Created",
-    icon: <ShoppingCart />, // Іконка для статусу BOUGHT
+    icon: <ShoppingCart />,
   },
   {
     key: "FILLED_IN",
-    color: "bg-yellow-500", // Жовтий фон
+    color: "bg-yellow-500",
     label: "Order Filled In",
-    icon: <ClipboardCheck />, // Іконка для статусу FILLED_IN
+    icon: <ClipboardCheck />,
   },
   {
     key: "READY_FOR_PROCESSING",
-    color: "bg-green-500", // Зелений фон
+    color: "bg-green-500",
     label: "Ready for Processing",
-    icon: <CheckCircle />, // Іконка для статусу READY_FOR_PROCESSING
+    icon: <CheckCircle />,
   },
   {
     key: "PROCESSING",
-    color: "bg-blue-500", // Синій фон
+    color: "bg-blue-500",
     label: "Processing",
-    icon: <Loader />, // Іконка для статусу PROCESSING
+    icon: <Loader />,
   },
   {
     key: "COMPLETED",
-    color: "bg-purple-500", // Фіолетовий фон
+    color: "bg-purple-500",
     label: "Completed",
-    icon: <Package />, // Іконка для статусу COMPLETED
+    icon: <Package />,
   },
   {
     key: "CANCELLED",
-    color: "bg-red-500", // Червоний фон
+    color: "bg-red-500",
     label: "Cancelled",
-    icon: <XCircle />, // Іконка для статусу CANCELLED
+    icon: <XCircle />,
   },
 ]
 
@@ -135,38 +146,53 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
 
   const [open, setOpen] = useState(false)
 
+  const [filters, setFilters] = useState<Partial<AllegroOrdersSchema>>(search)
   const [productName, setProductName] = useState<string | null>(
     search?.product_name || null
   )
-  const [status, setStatus] = useState<string | null>(search?.status || null)
-  const [unpaid, setUnpaid] = useState<string | null>(
-    search?.payment_finished || null
-  )
+  const debouncedProductName = useDebounce(productName, 500)
 
-  const debouncedProductName = useDebounce(productName, 700)
-
-  const handleSetStatus = (selectedStatus: string) => {
-    const newStatus = selectedStatus === status ? null : selectedStatus
-    setStatus(newStatus)
-    const url = `${pathname}?${createQueryString({ page: 1, status: newStatus })}`
+  const handleFilter = (filter: Partial<AllegroOrdersSchema>) => {
+    const queryString = createQueryString(filter)
+    setFilters(filter)
+    const url = `${pathname}?${queryString}`
     lazyPush(url)
   }
 
-  const handleSetUnpaidFilter = (checked: string) => {
-    const payment_finished = checked === unpaid ? null : checked
-    setUnpaid(payment_finished)
-    const url = `${pathname}?${createQueryString({ page: 1, payment_finished })}`
-    lazyPush(url)
+  const checkIfFilterExist = (filter: Partial<AllegroOrdersSchema>) => {
+    const key = Object.keys(filter)?.[0] as keyof AllegroOrdersSchema
+    const value = Object.values(filter)?.[0]
+
+    const isExist = Boolean(key && filters?.[key] === value)
+
+    const newFilters = isExist
+      ? { ...filters, [key]: null }
+      : { ...filters, ...filter }
+    handleFilter(newFilters)
   }
 
-  const handleSetProductName = (product_name: string | null) => {
-    setProductName(product_name)
-    const url = `${pathname}?${createQueryString({ page: 1, product_name: product_name || null })}`
-    lazyPush(url)
+  const handleResetFilter = () => {
+    handleFilter(
+      Object.keys(filters).reduce(
+        (acc, key) => {
+          if (key === "limit" || key === "page") {
+            acc[key] = filters[key]
+          } else {
+            // @ts-ignore
+            acc[key] = null
+          }
+          return acc
+        },
+        {} as typeof filters
+      )
+    )
   }
 
-  useEffect(() => {
-    handleSetProductName(debouncedProductName)
+  useEffectAfterMount(() => {
+    handleFilter({
+      ...filters,
+      product_name: debouncedProductName,
+    })
   }, [debouncedProductName])
 
   return (
@@ -186,8 +212,16 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="max-h-96 w-fit space-y-2 overflow-y-auto p-4 sm:min-w-96 md:max-h-[50vh]"
+        className="relative max-h-96 w-fit space-y-2 overflow-y-auto p-4 sm:min-w-96 md:max-h-[50vh]"
       >
+        <Button
+          onClick={handleResetFilter}
+          className="fixed right-3 top-2 z-10"
+          variant="ghost"
+          size="sm"
+        >
+          Reset <RefreshCcw size="15" />
+        </Button>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Product Name</DropdownMenuLabel>
           <div className="flex items-center gap-2">
@@ -201,7 +235,8 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
               onChange={(e) => setProductName(e?.currentTarget?.value)}
             />
             <Button
-              onClick={() => handleSetProductName(null)}
+              disabled={!productName}
+              onClick={() => setProductName(null)}
               variant="outline"
             >
               <X className="size-4" />
@@ -216,9 +251,9 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
               key={index}
               className={cn(
                 "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-                { "bg-accent": status === option?.key }
+                { "bg-accent": filters?.status === option?.key }
               )}
-              onClick={() => handleSetStatus(option?.key)}
+              onClick={() => checkIfFilterExist({ status: option?.key })}
             >
               {option?.icon}
               {option.label}
@@ -231,9 +266,9 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
             textValue={""}
             className={cn(
               "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-              { "bg-accent": unpaid === "false" }
+              { "bg-accent": filters?.payment_finished?.toString() === "false" }
             )}
-            onClick={() => handleSetUnpaidFilter("false")}
+            onClick={() => checkIfFilterExist({ payment_finished: false })}
           >
             <X className="size-4 text-red-600" />
             Unpaid
@@ -242,9 +277,9 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
             textValue={""}
             className={cn(
               "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-              { "bg-accent": unpaid === "true" }
+              { "bg-accent": filters?.payment_finished?.toString() === "true" }
             )}
-            onClick={() => handleSetUnpaidFilter("true")}
+            onClick={() => checkIfFilterExist({ payment_finished: true })}
           >
             <Check className="size-4 text-green-600" />
             Paid
@@ -262,7 +297,6 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         {/*    </DropdownMenuItem>*/}
         {/*  ))}*/}
         {/*</DropdownMenuGroup>*/}
-
         {/*/!* Базові дії *!/*/}
         {/*<DropdownMenuGroup>*/}
         {/*  <DropdownMenuLabel>BASIC</DropdownMenuLabel>*/}
@@ -276,7 +310,6 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         {/*    </DropdownMenuItem>*/}
         {/*  ))}*/}
         {/*</DropdownMenuGroup>*/}
-
         {/*/!* Дії Allegro *!/*/}
         {/*<DropdownMenuGroup>*/}
         {/*  <DropdownMenuLabel>ALLEGRO</DropdownMenuLabel>*/}

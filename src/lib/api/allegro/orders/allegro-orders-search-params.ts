@@ -1,14 +1,24 @@
 import * as z from "zod"
 
+import { OrderStatusEnum } from "@/lib/api/allegro/orders/allegro-orders-enums"
+
 export const AllegroOrdersSearchParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().optional(),
-  status: z.coerce.string().optional(),
-  product_name: z.coerce.string().optional(),
-  payment_finished: z.union([
-    z.enum(["false", "true"]),
-    z.coerce.string().optional(),
-  ]),
+  status: z.nativeEnum(OrderStatusEnum).optional(),
+  product_name: z.coerce.string().optional().nullable(),
+  delivery_address_country_code: z.string().optional(),
+  delivery_method: z.string().optional(),
+  labels_factura: z.boolean().optional(),
+  labels_shipment: z.boolean().optional(),
+  last_update_from: z.string().optional(),
+  last_update_to: z.string().optional(),
+  order_id: z.string().optional(),
+  ordering: z.string().optional(),
+  payment_finished: z
+    .string()
+    .transform((val) => val === "true")
+    .optional(),
 })
 
 export type AllegroOrdersSchema = z.infer<

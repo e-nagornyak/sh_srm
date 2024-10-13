@@ -1,10 +1,10 @@
 "use client"
-"use memo"
 
 import * as React from "react"
 
 import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
+import { AllegroOrdersTableHeaderController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-controller"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
 import {
   ActionFiltersTopBarId,
@@ -30,7 +30,6 @@ export function AllegroOrdersTableController({
     columns,
     pageCount: total_pages,
     /* optional props */
-    // filterFields,
     initialState: {
       columnSizing: {},
       // columnPinning: { right: ["actions", "updated_at"], left: ["select"] },
@@ -46,6 +45,7 @@ export function AllegroOrdersTableController({
       footer={<AllegroOrdersTableToolbarActionsFooter table={table} />}
       table={table}
     >
+      <AllegroOrdersTableHeaderController />
       <AllegroOrdersTableToolbarActionsLayout
         id={ActionFiltersTopBarId}
         table={table}
