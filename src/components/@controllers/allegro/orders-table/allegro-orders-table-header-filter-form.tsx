@@ -7,23 +7,12 @@ import {
 } from "@/constants/order/orders-search-params"
 import { countryList, type CountryType } from "@/constants/shared/countries"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { PopoverClose } from "@radix-ui/react-popover"
 import dayjs from "dayjs"
 import { useForm, type SubmitHandler } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { CommandItem } from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -34,7 +23,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { DatePicker } from "@/components/shared/date-range-picker"
-import { InputWithCommandDropdown } from "@/components/shared/input-with-command-dropdown"
+import { InputWithCommand } from "@/components/shared/input-with-command-dropdown"
 
 interface AllegroOrdersTableHeaderFilterPanelProps {
   onSubmit: SubmitHandler<AllegroOrdersSchema>
@@ -82,35 +71,25 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Status</FormLabel>
                 <FormControl>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="block w-full focus-visible:outline-none">
-                      <Input
-                        readOnly
-                        value={value}
-                        placeholder="Status"
-                        {...field}
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-[var(--radix-popper-anchor-width)]">
-                      <Command>
-                        <CommandInput autoFocus />
-                        <CommandList>
-                          <CommandEmpty>No results found.</CommandEmpty>
-                          {memoizedStatuses?.map((status) => (
-                            <CommandItem key={status?.key} onSelect={onChange}>
-                              <DropdownMenuItem
-                                textValue={""}
-                                className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
-                              >
-                                {status?.icon}
-                                {status?.label}
-                              </DropdownMenuItem>
-                            </CommandItem>
-                          ))}
-                        </CommandList>
-                      </Command>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <InputWithCommand
+                    inputProps={{
+                      value,
+                      placeholder: "Status",
+                      ...field,
+                    }}
+                    content={memoizedStatuses?.map((status) => (
+                      <CommandItem
+                        key={status?.key}
+                        onSelect={onChange}
+                        className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
+                      >
+                        <PopoverClose className="w-full text-start">
+                          {status?.icon}
+                          {status?.label}
+                        </PopoverClose>
+                      </CommandItem>
+                    ))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -199,35 +178,25 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Delivery Method</FormLabel>
                 <FormControl>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="block w-full focus-visible:outline-none">
-                      <Input
-                        readOnly
-                        value={value}
-                        placeholder="Delivery Method"
-                        className="truncate"
-                        {...field}
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-[var(--radix-popper-anchor-width)]">
-                      <Command>
-                        <CommandInput autoFocus />
-                        <CommandList>
-                          <CommandEmpty>No results found.</CommandEmpty>
-                          {memoizedDeliveryMethods?.map((method) => (
-                            <CommandItem key={method?.key} onSelect={onChange}>
-                              <DropdownMenuItem
-                                textValue={""}
-                                className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
-                              >
-                                {method?.label}
-                              </DropdownMenuItem>
-                            </CommandItem>
-                          ))}
-                        </CommandList>
-                      </Command>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <InputWithCommand
+                    inputProps={{
+                      value,
+                      placeholder: "Delivery Method",
+                      ...field,
+                    }}
+                    content={memoizedDeliveryMethods?.map((method) => (
+                      <CommandItem
+                        key={method?.key}
+                        value={method?.label}
+                        onSelect={onChange}
+                        className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
+                      >
+                        <PopoverClose className="w-full text-start">
+                          {method?.label}
+                        </PopoverClose>
+                      </CommandItem>
+                    ))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -241,38 +210,24 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Delivery Address Country</FormLabel>
                 <FormControl>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="block w-full focus-visible:outline-none">
-                      <Input
-                        readOnly
-                        value={value}
-                        placeholder="Delivery address country "
-                        className="truncate"
-                        {...field}
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-[var(--radix-popper-anchor-width)]">
-                      <Command>
-                        <CommandInput autoFocus />
-                        <CommandList>
-                          <CommandEmpty>No results found.</CommandEmpty>
-                          {memoizedCountries?.map((country) => (
-                            <CommandItem
-                              key={country?.code}
-                              onSelect={onChange}
-                            >
-                              <DropdownMenuItem
-                                textValue={""}
-                                className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
-                              >
-                                {country?.label}
-                              </DropdownMenuItem>
-                            </CommandItem>
-                          ))}
-                        </CommandList>
-                      </Command>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <InputWithCommand
+                    inputProps={{
+                      value,
+                      placeholder: "Delivery Address Country",
+                      ...field,
+                    }}
+                    content={memoizedCountries?.map((country) => (
+                      <CommandItem
+                        key={country?.code}
+                        onSelect={onChange}
+                        className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
+                      >
+                        <PopoverClose className="w-full text-start">
+                          {country?.label}
+                        </PopoverClose>
+                      </CommandItem>
+                    ))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -1,50 +1,51 @@
-import React, { useRef } from "react"
+import React, { useState } from "react"
 
+import { cn } from "@/lib/utils"
 import {
   Command,
   CommandEmpty,
   CommandInput,
-  CommandItem,
   CommandList,
 } from "@/components/ui/command"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { type InputProps } from "@/components/ui/input"
+import { Input, type InputProps } from "@/components/ui/input"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-interface InputWithCommandDropdownProps {
+interface InputWithCommandProps {
   inputProps: InputProps
   content: React.ReactNode
-  onSelect?: ((value: string) => void) | undefined
 }
 
-export function InputWithCommandDropdown({
+export function InputWithCommand({
   inputProps,
   content,
-  onSelect,
-}: any) {
-  const bla = useRef<HTMLInputElement>(null)
+}: InputWithCommandProps) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Popover>
-      <PopoverTrigger>Open</PopoverTrigger>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger className="w-full focus-visible:outline-none">
+        <Input
+          readOnly
+          {...inputProps}
+          className={cn("w-full truncate text-start", inputProps?.className)}
+        />
+      </PopoverTrigger>
       <PopoverContent>
-        <Command>
+        <Command
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setOpen(false)
+            }
+          }}
+        >
           <CommandInput autoFocus />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            {memoizedDeliveryMethods?.map((method) => (
-              <CommandItem key={method?.key} onSelect={onChange}>
-                <DropdownMenuItem
-                  textValue={""}
-                  className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
-                >
-                  {method?.label}
-                </DropdownMenuItem>
-              </CommandItem>
-            ))}
+            {content}
           </CommandList>
         </Command>
       </PopoverContent>
