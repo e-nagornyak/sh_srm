@@ -11,7 +11,12 @@ export const AllegroOrdersSearchParamsSchema = z.object({
   last_update_from: z.string().nullable().optional(),
   last_update_to: z.string().nullable().optional(),
   order_id: z.string().optional().nullable(),
-  ordering: z.string().optional().nullable(),
+  ordering: z
+    .union([
+      z.enum(["-bought_at", "bought_at"]),
+      z.string().optional().nullable(),
+    ])
+    .default("-bought_at"),
   payment_finished: z.union([
     z.enum(["false", "true"]),
     z.string().optional().nullable(),

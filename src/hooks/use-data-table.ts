@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import {
   getCoreRowModel,
@@ -13,11 +12,11 @@ import {
   useReactTable,
   type PaginationState,
   type TableOptions,
-  type TableState,
   type VisibilityState,
 } from "@tanstack/react-table"
 import { z } from "zod"
 
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { useQueryString } from "@/hooks/use-query-string"
 
 interface UseDataTableProps<TData>
@@ -51,20 +50,11 @@ interface UseDataTableProps<TData>
    *
    */
   startTransition?: React.TransitionStartFunction
-
-  // Extend to make the sorting id typesafe
-  initialState?: Omit<Partial<TableState>, "sorting"> & {
-    sorting?: {
-      id: Extract<keyof TData, string>
-      desc: boolean
-    }[]
-  }
 }
 
 const searchParamsSchema = z.object({
   page: z.coerce.number().default(1),
-  limit: z.coerce.number().optional(),
-  status: z.coerce.string().optional(),
+  limit: z.coerce.number().optional().default(10),
 })
 
 export function useDataTable<TData>({
@@ -128,7 +118,7 @@ export function useDataTable<TData>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex, pageSize, method, scroll])
 
-  useEffect(() => {
+  useEffectAfterMount(() => {
     setPagination({ pageIndex: page - 1, pageSize: limit })
   }, [page, limit])
 

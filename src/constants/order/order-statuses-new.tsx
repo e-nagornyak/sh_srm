@@ -29,37 +29,37 @@ const orderFilterStatuses: {
 } = {
   BOUGHT: {
     key: "BOUGHT",
-    color: "bg-gray-500",
+    color: "bg-gray-600",
     label: "Order Created",
     icon: <ShoppingCart />,
   },
   FILLED_IN: {
     key: "FILLED_IN",
-    color: "bg-yellow-500",
+    color: "bg-yellow-600",
     label: "Order Filled In",
     icon: <ClipboardCheck />,
   },
   READY_FOR_PROCESSING: {
     key: "READY_FOR_PROCESSING",
-    color: "bg-green-500",
+    color: "bg-green-600",
     label: "Ready for Processing",
     icon: <CheckCircle />,
   },
   PROCESSING: {
     key: "PROCESSING",
-    color: "bg-blue-500",
+    color: "bg-blue-600",
     label: "Processing",
     icon: <Loader />,
   },
   COMPLETED: {
     key: "COMPLETED",
-    color: "bg-purple-500",
+    color: "bg-purple-600",
     label: "Completed",
     icon: <Package />,
   },
   CANCELLED: {
     key: "CANCELLED",
-    color: "bg-red-500",
+    color: "bg-red-600",
     label: "Cancelled",
     icon: <XCircle />,
   },
