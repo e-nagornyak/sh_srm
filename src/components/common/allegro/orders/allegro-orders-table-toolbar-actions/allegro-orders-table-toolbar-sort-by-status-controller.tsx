@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
 import {
@@ -106,6 +106,11 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   )
   const debouncedProductName = useDebounce(productName, 500)
 
+  const memoizedStatuses = React.useMemo(
+    () => Object.values(orderFilterStatuses),
+    []
+  )
+
   const handleFilter = useCallback(
     (filter: AllegroOrdersSchema) => {
       const queryString = createQueryString(filter)
@@ -136,8 +141,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       if (key === "limit" || key === "page") {
         acc[key] = filters[key]
       } else {
-        // @ts-ignore
-        acc[key] = null
+        acc[key as keyof AllegroOrdersSchema] = null as any
       }
       return acc
     }, {} as Partial<AllegroOrdersSchema>)
@@ -151,6 +155,10 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       product_name: debouncedProductName,
     })
   }, [debouncedProductName])
+
+  useEffectAfterMount(() => {
+    setFilters(search)
+  }, [search])
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -202,7 +210,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         </DropdownMenuGroup>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Status</DropdownMenuLabel>
-          {orderFilterStatuses?.map((option, index) => (
+          {memoizedStatuses?.map((option, index) => (
             <DropdownMenuItem
               textValue={""}
               key={index}
@@ -221,22 +229,20 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
           <DropdownMenuLabel>Payment</DropdownMenuLabel>
           <DropdownMenuItem
             textValue={""}
-            className={cn(
-              "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-              { "bg-accent": filters?.payment_finished?.toString() === "false" }
-            )}
-            onClick={() => checkIfFilterExist({ payment_finished: false })}
+            className={cn("flex cursor-pointer items-center gap-2", {
+              "bg-accent": filters?.payment_finished === "false",
+            })}
+            onClick={() => checkIfFilterExist({ payment_finished: "false" })}
           >
             <X className="size-4 text-red-600" />
             Unpaid
           </DropdownMenuItem>
           <DropdownMenuItem
             textValue={""}
-            className={cn(
-              "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-              { "bg-accent": filters?.payment_finished?.toString() === "true" }
-            )}
-            onClick={() => checkIfFilterExist({ payment_finished: true })}
+            className={cn("flex cursor-pointer items-center gap-2", {
+              "bg-accent": filters?.payment_finished === "true",
+            })}
+            onClick={() => checkIfFilterExist({ payment_finished: "true" })}
           >
             <Check className="size-4 text-green-600" />
             Paid

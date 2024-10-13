@@ -1,19 +1,30 @@
 "use client"
 
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useMemo, useState } from "react"
+import dynamic from "next/dynamic"
 import { usePathname, useSearchParams } from "next/navigation"
 import {
   AllegroOrdersSearchParamsSchema,
   type AllegroOrdersSchema,
 } from "@/constants/order/orders-search-params"
-import { Filter } from "lucide-react"
+import { Filter, FilterX } from "lucide-react"
 
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Title } from "@/components/ui/title"
-import { AllegroOrdersTableHeaderFilterForm } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-filter-form"
+
+const AllegroOrdersTableHeaderFilterForm = dynamic(
+  () =>
+    import(
+      "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-filter-form"
+    ).then((mod) => mod.AllegroOrdersTableHeaderFilterForm),
+  {
+    loading: () => <Skeleton className="h-64 w-full" />,
+  }
+)
 
 interface AllegroOrdersTableHeaderControllerProps {}
 
@@ -21,6 +32,8 @@ export function AllegroOrdersTableHeaderController(
   props: AllegroOrdersTableHeaderControllerProps
 ) {
   const { isPending, lazyPush } = useLazyRouter()
+  const [open, setOpen] = useState(false)
+
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
@@ -32,17 +45,11 @@ export function AllegroOrdersTableHeaderController(
 
   const { createQueryString } = useQueryString(searchParams)
 
-  const [filters, setFilters] = useState<AllegroOrdersSchema>(search)
-
-  const handleFilter = useCallback(
-    (filter: AllegroOrdersSchema) => {
-      const queryString = createQueryString(filter)
-      setFilters(filter)
-      const url = `${pathname}?${queryString}`
-      lazyPush(url)
-    },
-    [createQueryString, lazyPush, pathname]
-  )
+  const handleSubmitForm = (data: AllegroOrdersSchema) => {
+    const queryString = createQueryString(data)
+    const url = `${pathname}?${queryString}`
+    lazyPush(url)
+  }
 
   return (
     <Card className="sticky top-0 w-full">
@@ -50,14 +57,19 @@ export function AllegroOrdersTableHeaderController(
         <Title leading="none" weight="semibold" size="md">
           All orders
         </Title>
-        <Button variant="outline">
-          <Filter size="17" />
+        <Button onClick={() => setOpen(!open)} variant="outline">
+          {open ? <FilterX size="17" /> : <Filter size="17" />}
           Filter
         </Button>
       </CardContent>
-      <CardFooter>
-        <AllegroOrdersTableHeaderFilterForm />
-      </CardFooter>
+      {open && (
+        <CardFooter className="animate-in slide-in-from-top-2">
+          <AllegroOrdersTableHeaderFilterForm
+            onSubmit={handleSubmitForm}
+            defaultValues={search}
+          />
+        </CardFooter>
+      )}
     </Card>
   )
 }

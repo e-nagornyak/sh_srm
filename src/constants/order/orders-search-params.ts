@@ -8,16 +8,13 @@ export const AllegroOrdersSearchParamsSchema = z.object({
   product_name: z.coerce.string().optional().nullable(),
   delivery_address_country_code: z.string().optional(),
   delivery_method: z.string().optional(),
-  labels_factura: z.boolean().optional(),
-  labels_shipment: z.boolean().optional(),
   last_update_from: z.string().nullable().optional(),
   last_update_to: z.string().nullable().optional(),
   order_id: z.string().optional(),
   ordering: z.string().optional(),
-  payment_finished: z
-    .string()
-    .transform((val) => val === "true")
-    .optional(),
+  payment_finished: z.union([z.enum(["false", "true"]), z.string().optional()]),
+  labels_shipment: z.union([z.enum(["false", "true"]), z.string().optional()]),
+  labels_factura: z.union([z.enum(["false", "true"]), z.string().optional()]),
 })
 
 export type AllegroOrdersSchema = z.infer<
