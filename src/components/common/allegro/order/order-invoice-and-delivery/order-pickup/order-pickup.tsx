@@ -3,7 +3,7 @@ import dynamic from "next/dynamic"
 import { Pen } from "lucide-react"
 import type { SubmitHandler } from "react-hook-form"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { type OrderPickupFormData } from "@/lib/validations/order/order-pickup"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"

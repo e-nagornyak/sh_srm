@@ -1,0 +1,221 @@
+// Define the enum with delivery methods
+const OrderDeliveryMethodsEnum = {
+  ALLEGRO_KURIER_POCZTEX: "ALLEGRO_KURIER_POCZTEX",
+  ALLEGRO_ODBIOR_W_PUNKCIE_POCZTEX: "ALLEGRO_ODBIOR_W_PUNKCIE_POCZTEX",
+  ALLEGRO_AUTOMAT_DHL_BOX_24_7: "ALLEGRO_AUTOMAT_DHL_BOX_24_7",
+  ALLEGRO_AUTOMATY_PACZKOWE_DPD_CZECHY: "ALLEGRO_AUTOMATY_PACZKOWE_DPD_CZECHY",
+  ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_CZECHY:
+    "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_CZECHY",
+  ALLEGRO_KURIER_DHL_SLOWACJA: "ALLEGRO_KURIER_DHL_SLOWACJA",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA_POBRANIE:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA_POBRANIE",
+  ALLEGRO_KURIER_DPD: "ALLEGRO_KURIER_DPD",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_ODBIOR_W_PUNKCIE_PACKETA:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_ODBIOR_W_PUNKCIE_PACKETA",
+  KURIER_INPOST_POBRANIE: "KURIER_INPOST_POBRANIE",
+  ALLEGRO_MINIPRZESYLKA: "ALLEGRO_MINIPRZESYLKA",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_AUTOMATY_PACZKOWE_PACKETA:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_AUTOMATY_PACZKOWE_PACKETA",
+  ALLEGRO_INTERNATIONAL_KURIER_CZECHY_INPOST:
+    "ALLEGRO_INTERNATIONAL_KURIER_CZECHY_INPOST",
+  ALLEGRO_KURIER24_INPOST: "ALLEGRO_KURIER24_INPOST",
+  ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_POBRANIE_INPOST:
+    "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_POBRANIE_INPOST",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA",
+  ALLEGRO_ODBIOR_W_PUNKCIE_DHL: "ALLEGRO_ODBIOR_W_PUNKCIE_DHL",
+  ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_SLOWACJA:
+    "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_SLOWACJA",
+  ALLEGRO_ODBIOR_W_PUNKCIE_ORLEN_PACZKA:
+    "ALLEGRO_ODBIOR_W_PUNKCIE_ORLEN_PACZKA",
+  ALLEGRO_PRZESYLKA_POLECONA: "ALLEGRO_PRZESYLKA_POLECONA",
+  ALLEGRO_KURIER_DPD_SLOWACJA_POBRANIE: "ALLEGRO_KURIER_DPD_SLOWACJA_POBRANIE",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA_POBRANIE:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA_POBRANIE",
+  ALLEGRO_ONE_BOX_DPD: "ALLEGRO_ONE_BOX_DPD",
+  ALLEGRO_AUTOMAT_ORLEN_PACZKA: "ALLEGRO_AUTOMAT_ORLEN_PACZKA",
+  KURIER_DPD_POBRANIE: "KURIER_DPD_POBRANIE",
+  ALLEGRO_KURIER_UPS_SLOWACJA_POBRANIE: "ALLEGRO_KURIER_UPS_SLOWACJA_POBRANIE",
+  ALLEGRO_KURIER_DHL_SLOWACJA_POBRANIE: "ALLEGRO_KURIER_DHL_SLOWACJA_POBRANIE",
+  ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_INPOST:
+    "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_INPOST",
+  ALLEGRO_INTERNATIONAL_ODBIOR_W_PUNKCIE_CZECHY_INPOST:
+    "ALLEGRO_INTERNATIONAL_ODBIOR_W_PUNKCIE_CZECHY_INPOST",
+  ALLEGRO_INTERNATIONAL_KURIER_CZECHY_POBRANIE_INPOST:
+    "ALLEGRO_INTERNATIONAL_KURIER_CZECHY_POBRANIE_INPOST",
+  ALLEGRO_ONE_BOX_UPS: "ALLEGRO_ONE_BOX_UPS",
+  ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP: "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP",
+  ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY:
+    "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY",
+  ALLEGRO_ONE_PUNKT_UPS: "ALLEGRO_ONE_PUNKT_UPS",
+  ALLEGRO_PACZKOMATY_INPOST: "ALLEGRO_PACZKOMATY_INPOST",
+  ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA:
+    "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA",
+} as const
+
+// Define the type for keys
+type OrderDeliveryMethodsKeys = keyof typeof OrderDeliveryMethodsEnum
+
+// Create a map of keys
+const OrderDeliveryMethodsMap = Object.keys(OrderDeliveryMethodsEnum)
+
+// Define the array of delivery methods
+const orderDeliveryMethods: {
+  key: OrderDeliveryMethodsKeys
+  label: string
+  icon?: React.ReactNode
+}[] = [
+  {
+    key: "ALLEGRO_KURIER_POCZTEX",
+    label: "Allegro Kurier Pocztex",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_POCZTEX",
+    label: "Allegro Odbiór w Punkcie Pocztex",
+  },
+  {
+    key: "ALLEGRO_AUTOMAT_DHL_BOX_24_7",
+    label: "Allegro Automat DHL BOX 24/7",
+  },
+  {
+    key: "ALLEGRO_AUTOMATY_PACZKOWE_DPD_CZECHY",
+    label: "Allegro Automaty Paczkowe DPD Czechy",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_CZECHY",
+    label: "Allegro Odbiór w Punkcie DPD Pickup Czechy",
+  },
+  {
+    key: "ALLEGRO_KURIER_DHL_SLOWACJA",
+    label: "Allegro Kurier DHL Słowacja",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA_POBRANIE",
+    label:
+      "Allegro Wysyłka z Polski do Czech - Odbiór w Punkcie Packeta pobranie",
+  },
+  {
+    key: "ALLEGRO_KURIER_DPD",
+    label: "Allegro Kurier DPD",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_ODBIOR_W_PUNKCIE_PACKETA",
+    label: "Allegro Wysyłka z Polski do Słowacji - Odbiór w Punkcie Packeta",
+  },
+  {
+    key: "KURIER_INPOST_POBRANIE",
+    label: "Kurier InPost pobranie",
+  },
+  {
+    key: "ALLEGRO_MINIPRZESYLKA",
+    label: "Allegro MiniPrzesyłka",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_SLOWACJI_AUTOMATY_PACZKOWE_PACKETA",
+    label: "Allegro Wysyłka z Polski do Słowacji - Automaty Paczkowe Packeta",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_KURIER_CZECHY_INPOST",
+    label: "Allegro International Kurier Czechy, InPost",
+  },
+  {
+    key: "ALLEGRO_KURIER24_INPOST",
+    label: "Allegro Kurier24 InPost",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_POBRANIE_INPOST",
+    label: "Allegro International Automaty Paczkowe Czechy pobranie, InPost",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA",
+    label: "Allegro Wysyłka z Polski do Czech - Automaty Paczkowe Packeta",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_DHL",
+    label: "Allegro Odbiór w Punkcie DHL",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP_SLOWACJA",
+    label: "Allegro Odbiór w Punkcie DPD Pickup Słowacja",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_ORLEN_PACZKA",
+    label: "Allegro Odbiór w Punkcie ORLEN Paczka",
+  },
+  {
+    key: "ALLEGRO_PRZESYLKA_POLECONA",
+    label: "Allegro Przesyłka polecona",
+  },
+  {
+    key: "ALLEGRO_KURIER_DPD_SLOWACJA_POBRANIE",
+    label: "Allegro Kurier DPD Słowacja pobranie",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_AUTOMATY_PACZKOWE_PACKETA_POBRANIE",
+    label:
+      "Allegro Wysyłka z Polski do Czech - Automaty Paczkowe Packeta pobranie",
+  },
+  {
+    key: "ALLEGRO_ONE_BOX_DPD",
+    label: "Allegro One Box, DPD",
+  },
+  {
+    key: "ALLEGRO_AUTOMAT_ORLEN_PACZKA",
+    label: "Allegro Automat ORLEN Paczka",
+  },
+  {
+    key: "KURIER_DPD_POBRANIE",
+    label: "Kurier DPD pobranie",
+  },
+  {
+    key: "ALLEGRO_KURIER_UPS_SLOWACJA_POBRANIE",
+    label: "Allegro Kurier UPS Słowacja pobranie",
+  },
+  {
+    key: "ALLEGRO_KURIER_DHL_SLOWACJA_POBRANIE",
+    label: "Allegro Kurier DHL Słowacja pobranie",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY_INPOST",
+    label: "Allegro International Automaty Paczkowe Czechy, InPost",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_ODBIOR_W_PUNKCIE_CZECHY_INPOST",
+    label: "Allegro International Odbiór w Punkcie Czechy, InPost",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_KURIER_CZECHY_POBRANIE_INPOST",
+    label: "Allegro International Kurier Czechy pobranie, InPost",
+  },
+  {
+    key: "ALLEGRO_ONE_BOX_UPS",
+    label: "Allegro One Box, UPS",
+  },
+  {
+    key: "ALLEGRO_ODBIOR_W_PUNKCIE_DPD_PICKUP",
+    label: "Allegro Odbiór w Punkcie DPD Pickup",
+  },
+  {
+    key: "ALLEGRO_INTERNATIONAL_AUTOMATY_PACZKOWE_CZECHY",
+    label: "Allegro International Automaty Paczkowe Czechy",
+  },
+  {
+    key: "ALLEGRO_ONE_PUNKT_UPS",
+    label: "Allegro One Punkt, UPS",
+  },
+  {
+    key: "ALLEGRO_PACZKOMATY_INPOST",
+    label: "Allegro Paczkomaty InPost",
+  },
+  {
+    key: "ALLEGRO_WYSYLKA_Z_POLSKI_DO_CZECH_ODBIOR_W_PUNKCIE_PACKETA",
+    label: "Allegro Wysyłka z Polski do Czech - Odbiór w Punkcie Packeta",
+  },
+]
+
+export {
+  OrderDeliveryMethodsMap,
+  type OrderDeliveryMethodsKeys,
+  OrderDeliveryMethodsEnum,
+  orderDeliveryMethods,
+}

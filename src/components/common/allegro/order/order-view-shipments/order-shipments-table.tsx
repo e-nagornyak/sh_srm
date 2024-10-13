@@ -1,7 +1,7 @@
 import * as React from "react"
 import { MoreVertical, Printer, Save, SquareCheck, X } from "lucide-react"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,

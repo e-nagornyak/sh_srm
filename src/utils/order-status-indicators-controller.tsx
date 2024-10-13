@@ -7,8 +7,8 @@ import {
 import { countryList } from "@/constants/shared/countries"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
 

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { type ChangePaymentModeAction } from "@/components/@controllers/allegro/order/order-info-payment-controller"

@@ -8,7 +8,7 @@ import {
   Tag,
 } from "lucide-react"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,

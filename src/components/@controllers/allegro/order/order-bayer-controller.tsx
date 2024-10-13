@@ -7,7 +7,7 @@ import { ChevronDown, CircleChevronLeft, Star } from "lucide-react"
 import { FlagImage } from "react-international-phone"
 
 import { RoutePaths } from "@/config/routes"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"

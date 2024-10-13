@@ -16,12 +16,12 @@ interface HoverImageProps {
 export function HoverImage({ src, quantity }: HoverImageProps) {
   return (
     <HoverCard closeDelay={100} openDelay={100}>
-      <HoverCardTrigger className="relative block h-12 w-16 bg-gray-200">
+      <HoverCardTrigger className="relative block h-12 w-16 cursor-pointer rounded-sm bg-gray-200 shadow-sm">
         <Img fill className="object-contain" src={src} alt="" />
         {quantity && (
           <Text
             size="sm"
-            className="absolute bottom-0 right-0 flex items-center justify-center bg-gray-500 px-1.5"
+            className="absolute bottom-0 right-0 flex items-center justify-center rounded-sm bg-gray-500 px-1.5 text-white shadow-sm"
           >
             {quantity}
           </Text>

@@ -1,4 +1,4 @@
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { ComponentWithEditButton } from "@/components/shared/component-with-edit-button"
 

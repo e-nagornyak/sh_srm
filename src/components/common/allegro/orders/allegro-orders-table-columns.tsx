@@ -10,7 +10,7 @@ import { BadgeCent, BadgePlus, Star } from "lucide-react"
 import { FlagImage } from "react-international-phone"
 
 import { RoutePaths } from "@/config/routes"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
 import { CopyButton } from "@/components/ui/copy-button"

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { type getAllegroOrders } from "@/lib/api/allegro/orders/allegro-orders-query"
+import { type getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
 import { AllegroOrdersTableHeaderController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-controller"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"

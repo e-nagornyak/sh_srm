@@ -3,33 +3,28 @@
 import * as React from "react"
 import { useCallback, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
+import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
+import {
+  AllegroOrdersSearchParamsSchema,
+  type AllegroOrdersSchema,
+} from "@/constants/order/orders-search-params"
 import { type Table } from "@tanstack/react-table"
 import {
   AlignJustify,
   Camera,
   Check,
-  CheckCircle,
   ChevronDown,
-  ClipboardCheck,
   CreditCard,
   Divide,
   DollarSign,
   Loader,
-  Package,
   Plus,
   RefreshCcw,
   Search,
-  ShoppingCart,
   Trash,
   X,
-  XCircle,
 } from "lucide-react"
 
-import { type OrderStatusKeys } from "@/lib/api/allegro/orders/allegro-orders-enums"
-import {
-  AllegroOrdersSearchParamsSchema,
-  type AllegroOrdersSchema,
-} from "@/lib/api/allegro/orders/allegro-orders-search-params"
 import { cn } from "@/lib/utils"
 import { useDebounce } from "@/hooks/use-debounce"
 import useEffectAfterMount from "@/hooks/use-effect-after-mount"
@@ -84,50 +79,6 @@ const allegroOptions = [
   { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
 ]
 
-const statuses: {
-  key: OrderStatusKeys
-  color: string
-  label: string
-  icon: React.ReactNode
-}[] = [
-  {
-    key: "BOUGHT",
-    color: "bg-gray-500",
-    label: "Order Created",
-    icon: <ShoppingCart />,
-  },
-  {
-    key: "FILLED_IN",
-    color: "bg-yellow-500",
-    label: "Order Filled In",
-    icon: <ClipboardCheck />,
-  },
-  {
-    key: "READY_FOR_PROCESSING",
-    color: "bg-green-500",
-    label: "Ready for Processing",
-    icon: <CheckCircle />,
-  },
-  {
-    key: "PROCESSING",
-    color: "bg-blue-500",
-    label: "Processing",
-    icon: <Loader />,
-  },
-  {
-    key: "COMPLETED",
-    color: "bg-purple-500",
-    label: "Completed",
-    icon: <Package />,
-  },
-  {
-    key: "CANCELLED",
-    color: "bg-red-500",
-    label: "Cancelled",
-    icon: <XCircle />,
-  },
-]
-
 interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
   table: Table<TData>
 }
@@ -149,14 +100,14 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
 
   const [open, setOpen] = useState(false)
 
-  const [filters, setFilters] = useState<Partial<AllegroOrdersSchema>>(search)
+  const [filters, setFilters] = useState<AllegroOrdersSchema>(search)
   const [productName, setProductName] = useState<string | null>(
     search?.product_name || null
   )
   const debouncedProductName = useDebounce(productName, 500)
 
   const handleFilter = useCallback(
-    (filter: Partial<AllegroOrdersSchema>) => {
+    (filter: AllegroOrdersSchema) => {
       const queryString = createQueryString(filter)
       setFilters(filter)
       const url = `${pathname}?${queryString}`
@@ -190,7 +141,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       }
       return acc
     }, {} as Partial<AllegroOrdersSchema>)
-    handleFilter(resetFilters)
+    handleFilter(resetFilters as AllegroOrdersSchema)
     setProductName(null)
   }, [filters, handleFilter])
 
@@ -251,7 +202,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         </DropdownMenuGroup>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Status</DropdownMenuLabel>
-          {statuses?.map((option, index) => (
+          {orderFilterStatuses?.map((option, index) => (
             <DropdownMenuItem
               textValue={""}
               key={index}

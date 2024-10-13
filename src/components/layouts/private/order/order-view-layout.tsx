@@ -1,4 +1,4 @@
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { InvoiceAndDeliveryController } from "@/components/@controllers/allegro/order/invoice-and-delivery-controller"
 import { OrderBayerController } from "@/components/@controllers/allegro/order/order-bayer-controller"

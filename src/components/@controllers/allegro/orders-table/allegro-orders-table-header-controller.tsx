@@ -2,14 +2,12 @@
 
 import React, { useCallback, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
-import { Filter } from "lucide-react"
-
 import {
   AllegroOrdersSearchParamsSchema,
   type AllegroOrdersSchema,
-} from "@/lib/api/allegro/orders/allegro-orders-search-params"
-import { useDebounce } from "@/hooks/use-debounce"
-import useEffectAfterMount from "@/hooks/use-effect-after-mount"
+} from "@/constants/order/orders-search-params"
+import { Filter } from "lucide-react"
+
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
@@ -47,7 +45,7 @@ export function AllegroOrdersTableHeaderController(
   )
 
   return (
-    <Card className="w-full">
+    <Card className="sticky top-0 w-full">
       <CardContent className="flex items-center justify-between">
         <Title leading="none" weight="semibold" size="md">
           All orders
