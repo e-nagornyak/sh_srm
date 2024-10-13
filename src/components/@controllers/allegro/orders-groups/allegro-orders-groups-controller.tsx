@@ -1,7 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
+import { usePathname, useSearchParams } from "next/navigation"
+import {
+  orderFilterStatuses,
+  type OrderStatusKeys,
+} from "@/constants/order/order-statuses-new"
+import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
 import {
   CirclePlus,
   List,
@@ -11,10 +16,13 @@ import {
   Trash,
   WalletCards,
 } from "lucide-react"
+import { useMemo } from "types-react"
 
 import { RoutePaths } from "@/config/routes"
 import { cn } from "@/lib/utils"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
+import { useLazyRouterWithTag } from "@/hooks/use-lazy-router-with-tag"
+import { useQueryString } from "@/hooks/use-query-string"
 import {
   Accordion,
   AccordionContent,
@@ -90,55 +98,92 @@ interface AllegroOrdersTableGroupsProps {}
 export function AllegroOrdersGroupsController(
   props: AllegroOrdersTableGroupsProps
 ) {
+  const pathname = RoutePaths.private.orders.list
+
+  const searchParams = useSearchParams()
+  const { createQueryString } = useQueryString(searchParams)
+  const { isPendingTag, lazyPush } = useLazyRouterWithTag()
+
+  const search = React.useMemo(
+    () =>
+      AllegroOrdersSearchParamsSchema.parse(Object.fromEntries(searchParams)),
+    [searchParams]
+  )
+
   const memoizedStatuses = React.useMemo(
     () => Object.values(orderFilterStatuses),
     []
   )
 
-  const { isPending, lazyPush } = useLazyRouter()
+  const handleToAllOrdersList = () => {
+    const queryString = createQueryString({ status: null })
+    const url = `${pathname}?${queryString}`
+    lazyPush(url)
+  }
 
-  const handleToAllOrdersList = () => lazyPush(RoutePaths.private.orders.list)
+  const handleToStatus = (status: OrderStatusKeys) => {
+    const queryString = createQueryString({ status })
+    const url = `${pathname}?${queryString}`
+    lazyPush(url, {}, status)
+  }
 
   return (
     <Card className="top-[90px] xl:sticky xl:size-fit">
-      <CardContent className="min-h-52 w-full p-2">
+      <CardContent className="flex min-h-52 flex-col p-2 xl:max-w-fit">
         <Button disabled size="sm" className="mb-3 w-full gap-4 rounded-2xl">
           <CirclePlus />
           Add order
         </Button>
         <Button
-          disabled={isPending}
+          disabled={isPendingTag === "all"}
           onClick={handleToAllOrdersList}
-          className="w-full justify-start gap-2"
-          variant="ghost"
+          className="w-full justify-start gap-2 [&_svg]:size-4"
+          variant={search?.status ? "ghost" : "outline"}
         >
-          {isPending ? (
-            <Loader className="animate-spin" size="15" />
+          {isPendingTag === "all" ? (
+            <Loader className="animate-spin" />
           ) : (
-            <WalletCards size="15" />
+            <WalletCards />
           )}
           All
         </Button>
-        <Accordion disabled type="multiple" className="">
-          {groups?.map((item) => <GroupItem key={item?.title} {...item} />)}
-        </Accordion>
         <Separator />
-        <Button disabled className="w-full justify-start gap-2" variant="ghost">
-          <List size="15" />
-          Archive
-        </Button>
-        <Button disabled className="w-full justify-start gap-2" variant="ghost">
-          <Trash size="15" />
-          Bin
-        </Button>
-        <Separator />
-        <Button disabled className="w-full justify-between" variant="ghost">
-          <div className="flex items-center gap-2">
-            <Plus size="15" />
-            Add status
-          </div>
-          <RefreshCcw size="15" />
-        </Button>
+        {memoizedStatuses?.map((status) => (
+          <Button
+            key={status?.key}
+            disabled={isPendingTag === status?.key}
+            onClick={() => handleToStatus(status?.key)}
+            className="w-full justify-start gap-2 [&_svg]:size-4"
+            variant={search?.status === status?.key ? "outline" : "ghost"}
+          >
+            {isPendingTag === status?.key ? (
+              <Loader className="animate-spin" />
+            ) : (
+              status?.icon
+            )}
+            {status?.label}
+          </Button>
+        ))}
+        {/*<Accordion disabled type="multiple" className="">*/}
+        {/*  {groups?.map((item) => <GroupItem key={item?.title} {...item} />)}*/}
+        {/*</Accordion>*/}
+        {/*<Separator />*/}
+        {/*<Button disabled className="w-full justify-start gap-2" variant="ghost">*/}
+        {/*  <List size="15" />*/}
+        {/*  Archive*/}
+        {/*</Button>*/}
+        {/*<Button disabled className="w-full justify-start gap-2" variant="ghost">*/}
+        {/*  <Trash size="15" />*/}
+        {/*  Bin*/}
+        {/*</Button>*/}
+        {/*<Separator />*/}
+        {/*<Button disabled className="w-full justify-between" variant="ghost">*/}
+        {/*  <div className="flex items-center gap-2">*/}
+        {/*    <Plus size="15" />*/}
+        {/*    Add status*/}
+        {/*  </div>*/}
+        {/*  <RefreshCcw size="15" />*/}
+        {/*</Button>*/}
       </CardContent>
     </Card>
   )

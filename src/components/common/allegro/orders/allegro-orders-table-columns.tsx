@@ -246,7 +246,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         />
       ),
       cell: ({ row }) => {
-        const date = row?.original?.created_at
+        const date = row?.original?.bought_at
 
         const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : "-"
 
