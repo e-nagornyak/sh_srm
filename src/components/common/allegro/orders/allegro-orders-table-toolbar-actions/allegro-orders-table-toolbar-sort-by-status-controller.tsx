@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { type Table } from "@tanstack/react-table"
 import {
@@ -138,8 +138,11 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   const { isPending, lazyPush } = useLazyRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
-  const search = AllegroOrdersSearchParamsSchema.parse(
-    Object.fromEntries(searchParams)
+
+  const search = useMemo(
+    () =>
+      AllegroOrdersSearchParamsSchema.parse(Object.fromEntries(searchParams)),
+    [searchParams]
   )
 
   const { createQueryString } = useQueryString(searchParams)
@@ -152,41 +155,44 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   )
   const debouncedProductName = useDebounce(productName, 500)
 
-  const handleFilter = (filter: Partial<AllegroOrdersSchema>) => {
-    const queryString = createQueryString(filter)
-    setFilters(filter)
-    const url = `${pathname}?${queryString}`
-    lazyPush(url)
-  }
+  const handleFilter = useCallback(
+    (filter: Partial<AllegroOrdersSchema>) => {
+      const queryString = createQueryString(filter)
+      setFilters(filter)
+      const url = `${pathname}?${queryString}`
+      lazyPush(url)
+    },
+    [createQueryString, lazyPush, pathname]
+  )
 
-  const checkIfFilterExist = (filter: Partial<AllegroOrdersSchema>) => {
-    const key = Object.keys(filter)?.[0] as keyof AllegroOrdersSchema
-    const value = Object.values(filter)?.[0]
+  const checkIfFilterExist = useCallback(
+    (filter: Partial<AllegroOrdersSchema>) => {
+      const key = Object.keys(filter)[0] as keyof AllegroOrdersSchema
+      const value = Object.values(filter)[0]
 
-    const isExist = Boolean(key && filters?.[key] === value)
+      const isExist = Boolean(key && filters?.[key] === value)
 
-    const newFilters = isExist
-      ? { ...filters, [key]: null }
-      : { ...filters, ...filter }
-    handleFilter(newFilters)
-  }
+      const newFilters = isExist
+        ? { ...filters, [key]: null }
+        : { ...filters, ...filter }
+      handleFilter(newFilters)
+    },
+    [filters, handleFilter]
+  )
 
-  const handleResetFilter = () => {
-    handleFilter(
-      Object.keys(filters).reduce(
-        (acc, key) => {
-          if (key === "limit" || key === "page") {
-            acc[key] = filters[key]
-          } else {
-            // @ts-ignore
-            acc[key] = null
-          }
-          return acc
-        },
-        {} as typeof filters
-      )
-    )
-  }
+  const handleResetFilter = useCallback(() => {
+    const resetFilters = Object.keys(filters).reduce((acc, key) => {
+      if (key === "limit" || key === "page") {
+        acc[key] = filters[key]
+      } else {
+        // @ts-ignore
+        acc[key] = null
+      }
+      return acc
+    }, {} as Partial<AllegroOrdersSchema>)
+    handleFilter(resetFilters)
+    setProductName(null)
+  }, [filters, handleFilter])
 
   useEffectAfterMount(() => {
     handleFilter({

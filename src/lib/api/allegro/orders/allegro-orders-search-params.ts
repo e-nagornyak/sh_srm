@@ -11,8 +11,8 @@ export const AllegroOrdersSearchParamsSchema = z.object({
   delivery_method: z.string().optional(),
   labels_factura: z.boolean().optional(),
   labels_shipment: z.boolean().optional(),
-  last_update_from: z.string().optional(),
-  last_update_to: z.string().optional(),
+  last_update_from: z.date().nullable().optional(),
+  last_update_to: z.date().nullable().optional(),
   order_id: z.string().optional(),
   ordering: z.string().optional(),
   payment_finished: z
