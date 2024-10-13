@@ -6,7 +6,6 @@ import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search
 import { type SearchParams } from "@/types/table"
 import { getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
 import { AllegroOrdersTableController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-controller"
-import { AllegroOrdersTableProvider } from "@/components/common/allegro/orders/allegro-orders-table-provider"
 import { AllegroOrdersTableSkeleton } from "@/components/common/allegro/orders/allegro-orders-table-skeleton"
 
 interface ListPageProps {

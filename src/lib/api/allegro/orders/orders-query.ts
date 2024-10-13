@@ -20,8 +20,10 @@ export async function getAllegroOrders(
   noStore()
 
   try {
-    const queryParams = new URLSearchParams(input as string).toString()
-
+    const queryParams = new URLSearchParams(
+      input as unknown as string
+    ).toString()
+    console.log("bla", queryParams)
     const response =
       await getAllegroOrdersApi("server").listAllegroOrders(queryParams)
 

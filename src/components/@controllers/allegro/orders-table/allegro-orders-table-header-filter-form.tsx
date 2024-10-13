@@ -6,6 +6,7 @@ import {
   type AllegroOrdersSchema,
 } from "@/constants/order/orders-search-params"
 import { countryList, type CountryType } from "@/constants/shared/countries"
+import { hasAnyPropertyValue } from "@/utils/has-any-property-value"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PopoverClose } from "@radix-ui/react-popover"
 import dayjs from "dayjs"
@@ -36,11 +37,13 @@ import { InputWithCommand } from "@/components/shared/input-with-command-dropdow
 interface AllegroOrdersTableHeaderFilterPanelProps {
   onSubmit: SubmitHandler<AllegroOrdersSchema>
   defaultValues?: AllegroOrdersSchema
+  onReset: () => void
 }
 
 export function AllegroOrdersTableHeaderFilterForm({
   defaultValues,
   onSubmit,
+  onReset,
 }: AllegroOrdersTableHeaderFilterPanelProps) {
   const form = useForm<AllegroOrdersSchema>({
     resolver: zodResolver(AllegroOrdersSearchParamsSchema),
@@ -61,8 +64,26 @@ export function AllegroOrdersTableHeaderFilterForm({
   const {
     control,
     getValues,
+    reset,
     formState: { isDirty },
   } = form
+
+  const resetHandler = () => {
+    reset({
+      last_update_from: null,
+      last_update_to: null,
+      order_id: null,
+      ordering: null,
+      delivery_address_country_code: null,
+      labels_factura: null,
+      labels_shipment: null,
+      payment_finished: null,
+      delivery_method: null,
+      product_name: null,
+      status: null,
+    })
+    onReset()
+  }
 
   const onSubmitHandler = (data: AllegroOrdersSchema) => {
     onSubmit(data)
@@ -111,13 +132,14 @@ export function AllegroOrdersTableHeaderFilterForm({
           <FormField
             control={control}
             name="order_id"
-            render={({ field: { value, ...field } }) => (
+            render={({ field: { value, onChange, ...field } }) => (
               <FormItem className="space-y-0">
                 <FormLabel>Order ID</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Order ID"
                     value={value || ""}
+                    onChange={(e) => onChange(e?.currentTarget?.value?.trim())}
                     {...field}
                   />
                 </FormControl>
@@ -257,7 +279,7 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Payment Status</FormLabel>
                 <FormControl>
-                  <Select value={value} onValueChange={onChange}>
+                  <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
                       className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
                       {...field}
@@ -291,7 +313,7 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Label Shipments Status</FormLabel>
                 <FormControl>
-                  <Select value={value} onValueChange={onChange}>
+                  <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
                       className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
                       {...field}
@@ -325,7 +347,7 @@ export function AllegroOrdersTableHeaderFilterForm({
               <FormItem className="space-y-0">
                 <FormLabel>Factura Status</FormLabel>
                 <FormControl>
-                  <Select value={value} onValueChange={onChange}>
+                  <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
                       className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
                       {...field}
@@ -353,10 +375,19 @@ export function AllegroOrdersTableHeaderFilterForm({
             )}
           />
         </div>
-
-        <Button className="self-end" disabled={!isDirty} type="submit">
-          Apply Filter
-        </Button>
+        <div className="flex items-center gap-4 self-end">
+          <Button
+            variant="outline"
+            onClick={resetHandler}
+            disabled={getValues() && !hasAnyPropertyValue(getValues())}
+            type="button"
+          >
+            Reset
+          </Button>
+          <Button disabled={!isDirty} type="submit">
+            Apply Filter
+          </Button>
+        </div>
       </form>
     </Form>
   )

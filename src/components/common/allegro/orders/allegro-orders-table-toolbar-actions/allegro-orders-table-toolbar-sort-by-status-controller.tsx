@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
 import {
@@ -40,28 +40,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-
-// Масиви для пунктів меню
-const deliveryOptions = [
-  { label: "InPost A", color: "fill-blue-800 text-blue-800" },
-  { label: "InPost B", color: "fill-blue-700 text-blue-700" },
-  { label: "InPost C", color: "fill-blue-600 text-blue-600" },
-  { label: "Polecona", color: "fill-purple-600 text-purple-600" },
-  { label: "Mini", color: "fill-pink-600 text-pink-600" },
-  { label: "Orlen", color: "fill-green-500 text-green-500" },
-  { label: "Allegro", color: "fill-gray-700 text-gray-700" },
-  { label: "InPost", color: "fill-blue-500 text-blue-500" },
-  { label: "DPD", color: "fill-gray-800 text-gray-800" },
-  { label: "Allegro 2KG", color: "fill-blue-500 text-blue-500" },
-  { label: "Allegro 3KG", color: "fill-red-500 text-red-500" },
-  { label: "DPD 2KG", color: "fill-red-400 text-red-400" },
-  { label: "DPD 3KG", color: "fill-red-600 text-red-600" },
-  { label: "E-commerce", color: "fill-red-700 text-red-700" },
-  { label: "ERLI", color: "fill-blue-700 text-blue-700" },
-  { label: "ERLI Kurier", color: "fill-blue-600 text-blue-600" },
-  { label: "ERLI Punkty", color: "fill-blue-800 text-blue-800" },
-  { label: "BL UPS", color: "fill-purple-700 text-purple-700" },
-]
 
 const basicOptions = [
   { label: "Set payment", icon: <DollarSign className="size-4" /> },
@@ -207,23 +185,6 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
               <X className="size-4" />
             </Button>
           </div>
-        </DropdownMenuGroup>
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>Status</DropdownMenuLabel>
-          {memoizedStatuses?.map((option, index) => (
-            <DropdownMenuItem
-              textValue={""}
-              key={index}
-              className={cn(
-                "flex cursor-pointer items-center gap-2 [&_svg]:size-4",
-                { "bg-accent": filters?.status === option?.key }
-              )}
-              onClick={() => checkIfFilterExist({ status: option?.key })}
-            >
-              {option?.icon}
-              {option.label}
-            </DropdownMenuItem>
-          ))}
         </DropdownMenuGroup>
         <DropdownMenuGroup>
           <DropdownMenuLabel>Payment</DropdownMenuLabel>

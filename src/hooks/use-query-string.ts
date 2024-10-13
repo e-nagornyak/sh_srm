@@ -8,7 +8,7 @@ export function useQueryString(searchParams: URLSearchParams) {
       const newSearchParams = new URLSearchParams(searchParams?.toString())
 
       for (const [key, value] of Object.entries(params)) {
-        if (value === null || value === undefined) {
+        if (!value) {
           newSearchParams.delete(key)
         } else {
           newSearchParams.set(key, String(value))

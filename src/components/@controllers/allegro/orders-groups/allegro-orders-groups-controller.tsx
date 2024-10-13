@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
 import {
   CirclePlus,
   List,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
+import { cn } from "@/lib/utils"
 import { useLazyRouter } from "@/hooks/use-lazy-router"
 import {
   Accordion,
@@ -21,6 +23,7 @@ import {
 } from "@/components/ui/accordion"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 import { Text } from "@/components/ui/text"
 
@@ -87,6 +90,11 @@ interface AllegroOrdersTableGroupsProps {}
 export function AllegroOrdersGroupsController(
   props: AllegroOrdersTableGroupsProps
 ) {
+  const memoizedStatuses = React.useMemo(
+    () => Object.values(orderFilterStatuses),
+    []
+  )
+
   const { isPending, lazyPush } = useLazyRouter()
 
   const handleToAllOrdersList = () => lazyPush(RoutePaths.private.orders.list)
