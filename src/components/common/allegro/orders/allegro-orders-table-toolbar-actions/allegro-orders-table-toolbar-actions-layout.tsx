@@ -12,8 +12,7 @@ import { AllegroOrdersTableToolbarPagination } from "@/components/common/allegro
 import { AllegroOrdersTableToolbarPickpack } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pickpack"
 import { AllegroOrdersTableToolbarPrintersController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-printers-controller"
 import { AllegroOrdersTableToolbarSelect } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-select"
-import { AllegroOrdersTableToolbarSortBy } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by"
-import { AllegroOrdersTableToolbarSortByStatusController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by-status-controller"
+import { AllegroOrdersTableToolbarSortByController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by-controller"
 import { AllegroOrdersTableToolbarStars } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-stars"
 
 interface TasksTableToolbarActionsProps<TData> {
@@ -41,8 +40,8 @@ export function AllegroOrdersTableToolbarActionsLayout<TData>({
           </div>
           <AllegroOrdersTableToolbarDelivery table={table} />
           <AllegroOrdersTableToolbarPickpack table={table} />
-          <AllegroOrdersTableToolbarSortByStatusController table={table} />
-          <AllegroOrdersTableToolbarSortBy table={table} />
+          {/*<AllegroOrdersTableToolbarSortByStatusController table={table} />*/}
+          <AllegroOrdersTableToolbarSortByController table={table} />
         </div>
         <AllegroOrdersTableToolbarPagination table={table} />
       </CardContent>

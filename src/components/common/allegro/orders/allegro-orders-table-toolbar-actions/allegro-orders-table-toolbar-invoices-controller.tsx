@@ -6,8 +6,8 @@ import { type Row, type Table } from "@tanstack/react-table"
 import { StickyNote } from "lucide-react"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { Button } from "@/components/ui/button"
 import {

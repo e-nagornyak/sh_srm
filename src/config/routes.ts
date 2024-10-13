@@ -16,7 +16,7 @@ class RoutePaths {
     dashboard: "/dashboard",
     orders: {
       base: RoutePaths.baseOrders,
-      list: `${RoutePaths.baseOrders}/list?page=1&limit=10`,
+      list: `${RoutePaths.baseOrders}/list`,
       order: (id: number) => ({
         add: `${RoutePaths.baseOrders}/order/add`,
         view: `${RoutePaths.baseOrders}/order/${id}`,

@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 import { type SubmitHandler } from "react-hook-form"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { type OrderInfoFormData } from "@/lib/validations/order/order-info"
 import { Skeleton } from "@/components/ui/skeleton"
 

@@ -2,6 +2,10 @@
 
 import * as React from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
+import {
+  orderFilterStatuses,
+  type OrderStatusKeys,
+} from "@/constants/order/order-statuses-new"
 import { getOrderName } from "@/utils/get-order-name"
 import { OrderStatusIndicatorsController } from "@/utils/order-status-indicators-controller"
 import { type ColumnDef } from "@tanstack/react-table"
@@ -10,7 +14,7 @@ import { BadgeCent, BadgePlus, Star } from "lucide-react"
 import { FlagImage } from "react-international-phone"
 
 import { RoutePaths } from "@/config/routes"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
 import { CopyButton } from "@/components/ui/copy-button"
@@ -204,20 +208,22 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       cell: ({ row }) => {
         const order = row?.original
         const delivery = order?.delivery
-        const status = order?.status
+        const status = order?.status as OrderStatusKeys
+
+        const color = status ? orderFilterStatuses?.[status]?.color : ""
+        const label = status ? orderFilterStatuses?.[status]?.label : ""
 
         return (
           <div className="flex max-w-56 flex-col gap-2">
             <Text
               weight="semibold"
               className={cn(
-                "block w-fit max-w-full truncate rounded-md bg-emerald-800 px-1 py-0.5 text-white",
-                { "bg-red-600": status === "CANCELLED" },
-                { "bg-green-600": status === "FILLED_IN" }
+                "block w-fit max-w-full truncate rounded-md bg-emerald-800 px-1 py-0.5 uppercase text-white",
+                color
               )}
               size="xs"
             >
-              {status}
+              {label}
             </Text>
             <OrderStatusIndicatorsController order={order} />
             <Link
@@ -246,7 +252,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         />
       ),
       cell: ({ row }) => {
-        const date = row?.original?.created_at
+        const date = row?.original?.bought_at
 
         const formattedDate = date ? format(date, "dd.MM.yyyy, HH:mm") : "-"
 

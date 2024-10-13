@@ -1,6 +1,6 @@
 import * as React from "react"
 
-type QueryParams = Record<string, string | number | null>
+type QueryParams = Record<string, string | number | null | boolean | undefined>
 
 export function useQueryString(searchParams: URLSearchParams) {
   const createQueryString = React.useCallback(
@@ -8,7 +8,7 @@ export function useQueryString(searchParams: URLSearchParams) {
       const newSearchParams = new URLSearchParams(searchParams?.toString())
 
       for (const [key, value] of Object.entries(params)) {
-        if (value === null) {
+        if (!value) {
           newSearchParams.delete(key)
         } else {
           newSearchParams.set(key, String(value))

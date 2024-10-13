@@ -1,6 +1,6 @@
 import { Pen, RefreshCcw } from "lucide-react"
 
-import type { Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import type { Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
 import { Chip } from "@/components/ui/chip"
 import { TableCell, TableRow } from "@/components/ui/table"

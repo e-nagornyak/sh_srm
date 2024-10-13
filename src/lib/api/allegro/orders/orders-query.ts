@@ -1,10 +1,10 @@
 import "server-only"
 
 import { unstable_noStore as noStore } from "next/cache"
+import { type AllegroOrdersSchema } from "@/constants/order/orders-search-params"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/allegro-orders-api"
-import { type AllegroOrdersSchema } from "@/lib/api/allegro/orders/allegro-orders-search-params"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 
 interface QueryResponse {
   count: number
@@ -20,8 +20,10 @@ export async function getAllegroOrders(
   noStore()
 
   try {
-    const queryParams = new URLSearchParams(input as string).toString()
-
+    const queryParams = new URLSearchParams(
+      input as unknown as string
+    ).toString()
+    console.log("queryParams", queryParams)
     const response =
       await getAllegroOrdersApi("server").listAllegroOrders(queryParams)
 

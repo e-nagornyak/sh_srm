@@ -555,4 +555,38 @@ const countryList: { [key in CountryCodes]: CountryType } = {
   ZW: { code: "ZW", label: "Zimbabwe" },
 }
 
-export { countryList, type CountryType, type CountryCodes }
+const countryMapEU = [
+  "AT",
+  "BE",
+  "BG",
+  "HR",
+  "CY",
+  "CZ",
+  "DK",
+  "EE",
+  "FI",
+  "FR",
+  "DE",
+  "GR",
+  "HU",
+  "IE",
+  "IT",
+  "LV",
+  "LT",
+  "LU",
+  "MT",
+  "NL",
+  "PL",
+  "PT",
+  "RO",
+  "SK",
+  "SI",
+  "ES",
+  "SE",
+]
+
+const countryListEU = Object.entries(countryList)
+  .filter(([key]) => countryMapEU?.includes(key as CountryCodes))
+  .map(([, value]) => value)
+
+export { countryList, countryListEU, type CountryType, type CountryCodes }

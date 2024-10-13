@@ -1,6 +1,6 @@
 import { Phone } from "lucide-react"
 
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { CopyButton } from "@/components/ui/copy-button"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { Text } from "@/components/ui/text"

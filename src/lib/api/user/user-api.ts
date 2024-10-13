@@ -1,7 +1,7 @@
 import { createEndpoint } from "@/lib/api/@request/helpers"
 import { createApi, type ApiSide } from "@/lib/api/@request/request"
 import type { BaseQueryResponse } from "@/lib/api/@request/types"
-import type { Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import type { Order } from "@/lib/api/allegro/orders/orders-types"
 import {
   type UpdateOrCreateUserRequest,
   type User,

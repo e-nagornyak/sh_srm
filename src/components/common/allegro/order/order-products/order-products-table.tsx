@@ -3,7 +3,7 @@ import { format } from "date-fns"
 import { Camera, LayoutList, MoreVertical, Pen, Trash } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,

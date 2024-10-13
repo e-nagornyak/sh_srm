@@ -6,7 +6,7 @@ import {
   type AllegroIntegration,
   type AllegroIntegrationRequest,
 } from "@/lib/api/allegro/integration/allegro-integration-types"
-import { type Order } from "@/lib/api/allegro/orders/allegro-orders-types"
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 
 export const getAllegroOrdersApi = (side: ApiSide) => {
   const isDevMode = process.env.NODE_ENV === "development"
