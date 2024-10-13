@@ -26,7 +26,7 @@ export function InputWithCommand({
   const [open, setOpen] = useState(false)
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover modal open={open} onOpenChange={setOpen}>
       <PopoverTrigger className="w-full focus-visible:outline-none">
         <Input
           readOnly
@@ -34,7 +34,7 @@ export function InputWithCommand({
           className={cn("w-full truncate text-start", inputProps?.className)}
         />
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="w-[var(--radix-popper-available-height)]">
         <Command
           onKeyDown={(e) => {
             if (e.key === "Enter") {

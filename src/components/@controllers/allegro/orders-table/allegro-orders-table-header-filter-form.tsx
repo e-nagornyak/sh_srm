@@ -5,7 +5,12 @@ import {
   AllegroOrdersSearchParamsSchema,
   type AllegroOrdersSchema,
 } from "@/constants/order/orders-search-params"
-import { countryList, type CountryType } from "@/constants/shared/countries"
+import {
+  countryList,
+  countryListEU,
+  type CountryCodes,
+  type CountryType,
+} from "@/constants/shared/countries"
 import { hasAnyPropertyValue } from "@/utils/has-any-property-value"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PopoverClose } from "@radix-ui/react-popover"
@@ -51,7 +56,7 @@ export function AllegroOrdersTableHeaderFilterForm({
   })
 
   const memoizedCountries = React.useMemo(
-    (): CountryType[] => Object.values(countryList),
+    (): CountryType[] => Object.values(countryListEU),
     []
   )
 
@@ -95,7 +100,7 @@ export function AllegroOrdersTableHeaderFilterForm({
         onSubmit={form.handleSubmit(onSubmitHandler)}
         className="flex w-full flex-col gap-4"
       >
-        <div className="grid w-full grid-flow-row grid-cols-4 gap-3">
+        <div className="grid w-full grid-flow-row grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <FormField
             control={control}
             name="status"
@@ -134,10 +139,10 @@ export function AllegroOrdersTableHeaderFilterForm({
             name="order_id"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem className="space-y-0">
-                <FormLabel>Order ID</FormLabel>
+                <FormLabel>Allegro ID</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Order ID"
+                    placeholder="Allegro ID"
                     value={value || ""}
                     onChange={(e) => onChange(e?.currentTarget?.value?.trim())}
                     {...field}
@@ -147,7 +152,7 @@ export function AllegroOrdersTableHeaderFilterForm({
               </FormItem>
             )}
           />
-          <div className="col-span-2 flex w-full gap-3">
+          <div className="flex w-full flex-col gap-3 sm:col-span-2 sm:flex-row">
             <FormField
               control={control}
               name="last_update_from"
@@ -209,6 +214,39 @@ export function AllegroOrdersTableHeaderFilterForm({
               </FormItem>
             )}
           />
+
+          <FormField
+            control={control}
+            name="delivery_address_country_code"
+            render={({ field: { value, onChange, ...field } }) => (
+              <FormItem className="space-y-0">
+                <FormLabel>Delivery Address Country</FormLabel>
+                <FormControl>
+                  <InputWithCommand
+                    inputProps={{
+                      value: value
+                        ? countryList?.[value as CountryCodes]?.label
+                        : "",
+                      placeholder: "Delivery Address Country",
+                      ...field,
+                    }}
+                    content={memoizedCountries?.map((country) => (
+                      <CommandItem
+                        key={country?.code}
+                        onSelect={() => onChange(country?.code)}
+                        className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
+                      >
+                        <PopoverClose className="w-full text-start">
+                          {country?.label}
+                        </PopoverClose>
+                      </CommandItem>
+                    ))}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={control}
             name="delivery_method"
@@ -231,37 +269,6 @@ export function AllegroOrdersTableHeaderFilterForm({
                       >
                         <PopoverClose className="w-full text-start">
                           {method?.label}
-                        </PopoverClose>
-                      </CommandItem>
-                    ))}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={control}
-            name="delivery_address_country_code"
-            render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Delivery Address Country</FormLabel>
-                <FormControl>
-                  <InputWithCommand
-                    inputProps={{
-                      value: value || "",
-                      placeholder: "Delivery Address Country",
-                      ...field,
-                    }}
-                    content={memoizedCountries?.map((country) => (
-                      <CommandItem
-                        key={country?.code}
-                        onSelect={onChange}
-                        className="flex w-full cursor-pointer items-center gap-2 [&_svg]:size-4"
-                      >
-                        <PopoverClose className="w-full text-start">
-                          {country?.label}
                         </PopoverClose>
                       </CommandItem>
                     ))}
@@ -358,13 +365,13 @@ export function AllegroOrdersTableHeaderFilterForm({
                       <SelectItem value="false">
                         <div className="flex items-center gap-2">
                           <X className="size-4 text-red-600" />
-                          Unpaid
+                          Not created yet
                         </div>
                       </SelectItem>
                       <SelectItem value="true">
                         <div className="flex items-center gap-2">
                           <Check className="size-4 text-green-600" />
-                          Paid
+                          Already created
                         </div>
                       </SelectItem>
                     </SelectContent>
