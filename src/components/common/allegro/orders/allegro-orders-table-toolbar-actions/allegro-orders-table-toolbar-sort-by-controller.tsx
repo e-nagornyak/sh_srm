@@ -3,10 +3,7 @@
 import * as React from "react"
 import { useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
-import {
-  AllegroOrdersSearchParamsSchema,
-  type AllegroOrdersSchema,
-} from "@/constants/order/orders-search-params"
+import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
 import { type Table } from "@tanstack/react-table"
 import {
   ArrowDownAZ,
@@ -16,7 +13,6 @@ import {
   ArrowUpWideNarrow,
   Loader,
 } from "lucide-react"
-import { useMemo } from "types-react"
 
 import { cn } from "@/lib/utils"
 import useEffectAfterMount from "@/hooks/use-effect-after-mount"
@@ -26,9 +22,7 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Text } from "@/components/ui/text"

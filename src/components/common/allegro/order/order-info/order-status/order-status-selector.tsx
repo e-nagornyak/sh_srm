@@ -1,19 +1,19 @@
-import { Fragment, useState } from "react"
+import * as React from "react"
 import {
   orderStatuses,
-  type OrderStatusItem,
+  type OrderStatusEntity,
+  type OrderStatusKeys,
 } from "@/constants/order/order-statuses"
 import { ChevronDown } from "lucide-react"
 
+import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command"
 import {
   DropdownMenu,
@@ -23,16 +23,25 @@ import {
 import { Text } from "@/components/ui/text"
 
 interface OrderStatusSelectorProps {
+  order: Order
   disabled?: boolean
+  onSelect?: (status: OrderStatusKeys) => void
 }
 
-export function OrderStatusSelector({ disabled }: OrderStatusSelectorProps) {
-  const [open, setOpen] = useState(false)
+export function OrderStatusSelector({
+  order,
+  onSelect,
+  disabled,
+}: OrderStatusSelectorProps) {
+  const status = order?.status as OrderStatusKeys
+  const selectedStatus = status ? orderStatuses?.[status] : null
 
-  const [status, setStatus] = useState<OrderStatusItem | null>(null)
+  const [open, setOpen] = React.useState(false)
 
-  const handleSelectStatus = (status: OrderStatusItem) => () => {
-    setStatus(status)
+  const memoizedStatuses = React.useMemo(() => Object.values(orderStatuses), [])
+
+  const handleSelectStatus = (status: OrderStatusKeys) => () => {
+    onSelect && onSelect(status)
     setOpen(false)
   }
 
@@ -45,16 +54,16 @@ export function OrderStatusSelector({ disabled }: OrderStatusSelectorProps) {
         <Button
           disabled={disabled}
           size="sm"
-          className="group w-44 justify-between uppercase"
+          className="group justify-between uppercase sm:w-56"
         >
           <div className="flex max-w-full items-center gap-2 overflow-hidden">
-            {status && (
+            {selectedStatus && (
               <div
-                className={`size-4 shrink-0 rounded border border-border ${status?.color}`}
+                className={`size-4 shrink-0 rounded border border-border ${selectedStatus?.color}`}
               />
             )}
             <Text size="xs" color="reverse" className="truncate">
-              {status ? status?.displayName : "NO STATUS YET"}
+              {selectedStatus ? selectedStatus?.label : "NO STATUS YET"}
             </Text>
           </div>
           <ChevronDown className="shrink-0" />
@@ -65,24 +74,17 @@ export function OrderStatusSelector({ disabled }: OrderStatusSelectorProps) {
           <CommandInput autoFocus />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            {orderStatuses.map((group) => (
-              <Fragment key={group?.group}>
-                <CommandGroup heading={group?.group}>
-                  {group?.items?.map((item) => (
-                    <CommandItem
-                      onSelect={handleSelectStatus(item)}
-                      className="flex cursor-pointer items-center gap-2"
-                      key={item?.key}
-                    >
-                      <div
-                        className={`size-4 rounded border border-border ${item?.color}`}
-                      />
-                      {item?.displayName}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-                <CommandSeparator />
-              </Fragment>
+            {memoizedStatuses?.map((status) => (
+              <CommandItem
+                key={status?.key}
+                onSelect={handleSelectStatus(status?.key)}
+                className="flex cursor-pointer items-center gap-2"
+              >
+                <div
+                  className={`size-4 rounded border border-border ${status?.color}`}
+                />
+                {status?.label}
+              </CommandItem>
             ))}
           </CommandList>
         </Command>

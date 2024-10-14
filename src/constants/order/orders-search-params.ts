@@ -1,4 +1,4 @@
-import { OrderStatusEnum } from "@/constants/order/order-statuses-new"
+import { OrderStatusEnum } from "@/constants/order/order-statuses"
 import * as z from "zod"
 
 export const AllegroOrdersSearchParamsSchema = z.object({

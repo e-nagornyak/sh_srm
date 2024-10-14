@@ -1,4 +1,5 @@
 import {
+  Ban,
   CheckCircle,
   ClipboardCheck,
   Loader,
@@ -14,19 +15,28 @@ const OrderStatusEnum = {
   PROCESSING: "PROCESSING",
   COMPLETED: "COMPLETED",
   CANCELLED: "CANCELLED",
+  ERRORS: "ERRORS",
 } as const
 
 type OrderStatusKeys = keyof typeof OrderStatusEnum
+interface OrderStatusEntity {
+  key: OrderStatusKeys
+  color: string
+  label: string
+  icon: React.ReactNode
+}
+
 const OrderStatusMap = Object.keys(OrderStatusEnum)
 
-const orderFilterStatuses: {
-  [key in OrderStatusKeys]: {
-    key: key
-    color: string
-    label: string
-    icon: React.ReactNode
-  }
+const orderStatuses: {
+  [key in OrderStatusKeys]: OrderStatusEntity
 } = {
+  ERRORS: {
+    key: "ERRORS",
+    color: "bg-rose-600",
+    label: "Error",
+    icon: <Ban />,
+  },
   BOUGHT: {
     key: "BOUGHT",
     color: "bg-gray-600",
@@ -68,6 +78,7 @@ const orderFilterStatuses: {
 export {
   OrderStatusEnum,
   type OrderStatusKeys,
+  type OrderStatusEntity,
   OrderStatusMap,
-  orderFilterStatuses,
+  orderStatuses,
 }

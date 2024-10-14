@@ -86,18 +86,17 @@ export function AllegroOrdersTableHeaderController(
             onSubmit={handleSubmitForm}
             defaultValues={
               {
-                order_id: filter?.order_id,
-                status: filter?.status,
-                product_name: filter?.product_name,
+                order_id: filter?.order_id || null,
+                status: filter?.status || null,
+                product_name: filter?.product_name || null,
                 delivery_address_country_code:
-                  filter?.delivery_address_country_code,
-                delivery_method: filter?.delivery_method,
-                last_update_from: filter?.last_update_from,
-                last_update_to: filter?.last_update_to,
-                ordering: filter?.ordering,
-                payment_finished: filter?.payment_finished,
-                labels_shipment: filter?.labels_shipment,
-                labels_factura: filter?.labels_factura,
+                  filter?.delivery_address_country_code || null,
+                delivery_method: filter?.delivery_method || null,
+                last_update_from: filter?.last_update_from || null,
+                last_update_to: filter?.last_update_to || null,
+                payment_finished: filter?.payment_finished || null,
+                labels_shipment: filter?.labels_shipment || null,
+                labels_factura: filter?.labels_factura || null,
               } as AllegroOrdersSchema
             }
             onReset={handleReset}

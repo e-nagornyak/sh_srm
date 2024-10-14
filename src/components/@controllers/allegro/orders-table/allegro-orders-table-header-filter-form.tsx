@@ -1,6 +1,6 @@
 import React from "react"
 import { orderDeliveryMethods } from "@/constants/order/order-delivery-methods"
-import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
+import { orderStatuses } from "@/constants/order/order-statuses"
 import {
   AllegroOrdersSearchParamsSchema,
   type AllegroOrdersSchema,
@@ -61,10 +61,7 @@ export function AllegroOrdersTableHeaderFilterForm({
   )
 
   const memoizedDeliveryMethods = React.useMemo(() => orderDeliveryMethods, [])
-  const memoizedStatuses = React.useMemo(
-    () => Object.values(orderFilterStatuses),
-    []
-  )
+  const memoizedStatuses = React.useMemo(() => Object.values(orderStatuses), [])
 
   const {
     control,
@@ -75,19 +72,7 @@ export function AllegroOrdersTableHeaderFilterForm({
 
   const resetHandler = () => {
     onReset()
-    reset({
-      last_update_from: null,
-      last_update_to: null,
-      order_id: null,
-      ordering: null,
-      delivery_address_country_code: null,
-      labels_factura: null,
-      labels_shipment: null,
-      payment_finished: null,
-      delivery_method: null,
-      product_name: null,
-      status: null,
-    })
+    reset()
   }
 
   const onSubmitHandler = (data: AllegroOrdersSchema) => {
@@ -110,7 +95,7 @@ export function AllegroOrdersTableHeaderFilterForm({
                 <FormControl>
                   <InputWithCommand
                     inputProps={{
-                      value: value ? orderFilterStatuses?.[value]?.label : "",
+                      value: value ? orderStatuses?.[value]?.label : "",
                       placeholder: "Status",
                       ...field,
                     }}

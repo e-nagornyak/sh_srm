@@ -38,6 +38,9 @@ export function OrderInfoHeaderActions({
 }: OrderHeaderActionsProps) {
   const isInvoiceLoading = loadingFields?.includes("invoice")
   const isShippingLoading = loadingFields?.includes("shipping")
+  const isInvoiceAlreadyExist = !!(
+    order?.labels?.faktura_url || order?.labels?.faktura_id
+  )
 
   const isAllowedAdditionalActions =
     order?.labels?.label_url || order?.labels?.faktura_url
@@ -51,7 +54,7 @@ export function OrderInfoHeaderActions({
         <ComponentWithTooltip
           trigger={
             <Button
-              disabled={isInvoiceLoading}
+              disabled={isInvoiceAlreadyExist || isInvoiceLoading}
               onClick={onClickCreateInvoice}
               className="gap-1"
               size="sm"

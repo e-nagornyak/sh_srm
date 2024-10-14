@@ -3,9 +3,9 @@
 import * as React from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
 import {
-  orderFilterStatuses,
+  orderStatuses,
   type OrderStatusKeys,
-} from "@/constants/order/order-statuses-new"
+} from "@/constants/order/order-statuses"
 import { getOrderName } from "@/utils/get-order-name"
 import { OrderStatusIndicatorsController } from "@/utils/order-status-indicators-controller"
 import { type ColumnDef } from "@tanstack/react-table"
@@ -210,8 +210,8 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
         const delivery = order?.delivery
         const status = order?.status as OrderStatusKeys
 
-        const color = status ? orderFilterStatuses?.[status]?.color : ""
-        const label = status ? orderFilterStatuses?.[status]?.label : ""
+        const color = status ? orderStatuses?.[status]?.color : ""
+        const label = status ? orderStatuses?.[status]?.label : ""
 
         return (
           <div className="flex max-w-56 flex-col gap-2">

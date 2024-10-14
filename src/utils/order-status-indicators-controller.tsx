@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import {
   orderStatusIndicatorsMap,
   type OrderStatusIndicator,
@@ -19,10 +20,13 @@ interface OrderStatusIndicatorsControllerProps {
 export function OrderStatusIndicatorsController({
   order,
 }: OrderStatusIndicatorsControllerProps) {
+  const { refresh } = useRouter()
+
   const onClickShippingLabel = async () => {
     try {
       await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
       toast.success("Label has been sent")
+      refresh()
     } catch (e) {
       showErrorToast(e)
     }
@@ -32,6 +36,7 @@ export function OrderStatusIndicatorsController({
     try {
       await getAllegroOrdersApi("client").createFacture(order?.order_id)
       toast.success("Invoice has been created")
+      refresh()
     } catch (e) {
       showErrorToast(e)
     }
@@ -56,6 +61,7 @@ export function OrderStatusIndicatorsController({
           order?.delivery?.address?.country_code !== countryList?.PL?.code)) &&
       orderStatusIndicatorsMap.invoiceRequested({
         onClick: onClickCreateInvoice,
+        disabled: !!(order?.labels?.faktura_id || order?.labels?.faktura_url),
       }),
 
     order?.payment?.type === "CASH_ON_DELIVERY" &&
