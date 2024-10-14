@@ -11,6 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
   type PaginationState,
+  type SortingState,
   type TableOptions,
   type VisibilityState,
 } from "@tanstack/react-table"
@@ -29,32 +30,15 @@ interface UseDataTableProps<TData>
       | "manualSorting"
     >,
     Required<Pick<TableOptions<TData>, "pageCount">> {
-  /**
-   * The method to use when updating the URL.
-   * - "push" - Pushes a new entry onto the history stack.
-   * - "replace" - Replaces the current entry on the history stack.
-   * @default "replace"
-   */
   method?: "push" | "replace"
-
-  /**
-   * Indicates whether the page should scroll to the top when the URL changes.
-   * @default false
-   */
   scroll?: boolean
-
-  /**
-   * A callback function that is called before updating the URL.
-   * Can be use to retrieve the loading state of the route transition.
-   * @see https://react.dev/reference/react/useTransition
-   *
-   */
   startTransition?: React.TransitionStartFunction
 }
 
 const searchParamsSchema = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().optional().default(10),
+  ordering: z.string().optional(),
 })
 
 export function useDataTable<TData>({
@@ -72,6 +56,7 @@ export function useDataTable<TData>({
   const search = searchParamsSchema.parse(Object.fromEntries(searchParams))
   const page = search.page
   const limit = search.limit ?? props.initialState?.pagination?.pageSize ?? 10
+  const ordering = search.ordering
 
   // Create query string
   const { createQueryString } = useQueryString(searchParams)
@@ -80,8 +65,14 @@ export function useDataTable<TData>({
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
-  // const [columnFilters, setColumnFilters] =
-  //   React.useState<ColumnFiltersState>(initialColumnFilters)
+  const [sorting, setSorting] = React.useState<SortingState>(() => {
+    if (ordering) {
+      const desc = ordering.startsWith("-")
+      const id = desc ? ordering.slice(1) : ordering
+      return [{ id, desc }]
+    }
+    return props?.initialState?.sorting || []
+  })
 
   // Handle server-side pagination
   const [{ pageIndex, pageSize }, setPagination] =
@@ -100,9 +91,15 @@ export function useDataTable<TData>({
 
   React.useEffect(() => {
     function onUrlChange() {
+      const sortQuery =
+        sorting.length > 0
+          ? `${sorting?.[0]?.desc ? "-" : ""}${sorting?.[0]?.id}`
+          : null
+
       const url = `${pathname}?${createQueryString({
         page: pageIndex + 1,
         limit: pageSize,
+        ordering: sortQuery,
       })}`
       method === "push"
         ? router.push(url, { scroll })
@@ -116,7 +113,7 @@ export function useDataTable<TData>({
       : onUrlChange()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageIndex, pageSize, method, scroll])
+  }, [pageIndex, pageSize, sorting, method, scroll])
 
   useEffectAfterMount(() => {
     setPagination({ pageIndex: page - 1, pageSize: limit })
@@ -161,11 +158,13 @@ export function useDataTable<TData>({
       pagination,
       columnVisibility,
       rowSelection,
+      sorting,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),

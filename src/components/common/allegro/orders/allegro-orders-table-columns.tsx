@@ -240,7 +240,8 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       },
     },
     {
-      enableSorting: false,
+      id: "bought_at",
+      enableSorting: true,
       enableHiding: false,
       enableResizing: false,
       accessorKey: "created_at",
@@ -264,7 +265,8 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       },
     },
     {
-      enableSorting: false,
+      id: "payment_finished_at",
+      enableSorting: true,
       enableHiding: false,
       enableResizing: false,
       accessorKey: "payment",
