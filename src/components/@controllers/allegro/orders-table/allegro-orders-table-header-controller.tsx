@@ -4,9 +4,10 @@ import React, { useMemo, useState } from "react"
 import dynamic from "next/dynamic"
 import { usePathname, useSearchParams } from "next/navigation"
 import {
-  AllegroOrdersSearchParamsSchema,
-  type AllegroOrdersSchema,
+  OrdersFiltersSchema,
+  type OrdersFiltersSchemaType,
 } from "@/constants/order/orders-search-params"
+import { hasAnyPropertyValue } from "@/utils/has-any-property-value"
 import { Filter, FilterX, Loader } from "lucide-react"
 
 import useEffectAfterMount from "@/hooks/use-effect-after-mount"
@@ -33,22 +34,21 @@ export function AllegroOrdersTableHeaderController(
   props: AllegroOrdersTableHeaderControllerProps
 ) {
   const { isPending, lazyPush } = useLazyRouter()
-  const [open, setOpen] = useState(false)
 
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
   const search = useMemo(
-    () =>
-      AllegroOrdersSearchParamsSchema.parse(Object.fromEntries(searchParams)),
+    () => OrdersFiltersSchema.parse(Object.fromEntries(searchParams)),
     [searchParams]
   )
 
-  const [filter, setFilter] = useState<AllegroOrdersSchema>(search)
+  const [filter, setFilter] = useState<OrdersFiltersSchemaType>(search)
+  const [open, setOpen] = useState(hasAnyPropertyValue(filter))
 
   const { createQueryString } = useQueryString(searchParams)
 
-  const handleSubmitForm = (data: AllegroOrdersSchema) => {
+  const handleSubmitForm = (data: OrdersFiltersSchemaType) => {
     const queryString = createQueryString({ ...data, page: 1 })
     const url = `${pathname}?${queryString}`
     lazyPush(url)
@@ -86,19 +86,19 @@ export function AllegroOrdersTableHeaderController(
             onSubmit={handleSubmitForm}
             defaultValues={
               {
-                order_id: filter?.order_id,
-                status: filter?.status,
-                product_name: filter?.product_name,
+                order_id: filter?.order_id || null,
+                status: filter?.status || null,
+                product_name: filter?.product_name || null,
                 delivery_address_country_code:
-                  filter?.delivery_address_country_code,
-                delivery_method: filter?.delivery_method,
-                last_update_from: filter?.last_update_from,
-                last_update_to: filter?.last_update_to,
-                ordering: filter?.ordering,
-                payment_finished: filter?.payment_finished,
-                labels_shipment: filter?.labels_shipment,
-                labels_factura: filter?.labels_factura,
-              } as AllegroOrdersSchema
+                  filter?.delivery_address_country_code || null,
+                delivery_method: filter?.delivery_method || null,
+                last_update_from: filter?.last_update_from || null,
+                last_update_to: filter?.last_update_to || null,
+                payment_finished: filter?.payment_finished || null,
+                labels_shipment: filter?.labels_shipment || null,
+                labels_factura: filter?.labels_factura || null,
+                invoice_required: filter?.invoice_required || null,
+              } as OrdersFiltersSchemaType
             }
             onReset={handleReset}
           />

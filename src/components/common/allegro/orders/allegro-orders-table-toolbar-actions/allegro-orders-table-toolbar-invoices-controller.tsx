@@ -32,6 +32,12 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
   const createInvoice = async (row: Row<TData>) => {
     try {
       const order = row?.original as Order
+
+      if (order?.labels?.faktura_id || order?.labels?.faktura_url) {
+        toast.warning(`Invoice already exists for order ${order?.id}`)
+        return
+      }
+
       await getAllegroOrdersApi("client").createFacture(order?.order_id)
       toast.info(`Invoice created for order ${order?.id}`)
     } catch (e) {

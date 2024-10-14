@@ -1,7 +1,7 @@
 import "server-only"
 
 import { unstable_noStore as noStore } from "next/cache"
-import { type AllegroOrdersSchema } from "@/constants/order/orders-search-params"
+import { type OrdersSearchParamsSchemaType } from "@/constants/order/orders-search-params"
 
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
@@ -15,7 +15,7 @@ interface QueryResponse {
 }
 
 export async function getAllegroOrders(
-  input: AllegroOrdersSchema
+  input: OrdersSearchParamsSchemaType
 ): Promise<QueryResponse> {
   noStore()
 

@@ -1,12 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
+import { useEffect, useState } from "react"
+import { type SortingState } from "@tanstack/table-core"
 
 import { type getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
-import { useQueryString } from "@/hooks/use-query-string"
 import { AllegroOrdersTableHeaderController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-controller"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
 import {
@@ -35,6 +34,7 @@ export function AllegroOrdersTableController({
     /* optional props */
     initialState: {
       columnSizing: {},
+      sorting: [{ id: "bought_at", desc: true }],
       // columnPinning: { right: ["actions", "updated_at"], left: ["select"] },
     },
     // For remembering the previous row selection on page change

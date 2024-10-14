@@ -40,10 +40,10 @@ export function OrderStatusIndicatorItem({
     >
   ) => (
     <button
-      disabled={loading}
+      disabled={loading || indicator?.disabled}
       className={cn(
         indicator?.colorClassName,
-        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none text-white shadow-sm duration-300 [&_svg]:size-4 [&_svg]:stroke-[3px]"
+        "flex size-6 shrink-0 items-center justify-center rounded-sm border border-border text-[16px] font-bold leading-none text-white shadow-sm duration-300 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:stroke-[3px]"
       )}
       {...props}
     >

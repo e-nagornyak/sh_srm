@@ -1,7 +1,7 @@
 "use memo"
 
 import React from "react"
-import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
+import { OrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
 
 import { type SearchParams } from "@/types/table"
 import { getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
@@ -13,7 +13,7 @@ interface ListPageProps {
 }
 
 export default async function ListPage({ searchParams }: ListPageProps) {
-  const search = AllegroOrdersSearchParamsSchema.parse(searchParams)
+  const search = OrdersSearchParamsSchema.parse(searchParams)
 
   const allegroOrdersPromise = getAllegroOrders(search)
 

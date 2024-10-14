@@ -1,61 +1,32 @@
 "use client"
 
 import * as React from "react"
-import { useCallback, useMemo, useState } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
-import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
-import {
-  AllegroOrdersSearchParamsSchema,
-  type AllegroOrdersSchema,
-} from "@/constants/order/orders-search-params"
 import { type Table } from "@tanstack/react-table"
-import {
-  AlignJustify,
-  Camera,
-  Check,
-  ChevronDown,
-  CreditCard,
-  Divide,
-  DollarSign,
-  Loader,
-  Plus,
-  RefreshCcw,
-  Search,
-  Trash,
-  X,
-} from "lucide-react"
+import { AlignJustify, ChevronDown } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { useDebounce } from "@/hooks/use-debounce"
-import useEffectAfterMount from "@/hooks/use-effect-after-mount"
-import { useLazyRouter } from "@/hooks/use-lazy-router"
-import { useQueryString } from "@/hooks/use-query-string"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 
-const basicOptions = [
-  { label: "Set payment", icon: <DollarSign className="size-4" /> },
-  { label: "Delete orders", icon: <Trash className="size-4" /> },
-  { label: "Merge orders", icon: <Plus className="size-4" /> },
-  { label: "Divide order", icon: <Divide className="size-4" /> },
-  { label: "Find similar orders", icon: <Search className="size-4" /> },
-]
-
-const allegroOptions = [
-  {
-    label: "Refund of Allegro commission",
-    icon: <Camera className="size-4" />,
-  },
-  { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
-]
+//
+// const basicOptions = [
+//   { label: "Set payment", icon: <DollarSign className="size-4" /> },
+//   { label: "Delete orders", icon: <Trash className="size-4" /> },
+//   { label: "Merge orders", icon: <Plus className="size-4" /> },
+//   { label: "Divide order", icon: <Divide className="size-4" /> },
+//   { label: "Find similar orders", icon: <Search className="size-4" /> },
+// ]
+//
+// const allegroOptions = [
+//   {
+//     label: "Refund of Allegro commission",
+//     icon: <Camera className="size-4" />,
+//   },
+//   { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
+// ]
 
 interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
   table: Table<TData>
@@ -64,89 +35,11 @@ interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
 export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   table,
 }: AllegroOrdersTableToolbarSortByStatusProps<TData>) {
-  const { isPending, lazyPush } = useLazyRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-
-  const search = useMemo(
-    () =>
-      AllegroOrdersSearchParamsSchema.parse(Object.fromEntries(searchParams)),
-    [searchParams]
-  )
-
-  const { createQueryString } = useQueryString(searchParams)
-
-  const [open, setOpen] = useState(false)
-
-  const [filters, setFilters] = useState<AllegroOrdersSchema>(search)
-  const [productName, setProductName] = useState<string | null>(
-    search?.product_name || null
-  )
-  const debouncedProductName = useDebounce(productName, 500)
-
-  const memoizedStatuses = React.useMemo(
-    () => Object.values(orderFilterStatuses),
-    []
-  )
-
-  const handleFilter = useCallback(
-    (filter: AllegroOrdersSchema) => {
-      const queryString = createQueryString(filter)
-      setFilters(filter)
-      const url = `${pathname}?${queryString}`
-      lazyPush(url)
-    },
-    [createQueryString, lazyPush, pathname]
-  )
-
-  const checkIfFilterExist = useCallback(
-    (filter: Partial<AllegroOrdersSchema>) => {
-      const key = Object.keys(filter)[0] as keyof AllegroOrdersSchema
-      const value = Object.values(filter)[0]
-
-      const isExist = Boolean(key && filters?.[key] === value)
-
-      const newFilters = isExist
-        ? { ...filters, [key]: null }
-        : { ...filters, ...filter }
-      handleFilter(newFilters)
-    },
-    [filters, handleFilter]
-  )
-
-  const handleResetFilter = useCallback(() => {
-    const resetFilters = Object.keys(filters).reduce((acc, key) => {
-      if (key === "limit" || key === "page") {
-        acc[key] = filters[key]
-      } else {
-        acc[key as keyof AllegroOrdersSchema] = null as any
-      }
-      return acc
-    }, {} as Partial<AllegroOrdersSchema>)
-    handleFilter(resetFilters as AllegroOrdersSchema)
-    setProductName(null)
-  }, [filters, handleFilter])
-
-  useEffectAfterMount(() => {
-    handleFilter({
-      ...filters,
-      product_name: debouncedProductName,
-    })
-  }, [debouncedProductName])
-
-  useEffectAfterMount(() => {
-    setFilters(search)
-  }, [search])
-
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger className="group" asChild>
         <Button variant="outline" className="gap-2">
-          {isPending ? (
-            <Loader size="17" className="animate-spin" />
-          ) : (
-            <AlignJustify size="17" />
-          )}
+          <AlignJustify size="17" />
           <ChevronDown
             size="13"
             className="group-data-[state=open]:rotate-180"
@@ -157,58 +50,6 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
         align="start"
         className="relative max-h-96 w-fit space-y-2 overflow-y-auto p-4 sm:min-w-96 md:max-h-[50vh]"
       >
-        <Button
-          onClick={handleResetFilter}
-          className="fixed right-3 top-2 z-10"
-          variant="ghost"
-          size="sm"
-        >
-          Reset <RefreshCcw size="15" />
-        </Button>
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>Product Name</DropdownMenuLabel>
-          <div className="flex items-center gap-2">
-            <Input
-              value={productName || ""}
-              onKeyDown={(e) => {
-                if (e?.key === "Enter") {
-                  setOpen(false)
-                }
-              }}
-              onChange={(e) => setProductName(e?.currentTarget?.value)}
-            />
-            <Button
-              disabled={!productName}
-              onClick={() => setProductName(null)}
-              variant="outline"
-            >
-              <X className="size-4" />
-            </Button>
-          </div>
-        </DropdownMenuGroup>
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>Payment</DropdownMenuLabel>
-          <DropdownMenuItem
-            textValue={""}
-            className={cn("flex cursor-pointer items-center gap-2", {
-              "bg-accent": filters?.payment_finished === "false",
-            })}
-            onClick={() => checkIfFilterExist({ payment_finished: "false" })}
-          >
-            <X className="size-4 text-red-600" />
-            Unpaid
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            textValue={""}
-            className={cn("flex cursor-pointer items-center gap-2", {
-              "bg-accent": filters?.payment_finished === "true",
-            })}
-            onClick={() => checkIfFilterExist({ payment_finished: "true" })}
-          >
-            <Check className="size-4 text-green-600" />
-            Paid
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
         {/*/!* Група з варіантами доставки *!/*/}
         {/*<DropdownMenuGroup>*/}
         {/*  {deliveryOptions.map((option, index) => (*/}

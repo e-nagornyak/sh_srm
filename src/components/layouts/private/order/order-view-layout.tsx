@@ -30,7 +30,7 @@ export function OrderViewLayout({ order }: OrderViewControllerProps) {
             <OrderPaymentController initialOrder={order} />
             <OrderInfoDataController initialOrder={order} />
           </div>
-          <OrderStatusController order={order} />
+          <OrderStatusController initialOrder={order} />
         </CardContent>
       </Card>
       <InvoiceAndDeliveryController initialOrder={order} />

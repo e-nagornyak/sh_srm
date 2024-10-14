@@ -5,14 +5,12 @@ import { type Table } from "@tanstack/react-table"
 
 import { Card, CardContent } from "@/components/ui/card"
 import { AllegroOrdersTableToolbarDelivery } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-delivery"
-import { AllegroOrdersTableToolbarGroups } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-groups"
 import { AllegroOrdersTableToolbarInvoicesController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-invoices-controller"
 import { AllegroOrdersTableToolbarMail } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-mails"
 import { AllegroOrdersTableToolbarPagination } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pagination"
 import { AllegroOrdersTableToolbarPickpack } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pickpack"
 import { AllegroOrdersTableToolbarPrintersController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-printers-controller"
 import { AllegroOrdersTableToolbarSelect } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-select"
-import { AllegroOrdersTableToolbarSortByController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by-controller"
 import { AllegroOrdersTableToolbarStars } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-stars"
 
 interface TasksTableToolbarActionsProps<TData> {
@@ -33,7 +31,7 @@ export function AllegroOrdersTableToolbarActionsLayout<TData>({
             <AllegroOrdersTableToolbarStars table={table} />
           </div>
           <div className="flex flex-wrap">
-            <AllegroOrdersTableToolbarGroups table={table} />
+            {/*<AllegroOrdersTableToolbarGroups table={table} />*/}
             <AllegroOrdersTableToolbarMail table={table} />
             <AllegroOrdersTableToolbarInvoicesController table={table} />
             <AllegroOrdersTableToolbarPrintersController table={table} />
@@ -41,7 +39,7 @@ export function AllegroOrdersTableToolbarActionsLayout<TData>({
           <AllegroOrdersTableToolbarDelivery table={table} />
           <AllegroOrdersTableToolbarPickpack table={table} />
           {/*<AllegroOrdersTableToolbarSortByStatusController table={table} />*/}
-          <AllegroOrdersTableToolbarSortByController table={table} />
+          {/*<AllegroOrdersTableToolbarSortByController table={table} />*/}
         </div>
         <AllegroOrdersTableToolbarPagination table={table} />
       </CardContent>

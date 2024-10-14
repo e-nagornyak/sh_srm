@@ -1,10 +1,8 @@
-"use client"
-
 import { orderPersonalEvents } from "@/constants/order/order-personal-events"
+import { type OrderStatusKeys } from "@/constants/order/order-statuses"
 import { format } from "date-fns"
 import {
   AlignJustify,
-  Check,
   ChevronDown,
   CircleHelp,
   Flag,
@@ -35,9 +33,17 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 
 interface OrderStatusProps {
   order: Order
+  onSelectStatus: (status: OrderStatusKeys) => void
+  onChangeStatusClick: () => void
+  isDirty: boolean
 }
 
-export function OrderStatus({ order }: OrderStatusProps) {
+export function OrderStatus({
+  order,
+  onSelectStatus,
+  onChangeStatusClick,
+  isDirty,
+}: OrderStatusProps) {
   return (
     <Table>
       <TableBody>
@@ -50,10 +56,13 @@ export function OrderStatus({ order }: OrderStatusProps) {
           </TableCell>
           <TableCell colSpan={2}>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <OrderStatusSelector disabled />
+              <OrderStatusSelector order={order} onSelect={onSelectStatus} />
               <ButtonWithDropdown
                 buttonContent={"Change"}
-                buttonProps={{ disabled: true }}
+                buttonProps={{
+                  disabled: !isDirty,
+                  onClick: onChangeStatusClick,
+                }}
                 triggerProps={{ disabled: true }}
                 dropdownContent={
                   <ComponentWithTooltip
@@ -126,17 +135,28 @@ export function OrderStatus({ order }: OrderStatusProps) {
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="whitespace-nowrap pb-0 text-start">
-            Order date:
+            Bought at
           </TableCell>
           <TableCell colSpan={2} className="pb-0 text-start">
-            {order?.created_at
-              ? format(order?.created_at, "dd.MM.yyyy, HH:mm")
+            {order?.bought_at
+              ? format(order?.bought_at, "dd.MM.yyyy, HH:mm")
+              : "-"}
+          </TableCell>
+        </TableRow>
+
+        <TableRow className="border-0">
+          <TableCell className="whitespace-nowrap py-0 text-start">
+            Payment at
+          </TableCell>
+          <TableCell colSpan={2} className="py-0 text-start">
+            {order?.payment?.finished_at
+              ? format(order?.payment?.finished_at, "dd.MM.yyyy, HH:mm")
               : "-"}
           </TableCell>
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="whitespace-nowrap py-0 text-start">
-            Date in status:
+            Updated at
           </TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
             {order?.updated_at
@@ -144,15 +164,15 @@ export function OrderStatus({ order }: OrderStatusProps) {
               : "-"}
           </TableCell>
         </TableRow>
-        <TableRow className="border-b border-gray-700">
-          <TableCell className="pt-0 text-start">Stock levels:</TableCell>
-          <TableCell colSpan={2} className="pt-0 text-start">
-            <button disabled className="flex items-center gap-1">
-              <Check size="20" className="text-green-600" />
-              Completed (deducted)
-            </button>
-          </TableCell>
-        </TableRow>
+        {/*<TableRow className="border-b border-gray-700">*/}
+        {/*  <TableCell className="pt-0 text-start">Stock levels:</TableCell>*/}
+        {/*  <TableCell colSpan={2} className="pt-0 text-start">*/}
+        {/*    <button disabled className="flex items-center gap-1">*/}
+        {/*      <Check size="20" className="text-green-600" />*/}
+        {/*      Completed (deducted)*/}
+        {/*    </button>*/}
+        {/*  </TableCell>*/}
+        {/*</TableRow>*/}
         <TableRow className="border-b border-gray-700">
           <TableCell colSpan={3} className="text-start">
             <DropdownMenu>

@@ -1,9 +1,9 @@
 import React from "react"
 import { orderDeliveryMethods } from "@/constants/order/order-delivery-methods"
-import { orderFilterStatuses } from "@/constants/order/order-statuses-new"
+import { orderStatuses } from "@/constants/order/order-statuses"
 import {
-  AllegroOrdersSearchParamsSchema,
-  type AllegroOrdersSchema,
+  OrdersFiltersSchema,
+  type OrdersFiltersSchemaType,
 } from "@/constants/order/orders-search-params"
 import {
   countryList,
@@ -40,8 +40,8 @@ import { DatePicker } from "@/components/shared/date-range-picker"
 import { InputWithCommand } from "@/components/shared/input-with-command-dropdown"
 
 interface AllegroOrdersTableHeaderFilterPanelProps {
-  onSubmit: SubmitHandler<AllegroOrdersSchema>
-  defaultValues?: AllegroOrdersSchema
+  onSubmit: SubmitHandler<OrdersFiltersSchemaType>
+  defaultValues?: OrdersFiltersSchemaType
   onReset: () => void
 }
 
@@ -50,8 +50,8 @@ export function AllegroOrdersTableHeaderFilterForm({
   onSubmit,
   onReset,
 }: AllegroOrdersTableHeaderFilterPanelProps) {
-  const form = useForm<AllegroOrdersSchema>({
-    resolver: zodResolver(AllegroOrdersSearchParamsSchema),
+  const form = useForm<OrdersFiltersSchemaType>({
+    resolver: zodResolver(OrdersFiltersSchema),
     values: defaultValues,
   })
 
@@ -61,10 +61,7 @@ export function AllegroOrdersTableHeaderFilterForm({
   )
 
   const memoizedDeliveryMethods = React.useMemo(() => orderDeliveryMethods, [])
-  const memoizedStatuses = React.useMemo(
-    () => Object.values(orderFilterStatuses),
-    []
-  )
+  const memoizedStatuses = React.useMemo(() => Object.values(orderStatuses), [])
 
   const {
     control,
@@ -75,22 +72,10 @@ export function AllegroOrdersTableHeaderFilterForm({
 
   const resetHandler = () => {
     onReset()
-    reset({
-      last_update_from: null,
-      last_update_to: null,
-      order_id: null,
-      ordering: null,
-      delivery_address_country_code: null,
-      labels_factura: null,
-      labels_shipment: null,
-      payment_finished: null,
-      delivery_method: null,
-      product_name: null,
-      status: null,
-    })
+    reset()
   }
 
-  const onSubmitHandler = (data: AllegroOrdersSchema) => {
+  const onSubmitHandler = (data: OrdersFiltersSchemaType) => {
     onSubmit(data)
   }
 
@@ -110,7 +95,7 @@ export function AllegroOrdersTableHeaderFilterForm({
                 <FormControl>
                   <InputWithCommand
                     inputProps={{
-                      value: value ? orderFilterStatuses?.[value]?.label : "",
+                      value: value ? orderStatuses?.[value]?.label : "",
                       placeholder: "Status",
                       ...field,
                     }}
@@ -133,7 +118,6 @@ export function AllegroOrdersTableHeaderFilterForm({
               </FormItem>
             )}
           />
-
           <FormField
             control={control}
             name="order_id"
@@ -214,7 +198,6 @@ export function AllegroOrdersTableHeaderFilterForm({
               </FormItem>
             )}
           />
-
           <FormField
             control={control}
             name="delivery_address_country_code"
@@ -372,6 +355,40 @@ export function AllegroOrdersTableHeaderFilterForm({
                         <div className="flex items-center gap-2">
                           <Check className="size-4 text-green-600" />
                           Already created
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="invoice_required"
+            render={({ field: { value, onChange, ...field } }) => (
+              <FormItem className="space-y-0">
+                <FormLabel>Factura Required</FormLabel>
+                <FormControl>
+                  <Select value={value || ""} onValueChange={onChange}>
+                    <SelectTrigger
+                      className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
+                      {...field}
+                    >
+                      <SelectValue placeholder="Factura status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="false">
+                        <div className="flex items-center gap-2">
+                          <X className="size-4 text-red-600" />
+                          No
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="true">
+                        <div className="flex items-center gap-2">
+                          <Check className="size-4 text-green-600" />
+                          Yes
                         </div>
                       </SelectItem>
                     </SelectContent>
