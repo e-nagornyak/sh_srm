@@ -1,12 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
 
 import { type getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
-import { useQueryString } from "@/hooks/use-query-string"
 import { AllegroOrdersTableHeaderController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-controller"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
 import {

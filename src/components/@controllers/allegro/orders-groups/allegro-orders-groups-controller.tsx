@@ -7,7 +7,7 @@ import {
   type OrderStatusEntity,
   type OrderStatusKeys,
 } from "@/constants/order/order-statuses"
-import { AllegroOrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
+import { OrdersFiltersSchema } from "@/constants/order/orders-search-params"
 import { CirclePlus, Loader, WalletCards } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
@@ -83,8 +83,7 @@ export function AllegroOrdersGroupsController() {
   const { isPendingTag, lazyPush } = useLazyRouterWithTag()
 
   const search = React.useMemo(
-    () =>
-      AllegroOrdersSearchParamsSchema.parse(Object.fromEntries(searchParams)),
+    () => OrdersFiltersSchema.parse(Object.fromEntries(searchParams)),
     [searchParams]
   )
 
