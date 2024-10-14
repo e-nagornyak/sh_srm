@@ -68,7 +68,6 @@ export function InvoiceAndDeliveryController({
     country_code,
     street,
     city,
-    // state,
   }: OrderDeliveryFormData) => {
     try {
       const updatedOrder: Order = {

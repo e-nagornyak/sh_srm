@@ -117,39 +117,6 @@ export function OrderInfoDataForm({
                 />
               </TableCell>
             </TableRow>
-            <TableRow className="border-b border-gray-700">
-              <TableCell>Order source:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue="sheibar"
-                  control={form.control}
-                  name="order_source"
-                  render={({ field: { value, onChange, ...field } }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Select value={value} onValueChange={onChange}>
-                          <SelectTrigger
-                            className="h-8 w-full px-2 py-0.5 capitalize hover:bg-muted/50"
-                            {...field}
-                          >
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Allegro</SelectLabel>
-                              <SelectItem value="sheibar">sheibar</SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
-            {/**/}
             <TableRow className="border-0">
               <TableCell className="content-start pb-0 text-start">
                 Shipping method:

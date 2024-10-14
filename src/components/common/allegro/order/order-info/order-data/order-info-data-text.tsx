@@ -39,8 +39,11 @@ export function OrderInfoDataText({
         </TableRow>
         <TableRow className="border-0">
           <TableCell className="py-0 text-start">E-mail:</TableCell>
-          <TableCell colSpan={2} className="truncate py-0 text-start">
-            <ComponentWithEditButton onEditClick={changeEditingFieldName}>
+          <TableCell colSpan={2} className="py-0 text-start">
+            <ComponentWithEditButton
+              className="line-clamp-1 max-w-36"
+              onEditClick={changeEditingFieldName}
+            >
               {order?.buyer?.email}
             </ComponentWithEditButton>
           </TableCell>

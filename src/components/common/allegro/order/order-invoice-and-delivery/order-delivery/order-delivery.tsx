@@ -77,7 +77,6 @@ export function OrderDelivery({
             defaultValues={{
               ...address,
               company_name: buyer?.company_name || "",
-              state: "",
             }}
             onCancel={onCancel}
             onSave={onSave}

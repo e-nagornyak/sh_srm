@@ -1,7 +1,7 @@
 "use client"
 
 import { memo, useMemo, type ComponentProps } from "react"
-import { countryList, type CountryType } from "@/constants/shared/countries"
+import { countryListEU, type CountryType } from "@/constants/shared/countries"
 
 import {
   Select,
@@ -17,7 +17,7 @@ export const CountrySelect = memo(function CountrySelect(
   props: CountrySelectProps
 ) {
   const memoizedCountries = useMemo(
-    (): CountryType[] => Object.values(countryList),
+    (): CountryType[] => Object.values(countryListEU),
     []
   )
 
