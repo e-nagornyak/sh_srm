@@ -67,6 +67,8 @@ export function AllegroOrdersTableHeaderFilterForm({
     control,
     getValues,
     reset,
+    setValue,
+    watch,
     formState: { isDirty },
   } = form
 
@@ -79,6 +81,30 @@ export function AllegroOrdersTableHeaderFilterForm({
     onSubmit(data)
   }
 
+  // Function to clear specific field by key
+  const clearField = (fieldKey: keyof OrdersFiltersSchemaType) => {
+    setValue(fieldKey, null)
+    if (defaultValues?.[fieldKey]) {
+      onSubmitHandler(getValues())
+    }
+  }
+
+  const ClearButton = ({
+    fieldKey,
+  }: {
+    fieldKey: keyof OrdersFiltersSchemaType
+  }) => {
+    return (
+      <button
+        onClick={() => clearField(fieldKey)}
+        type="button"
+        className="hover:text-red-500"
+      >
+        <X size="20" />
+      </button>
+    )
+  }
+  console.log(getValues())
   return (
     <Form {...form}>
       <form
@@ -90,8 +116,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="status"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Status</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Status
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <InputWithCommand
                     inputProps={{
@@ -122,8 +151,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="order_id"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Allegro ID</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Allegro ID
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Allegro ID"
@@ -140,9 +172,13 @@ export function AllegroOrdersTableHeaderFilterForm({
             <FormField
               control={control}
               name="last_update_from"
-              render={({ field: { value, onChange } }) => (
-                <FormItem className="w-full space-y-0">
-                  <FormLabel>Last updated from</FormLabel>
+              render={({ field: { value, onChange, ...field } }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                    Last updated from
+                    {value && <ClearButton fieldKey={field?.name} />}
+                  </FormLabel>
+
                   <FormControl>
                     <DatePicker
                       onDateChange={(date) =>
@@ -159,9 +195,12 @@ export function AllegroOrdersTableHeaderFilterForm({
             <FormField
               control={control}
               name="last_update_to"
-              render={({ field: { onChange, value } }) => (
-                <FormItem className="w-full space-y-0">
-                  <FormLabel>Last updated to</FormLabel>
+              render={({ field: { onChange, value, ...field } }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                    Last updated to
+                    {value && <ClearButton fieldKey={field?.name} />}
+                  </FormLabel>
                   <FormControl>
                     <DatePicker
                       calendarDisabled={(date: Date) => {
@@ -184,8 +223,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="product_name"
             render={({ field: { value, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Product Name</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Product Name
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Product Name"
@@ -201,8 +243,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="delivery_address_country_code"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Delivery Address Country</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Delivery Address Country
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <InputWithCommand
                     inputProps={{
@@ -233,8 +278,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="delivery_method"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Delivery Method</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Delivery Method
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <InputWithCommand
                     inputProps={{
@@ -265,8 +313,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="payment_finished"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Payment Status</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Payment Status
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
@@ -299,8 +350,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="labels_shipment"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Label Shipments Status</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Label Shipments Status
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
@@ -333,8 +387,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="labels_factura"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Invoice Status</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Invoice Status
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
@@ -367,8 +424,11 @@ export function AllegroOrdersTableHeaderFilterForm({
             control={control}
             name="invoice_required"
             render={({ field: { value, onChange, ...field } }) => (
-              <FormItem className="space-y-0">
-                <FormLabel>Invoice Required</FormLabel>
+              <FormItem className="space-y-2">
+                <FormLabel className="flex min-h-5 items-center justify-between gap-2">
+                  Invoice Required
+                  {value && <ClearButton fieldKey={field?.name} />}
+                </FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
@@ -402,12 +462,15 @@ export function AllegroOrdersTableHeaderFilterForm({
           <Button
             variant="outline"
             onClick={resetHandler}
-            disabled={getValues() && !hasAnyPropertyValue(getValues())}
+            disabled={!hasAnyPropertyValue(watch())}
             type="button"
           >
             Reset
           </Button>
-          <Button disabled={!isDirty} type="submit">
+          <Button
+            disabled={!isDirty || !hasAnyPropertyValue(watch())}
+            type="submit"
+          >
             Apply Filter
           </Button>
         </div>
