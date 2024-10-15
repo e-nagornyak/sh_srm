@@ -2,6 +2,7 @@
 
 import React from "react"
 import { OrdersSearchParamsSchema } from "@/constants/order/orders-search-params"
+import { OrdersTableStoreProvider } from "@/store/order/orders-table-store-provider"
 
 import { type SearchParams } from "@/types/table"
 import { getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
@@ -15,15 +16,15 @@ interface ListPageProps {
 export default async function ListPage({ searchParams }: ListPageProps) {
   const search = OrdersSearchParamsSchema.parse(searchParams)
 
-  const allegroOrdersPromise = getAllegroOrders(search)
-
+  const ordersQueryResponse = await getAllegroOrders(search)
+  console.log(ordersQueryResponse?.results?.[0])
   return (
-    <section className="grid w-full items-center pb-14">
-      <React.Suspense fallback={<AllegroOrdersTableSkeleton shrinkZero />}>
+    <OrdersTableStoreProvider initialData={ordersQueryResponse?.results}>
+      <section className="grid w-full items-center">
         <AllegroOrdersTableController
-          allegroOrdersPromise={allegroOrdersPromise}
+          ordersQueryResponse={ordersQueryResponse}
         />
-      </React.Suspense>
-    </section>
+      </section>
+    </OrdersTableStoreProvider>
   )
 }

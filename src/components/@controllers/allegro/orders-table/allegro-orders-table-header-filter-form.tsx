@@ -165,10 +165,9 @@ export function AllegroOrdersTableHeaderFilterForm({
                   <FormControl>
                     <DatePicker
                       calendarDisabled={(date: Date) => {
-                        const startData = dayjs(
-                          getValues("last_update_from")
-                        ).add(1, "day")
-                        return dayjs(startData).isAfter(date)
+                        return dayjs(
+                          dayjs(getValues("last_update_from"))
+                        ).isAfter(date)
                       }}
                       onDateChange={(date) =>
                         onChange(dayjs(date).format("YYYY-MM-DD"))
@@ -335,14 +334,14 @@ export function AllegroOrdersTableHeaderFilterForm({
             name="labels_factura"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem className="space-y-0">
-                <FormLabel>Factura Status</FormLabel>
+                <FormLabel>Invoice Status</FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
                       className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
                       {...field}
                     >
-                      <SelectValue placeholder="Factura status" />
+                      <SelectValue placeholder="Invoice Status" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="false">
@@ -369,14 +368,14 @@ export function AllegroOrdersTableHeaderFilterForm({
             name="invoice_required"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem className="space-y-0">
-                <FormLabel>Factura Required</FormLabel>
+                <FormLabel>Invoice Required</FormLabel>
                 <FormControl>
                   <Select value={value || ""} onValueChange={onChange}>
                     <SelectTrigger
                       className="w-full px-2 py-0.5 capitalize hover:bg-muted/50"
                       {...field}
                     >
-                      <SelectValue placeholder="Factura status" />
+                      <SelectValue placeholder="Invoice Required" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="false">

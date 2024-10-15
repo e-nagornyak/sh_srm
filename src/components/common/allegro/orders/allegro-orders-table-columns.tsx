@@ -106,7 +106,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
                 disableLazyLoading={false}
                 iso2={country_codeISO}
               />
-              <Text className="capitalize" size="xs">
+              <Text className="capitalize" size="sm">
                 {name}
               </Text>
             </div>
@@ -155,10 +155,10 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
             </div>
             <div>
               {products?.map(({ id, offer_id, quantity, name }) => (
-                <Text key={`${id}-text`} size="xs">
+                <Text key={`${id}-text`} size="base">
                   {quantity}x {name}{" "}
                   <CopyButton copyText={offer_id}>
-                    <Text color="highlight" size="xs">
+                    <Text color="highlight" size="sm">
                       ({offer_id})
                     </Text>
                   </CopyButton>
@@ -229,7 +229,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
             <Link
               href="#"
               className={textVariants({
-                size: "xxs",
+                size: "sm",
                 className: "!text-highlight",
               })}
             >

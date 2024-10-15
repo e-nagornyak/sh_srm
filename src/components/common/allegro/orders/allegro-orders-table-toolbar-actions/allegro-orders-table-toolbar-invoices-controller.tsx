@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { wait } from "@/utils/wait"
+import { useRouter } from "next/navigation"
 import { type Row, type Table } from "@tanstack/react-table"
 import { StickyNote } from "lucide-react"
 import { toast } from "sonner"
@@ -25,6 +25,8 @@ interface AllegroOrdersTableToolbarInvoicesProps<TData> {
 export function AllegroOrdersTableToolbarInvoicesController<TData>({
   table,
 }: AllegroOrdersTableToolbarInvoicesProps<TData>) {
+  const { refresh } = useRouter()
+
   const selectedRows = table?.getSelectedRowModel()?.rows || []
   const totalSelectedRows = selectedRows.length
   const [remainingCount, setRemainingCount] = React.useState(totalSelectedRows)
@@ -60,6 +62,7 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
 
       toast.success("All invoices created")
       table.toggleAllRowsSelected(false)
+      refresh()
     } catch (e) {
       showErrorToast(e)
     }
@@ -87,7 +90,8 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
           onClick={handleCreateInvoices}
           className="cursor-pointer"
         >
-          Create invoice {totalSelectedRows ? `(${totalSelectedRows})` : null}
+          Create invoice &nbsp;
+          <span className="text-highlight">({totalSelectedRows})</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -6,6 +6,7 @@ import {
   type OrderStatusIndicator,
 } from "@/constants/order/order-status-indicators"
 import { countryList } from "@/constants/shared/countries"
+import { useOrdersTableStore } from "@/store/order/orders-table-store-provider"
 import { toast } from "sonner"
 
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
@@ -22,11 +23,24 @@ export function OrderStatusIndicatorsController({
 }: OrderStatusIndicatorsControllerProps) {
   const { refresh } = useRouter()
 
+  const updateOrder = useOrdersTableStore((store) => store?.updateOrder)
+
   const onClickShippingLabel = async () => {
     try {
-      await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
+      const res = await getAllegroOrdersApi("client").sendShippingLabel(
+        order?.order_id
+      )
+
+      updateOrder(order?.id, {
+        status: "PROCESSING",
+        labels: {
+          ...order?.labels,
+          label_url: (res?.label_url as string) || order?.labels?.label_url,
+          shipment_id: (res?.label_id as string) || order?.labels?.shipment_id,
+        },
+      })
+
       toast.success("Label has been sent")
-      refresh()
     } catch (e) {
       showErrorToast(e)
     }
@@ -53,6 +67,7 @@ export function OrderStatusIndicatorsController({
       ? orderStatusIndicatorsMap.labelCreated()
       : orderStatusIndicatorsMap.labelNotGenerated({
           onClick: onClickShippingLabel,
+          disabled: !!order?.labels?.label_url,
         }),
 
     !order?.labels?.faktura_id &&
@@ -77,7 +92,7 @@ export function OrderStatusIndicatorsController({
 
   return (
     <div className="float-right flex flex-wrap items-center gap-0.5">
-      {indicators.map((indicator) => (
+      {indicators?.map((indicator) => (
         <OrderStatusIndicatorItem key={indicator?.key} indicator={indicator} />
       ))}
     </div>

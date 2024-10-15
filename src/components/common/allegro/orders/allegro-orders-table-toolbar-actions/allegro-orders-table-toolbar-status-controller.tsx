@@ -4,10 +4,9 @@ import * as React from "react"
 import {
   orderStatuses,
   type OrderStatusEntity,
-  type OrderStatusKeys,
 } from "@/constants/order/order-statuses"
 import { type Row, type Table } from "@tanstack/react-table"
-import { AlignJustify, Printer } from "lucide-react"
+import { AlignJustify } from "lucide-react"
 import { toast } from "sonner"
 
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
@@ -39,13 +38,13 @@ import { Text } from "@/components/ui/text"
 //   { label: "Allegro payment refund", icon: <CreditCard className="size-4" /> },
 // ]
 
-interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
+interface AllegroOrdersTableToolbarStatusControllerProps<TData> {
   table: Table<TData>
 }
 
-export function AllegroOrdersTableToolbarSortByStatusController<TData>({
+export function AllegroOrdersTableToolbarStatusController<TData>({
   table,
-}: AllegroOrdersTableToolbarSortByStatusProps<TData>) {
+}: AllegroOrdersTableToolbarStatusControllerProps<TData>) {
   const selectedRows = table?.getSelectedRowModel()?.rows || []
   const totalSelectedRows = selectedRows.length
   const [remainingCount, setRemainingCount] = React.useState(totalSelectedRows)
@@ -67,7 +66,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
       }
       await getAllegroOrdersApi("client").updateAllegroOrder(order?.id, {
         ...order,
-        status,
+        status: status?.key,
       })
       toast.info(
         `Status ${status?.key} has been set for the order ${order?.id}`
@@ -98,7 +97,7 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger disabled={!totalSelectedRows} asChild>
+      <DropdownMenuTrigger disabled asChild>
         <Button className="relative min-w-[3.2rem]" variant="outline">
           {remainingCount ? (
             <>
@@ -126,7 +125,8 @@ export function AllegroOrdersTableToolbarSortByStatusController<TData>({
             <div
               className={`size-4 rounded border border-border ${status?.color}`}
             />
-            {status?.label}
+            {status?.label}{" "}
+            <span className="text-highlight">({totalSelectedRows})</span>
           </DropdownMenuItem>
         ))}
         {/*/!* Група з варіантами доставки *!/*/}

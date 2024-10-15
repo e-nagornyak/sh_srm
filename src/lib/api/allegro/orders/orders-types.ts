@@ -1,3 +1,5 @@
+import { type OrderStatusKeys } from "@/constants/order/order-statuses"
+
 import {
   type Buyer,
   type BuyerRequest,
@@ -59,7 +61,7 @@ interface Order {
   labels: Label
   invoice: Invoice
   order_id: string // maxLength: 255
-  status?: string | null // maxLength: 255, nullable
+  status?: OrderStatusKeys | null // maxLength: 255, nullable
   marketplace?: string | null // maxLength: 255, nullable
   message_to_seller?: string | null // nullable
   note?: string | null // nullable

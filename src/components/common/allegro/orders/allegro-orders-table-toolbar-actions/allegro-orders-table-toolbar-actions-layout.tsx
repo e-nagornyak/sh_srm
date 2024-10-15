@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { type Table } from "@tanstack/react-table"
 
@@ -11,20 +9,18 @@ import { AllegroOrdersTableToolbarPagination } from "@/components/common/allegro
 import { AllegroOrdersTableToolbarPickpack } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-pickpack"
 import { AllegroOrdersTableToolbarPrintersController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-printers-controller"
 import { AllegroOrdersTableToolbarSelect } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-select"
-import { AllegroOrdersTableToolbarSortByStatusController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-sort-by-status-controller"
 import { AllegroOrdersTableToolbarStars } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-stars"
+import { AllegroOrdersTableToolbarStatusController } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-status-controller"
 
 interface TasksTableToolbarActionsProps<TData> {
   table: Table<TData>
-  id?: string
 }
 
 export function AllegroOrdersTableToolbarActionsLayout<TData>({
   table,
-  id,
 }: TasksTableToolbarActionsProps<TData>) {
   return (
-    <Card id={id} className="w-full">
+    <Card className="w-full">
       <CardContent className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex">
@@ -39,7 +35,7 @@ export function AllegroOrdersTableToolbarActionsLayout<TData>({
           </div>
           <AllegroOrdersTableToolbarDelivery table={table} />
           <AllegroOrdersTableToolbarPickpack table={table} />
-          <AllegroOrdersTableToolbarSortByStatusController table={table} />
+          <AllegroOrdersTableToolbarStatusController table={table} />
           {/*<AllegroOrdersTableToolbarSortByController table={table} />*/}
         </div>
         <AllegroOrdersTableToolbarPagination table={table} />

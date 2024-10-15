@@ -28,21 +28,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { OrderStatusSelector } from "@/components/common/allegro/order/order-info/order-status/order-status-selector"
-import { ButtonWithDropdown } from "@/components/shared/button-with-dropdown"
 import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip"
 
 interface OrderStatusProps {
   order: Order
   onSelectStatus: (status: OrderStatusKeys) => void
-  onChangeStatusClick: () => void
-  isDirty: boolean
+  loading: boolean
 }
 
 export function OrderStatus({
   order,
   onSelectStatus,
-  onChangeStatusClick,
-  isDirty,
+  loading,
 }: OrderStatusProps) {
   return (
     <Table>
@@ -56,28 +53,32 @@ export function OrderStatus({
           </TableCell>
           <TableCell colSpan={2}>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <OrderStatusSelector order={order} onSelect={onSelectStatus} />
-              <ButtonWithDropdown
-                buttonContent={"Change"}
-                buttonProps={{
-                  disabled: !isDirty,
-                  onClick: onChangeStatusClick,
-                }}
-                triggerProps={{ disabled: true }}
-                dropdownContent={
-                  <ComponentWithTooltip
-                    side="left"
-                    trigger={
-                      <Button variant="ghost" size="sm" className="text-start">
-                        Change without triggering
-                        <br />
-                        automatic actions
-                      </Button>
-                    }
-                    text="Move without running any defined automatic actions (such as sending an e-mail)."
-                  />
-                }
+              <OrderStatusSelector
+                loading={loading}
+                order={order}
+                onSelect={onSelectStatus}
               />
+              {/*<ButtonWithDropdown*/}
+              {/*  buttonContent={"Change"}*/}
+              {/*  buttonProps={{*/}
+              {/*    disabled: !isDirty,*/}
+              {/*    onClick: onChangeStatusClick,*/}
+              {/*  }}*/}
+              {/*  triggerProps={{ disabled: true }}*/}
+              {/*  dropdownContent={*/}
+              {/*    <ComponentWithTooltip*/}
+              {/*      side="left"*/}
+              {/*      trigger={*/}
+              {/*        <Button variant="ghost" size="sm" className="text-start">*/}
+              {/*          Change without triggering*/}
+              {/*          <br />*/}
+              {/*          automatic actions*/}
+              {/*        </Button>*/}
+              {/*      }*/}
+              {/*      text="Move without running any defined automatic actions (such as sending an e-mail)."*/}
+              {/*    />*/}
+              {/*  }*/}
+              {/*/>*/}
             </div>
           </TableCell>
         </TableRow>

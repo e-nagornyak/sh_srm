@@ -1,34 +1,33 @@
 "use client"
 
 import * as React from "react"
-import { useEffect, useState } from "react"
-import { type SortingState } from "@tanstack/table-core"
+import { useOrdersTableStore } from "@/store/order/orders-table-store-provider"
 
-import { type getAllegroOrders } from "@/lib/api/allegro/orders/orders-query"
+import { type OrdersQueryResponse } from "@/lib/api/allegro/orders/orders-query"
 import { useDataTable } from "@/hooks/use-data-table"
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { AllegroOrdersTableHeaderController } from "@/components/@controllers/allegro/orders-table/allegro-orders-table-header-controller"
 import { getAllegroOrdersColumns } from "@/components/common/allegro/orders/allegro-orders-table-columns"
-import {
-  ActionFiltersTopBarId,
-  AllegroOrdersTableToolbarActionsFooter,
-} from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-actions-footer"
 import { AllegroOrdersTableToolbarActionsLayout } from "@/components/common/allegro/orders/allegro-orders-table-toolbar-actions/allegro-orders-table-toolbar-actions-layout"
 import { DataTable } from "@/components/common/data-table/data-table"
 
 interface TableProps {
-  allegroOrdersPromise: ReturnType<typeof getAllegroOrders>
+  ordersQueryResponse: OrdersQueryResponse
 }
 
 export function AllegroOrdersTableController({
-  allegroOrdersPromise,
+  ordersQueryResponse,
 }: TableProps) {
-  const { results, total_pages } = React.use(allegroOrdersPromise)
+  const { total_pages, results } = ordersQueryResponse
+
+  const orders = useOrdersTableStore((store) => store?.orders)
+  const setOrders = useOrdersTableStore((store) => store?.setOrders)
 
   // Memoize the columns so they don't re-render on every render
   const columns = React.useMemo(() => getAllegroOrdersColumns(), [])
 
   const { table } = useDataTable({
-    data: results,
+    data: orders,
     columns,
     pageCount: total_pages,
     /* optional props */
@@ -42,17 +41,14 @@ export function AllegroOrdersTableController({
     /* */
   })
 
+  useEffectAfterMount(() => {
+    setOrders(results)
+  }, [results])
+
   return (
-    <DataTable
-      hiddenPagination
-      footer={<AllegroOrdersTableToolbarActionsFooter table={table} />}
-      table={table}
-    >
+    <DataTable table={table}>
       <AllegroOrdersTableHeaderController />
-      <AllegroOrdersTableToolbarActionsLayout
-        id={ActionFiltersTopBarId}
-        table={table}
-      />
+      <AllegroOrdersTableToolbarActionsLayout table={table} />
     </DataTable>
   )
 }

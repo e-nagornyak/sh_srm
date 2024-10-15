@@ -14,28 +14,25 @@ interface OrderStatusProps {
 }
 
 export function OrderStatusController({ initialOrder }: OrderStatusProps) {
+  const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(initialOrder)
-  const [isDirty, setIsDirty] = useState(false)
 
-  const handleSelectStatus = (status: OrderStatusKeys) => {
-    setOrder({ ...order, status })
-    !isDirty && setIsDirty(true)
-  }
-
-  const handleChangeStatus = async () => {
+  const handleSelectStatus = async (status: OrderStatusKeys) => {
     try {
+      setLoading(true)
       await getAllegroOrdersApi("client").updateAllegroOrder(order?.id, order)
+      setOrder({ ...order, status })
       toast.info("Status has been updated")
-      setIsDirty(false)
     } catch (e) {
       showErrorToast(e)
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <OrderStatus
-      isDirty={isDirty}
-      onChangeStatusClick={handleChangeStatus}
+      loading={loading}
       onSelectStatus={handleSelectStatus}
       order={order}
     />
