@@ -20,8 +20,15 @@ export function OrderStatusController({ initialOrder }: OrderStatusProps) {
   const handleSelectStatus = async (status: OrderStatusKeys) => {
     try {
       setLoading(true)
-      await getAllegroOrdersApi("client").updateAllegroOrder(order?.id, order)
-      setOrder({ ...order, status })
+      const updatedOrder = { ...order, status }
+
+      await getAllegroOrdersApi("client").updateAllegroOrder(
+        order?.id,
+        updatedOrder
+      )
+
+      setOrder(updatedOrder)
+
       toast.info("Status has been updated")
     } catch (e) {
       showErrorToast(e)
