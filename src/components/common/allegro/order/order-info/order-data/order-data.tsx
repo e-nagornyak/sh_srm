@@ -37,7 +37,6 @@ export function OrderData({
       defaultValues={{
         ...order?.buyer,
         phone_number: order?.buyer?.phone_number || "",
-        order_source: "",
         method: delivery?.method,
         cost: delivery?.cost,
         provider: payment?.provider,

@@ -15,7 +15,6 @@ const orderDeliverySchema = z.object({
     .optional()
     .default(""),
   city: z.string().optional().default(""),
-  state: z.string().optional().default(""),
   country_code: z.string().optional().default(""),
 })
 

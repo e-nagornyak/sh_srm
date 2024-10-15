@@ -8,7 +8,6 @@ const orderInfoSchema = z.object({
   login: z.string().optional().default(""),
   email: z.string().optional().default(""),
   phone_number: z.string().optional().default(""),
-  order_source: z.string().optional().default(""),
   method: z.string().optional().default(""),
   cost: z.string().optional().default(""),
   provider: z.string().optional().default(""),

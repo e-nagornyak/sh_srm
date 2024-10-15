@@ -39,7 +39,6 @@ export function OrderInfoDataController({
     method,
     cash_on_delivery,
     // additional_field_2,
-    // order_source,
     // comments,
     // vies_vat_pl,
     // additional_field_1,

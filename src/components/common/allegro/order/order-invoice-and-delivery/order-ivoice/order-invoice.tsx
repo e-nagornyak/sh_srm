@@ -37,6 +37,7 @@ export function OrderInvoice({
   onSave,
   onCancel,
 }: OrderViewInvoiceProps) {
+  const invoice = order?.invoice
   const delivery = order?.delivery
   const buyer = order?.buyer
   const address = delivery?.address
@@ -75,13 +76,11 @@ export function OrderInvoice({
         {typeof editingFieldName === "string" ? (
           <OrderInvoiceForm
             defaultValues={{
-              firstAndLastName: `${address?.last_name || ""} ${address?.last_name || ""}`,
-              company_name: buyer?.company_name || "",
-              address: address?.street,
-              zip_code: address?.zip_code,
-              city: address?.city,
-              state: "",
-              country_code: address?.country_code,
+              company_name: invoice?.name || "",
+              address: "",
+              zip_code: invoice?.zip_code || "",
+              city: "",
+              country_code: invoice?.country_code || "",
               tax_id: "",
             }}
             onCancel={onCancel}

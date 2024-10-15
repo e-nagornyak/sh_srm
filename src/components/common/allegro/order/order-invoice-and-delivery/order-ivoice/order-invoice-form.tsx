@@ -75,25 +75,6 @@ export function OrderInvoiceForm({
               </TableCell>
             </TableRow>
             <TableRow className="border-0">
-              <TableCell>Name and surname:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="firstAndLastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Input size="xs" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow className="border-0">
               <TableCell>Company:</TableCell>
               <TableCell colSpan={2}>
                 <FormField
@@ -116,6 +97,7 @@ export function OrderInvoiceForm({
               <TableCell>Address:</TableCell>
               <TableCell colSpan={2}>
                 <FormField
+                  disabled
                   defaultValue=""
                   control={form.control}
                   name="address"
@@ -169,25 +151,7 @@ export function OrderInvoiceForm({
                 />
               </TableCell>
             </TableRow>
-            <TableRow className="border-0">
-              <TableCell>State:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="state"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Input size="xs" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
+
             <TableRow className="border-0">
               <TableCell>Country:</TableCell>
               <TableCell colSpan={2}>
