@@ -1,15 +1,26 @@
 "use client"
 
 import * as React from "react"
-import { type Table } from "@tanstack/react-table"
-import { AlignJustify, ChevronDown } from "lucide-react"
+import {
+  orderStatuses,
+  type OrderStatusEntity,
+  type OrderStatusKeys,
+} from "@/constants/order/order-statuses"
+import { type Row, type Table } from "@tanstack/react-table"
+import { AlignJustify, Printer } from "lucide-react"
+import { toast } from "sonner"
 
+import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import type { Order } from "@/lib/api/allegro/orders/orders-types"
+import { showErrorToast } from "@/lib/handle-error"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Text } from "@/components/ui/text"
 
 //
 // const basicOptions = [
@@ -35,21 +46,89 @@ interface AllegroOrdersTableToolbarSortByStatusProps<TData> {
 export function AllegroOrdersTableToolbarSortByStatusController<TData>({
   table,
 }: AllegroOrdersTableToolbarSortByStatusProps<TData>) {
+  const selectedRows = table?.getSelectedRowModel()?.rows || []
+  const totalSelectedRows = selectedRows.length
+  const [remainingCount, setRemainingCount] = React.useState(totalSelectedRows)
+
+  const memoizedStatuses = React.useMemo(
+    (): OrderStatusEntity[] => Object.values(orderStatuses),
+    []
+  )
+
+  const changeStatus = async (row: Row<TData>, status: OrderStatusEntity) => {
+    try {
+      const order = row?.original as Order
+
+      if (order?.status === status?.key) {
+        toast.warning(
+          `This status ${status?.key} is already set for the order ${order.id}`
+        )
+        return
+      }
+      await getAllegroOrdersApi("client").updateAllegroOrder(order?.id, {
+        ...order,
+        status,
+      })
+      toast.info(
+        `Status ${status?.key} has been set for the order ${order?.id}`
+      )
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }
+
+  const handleChangeStatuses = async (status: OrderStatusEntity) => {
+    if (!totalSelectedRows) return
+
+    try {
+      // Update the count at startup
+      setRemainingCount(totalSelectedRows)
+
+      for (const [index, row] of selectedRows.entries()) {
+        await changeStatus(row, status)
+        // Update the balance on completion of creation for each row
+        setRemainingCount((prevCount) => prevCount - 1)
+      }
+
+      table.toggleAllRowsSelected(false)
+    } catch (e) {
+      showErrorToast(e)
+    }
+  }
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="group" asChild>
-        <Button variant="outline" className="gap-2">
-          <AlignJustify size="17" />
-          <ChevronDown
-            size="13"
-            className="group-data-[state=open]:rotate-180"
-          />
+      <DropdownMenuTrigger disabled={!totalSelectedRows} asChild>
+        <Button className="relative min-w-[3.2rem]" variant="outline">
+          {remainingCount ? (
+            <>
+              <span className="absolute right-1 top-1 flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-highlight/70 opacity-75"></span>
+                <span className="relative inline-flex size-2 rounded-full bg-highlight"></span>
+              </span>
+              <Text size="base">{remainingCount}</Text>
+            </>
+          ) : (
+            <AlignJustify size="17" />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
         className="relative max-h-96 w-fit space-y-2 overflow-y-auto p-4 sm:min-w-96 md:max-h-[50vh]"
       >
+        {memoizedStatuses?.map((status) => (
+          <DropdownMenuItem
+            key={status?.key}
+            className="cursor-pointer gap-2"
+            onClick={() => handleChangeStatuses(status)}
+          >
+            <div
+              className={`size-4 rounded border border-border ${status?.color}`}
+            />
+            {status?.label}
+          </DropdownMenuItem>
+        ))}
         {/*/!* Група з варіантами доставки *!/*/}
         {/*<DropdownMenuGroup>*/}
         {/*  {deliveryOptions.map((option, index) => (*/}
