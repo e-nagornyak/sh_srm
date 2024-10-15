@@ -4,7 +4,7 @@ import {
   type OrderStatusEntity,
   type OrderStatusKeys,
 } from "@/constants/order/order-statuses"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, Loader } from "lucide-react"
 
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { Button } from "@/components/ui/button"
@@ -25,6 +25,7 @@ import { Text } from "@/components/ui/text"
 interface OrderStatusSelectorProps {
   order: Order
   disabled?: boolean
+  loading?: boolean
   onSelect?: (status: OrderStatusKeys) => void
 }
 
@@ -32,6 +33,7 @@ export function OrderStatusSelector({
   order,
   onSelect,
   disabled,
+  loading,
 }: OrderStatusSelectorProps) {
   const status = order?.status as OrderStatusKeys
   const selectedStatus = status ? orderStatuses?.[status] : null
@@ -52,7 +54,7 @@ export function OrderStatusSelector({
         asChild
       >
         <Button
-          disabled={disabled}
+          disabled={disabled || loading}
           size="sm"
           className="group justify-between uppercase sm:w-56"
         >
@@ -66,7 +68,11 @@ export function OrderStatusSelector({
               {selectedStatus ? selectedStatus?.label : "NO STATUS YET"}
             </Text>
           </div>
-          <ChevronDown className="shrink-0" />
+          {loading ? (
+            <Loader className="animate-spin" />
+          ) : (
+            <ChevronDown className="shrink-0" />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom">

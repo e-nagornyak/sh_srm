@@ -1,7 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { wait } from "@/utils/wait"
+import { useState } from "react"
+import { useOrdersTableStore } from "@/store/order/orders-table-store-provider"
 import { type Row, type Table } from "@tanstack/react-table"
 import { Printer } from "lucide-react"
 import { toast } from "sonner"
@@ -25,14 +26,25 @@ interface AllegroOrdersTableToolbarPrintersProps<TData> {
 export function AllegroOrdersTableToolbarPrintersController<TData>({
   table,
 }: AllegroOrdersTableToolbarPrintersProps<TData>) {
+  const updateOrder = useOrdersTableStore((store) => store?.updateOrder)
+
   const selectedRows = table?.getSelectedRowModel()?.rows || []
   const totalSelectedRows = selectedRows.length
+
   const [remainingCount, setRemainingCount] = React.useState(totalSelectedRows)
 
   const createShippingLabel = async (row: Row<TData>) => {
     try {
       const order = row?.original as Order
+
+      if (order?.labels?.label_url) {
+        toast.warning(`Label already exists for order ${order?.id}`)
+        return
+      }
+
       await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
+      updateOrder(order?.id, { status: "PROCESSING" })
+
       toast.info(`Label was sent to print for order ${order?.id}`, {
         icon: <Printer size="17" />,
       })
@@ -83,7 +95,8 @@ export function AllegroOrdersTableToolbarPrintersController<TData>({
           onClick={handleCreateInvoices}
           className="cursor-pointer"
         >
-          Shipping Label {totalSelectedRows ? `(${totalSelectedRows})` : null}
+          Shipping Label&nbsp;
+          <span className="text-highlight">({totalSelectedRows})</span>
         </DropdownMenuItem>
         {/*<DropdownMenuItem className="cursor-pointer">*/}
         {/*  AfterShip [CSV]*/}

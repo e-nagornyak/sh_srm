@@ -6,7 +6,7 @@ import { type OrdersSearchParamsSchemaType } from "@/constants/order/orders-sear
 import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 
-interface QueryResponse {
+export interface OrdersQueryResponse {
   count: number
   total_pages: number
   current_page: number
@@ -16,7 +16,7 @@ interface QueryResponse {
 
 export async function getAllegroOrders(
   input: OrdersSearchParamsSchemaType
-): Promise<QueryResponse> {
+): Promise<OrdersQueryResponse> {
   noStore()
 
   try {
@@ -33,7 +33,7 @@ export async function getAllegroOrders(
       current_page: response?.current_page || 1,
       limit: response?.limit || 1,
       results: response?.results || [],
-    } as QueryResponse
+    } as OrdersQueryResponse
   } catch (err) {
     console.error("Error fetching users:", err)
     return {
