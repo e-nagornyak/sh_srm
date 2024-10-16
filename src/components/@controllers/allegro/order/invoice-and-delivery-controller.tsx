@@ -93,49 +93,69 @@ export function InvoiceAndDeliveryController({
       await getOrderApi("client").updateAllegroOrder(order?.id, updatedOrder)
       onCloseForm("delivery")
       setOrder(updatedOrder)
-      toast.info("Data has been updated")
+      toast.info("Delivery data has been updated")
     } catch (e) {
       showErrorToast(e)
     }
   }
 
-  const onSaveInvoiceData = async (data: OrderInvoiceFormData) => {
+  const onSaveInvoiceData = async ({
+    wants_invoice,
+    country_code,
+    zip_code,
+    company_name,
+    // address,
+    // city,
+    // tax_id,
+  }: OrderInvoiceFormData) => {
     try {
-      // const updatedOrder: Order = {
-      //   ...order,
-      //   buyer: {
-      //     ...order?.buyer,
-      //     company_name,
-      //   },
-      //   delivery: {
-      //     ...order?.delivery,
-      //     address: {
-      //       ...order?.delivery?.address,
-      //       zip_code,
-      //       country_code,
-      //       street,
-      //       city,
-      //       first_name,
-      //       last_name,
-      //     },
-      //   },
-      // }
-      // await getAllegroOrdersApi("client").updateAllegroOrder(
-      //   order?.id,
-      //   updatedOrder
-      // )
+      const updatedOrder: Order = {
+        ...order,
+        invoice: {
+          ...order?.invoice,
+          name: company_name,
+          required: !!wants_invoice,
+          zip_code,
+          country_code,
+        },
+      }
+
+      await getOrderApi("client").updateAllegroOrder(order?.id, updatedOrder)
       onCloseForm("invoice")
-      // setOrderState(updatedOrder)
-      toast.info("Data has been updated")
+      setOrder(updatedOrder)
+      toast.info("Invoice data has been updated")
     } catch (e) {
       showErrorToast(e)
     }
   }
 
-  const onSavePickupData = async (data: OrderPickupFormData) => {
+  const onSavePickupData = async ({
+    address,
+    zip_code,
+    id,
+    city,
+    point_name,
+  }: OrderPickupFormData) => {
     try {
+      const updatedOrder: Order = {
+        ...order,
+        delivery: {
+          ...order?.delivery,
+          pickup_point: {
+            ...order?.delivery?.pickup_point,
+            city,
+            zip_code,
+            pickup_id: id,
+            street: address,
+            name: point_name,
+          },
+        },
+      }
+
+      await getOrderApi("client").updateAllegroOrder(order?.id, updatedOrder)
       onCloseForm("pickup")
-      toast.info("Data has been updated")
+      setOrder(updatedOrder)
+      toast.info("Pickup and point data has been updated")
     } catch (e) {
       showErrorToast(e)
     }

@@ -92,10 +92,11 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
       cell: ({ row }) => {
         const order = row?.original
         const buyer = order?.buyer
-        const login = row?.original?.buyer?.login
-        const marketplace = row?.original?.marketplace?.slice(0, 2)
+        const login = buyer?.login
+        const marketplace = order?.marketplace?.slice(0, 2)
         const isAllegro = marketplace?.toLowerCase() === "al"
-        const country_codeISO = buyer?.address.country_code?.toLowerCase()
+        const country_codeISO =
+          order?.delivery?.address.country_code?.toLowerCase()
         const name = getOrderName(order)
 
         return (

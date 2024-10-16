@@ -44,8 +44,8 @@ export function OrderBayerController({
   const delivery = order?.delivery
   const bayerFullName = `${bayer?.first_name || ""} ${bayer?.last_name || ""}`
   const country_codeISO = bayer?.address.country_code?.toLowerCase()
-  const countryFullName = delivery?.address?.country_code
-    ? countryList?.[delivery?.address?.country_code as CountryCodes]?.label
+  const countryFullName = bayer?.address?.country_code
+    ? countryList?.[bayer?.address?.country_code as CountryCodes]?.label
     : delivery?.address?.country_code
 
   const isAllegro = order?.marketplace?.slice(0, 2)?.toLowerCase() === "al"

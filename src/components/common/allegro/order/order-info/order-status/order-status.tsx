@@ -3,6 +3,7 @@ import { type OrderStatusKeys } from "@/constants/order/order-statuses"
 import { format } from "date-fns"
 import {
   AlignJustify,
+  BaggageClaim,
   ChevronDown,
   CircleHelp,
   Flag,
@@ -41,6 +42,7 @@ export function OrderStatus({
   onSelectStatus,
   loading,
 }: OrderStatusProps) {
+  console.log(order)
   return (
     <Table>
       <TableBody>
@@ -165,15 +167,25 @@ export function OrderStatus({
               : "-"}
           </TableCell>
         </TableRow>
-        {/*<TableRow className="border-b border-gray-700">*/}
-        {/*  <TableCell className="pt-0 text-start">Stock levels:</TableCell>*/}
-        {/*  <TableCell colSpan={2} className="pt-0 text-start">*/}
-        {/*    <button disabled className="flex items-center gap-1">*/}
-        {/*      <Check size="20" className="text-green-600" />*/}
-        {/*      Completed (deducted)*/}
-        {/*    </button>*/}
-        {/*  </TableCell>*/}
-        {/*</TableRow>*/}
+        {order?.demand && (
+          <TableRow className="border-b border-gray-700">
+            <TableCell className="text-start">
+              <div className="flex items-center gap-0.5">
+                <BaggageClaim size="15" />
+                Stock levels:
+              </div>
+            </TableCell>
+            <TableCell colSpan={2} className="pt-0 text-start">
+              <Link prefetch={false} target="_blank" href={order?.demand}>
+                {order?.demand?.slice(0, 26)}...
+              </Link>
+              {/*<button disabled className="flex items-center gap-1">*/}
+              {/*  <Check size="20" className="text-green-600" />*/}
+              {/*  Completed (deducted)*/}
+              {/*</button>*/}
+            </TableCell>
+          </TableRow>
+        )}
         <TableRow className="border-b border-gray-700">
           <TableCell colSpan={3} className="text-start">
             <DropdownMenu>

@@ -65,6 +65,7 @@ interface Order {
   marketplace?: string | null // maxLength: 255, nullable
   message_to_seller?: string | null // nullable
   note?: string | null // nullable
+  demand?: string | null // maxLength: 750, nullable
   total_to_pay?: string | null // $decimal, pattern: ^-?\d{0,8}(?:\.\d{0,2})?$, nullable
   currency?: string | null // maxLength: 10, nullable
   updated_at?: string | null // $date-time, nullable

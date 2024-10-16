@@ -13,7 +13,7 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 
 import { OrderPickupText } from "./order-pickup-text"
 
-const OrderInvoiceForm = dynamic(
+const OrderPickupForm = dynamic(
   () => import("./order-pickup-form").then((mod) => mod.OrderPickupForm),
   {
     loading: () => <Skeleton className="h-72 w-full" />,
@@ -58,13 +58,13 @@ export function OrderPickup({
         </div>
 
         {typeof editingFieldName === "string" ? (
-          <OrderInvoiceForm
+          <OrderPickupForm
             defaultValues={{
-              id: "",
-              point_name: "",
-              address: "",
-              zip_code: "",
-              city: "",
+              id: order?.delivery?.pickup_point?.pickup_id || "",
+              point_name: order?.delivery?.pickup_point?.name || "",
+              address: order?.delivery?.pickup_point?.street || "",
+              zip_code: order?.delivery?.pickup_point?.zip_code || "",
+              city: order?.delivery?.pickup_point?.city || "",
             }}
             onCancel={onCancel}
             onSave={onSave}
