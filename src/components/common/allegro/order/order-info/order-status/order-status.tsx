@@ -3,6 +3,7 @@ import { type OrderStatusKeys } from "@/constants/order/order-statuses"
 import { format } from "date-fns"
 import {
   AlignJustify,
+  BaggageClaim,
   ChevronDown,
   CircleHelp,
   Flag,
@@ -12,6 +13,7 @@ import {
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
+import { encryptUrl } from "@/lib/crypto-js/encrypt-url"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -33,6 +35,7 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 interface OrderStatusProps {
   order: Order
   onSelectStatus: (status: OrderStatusKeys) => void
+  encodeUrl: string
   loading: boolean
 }
 
@@ -40,6 +43,7 @@ export function OrderStatus({
   order,
   onSelectStatus,
   loading,
+  encodeUrl,
 }: OrderStatusProps) {
   return (
     <Table>
@@ -165,15 +169,25 @@ export function OrderStatus({
               : "-"}
           </TableCell>
         </TableRow>
-        {/*<TableRow className="border-b border-gray-700">*/}
-        {/*  <TableCell className="pt-0 text-start">Stock levels:</TableCell>*/}
-        {/*  <TableCell colSpan={2} className="pt-0 text-start">*/}
-        {/*    <button disabled className="flex items-center gap-1">*/}
-        {/*      <Check size="20" className="text-green-600" />*/}
-        {/*      Completed (deducted)*/}
-        {/*    </button>*/}
-        {/*  </TableCell>*/}
-        {/*</TableRow>*/}
+        {order?.demand && (
+          <TableRow className="border-b border-gray-700">
+            <TableCell className="text-start">
+              <div className="flex items-center gap-0.5">
+                <BaggageClaim size="15" />
+                Stock levels:
+              </div>
+            </TableCell>
+            <TableCell colSpan={2} className="pt-0 text-start">
+              <Link prefetch={false} target="_blank" href={order?.demand}>
+                {order?.demand?.slice(0, 26)}...
+              </Link>
+              {/*<button disabled className="flex items-center gap-1">*/}
+              {/*  <Check size="20" className="text-green-600" />*/}
+              {/*  Completed (deducted)*/}
+              {/*</button>*/}
+            </TableCell>
+          </TableRow>
+        )}
         <TableRow className="border-b border-gray-700">
           <TableCell colSpan={3} className="text-start">
             <DropdownMenu>
@@ -226,16 +240,8 @@ export function OrderStatus({
                 </Tooltip>
               </TooltipProvider>
             </div>
-            <Link
-              prefetch={false}
-              target="_blank"
-              href={RoutePaths.getFullPath(
-                RoutePaths.public.result.order(order?.id)
-              )}
-            >
-              {RoutePaths.getFullPath(
-                RoutePaths.public.result.order(order?.id)
-              )}
+            <Link prefetch={false} target="_blank" href={encodeUrl}>
+              {encodeUrl}
             </Link>
           </TableCell>
         </TableRow>

@@ -1,11 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { type OrderStatusKeys } from "@/constants/order/order-statuses"
+import { env } from "@/env"
 import { toast } from "sonner"
 
+import { RoutePaths } from "@/config/routes"
 import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
+import { encryptData } from "@/lib/crypto-js/static-encryption"
 import { showErrorToast } from "@/lib/handle-error"
 import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { OrderStatus } from "@/components/common/allegro/order/order-info/order-status/order-status"
@@ -17,6 +20,15 @@ interface OrderStatusProps {
 export function OrderStatusController({ initialOrder }: OrderStatusProps) {
   const [loading, setLoading] = useState(false)
   const [order, setOrder] = useState(initialOrder)
+
+  const encodeUrl = useMemo(() => {
+    const encodeId = encryptData(String(order?.id))
+    return encodeId
+      ? RoutePaths.getFullPath(
+          RoutePaths.public.result.order(encodeURI(encodeId))
+        )
+      : env.NEXT_PUBLIC_FRONTEND_URL
+  }, [order?.id])
 
   const handleSelectStatus = async (status: OrderStatusKeys) => {
     try {
@@ -44,6 +56,7 @@ export function OrderStatusController({ initialOrder }: OrderStatusProps) {
       loading={loading}
       onSelectStatus={handleSelectStatus}
       order={order}
+      encodeUrl={encodeUrl}
     />
   )
 }

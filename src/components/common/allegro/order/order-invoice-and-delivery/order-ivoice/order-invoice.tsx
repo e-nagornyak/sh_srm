@@ -38,9 +38,9 @@ export function OrderInvoice({
   onCancel,
 }: OrderViewInvoiceProps) {
   const invoice = order?.invoice
-  const delivery = order?.delivery
-  const buyer = order?.buyer
-  const address = delivery?.address
+  // const delivery = order?.delivery
+  // const buyer = order?.buyer
+  // const address = delivery?.address
 
   const handleOpenEditMode = () => {
     changeEditingFieldName("")
@@ -80,6 +80,7 @@ export function OrderInvoice({
               address: "",
               zip_code: invoice?.zip_code || "",
               city: "",
+              wants_invoice: invoice?.required,
               country_code: invoice?.country_code || "",
               tax_id: "",
             }}

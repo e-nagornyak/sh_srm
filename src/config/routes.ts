@@ -40,7 +40,7 @@ class RoutePaths {
   public static readonly public = {
     home: "/",
     result: {
-      order: (id: number) => `${RoutePaths.baseResult}/order/${id}`,
+      order: (id: string) => `${RoutePaths.baseResult}/order/${id}`,
     },
   }
 
