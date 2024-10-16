@@ -3,7 +3,7 @@ import "server-only"
 import { unstable_noStore as noStore } from "next/cache"
 import { type OrdersSearchParamsSchemaType } from "@/constants/order/orders-search-params"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 
 export interface OrdersQueryResponse {
@@ -24,8 +24,7 @@ export async function getAllegroOrders(
       input as unknown as string
     ).toString()
 
-    const response =
-      await getAllegroOrdersApi("server").listAllegroOrders(queryParams)
+    const response = await getOrderApi("server").listAllegroOrders(queryParams)
 
     return {
       count: response?.count || 1,

@@ -1,14 +1,23 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
 import { countryList, type CountryCodes } from "@/constants/shared/countries"
-import { ChevronDown, CircleChevronLeft, Star } from "lucide-react"
+import {
+  ChevronDown,
+  CircleChevronLeft,
+  Loader,
+  RefreshCcw,
+  Star,
+} from "lucide-react"
 import { FlagImage } from "react-international-phone"
+import { toast } from "sonner"
 
 import { RoutePaths } from "@/config/routes"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
-import { useLazyRouter } from "@/hooks/use-lazy-router"
+import { showErrorToast } from "@/lib/handle-error"
+import { useLazyRouterWithTag } from "@/hooks/use-lazy-router-with-tag"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -27,7 +36,9 @@ interface OrderViewBayerInformationProps {
 export function OrderBayerController({
   order,
 }: OrderViewBayerInformationProps) {
-  const { isPending, lazyPush } = useLazyRouter()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { lazyPush, lazyRefresh, isPendingTag } = useLazyRouterWithTag()
 
   const bayer = order?.buyer
   const delivery = order?.delivery
@@ -39,7 +50,21 @@ export function OrderBayerController({
 
   const isAllegro = order?.marketplace?.slice(0, 2)?.toLowerCase() === "al"
 
-  const handleReturnToList = () => lazyPush(RoutePaths.private.orders.list)
+  const handleReturnToList = () =>
+    lazyPush(RoutePaths.private.orders.list, {}, "back_to_list")
+
+  const handleRefreshWithAllegro = async () => {
+    try {
+      setIsLoading(true)
+      await getOrderApi("client").updateFromAllegro(order?.order_id)
+      lazyRefresh("update_from_allegro")
+      toast.info("Order has been synchronized")
+    } catch (e) {
+      showErrorToast(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Card>
@@ -77,14 +102,30 @@ export function OrderBayerController({
         <Separator className="h-10" orientation="vertical" />
         <FlagImage className="size-8" iso2={country_codeISO} />
         <Title size="sm">{countryFullName}</Title>
-        <Button
-          disabled={isPending}
-          onClick={handleReturnToList}
-          className="ml-auto mr-0"
-        >
-          <CircleChevronLeft className="block sm:hidden" />
-          <span className="hidden sm:inline">Return to the orders list</span>
-        </Button>
+        <div className="ml-auto mr-0 flex w-fit gap-2">
+          <Button
+            disabled={isLoading || isPendingTag === "update_from_allegro"}
+            onClick={handleRefreshWithAllegro}
+            className="ml-auto mr-0"
+          >
+            {isLoading || isPendingTag === "update_from_allegro" ? (
+              <Loader className="animate-spin" />
+            ) : (
+              <CircleChevronLeft className="block sm:hidden" />
+            )}
+            <span className="hidden sm:inline">
+              Synchronization with Allegro
+            </span>
+          </Button>
+          <Button
+            disabled={isPendingTag === "back_to_list"}
+            onClick={handleReturnToList}
+            className=""
+          >
+            <RefreshCcw className="block sm:hidden" />
+            <span className="hidden sm:inline">Return to the orders list</span>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )

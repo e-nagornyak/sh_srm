@@ -4,7 +4,7 @@ import * as React from "react"
 import { useState } from "react"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { OrderInfoHeaderActions } from "@/components/common/allegro/order/order-info/order-info-header-actions"
@@ -33,7 +33,7 @@ export function OrderInfoHeaderActionsController({
   const onClickShippingLabel = async () => {
     try {
       setLoadingFields((prevState) => [...prevState, "shipping"])
-      await getAllegroOrdersApi("client").sendShippingLabel(order?.order_id)
+      await getOrderApi("client").sendShippingLabel(order?.order_id)
       toast.info("Label has been sent")
     } catch (e) {
       showErrorToast(e)
@@ -47,7 +47,7 @@ export function OrderInfoHeaderActionsController({
   const onClickCreateInvoice = async () => {
     try {
       setLoadingFields((prevState) => [...prevState, "invoice"])
-      await getAllegroOrdersApi("client").createFacture(order?.order_id)
+      await getOrderApi("client").createFacture(order?.order_id)
       toast.success("Invoice has been created")
     } catch (e) {
       showErrorToast(e)

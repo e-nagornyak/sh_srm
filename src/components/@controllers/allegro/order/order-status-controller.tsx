@@ -4,7 +4,7 @@ import { useState } from "react"
 import { type OrderStatusKeys } from "@/constants/order/order-statuses"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { OrderStatus } from "@/components/common/allegro/order/order-info/order-status/order-status"
@@ -22,10 +22,7 @@ export function OrderStatusController({ initialOrder }: OrderStatusProps) {
       setLoading(true)
       const updatedOrder = { ...order, status }
 
-      await getAllegroOrdersApi("client").updateAllegroOrder(
-        order?.id,
-        updatedOrder
-      )
+      await getOrderApi("client").updateAllegroOrder(order?.id, updatedOrder)
 
       setOrder(updatedOrder)
 

@@ -4,7 +4,7 @@ import { useState, type Dispatch, type SetStateAction } from "react"
 import { toast } from "sonner"
 
 import { type Nullable } from "@/types/global"
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
@@ -89,10 +89,7 @@ export function InvoiceAndDeliveryController({
           },
         },
       }
-      await getAllegroOrdersApi("client").updateAllegroOrder(
-        order?.id,
-        updatedOrder
-      )
+      await getOrderApi("client").updateAllegroOrder(order?.id, updatedOrder)
       onCloseForm("delivery")
       setOrder(updatedOrder)
       toast.info("Data has been updated")
