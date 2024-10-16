@@ -8,6 +8,7 @@ import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { type OrderInfoFormData } from "@/lib/validations/order/order-info"
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { OrderData } from "@/components/common/allegro/order/order-info/order-data/order-data"
 
 interface OrderInfoDataControllerProps {
@@ -72,6 +73,10 @@ export function OrderInfoDataController({
       },
     })
   }
+
+  useEffectAfterMount(() => {
+    setOrder(initialOrder)
+  }, [initialOrder])
 
   return (
     <OrderData
