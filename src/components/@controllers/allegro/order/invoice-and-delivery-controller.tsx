@@ -10,6 +10,7 @@ import { showErrorToast } from "@/lib/handle-error"
 import type { OrderDeliveryFormData } from "@/lib/validations/order/order-delivery"
 import { type OrderInvoiceFormData } from "@/lib/validations/order/order-invoice"
 import { type OrderPickupFormData } from "@/lib/validations/order/order-pickup"
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { OrderDelivery } from "@/components/common/allegro/order/order-invoice-and-delivery/order-delivery/order-delivery"
 import { OrderInvoice } from "@/components/common/allegro/order/order-invoice-and-delivery/order-ivoice/order-invoice"
 import { OrderPickup } from "@/components/common/allegro/order/order-invoice-and-delivery/order-pickup/order-pickup"
@@ -139,6 +140,10 @@ export function InvoiceAndDeliveryController({
       showErrorToast(e)
     }
   }
+
+  useEffectAfterMount(() => {
+    setOrder(initialOrder)
+  }, [initialOrder])
 
   return (
     <section className="grid grid-cols-1 gap-3 lg:grid-cols-3">

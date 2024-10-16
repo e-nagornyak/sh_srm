@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
+import useEffectAfterMount from "@/hooks/use-effect-after-mount"
 import { OrderPayment } from "@/components/common/allegro/order/order-info/order-data/order-payment"
 
 interface OrderPaymentControllerProps {
@@ -66,6 +67,10 @@ export function OrderPaymentController({
   const changeEditMode = () => {
     setIsEditPaymentMode(!isEditPaymentMode)
   }
+
+  useEffectAfterMount(() => {
+    setOrder(initialOrder)
+  }, [initialOrder])
 
   return (
     <OrderPayment
