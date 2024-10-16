@@ -1,4 +1,6 @@
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
+import { decryptUrl } from "@/lib/crypto-js/decrypt-url"
+import { encryptUrl } from "@/lib/crypto-js/encrypt-url"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { InvoiceAndDeliveryController } from "@/components/@controllers/allegro/order/invoice-and-delivery-controller"
 import { OrderBayerController } from "@/components/@controllers/allegro/order/order-bayer-controller"

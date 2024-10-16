@@ -1,9 +1,10 @@
 import * as React from "react"
-import { format } from "date-fns"
 import { Camera, LayoutList, MoreVertical, Pen, Trash } from "lucide-react"
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
+import { decryptUrl } from "@/lib/crypto-js/decrypt-url"
+import { encryptUrl } from "@/lib/crypto-js/encrypt-url"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -84,11 +85,11 @@ export function OrderProductsTable({ order }: OrderProductsTableProps) {
               {product?.price} {order?.currency}
             </TableCell>
             <TableCell>{product?.tax_rate}%</TableCell>
-            <TableCell>0</TableCell>
-            <TableCell>{format(new Date(), "dd.MM.yyyy HH:mm")}</TableCell>
+            <TableCell>-</TableCell>
+            <TableCell>-</TableCell>
             <TableCell>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger disabled asChild>
                   <Button
                     className="mx-auto w-full"
                     variant="ghost"

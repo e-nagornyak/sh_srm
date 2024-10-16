@@ -10,6 +10,7 @@ function Toaster({ ...props }: ToasterProps) {
 
   return (
     <Sonner
+      closeButton
       visibleToasts={6}
       theme={theme as ToasterProps["theme"]}
       // eslint-disable-next-line tailwindcss/no-custom-classname
@@ -23,6 +24,8 @@ function Toaster({ ...props }: ToasterProps) {
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+          closeButton:
+            "bg-muted border-border hover:bg-muted/50 border text-muted-foreground",
         },
       }}
       {...props}

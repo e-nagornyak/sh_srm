@@ -22,6 +22,8 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_BACKEND_URL: z.string().url(),
     NEXT_PUBLIC_FRONTEND_URL: z.string().url(),
+    NEXT_PUBLIC_CRYPTO_SECRET_KEY: z.string().min(1),
+    NEXT_PUBLIC_SAL_KEY: z.string().min(1),
   },
 
   /**
@@ -33,6 +35,8 @@ export const env = createEnv({
     NEXT_PUBLIC_FRONTEND_URL: process.env.NEXT_PUBLIC_FRONTEND_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env["NEXTAUTH_SECRET"],
+    NEXT_PUBLIC_CRYPTO_SECRET_KEY: process.env.NEXT_PUBLIC_CRYPTO_SECRET_KEY,
+    NEXT_PUBLIC_SAL_KEY: process.env.NEXT_PUBLIC_SAL_KEY,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

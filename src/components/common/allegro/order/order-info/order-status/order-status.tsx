@@ -13,6 +13,7 @@ import {
 
 import { RoutePaths } from "@/config/routes"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
+import { encryptUrl } from "@/lib/crypto-js/encrypt-url"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -34,6 +35,7 @@ import { ComponentWithTooltip } from "@/components/shared/component-with-tooltip
 interface OrderStatusProps {
   order: Order
   onSelectStatus: (status: OrderStatusKeys) => void
+  encodeUrl: string
   loading: boolean
 }
 
@@ -41,8 +43,8 @@ export function OrderStatus({
   order,
   onSelectStatus,
   loading,
+  encodeUrl,
 }: OrderStatusProps) {
-  console.log(order)
   return (
     <Table>
       <TableBody>
@@ -238,16 +240,8 @@ export function OrderStatus({
                 </Tooltip>
               </TooltipProvider>
             </div>
-            <Link
-              prefetch={false}
-              target="_blank"
-              href={RoutePaths.getFullPath(
-                RoutePaths.public.result.order(order?.id)
-              )}
-            >
-              {RoutePaths.getFullPath(
-                RoutePaths.public.result.order(order?.id)
-              )}
+            <Link prefetch={false} target="_blank" href={encodeUrl}>
+              {encodeUrl}
             </Link>
           </TableCell>
         </TableRow>

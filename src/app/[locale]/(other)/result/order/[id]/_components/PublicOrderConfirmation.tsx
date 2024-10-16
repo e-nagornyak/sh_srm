@@ -36,10 +36,16 @@ export function OrderConfirmation() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[50px]">#</TableHead>
-                <TableHead>Product/Service Name</TableHead>
-                <TableHead className="text-right">Quantity</TableHead>
-                <TableHead className="text-right">Price per unit</TableHead>
+                <TableHead className="w-[50px] whitespace-nowrap">#</TableHead>
+                <TableHead className="whitespace-nowrap">
+                  Product/Service Name
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  Quantity
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  Price per unit
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
