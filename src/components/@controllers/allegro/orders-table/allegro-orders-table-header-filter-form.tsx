@@ -104,7 +104,7 @@ export function AllegroOrdersTableHeaderFilterForm({
       </button>
     )
   }
-  console.log(getValues())
+
   return (
     <Form {...form}>
       <form
