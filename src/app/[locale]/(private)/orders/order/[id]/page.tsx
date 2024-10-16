@@ -16,6 +16,6 @@ export default async function Page({ params: { id } }: PageProps) {
   if (!id || !orderResponse?.id) {
     redirect(RoutePaths.private.orders.list)
   }
-  console.log(orderResponse)
+
   return <OrderViewLayout order={orderResponse as Order} />
 }

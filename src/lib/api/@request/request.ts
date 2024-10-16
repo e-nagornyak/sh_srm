@@ -48,6 +48,20 @@ class Api {
       headers.Authorization = `Bearer ${token}`
     }
 
+    const formatDate = (): string => {
+      const date = new Date()
+      const day = date.getDate().toString().padStart(2, "0")
+      const month = (date.getMonth() + 1).toString().padStart(2, "0") // Місяці починаються з 0
+      const year = date.getFullYear()
+      const hours = date.getHours().toString().padStart(2, "0")
+      const minutes = date.getMinutes().toString().padStart(2, "0")
+
+      return `${day}.${month}.${year} ${hours}:${minutes}`
+    }
+
+    console.log(
+      `${formatDate()} - REQUEST ${method?.toUpperCase()}: endpoint: ${endpoint}, body: ${body ? JSON.stringify(body) : "none"}`
+    )
     const response = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}${endpoint}`, {
       ...options,
       method,
