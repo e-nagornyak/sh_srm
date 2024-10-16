@@ -8,7 +8,7 @@ import {
 } from "@/lib/api/allegro/integration/allegro-integration-types"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 
-export const getAllegroOrdersApi = (side: ApiSide) => {
+export const getOrderApi = (side: ApiSide) => {
   const isDevMode = process.env.NODE_ENV === "development"
 
   const api = createApi(side)
@@ -52,6 +52,10 @@ export const getAllegroOrdersApi = (side: ApiSide) => {
 
     createFacture: api.createMethod<null, [string]>((id) =>
       createEndpoint(allegroApiPaths.orders.factura(id), "POST")
+    ),
+
+    updateFromAllegro: api.createMethod<null, [string]>((id) =>
+      createEndpoint(allegroApiPaths.orders.updateFromAllegro(id), "POST")
     ),
   }
 }

@@ -9,7 +9,7 @@ import { type Row, type Table } from "@tanstack/react-table"
 import { AlignJustify } from "lucide-react"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import type { Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { Button } from "@/components/ui/button"
@@ -64,7 +64,7 @@ export function AllegroOrdersTableToolbarStatusController<TData>({
         )
         return
       }
-      await getAllegroOrdersApi("client").updateAllegroOrder(order?.id, {
+      await getOrderApi("client").updateAllegroOrder(order?.id, {
         ...order,
         status: status?.key,
       })

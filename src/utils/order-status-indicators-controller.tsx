@@ -9,7 +9,7 @@ import { countryList } from "@/constants/shared/countries"
 import { useOrdersTableStore } from "@/store/order/orders-table-store-provider"
 import { toast } from "sonner"
 
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { showErrorToast } from "@/lib/handle-error"
 import { OrderStatusIndicatorItem } from "@/components/common/allegro/order/order-status-indicator-item"
@@ -27,9 +27,7 @@ export function OrderStatusIndicatorsController({
 
   const onClickShippingLabel = async () => {
     try {
-      const res = await getAllegroOrdersApi("client").sendShippingLabel(
-        order?.order_id
-      )
+      const res = await getOrderApi("client").sendShippingLabel(order?.order_id)
 
       updateOrder(order?.id, {
         status: "PROCESSING",
@@ -48,7 +46,7 @@ export function OrderStatusIndicatorsController({
 
   const onClickCreateInvoice = async () => {
     try {
-      await getAllegroOrdersApi("client").createFacture(order?.order_id)
+      await getOrderApi("client").createFacture(order?.order_id)
       toast.success("Invoice has been created")
       refresh()
     } catch (e) {

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { RoutePaths } from "@/config/routes"
-import { getAllegroOrdersApi } from "@/lib/api/allegro/orders/orders-api"
+import { getOrderApi } from "@/lib/api/allegro/orders/orders-api"
 import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { OrderViewLayout } from "@/components/layouts/private/order/order-view-layout"
 
@@ -10,8 +10,7 @@ interface PageProps {
 }
 
 export default async function Page({ params: { id } }: PageProps) {
-  const orderResponse =
-    await getAllegroOrdersApi("server").getAllegroOrderById(+id)
+  const orderResponse = await getOrderApi("server").getAllegroOrderById(+id)
 
   if (!id || !orderResponse?.id) {
     redirect(RoutePaths.private.orders.list)
