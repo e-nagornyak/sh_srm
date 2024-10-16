@@ -17,7 +17,6 @@ export default async function ListPage({ searchParams }: ListPageProps) {
   const search = OrdersSearchParamsSchema.parse(searchParams)
 
   const ordersQueryResponse = await getAllegroOrders(search)
-  console.log("list response", ordersQueryResponse?.results)
 
   return (
     <OrdersTableStoreProvider initialData={ordersQueryResponse?.results}>
