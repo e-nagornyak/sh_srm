@@ -132,7 +132,7 @@ export function OrderInfoDataText({
           <TableCell className="py-0 text-start">Comments:</TableCell>
           <TableCell colSpan={2} className="py-0 text-start">
             <ComponentWithEditButton onEditClick={changeEditingFieldName}>
-              {order?.note}
+              {order?.message_to_seller}
             </ComponentWithEditButton>
           </TableCell>
         </TableRow>

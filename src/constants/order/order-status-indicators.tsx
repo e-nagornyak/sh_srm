@@ -1,11 +1,5 @@
 import { type ReactNode } from "react"
-import {
-  CircleHelp,
-  DollarSign,
-  FileCheck2,
-  ReceiptText,
-  Truck,
-} from "lucide-react"
+import { DollarSign, FileCheck2, Mail, ReceiptText, Truck } from "lucide-react"
 
 const EnumStatusIndicators = {
   notPaid: "notPaid",
@@ -98,7 +92,7 @@ const orderStatusIndicatorsMap: Record<
   withComment: (args) => ({
     key: "withComment",
     colorClassName: "bg-orange-600",
-    icon: () => <CircleHelp />,
+    icon: () => <Mail />,
     description: args?.helperText,
     ...args,
   }),

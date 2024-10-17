@@ -82,8 +82,10 @@ export function OrderStatusIndicatorsController({
 
     order?.labels?.faktura_id && orderStatusIndicatorsMap.invoiceCreated(),
 
-    order?.note &&
-      orderStatusIndicatorsMap.withComment({ helperText: order?.note }),
+    order?.message_to_seller &&
+      orderStatusIndicatorsMap.withComment({
+        helperText: order?.message_to_seller,
+      }),
   ].filter(Boolean) as OrderStatusIndicator[] // Filter null or undefined values
 
   if (!indicators.length) return null

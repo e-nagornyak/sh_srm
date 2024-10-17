@@ -14,7 +14,6 @@ const orderInfoSchema = z.object({
   additional_field_1: z.string().optional().default(""),
   additional_field_2: z.string().optional().default(""),
   vies_vat_pl: z.string().optional().default(""),
-  comments: z.string().optional().default(""),
   cash_on_delivery: z.boolean().optional().default(false),
 })
 
