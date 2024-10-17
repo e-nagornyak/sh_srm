@@ -107,7 +107,7 @@ export function getAllegroOrdersColumns(): ColumnDef<Order>[] {
                 disableLazyLoading={false}
                 iso2={country_codeISO}
               />
-              <Text className="capitalize" size="sm">
+              <Text className="max-w-52 truncate capitalize" size="sm">
                 {name}
               </Text>
             </div>

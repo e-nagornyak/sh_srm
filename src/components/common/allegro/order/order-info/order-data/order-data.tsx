@@ -43,7 +43,6 @@ export function OrderData({
         additional_field_1: "",
         additional_field_2: "",
         vies_vat_pl: "",
-        comments: "",
         cash_on_delivery: order?.payment?.type === "CASH_ON_DELIVERY",
       }}
       onCancel={onCancel}

@@ -256,25 +256,25 @@ export function OrderInfoDataForm({
                 />
               </TableCell>
             </TableRow>
-            <TableRow className="border-0">
-              <TableCell className="content-start">Comments:</TableCell>
-              <TableCell colSpan={2}>
-                <FormField
-                  defaultValue=""
-                  control={form.control}
-                  name="comments"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel />
-                      <FormControl>
-                        <Textarea className="resize-y" rows={5} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </TableCell>
-            </TableRow>
+            {/*<TableRow className="border-0">*/}
+            {/*  <TableCell className="content-start">Comments:</TableCell>*/}
+            {/*  <TableCell colSpan={2}>*/}
+            {/*    <FormField*/}
+            {/*      defaultValue=""*/}
+            {/*      control={form.control}*/}
+            {/*      name="comments"*/}
+            {/*      render={({ field }) => (*/}
+            {/*        <FormItem>*/}
+            {/*          <FormLabel />*/}
+            {/*          <FormControl>*/}
+            {/*            <Textarea className="resize-y" rows={5} {...field} />*/}
+            {/*          </FormControl>*/}
+            {/*          <FormMessage />*/}
+            {/*        </FormItem>*/}
+            {/*      )}*/}
+            {/*    />*/}
+            {/*  </TableCell>*/}
+            {/*</TableRow>*/}
             <TableRow className="border-0">
               <TableCell colSpan={3}>
                 <div className="flex items-center gap-3">

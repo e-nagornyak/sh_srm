@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
+import { useOrdersTableStore } from "@/store/order/orders-table-store-provider"
 import { type Row, type Table } from "@tanstack/react-table"
 import { StickyNote } from "lucide-react"
 import { toast } from "sonner"
@@ -25,7 +26,7 @@ interface AllegroOrdersTableToolbarInvoicesProps<TData> {
 export function AllegroOrdersTableToolbarInvoicesController<TData>({
   table,
 }: AllegroOrdersTableToolbarInvoicesProps<TData>) {
-  const { refresh } = useRouter()
+  const updateOrder = useOrdersTableStore((store) => store?.updateOrder)
 
   const selectedRows = table?.getSelectedRowModel()?.rows || []
   const totalSelectedRows = selectedRows.length
@@ -41,6 +42,11 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
       }
 
       await getOrderApi("client").createFacture(order?.order_id)
+
+      updateOrder(order?.id, {
+        labels: { ...order?.labels, faktura_id: "created" },
+      })
+
       toast.info(`Invoice created for order ${order?.id}`)
     } catch (e) {
       showErrorToast(e)
@@ -62,7 +68,6 @@ export function AllegroOrdersTableToolbarInvoicesController<TData>({
 
       toast.success("All invoices created")
       table.toggleAllRowsSelected(false)
-      refresh()
     } catch (e) {
       showErrorToast(e)
     }
