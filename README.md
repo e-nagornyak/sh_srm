@@ -2,7 +2,7 @@
 
 1. Clone the repository (клонируйте репозиторий)
    ```bash
-   git clone https://github.com/sadmann7/shadcn-table
+   git clone https://github.com/e-nagornyak/sh_srm.git
    ```
 
 2. Install dependencies using yarn (установите зависимости с помощью yarn)
