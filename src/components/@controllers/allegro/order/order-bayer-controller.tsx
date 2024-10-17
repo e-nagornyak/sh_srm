@@ -3,9 +3,11 @@
 import React, { useState } from "react"
 import { MarketplaceIcons } from "@/constants/order/marketplaces"
 import { countryList, type CountryCodes } from "@/constants/shared/countries"
+import { getOrderName } from "@/utils/get-order-name"
 import {
   ChevronDown,
   CircleChevronLeft,
+  CircleHelp,
   Loader,
   RefreshCcw,
   Star,
@@ -28,6 +30,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 import { Title } from "@/components/ui/title"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface OrderViewBayerInformationProps {
   order: Order
@@ -42,7 +50,7 @@ export function OrderBayerController({
 
   const bayer = order?.buyer
   const delivery = order?.delivery
-  const bayerFullName = `${bayer?.first_name || ""} ${bayer?.last_name || ""}`
+  const name = getOrderName(order)
   const country_codeISO = bayer?.address.country_code?.toLowerCase()
   const countryFullName = bayer?.address?.country_code
     ? countryList?.[bayer?.address?.country_code as CountryCodes]?.label
@@ -98,7 +106,17 @@ export function OrderBayerController({
         <Separator className="h-10" orientation="vertical" />
         {isAllegro && <MarketplaceIcons.allegro width="70" />}
         <Separator className="h-10" orientation="vertical" />
-        <Title size="sm">{bayerFullName}</Title>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger className="w-fit text-start">
+              <Title className="line-clamp-1" size="sm">
+                {name}
+              </Title>
+            </TooltipTrigger>
+            <TooltipContent>{name}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
         <Separator className="h-10" orientation="vertical" />
         <FlagImage className="size-8" iso2={country_codeISO} />
         <Title size="sm">{countryFullName}</Title>

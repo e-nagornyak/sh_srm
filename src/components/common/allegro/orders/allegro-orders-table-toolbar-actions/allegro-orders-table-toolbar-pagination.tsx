@@ -56,7 +56,6 @@ export function AllegroOrdersTableToolbarPagination<TData>({
       <div className="flex items-center gap-2">
         <div className="flex items-center space-x-2">
           <Button onClick={onRefreshClick} variant="outline">
-            Refresh Orders{" "}
             {isPending ? (
               <Loader size="17" className="animate-spin" />
             ) : (

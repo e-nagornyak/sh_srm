@@ -188,32 +188,32 @@ export function OrderStatus({
             </TableCell>
           </TableRow>
         )}
-        <TableRow className="border-b border-gray-700">
-          <TableCell colSpan={3} className="text-start">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button disabled className="gap-2 pl-1">
-                  <AlignJustify
-                    size="30"
-                    className="rounded-full bg-highlight p-1 text-white"
-                  />
-                  Personal events
-                  <ChevronDown size="15" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-h-96 overflow-y-auto">
-                {orderPersonalEvents?.map((item) => (
-                  <DropdownMenuItem key={item?.key}>
-                    <Button size="xs" variant="ghost" className="gap-3">
-                      <Truck size="18" className={item?.color} />
-                      {item?.displayName}
-                    </Button>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </TableCell>
-        </TableRow>
+        {/*<TableRow className="border-b border-gray-700">*/}
+        {/*  <TableCell colSpan={3} className="text-start">*/}
+        {/*    <DropdownMenu>*/}
+        {/*      <DropdownMenuTrigger asChild>*/}
+        {/*        <Button disabled className="gap-2 pl-1">*/}
+        {/*          <AlignJustify*/}
+        {/*            size="30"*/}
+        {/*            className="rounded-full bg-highlight p-1 text-white"*/}
+        {/*          />*/}
+        {/*          Personal events*/}
+        {/*          <ChevronDown size="15" />*/}
+        {/*        </Button>*/}
+        {/*      </DropdownMenuTrigger>*/}
+        {/*      <DropdownMenuContent className="max-h-96 overflow-y-auto">*/}
+        {/*        {orderPersonalEvents?.map((item) => (*/}
+        {/*          <DropdownMenuItem key={item?.key}>*/}
+        {/*            <Button size="xs" variant="ghost" className="gap-3">*/}
+        {/*              <Truck size="18" className={item?.color} />*/}
+        {/*              {item?.displayName}*/}
+        {/*            </Button>*/}
+        {/*          </DropdownMenuItem>*/}
+        {/*        ))}*/}
+        {/*      </DropdownMenuContent>*/}
+        {/*    </DropdownMenu>*/}
+        {/*  </TableCell>*/}
+        {/*</TableRow>*/}
         <TableRow className="border-0">
           <TableCell colSpan={3} className="pt-6 text-start">
             <div className="flex items-center">

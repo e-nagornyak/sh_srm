@@ -41,8 +41,19 @@ export function AllegroOrdersTableToolbarPrintersController<TData>({
         return
       }
 
-      await getOrderApi("client").sendShippingLabel(order?.order_id)
-      updateOrder(order?.id, { status: "PROCESSING" })
+      const response = await getOrderApi("client").sendShippingLabel(
+        order?.order_id
+      )
+
+      const shipment_id = response?.label_id as string
+      const label_url = response?.label_url as string
+
+      if (shipment_id || label_url) {
+        updateOrder(order?.id, {
+          status: "PROCESSING",
+          labels: { ...order?.labels, label_url, shipment_id },
+        })
+      }
 
       toast.info(`Label was sent to print for order ${order?.id}`, {
         icon: <Printer size="17" />,

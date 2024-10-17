@@ -1,6 +1,5 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import {
   orderStatusIndicatorsMap,
   type OrderStatusIndicator,
@@ -21,8 +20,6 @@ interface OrderStatusIndicatorsControllerProps {
 export function OrderStatusIndicatorsController({
   order,
 }: OrderStatusIndicatorsControllerProps) {
-  const { refresh } = useRouter()
-
   const updateOrder = useOrdersTableStore((store) => store?.updateOrder)
 
   const onClickShippingLabel = async () => {
@@ -47,8 +44,10 @@ export function OrderStatusIndicatorsController({
   const onClickCreateInvoice = async () => {
     try {
       await getOrderApi("client").createFacture(order?.order_id)
+      updateOrder(order?.id, {
+        labels: { ...order?.labels, faktura_id: "created" },
+      })
       toast.success("Invoice has been created")
-      refresh()
     } catch (e) {
       showErrorToast(e)
     }
@@ -56,9 +55,7 @@ export function OrderStatusIndicatorsController({
 
   const indicators = [
     order?.payment?.finished_at
-      ? orderStatusIndicatorsMap.paid({
-          onClick: () => console.log("bla"),
-        })
+      ? orderStatusIndicatorsMap.paid()
       : orderStatusIndicatorsMap.notPaid(),
 
     order?.labels?.shipment_id
