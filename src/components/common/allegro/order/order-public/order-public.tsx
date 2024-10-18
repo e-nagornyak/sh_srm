@@ -35,7 +35,7 @@ export async function OrderPublic({ order, locale }: OrderPublicProps) {
     +(order?.total_to_pay || 0) - +(order?.delivery?.cost || 0)
 
   return (
-    <>
+    <div className="space-y-6 pt-6">
       <div className="flex items-center justify-between">
         <Title size="md" weight="bold">
           {t("title")}
@@ -167,6 +167,6 @@ export async function OrderPublic({ order, locale }: OrderPublicProps) {
           </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   )
 }
