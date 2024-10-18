@@ -21,7 +21,7 @@ interface InvoiceAndDeliveryControllerProps {
 
 export type InvoiceAndDeliveryFieldType = "delivery" | "invoice" | "pickup"
 
-export function InvoiceAndDeliveryController({
+export function OrderInvoiceAndDeliveryController({
   initialOrder,
 }: InvoiceAndDeliveryControllerProps) {
   const [order, setOrder] = useState<Order>(initialOrder)

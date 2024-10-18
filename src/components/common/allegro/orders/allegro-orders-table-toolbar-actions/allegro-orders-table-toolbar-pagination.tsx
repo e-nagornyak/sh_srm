@@ -31,37 +31,13 @@ export function AllegroOrdersTableToolbarPagination<TData>({
   table,
   pageSizeOptions = [3, 5, 10, 20, 30],
 }: AllegroOrdersTableToolbarPagination1Props<TData>) {
-  const { isPending, lazyRefresh } = useLazyRouter()
   // const [isPrevPending, startPrevTransition] = useTransition()
   // const [isNextPending, startNextTransition] = useTransition()
 
-  const onRefreshClick = () => {
-    lazyRefresh()
-    toast.info(
-      <span>
-        The data started to update <span className="text-2xl">👻</span>
-      </span>
-    )
-  }
-
   return (
     <>
-      {isPending && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50">
-          <div className="rounded-lg bg-accent p-4">
-            <Loader size="50" className="animate-spin" />
-          </div>
-        </div>
-      )}
       <div className="flex items-center gap-2">
         <div className="flex items-center space-x-2">
-          <Button onClick={onRefreshClick} variant="outline">
-            {isPending ? (
-              <Loader size="17" className="animate-spin" />
-            ) : (
-              <RotateCcw size="17" />
-            )}
-          </Button>
           {/*<p className="whitespace-nowrap text-sm font-medium">Rows per page</p>*/}
           <Select
             value={`${table.getState().pagination.pageSize}`}

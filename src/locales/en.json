@@ -1,3 +1,25 @@
 {
-  "title": "title"
+  "order_public": {
+    "title": "MCP Siarhei Sheibak",
+    "download_invoice": "Download Invoice",
+    "order_summary": "Order Summary #{id}",
+    "product_service_name": "Product/Service Name",
+    "quantity": "Quantity",
+    "price_per_unit": "Price per unit",
+    "total_order_price": "Total Order Price: {total} {currency}",
+    "information": "Information",
+    "status": "Status: Ready for Shipment",
+    "order_number": "Order Number: {id}",
+    "sale_date": "Sale Date: {date}",
+    "payment_method": "Payment Method: {provider}",
+    "delivery_address": "Delivery Address",
+    "full_name": "Full Name: {firstName} {lastName}",
+    "street": "Street: {street}",
+    "city": "City: {city}",
+    "zip_code": "ZIP Code: {zipCode}",
+    "country": "Country: {country}",
+    "product_cost": "Product Cost: {productCost} {currency}",
+    "shipping_cost": "Shipping Cost: {shippingCost} {currency}",
+    "total_amount": "Total Amount: {totalAmount} {currency}"
+  }
 }

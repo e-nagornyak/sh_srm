@@ -22,7 +22,7 @@
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
     "incremental": true,
-
+    "typeRoots": ["./types", "./node_modules/@types"],
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
