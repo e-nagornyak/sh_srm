@@ -6,7 +6,7 @@ import { Title } from "@/components/ui/title"
 
 export default function NotFound() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center">
       <Card className="">
         <CardContent className="flex flex-col items-center gap-4">
           <Title size="lg">Not Found!</Title>
