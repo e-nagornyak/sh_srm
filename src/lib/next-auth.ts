@@ -1,4 +1,5 @@
 import { cookies } from "next/headers"
+import { env } from "@/env"
 import NextAuth, { type NextAuthOptions, type User } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -7,6 +8,7 @@ import { getAuthApi } from "@/lib/api/auth/auth-api"
 import { RoleEnum } from "@/lib/api/user/user-types"
 
 export const authOptions: NextAuthOptions = {
+  secret: env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   pages: {
     signIn: RoutePaths.auth.login,
@@ -67,8 +69,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (token?.user) {
-        // @ts-ignore
-        session.user = token?.user
+        session.user = token?.user as User
       }
 
       return session

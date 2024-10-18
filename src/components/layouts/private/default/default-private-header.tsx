@@ -13,6 +13,7 @@ import {
 import { Link } from "@/components/ui/link"
 import { Text } from "@/components/ui/text"
 import { AuthButton } from "@/components/common/nav/auth-button"
+import { ButtonRefresh } from "@/components/shared/button-refresh"
 import { LanguageToggle } from "@/components/shared/language-toggle"
 import { ModeSmallToggle } from "@/components/shared/mode-small-toggle"
 import { SidebarToggle } from "@/components/shared/sidebar-toggle"
@@ -33,6 +34,7 @@ export function DefaultPrivateHeader({ session }: DefaultPrivateHeaderProps) {
         <nav className="flex size-full items-center justify-between gap-3">
           <SidebarToggle />
           <div className="flex items-center gap-4">
+            <ButtonRefresh />
             <DropdownMenu>
               <DropdownMenuTrigger className="group flex items-center gap-2">
                 <span className="flex size-10 items-center justify-center rounded-full bg-highlight font-semibold uppercase text-white flexible-text-5">

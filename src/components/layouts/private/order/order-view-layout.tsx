@@ -2,11 +2,11 @@ import { type Order } from "@/lib/api/allegro/orders/orders-types"
 import { decryptUrl } from "@/lib/crypto-js/decrypt-url"
 import { encryptUrl } from "@/lib/crypto-js/encrypt-url"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { InvoiceAndDeliveryController } from "@/components/@controllers/allegro/order/invoice-and-delivery-controller"
 import { OrderBayerController } from "@/components/@controllers/allegro/order/order-bayer-controller"
 import { OrderInfoDataController } from "@/components/@controllers/allegro/order/order-info-data-controller"
 import { OrderInfoHeaderActionsController } from "@/components/@controllers/allegro/order/order-info-header-actions-controller"
 import { OrderPaymentController } from "@/components/@controllers/allegro/order/order-info-payment-controller"
+import { OrderInvoiceAndDeliveryController } from "@/components/@controllers/allegro/order/order-invoice-and-delivery-controller"
 import { OrderProductsController } from "@/components/@controllers/allegro/order/order-products-controller"
 import { OrderStatusController } from "@/components/@controllers/allegro/order/order-status-controller"
 import { OrderAdditionalInformation } from "@/components/common/allegro/order/order-additional-information"
@@ -35,7 +35,7 @@ export function OrderViewLayout({ order }: OrderViewControllerProps) {
           <OrderStatusController initialOrder={order} />
         </CardContent>
       </Card>
-      <InvoiceAndDeliveryController initialOrder={order} />
+      <OrderInvoiceAndDeliveryController initialOrder={order} />
       <OrderShipments order={order} />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="space-y-3">

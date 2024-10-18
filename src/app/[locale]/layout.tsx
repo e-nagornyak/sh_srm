@@ -6,14 +6,12 @@ import { TailwindIndicator } from "@/components/shared/tailwind-indicator"
 import "@/styles/globals.css"
 
 import type { Metadata, Viewport } from "next"
-import { notFound } from "next/navigation"
 import { getServerSession } from "next-auth"
 import { NextIntlClientProvider } from "next-intl"
 
 import { fontMono, fontSans } from "@/lib/fonts"
 import { authOptions } from "@/lib/next-auth"
 import { Toaster } from "@/components/ui/toaster"
-import { DefaultPublicFooter } from "@/components/layouts/public/default/default-public-footer"
 import { AuthProvider } from "@/components/providers/auth-provider"
 import AppStoreProvider from "@/components/providers/store-provider"
 
@@ -39,7 +37,7 @@ async function getMessages(locale: string) {
   try {
     return (await import(`../../locales/${locale}.json`))?.default
   } catch (error) {
-    notFound()
+    return (await import(`../../locales/en.json`))?.default
   }
 }
 

@@ -43,8 +43,8 @@ export function LanguageToggle() {
       <DropdownMenuContent align="end">
         {localesMap?.map(({ key, name, flag }) => (
           <DropdownMenuItem
-            className={"cursor-pointer gap-2"}
             key={key}
+            className={"cursor-pointer gap-2"}
             onClick={() => onSelectChange(key)}
           >
             {flag || <DashIcon className="mr-2 size-4" />}
